@@ -1,7 +1,9 @@
 import React from 'react';
-import { Renderer } from "react-table";
+import { Renderer, CellProps } from "react-table";
 import { defaultConstantColorScale, defaultScale } from './defaults';
 import { toPercent } from './utils';
+import { UseStatsColumnProps } from '../hooks/useStats';
+import { INumberStats } from '../stats/numberStats';
 
 export function barProps(value: number, color: string | ((v: number) => string)): React.CSSProperties {
     const c = typeof color === 'string' ? color : color(value);
@@ -19,11 +21,22 @@ export interface BarRendererOptions {
     format?: Intl.NumberFormatOptions
 }
 
-export default function BarRenderer<P extends { value: number }>(options: BarRendererOptions = {}): Renderer<P> {
-    const scale = options.scale ?? defaultScale;
-    const color = options.color ?? defaultConstantColorScale;
+export function deriveNumberOptions<D extends object, P extends CellProps<D, number>>(props: P, options: BarRendererOptions = {}) {
+    const col = (props.column as Partial<UseStatsColumnProps>);
+    if (col.statsValue) {
+        return col.statsValue as INumberStats;
+    }
     const f = new Intl.NumberFormat(options.locales, options.format);
+    return {
+        scale: options.scale ?? defaultScale,
+        color: options.color ?? defaultConstantColorScale,
+        format: f.format.bind(f)
+    };
+}
+
+export default function BarRenderer<D extends object, P extends CellProps<D, number>>(options: BarRendererOptions = {}): Renderer<P> {
     return (props: P) => {
-        return <div style={barProps(scale(props.value), color)}>{f.format(props.value)}</div>
+        const p = deriveNumberOptions<D, P>(props, options);
+        return <div style={barProps(p.scale(props.value), p.color)}>{p.format(props.value)}</div>
     }
 }

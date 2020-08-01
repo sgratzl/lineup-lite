@@ -10,6 +10,9 @@ import NumberHistogramRenderer from '../renderers/NumberHistogramRenderer';
 import DateRenderer from '../renderers/DateRenderer';
 import DateHistogramRenderer from '../renderers/DateHistogramRenderer';
 import CategoricalHistogramRenderer from '../renderers/CategoricalHistogramRenderer';
+import { numberStats } from '../stats/numberStats';
+import { categoricalStats } from '../stats/categoricalStats';
+import { dateStats } from '../stats/dateStats';
 
 declare type FullColumn<D extends object> = (Column<D> & UseGroupByColumnOptions<D> & UseResizeColumnsColumnOptions<D> & UseFiltersColumnOptions<D> & UseGlobalFiltersColumnOptions<D> & UseStatsColumnOptions<D>);
 
@@ -86,36 +89,36 @@ const columns: FullColumn<IRow>[] = [
     Header: 'Number',
     accessor: 'number',
     Cell: BarRenderer({ scale: (v: number) => v / 10 }),
-    Summary: NumberHistogramRenderer()
-    // stats: 'number'
+    Summary: NumberHistogramRenderer(),
+    stats: numberStats({ min: 0 })
   },
   {
     Header: 'Number',
     accessor: 'number1',
     Cell: ColorRenderer({ scale: (v: number) => v / 10 }),
-    Summary: NumberHistogramRenderer()
-    // stats: 'number'
+    Summary: NumberHistogramRenderer(),
+    stats: numberStats()
   },
   {
     Header: 'Number',
     accessor: 'number2',
     Cell: ProportionalSymbolRenderer({ scale: (v: number) => v / 10 }),
-    Summary: NumberHistogramRenderer()
-    // stats: 'number'
+    Summary: NumberHistogramRenderer(),
+    stats: numberStats()
   },
   {
     Header: 'Cat',
     accessor: 'cat',
     Cell: CategoricalRenderer(),
     Summary: CategoricalHistogramRenderer(),
-    // stats: 'categorical'
+    stats: categoricalStats(),
   },
   {
     Header: 'Date',
     accessor: 'date',
     Cell: DateRenderer(),
-    Summary: DateHistogramRenderer()
-    // stats: 'categorical'
+    Summary: DateHistogramRenderer(),
+    stats: dateStats()
   },
 ]
 

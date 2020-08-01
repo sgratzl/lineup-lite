@@ -1,6 +1,6 @@
 import React from 'react';
-import { Renderer } from "react-table";
-import { defaultScale, defaultColorScale } from './defaults';
+import { CellProps, Renderer } from "react-table";
+import { deriveNumberOptions } from './BarRenderer';
 
 export function colorProps(color: string): React.CSSProperties {
     return {
@@ -18,11 +18,9 @@ export interface ColorRendererOptions {
     format?: Intl.NumberFormatOptions
 }
 
-export default function ColorRenderer<P extends { value: number }>(options: ColorRendererOptions = {}): Renderer<P> {
-    const scale = options.scale ?? defaultScale;
-    const color = options.color ?? defaultColorScale;
-    const f = new Intl.NumberFormat(options.locales, options.format);
+export default function ColorRenderer<D extends object, P extends CellProps<D, number>>(options: ColorRendererOptions = {}): Renderer<P> {
     return (props: P) => {
-        return <div style={colorProps(color(scale(props.value)))}>{f.format(props.value)}</div>
+        const p = deriveNumberOptions<D, P>(props, options);
+        return <div style={colorProps(p.color(p.scale(props.value)))}>{p.format(props.value)}</div>
     }
 }

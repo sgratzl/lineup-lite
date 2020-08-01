@@ -14,8 +14,9 @@ export default function CategoricalHistogramRenderer<P extends { value: readonly
     return (props: P) => {
         const s = extractStats(props, stats);
         return <div>
-            {s.hist.map((h) => <div key={h.value} data-value={h.value}>
+            {s.hist.map((h) => <div key={h.value}>
                 <div style={{ backgroundColor: h.color, height: toPercent(h.count / (options.maxBin ?? s.maxBin)) }} />
+                <span>{h.value}</span>
             </div>)}
         </div>
     }

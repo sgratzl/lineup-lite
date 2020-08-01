@@ -34,17 +34,19 @@ export interface INumberStats extends IBoxPlot {
 export interface NumberStatsOptions extends BoxplotStatsOptions {
     color?: (v: number) => string;
     locales?: string | string[];
-    format?: Intl.NumberFormatOptions
+    format?: Intl.NumberFormatOptions;
+    min?: number;
+    max?: number;
 }
 
-function createHist(b: IBoxPlot, color: (v: number) => string) {
+function createHist(b: IBoxPlot, min: number, max: number, color: (v: number) => string) {
     const hist: INumberBin[] = [];
     const bins = getNumberOfBins(b.count);
-    const binWidth = 1. / bins;
+    const binWidth = (max - min) / bins;
     let bin: INumberBin = {
         count: 0,
-        x0: b.min,
-        x1: b.min + binWidth,
+        x0: min,
+        x1: min + binWidth,
         color: color(b.min + binWidth / 2)
     }
     hist.push(bin);
@@ -64,6 +66,8 @@ function createHist(b: IBoxPlot, color: (v: number) => string) {
         }
         hist.push(bin);
     }
+    // ensure last x1 is the max
+    bin.x1 = max;
     return hist;
 }
 
@@ -73,11 +77,14 @@ export function numberStats(options: NumberStatsOptions = {}) {
 
     return (arr: readonly number[] | Float32Array | Float64Array): INumberStats => {
         const b = boxplot(arr, options);
-        const hist: INumberBin[] = createHist(b, color);
+        const min = options.min ?? b.min;
+        const max = options.max ?? b.max;
+        const hist: INumberBin[] = createHist(b, min, max, color);
         return Object.assign(b, {
+            min, max,
             hist,
             maxBin: hist.reduce((acc, b) => Math.max(acc, b.count), 0),
-            scale: normalize(b.min, b.max),
+            scale: normalize(min, max),
             format: format.format.bind(format),
             color,
         });

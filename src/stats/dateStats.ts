@@ -109,7 +109,9 @@ function pushDateHist(hist: IDateBin[], v: Date, count: number = 1) {
 export interface DateStatsOptions {
     color?: (v: Date) => string;
     locales?: string | string[];
-    format?: Intl.DateTimeFormatOptions
+    format?: Intl.DateTimeFormatOptions;
+    min?: Date;
+    max?: Date;
 }
 
 export function dateStats(options: DateStatsOptions = {}) {
@@ -134,16 +136,16 @@ export function dateStats(options: DateStatsOptions = {}) {
                 histGranularity: 'year',
                 missing: arr.length,
                 count: arr.length,
-                min: new Date(),
-                max: new Date(),
+                min: options.min ?? new Date(),
+                max: options.max ?? new Date(),
                 maxBin: 0,
                 color,
                 format: format.format.bind(format),
             };
         }
 
-        const min = new Date(simpleStats.min);
-        const max = new Date(simpleStats.max);
+        const min = options.min ?? new Date(simpleStats.min);
+        const max = options.max ?? new Date(simpleStats.max);
         const { hist, histGranularity } = computeGranularity(min, max, color);
 
         let missing = 0;

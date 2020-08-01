@@ -1,7 +1,7 @@
 import React from 'react';
-import { Renderer } from "react-table";
-import { BarRendererOptions } from './BarRenderer';
-import { defaultScale, defaultConstantColorScale } from './defaults';
+import { Renderer, CellProps } from "react-table";
+import { BarRendererOptions, deriveNumberOptions } from './BarRenderer';
+import { defaultConstantColorScale } from './defaults';
 import { toPercent } from './utils';
 
 export function proportionalSymbolProps(value: number, color: string | ((v: number) => string)): React.CSSProperties {
@@ -17,11 +17,9 @@ export function proportionalSymbolProps(value: number, color: string | ((v: numb
 export interface ProportionalSymbolRendererOptions extends BarRendererOptions {
 }
 
-export default function ProportionalSymbolRenderer<P extends { value: number }>(options: ProportionalSymbolRendererOptions = {}): Renderer<P> {
-    const scale = options.scale ?? defaultScale;
-    const color = options.color ?? defaultConstantColorScale;
-    const f = new Intl.NumberFormat(options.locales, options.format);
+export default function ProportionalSymbolRenderer<D extends object, P extends CellProps<D, number>>(options: ProportionalSymbolRendererOptions = {}): Renderer<P> {
     return (props: P) => {
-        return <div style={proportionalSymbolProps(scale(props.value), color)}>{f.format(props.value)}</div>
+        const p = deriveNumberOptions<D, P>(props, Object.assign({ color: defaultConstantColorScale }, options));
+        return <div style={proportionalSymbolProps(p.scale(props.value), p.color)}>{p.format(props.value)}</div>
     }
 }
