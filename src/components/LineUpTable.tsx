@@ -6,6 +6,8 @@ import BarRenderer from '../renderers/BarRenderer';
 import CategoricalRenderer from '../renderers/CategoricalRenderer';
 import ColorRenderer from '../renderers/ColorRenderer';
 import ProportionalSymbolRenderer from '../renderers/ProportionalSymbolRenderer';
+import HistogramRenderer from '../renderers/HistogramRenderer';
+import DateRenderer from '../renderers/DateRenderer';
 
 declare type FullColumn<D extends object> = (Column<D> & UseGroupByColumnOptions<D> & UseResizeColumnsColumnOptions<D> & UseFiltersColumnOptions<D> & UseGlobalFiltersColumnOptions<D> & UseStatsColumnOptions<D>);
 
@@ -66,6 +68,7 @@ export interface IRow {
   number: number;
   number1: number;
   number2: number;
+  date: Date;
   cat: 'c1' | 'c2' | 'c3';
 }
 
@@ -100,12 +103,19 @@ const columns: FullColumn<IRow>[] = [
     Cell: CategoricalRenderer()
     // stats: 'categorical'
   },
+  {
+    Header: 'Date',
+    accessor: 'date',
+    Cell: DateRenderer(),
+    // stats: 'categorical'
+  },
 ]
 
 export default function TableExample() {
 
   const data = React.useMemo(() => generateData({
-    number: 3
+    number: 3,
+    date: 1,
   }) as IRow[], [])
 
   return (

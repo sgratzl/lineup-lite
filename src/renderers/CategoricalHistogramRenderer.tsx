@@ -4,13 +4,6 @@ import { categoricalStats } from '../stats/categoricalStats';
 import { CategoricalRendererOptions } from './CategoricalRenderer';
 import { toPercent } from './utils';
 
-export function categoricalProps(color: string): React.CSSProperties {
-    return {
-        borderLeft: `1.2em solid ${color}`,
-        paddingLeft: '0.2em'
-    };
-}
-
 export interface CategoricalHistogramRendererOptions extends CategoricalRendererOptions {
     maxBin?: number;
 }
