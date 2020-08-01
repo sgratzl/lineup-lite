@@ -5,7 +5,7 @@ export function defaultScale(v: number) {
 }
 
 export function defaultConstantColorScale() {
-    return 'rgba(0,0,255,0.25)';
+    return 'rgba(0,0,0,0.25)';
 }
 
 export const defaultColorScale = interpolateBlues;
