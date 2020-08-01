@@ -2,9 +2,9 @@ import React from 'react';
 import { Renderer, CellProps } from "react-table";
 import { schemeCategory10 } from 'd3-scale-chromatic';
 
-export function categoricalProps(value: string, color: ((v: string) => string)): React.CSSProperties {
+export function categoricalProps(color: string): React.CSSProperties {
     return {
-        borderLeft: `1.2em solid ${color(value)}`,
+        borderLeft: `1.2em solid ${color}`,
         paddingLeft: '0.2em'
     };
 }
@@ -29,6 +29,6 @@ export function autoAssignColors(colors: readonly string[]) {
 export default function CategoricalRenderer<D extends object, P extends CellProps<D, string>>(options: CategoricalRendererOptions = {}): Renderer<P> {
     const color = options.color ?? autoAssignColors(schemeCategory10);
     return (props: P) => {
-        return <div style={categoricalProps(props.value, color)}>{props.value}</div>
+        return <div style={categoricalProps(color(props.value))}>{props.value}</div>
     }
 }

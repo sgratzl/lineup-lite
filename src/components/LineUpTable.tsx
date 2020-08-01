@@ -4,6 +4,7 @@ import useStats, { UseStatsColumnOptions } from '../hooks/useStats';
 import { generateData } from './data';
 import BarRenderer from '../renderers/BarRenderer';
 import CategoricalRenderer from '../renderers/CategoricalRenderer';
+import ColorRenderer from '../renderers/ColorRenderer';
 
 declare type FullColumn<D extends object> = (Column<D> & UseGroupByColumnOptions<D> & UseResizeColumnsColumnOptions<D> & UseFiltersColumnOptions<D> & UseGlobalFiltersColumnOptions<D> & UseStatsColumnOptions<D>);
 
@@ -62,6 +63,7 @@ function Table<D extends object>({ columns, data }: { columns: FullColumn<D>[], 
 export interface IRow {
   string: string;
   number: number;
+  number1: number;
   cat: 'c1' | 'c2' | 'c3';
 }
 
@@ -79,6 +81,12 @@ const columns: FullColumn<IRow>[] = [
     // stats: 'number'
   },
   {
+    Header: 'Number',
+    accessor: 'number1',
+    Cell: ColorRenderer({ scale: (v: number) => v / 10 }),
+    // stats: 'number'
+  },
+  {
     Header: 'Cat',
     accessor: 'cat',
     Cell: CategoricalRenderer()
@@ -88,7 +96,9 @@ const columns: FullColumn<IRow>[] = [
 
 export default function TableExample() {
 
-  const data = React.useMemo(() => generateData({}) as IRow[], [])
+  const data = React.useMemo(() => generateData({
+    number: 2
+  }) as IRow[], [])
 
   return (
     <Table columns={columns} data={data} />
