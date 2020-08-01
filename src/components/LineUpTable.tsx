@@ -6,8 +6,10 @@ import BarRenderer from '../renderers/BarRenderer';
 import CategoricalRenderer from '../renderers/CategoricalRenderer';
 import ColorRenderer from '../renderers/ColorRenderer';
 import ProportionalSymbolRenderer from '../renderers/ProportionalSymbolRenderer';
-import HistogramRenderer from '../renderers/HistogramRenderer';
+import NumberHistogramRenderer from '../renderers/NumberHistogramRenderer';
 import DateRenderer from '../renderers/DateRenderer';
+import DateHistogramRenderer from '../renderers/DateHistogramRenderer';
+import CategoricalHistogramRenderer from '../renderers/CategoricalHistogramRenderer';
 
 declare type FullColumn<D extends object> = (Column<D> & UseGroupByColumnOptions<D> & UseResizeColumnsColumnOptions<D> & UseFiltersColumnOptions<D> & UseGlobalFiltersColumnOptions<D> & UseStatsColumnOptions<D>);
 
@@ -34,7 +36,7 @@ function Table<D extends object>({ columns, data }: { columns: FullColumn<D>[], 
             {headerGroup.headers.map(column => (
               <th {...column.getHeaderProps()}>
                 {column.render('Header')}
-                {/* {column.render('Stats')} */}
+                {column.render('Summary')}
               </th>
             ))}
           </tr>
@@ -77,36 +79,42 @@ const columns: FullColumn<IRow>[] = [
   {
     Header: 'String',
     accessor: 'string',
+    Summary: 'String',
     // stats: 'text'
   },
   {
     Header: 'Number',
     accessor: 'number',
     Cell: BarRenderer({ scale: (v: number) => v / 10 }),
+    Summary: NumberHistogramRenderer()
     // stats: 'number'
   },
   {
     Header: 'Number',
     accessor: 'number1',
     Cell: ColorRenderer({ scale: (v: number) => v / 10 }),
+    Summary: NumberHistogramRenderer()
     // stats: 'number'
   },
   {
     Header: 'Number',
     accessor: 'number2',
     Cell: ProportionalSymbolRenderer({ scale: (v: number) => v / 10 }),
+    Summary: NumberHistogramRenderer()
     // stats: 'number'
   },
   {
     Header: 'Cat',
     accessor: 'cat',
-    Cell: CategoricalRenderer()
+    Cell: CategoricalRenderer(),
+    Summary: CategoricalHistogramRenderer(),
     // stats: 'categorical'
   },
   {
     Header: 'Date',
     accessor: 'date',
     Cell: DateRenderer(),
+    Summary: DateHistogramRenderer()
     // stats: 'categorical'
   },
 ]

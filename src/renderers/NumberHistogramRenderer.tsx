@@ -3,11 +3,11 @@ import { Renderer } from "react-table";
 import { numberStats, NumberStatsOptions } from '../stats/numberStats';
 import { toPercent } from './utils';
 
-export interface HistogramRendererOptions extends NumberStatsOptions {
+export interface NumberHistogramRendererOptions extends NumberStatsOptions {
     maxBin?: number;
 }
 
-export default function HistogramRenderer<P extends { value: readonly number[] }>(options: HistogramRendererOptions = {}): Renderer<P> {
+export default function NumberHistogramRenderer<P extends { value: readonly number[] }>(options: NumberHistogramRendererOptions = {}): Renderer<P> {
     const stats = numberStats(options);
     return (props: P) => {
         const s = stats(props.value);
