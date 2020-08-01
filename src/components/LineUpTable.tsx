@@ -2,6 +2,7 @@ import React from 'react';
 import { Column, useTable, UseGroupByColumnOptions, UseResizeColumnsColumnOptions, UseFiltersColumnOptions, UseGlobalFiltersColumnOptions } from 'react-table';
 import useStats, { UseStatsColumnOptions } from '../hooks/useStats';
 import { generateData } from './data';
+import BarRenderer from '../renderers/BarRenderer';
 
 declare type FullColumn<D extends object> = (Column<D> & UseGroupByColumnOptions<D> & UseResizeColumnsColumnOptions<D> & UseFiltersColumnOptions<D> & UseGlobalFiltersColumnOptions<D> & UseStatsColumnOptions<D>);
 
@@ -28,7 +29,7 @@ function Table<D extends object>({ columns, data }: { columns: FullColumn<D>[], 
             {headerGroup.headers.map(column => (
               <th {...column.getHeaderProps()}>
                 {column.render('Header')}
-                {column.render('Stats')}
+                {/* {column.render('Stats')} */}
               </th>
             ))}
           </tr>
@@ -68,17 +69,18 @@ const columns: FullColumn<IRow>[] = [
   {
     Header: 'String',
     accessor: 'string',
-    stats: 'text'
+    // stats: 'text'
   },
   {
     Header: 'Number',
     accessor: 'number',
-    stats: 'number'
+    Cell: BarRenderer({ scale: (v: number) => v / 10 }),
+    // stats: 'number'
   },
   {
     Header: 'Cat',
     accessor: 'cat',
-    stats: 'categorical'
+    // stats: 'categorical'
   },
 ]
 
