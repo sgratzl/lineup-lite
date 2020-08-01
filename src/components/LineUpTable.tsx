@@ -3,6 +3,7 @@ import { Column, useTable, UseGroupByColumnOptions, UseResizeColumnsColumnOption
 import useStats, { UseStatsColumnOptions } from '../hooks/useStats';
 import { generateData } from './data';
 import BarRenderer from '../renderers/BarRenderer';
+import CategoricalRenderer from '../renderers/CategoricalRenderer';
 
 declare type FullColumn<D extends object> = (Column<D> & UseGroupByColumnOptions<D> & UseResizeColumnsColumnOptions<D> & UseFiltersColumnOptions<D> & UseGlobalFiltersColumnOptions<D> & UseStatsColumnOptions<D>);
 
@@ -80,6 +81,7 @@ const columns: FullColumn<IRow>[] = [
   {
     Header: 'Cat',
     accessor: 'cat',
+    Cell: CategoricalRenderer()
     // stats: 'categorical'
   },
 ]
