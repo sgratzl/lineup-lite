@@ -1,9 +1,7 @@
 import React from 'react';
 import { Renderer, CellProps } from "react-table";
-
-function toPercent(v: number) {
-    return `${Math.round(v * 1000) / 10}%`;
-}
+import { defaultScale, defaultColorScale, defaultConstantColorScale } from './defaults';
+import { toPercent } from './utils';
 
 export function barProps(value: number, color: string | ((v: number) => string)): React.CSSProperties {
     const c = typeof color === 'string' ? color : color(value);
@@ -16,15 +14,14 @@ export function barProps(value: number, color: string | ((v: number) => string))
 
 export interface BarRendererOptions {
     scale?: (v: number) => number;
-    color?: string | ((v: number) => string);
-
+    color?: (v: number) => string;
     locales?: string | string[];
     format?: Intl.NumberFormatOptions
 }
 
 export default function BarRenderer<D extends object, P extends CellProps<D, number>>(options: BarRendererOptions = {}): Renderer<P> {
-    const scale = options.scale ?? ((v: number) => Math.max(Math.min(v, 1), 0));
-    const color = options.color ?? 'rgba(0,0,255,0.25)';
+    const scale = options.scale ?? defaultScale;
+    const color = options.color ?? defaultConstantColorScale;
     const f = new Intl.NumberFormat(options.locales, options.format);
     return (props: P) => {
         return <div style={barProps(scale(props.value), color)}>{f.format(props.value)}</div>
