@@ -8,9 +8,9 @@ export function proportionalSymbolProps(value: number, color: string | ((v: numb
     const c = typeof color === 'string' ? color : color(value);
     const p = toPercent(value);
     return {
-        backgroundImage: `radial-gradient(circle closest-side, ${c} ${p}, transparent ${p})`,
-        backgroundPosition: 'left center',
-        textAlign: 'right'
+        backgroundImage: `radial-gradient(circle closest-side at 0.6em 50%, ${c} ${p}, transparent ${p})`,
+        textAlign: 'right',
+        paddingLeft: '1.4em'
     };
 }
 
