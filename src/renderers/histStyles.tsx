@@ -2,9 +2,9 @@ import React from 'react';
 
 export const histWrapperStyle: React.CSSProperties = {
     display: 'flex',
-    fontSize: 'x-small',
+    fontSize: 'xx-small',
     justifyContent: 'space-evenly',
-    minHeight: '3em',
+    minHeight: '2.5em',
     marginBottom: '1em',
     position: 'relative',
 };
