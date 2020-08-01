@@ -1,5 +1,5 @@
 import React from 'react';
-import { Renderer, CellProps } from "react-table";
+import { Renderer } from "react-table";
 import { defaultScale, defaultColorScale } from './defaults';
 
 export function colorProps(color: string): React.CSSProperties {
@@ -18,7 +18,7 @@ export interface ColorRendererOptions {
     format?: Intl.NumberFormatOptions
 }
 
-export default function ColorRenderer<D extends object, P extends CellProps<D, number>>(options: ColorRendererOptions = {}): Renderer<P> {
+export default function ColorRenderer<P extends { value: number }>(options: ColorRendererOptions = {}): Renderer<P> {
     const scale = options.scale ?? defaultScale;
     const color = options.color ?? defaultColorScale;
     const f = new Intl.NumberFormat(options.locales, options.format);

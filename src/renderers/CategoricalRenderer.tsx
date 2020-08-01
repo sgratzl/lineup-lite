@@ -1,6 +1,6 @@
 import React from 'react';
-import { Renderer, CellProps } from "react-table";
-import { schemeCategory10 } from 'd3-scale-chromatic';
+import { Renderer } from "react-table";
+import { defaultCategoricalColorScale } from './defaults';
 
 export function categoricalProps(color: string): React.CSSProperties {
     return {
@@ -13,21 +13,8 @@ export interface CategoricalRendererOptions {
     color?: ((v: string) => string);
 }
 
-export function autoAssignColors(colors: readonly string[]) {
-    let i = 0;
-    const map = new Map<string, string>();
-    return (c: string) => {
-        if (map.has(c)) {
-            return map.get(c)!;
-        }
-        const color = colors[(i++) % colors.length];
-        map.set(c, color);
-        return color;
-    }
-}
-
-export default function CategoricalRenderer<D extends object, P extends CellProps<D, string>>(options: CategoricalRendererOptions = {}): Renderer<P> {
-    const color = options.color ?? autoAssignColors(schemeCategory10);
+export default function CategoricalRenderer<P extends { value: string }>(options: CategoricalRendererOptions = {}): Renderer<P> {
+    const color = options.color ?? defaultCategoricalColorScale();
     return (props: P) => {
         return <div style={categoricalProps(color(props.value))}>{props.value}</div>
     }
