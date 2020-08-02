@@ -2,7 +2,6 @@ import { HeaderProps, Hooks, IdType, Renderer, TableInstance } from 'react-table
 
 export type UseStatsOptions<D extends object> = Partial<{
   manualStats: boolean;
-  disableStats: boolean;
   autoResetStats?: boolean;
 }>;
 
@@ -12,7 +11,6 @@ export interface UseStatsState<D extends object> {
 
 export type UseStatsColumnOptions<D extends object> = Partial<{
   Summary: Renderer<StatsProps<D>>;
-  disableStats: boolean;
   stats: StatsType;
 }>;
 

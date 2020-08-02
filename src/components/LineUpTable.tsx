@@ -81,7 +81,7 @@ const columns: FullColumn<IRow>[] = [
   {
     Header: 'String',
     accessor: 'string',
-    Summary: 'String',
+    Summary: () => null,
     // stats: 'text'
   },
   {

@@ -1,7 +1,6 @@
 import React from 'react';
 import { Renderer, CellProps } from 'react-table';
 import { BarRendererOptions, deriveNumberOptions } from './BarRenderer';
-import { defaultConstantColorScale } from './defaults';
 import { toPercent } from './utils';
 import './ProportionalSymbolRenderer.css';
 
