@@ -1,4 +1,5 @@
 import { StatsProps } from '../hooks/useStats';
+import { UseFiltersColumnProps } from 'react-table';
 
 export function toPercent(v: number) {
   return `${Math.round(v * 1000) / 10}%`;
@@ -33,4 +34,8 @@ export function resolve<T>(directValue: T | undefined, globalValue: T | undefine
     return globalValue;
   }
   return defaultValue();
+}
+
+export function isFilterAble<D extends object>(props: any): props is { column: UseFiltersColumnProps<D> } {
+  return typeof (props.column as UseFiltersColumnProps<D>).setFilter === 'function';
 }

@@ -1,13 +1,17 @@
 import React from 'react';
-import { ICommonStats } from '../../stats/common';
+import { ICommonStats, IBin } from '../../stats/common';
 import { toPercent } from '../utils';
 import './Histogram.css';
 import './Summary.css';
 
-interface HistogramProps<T> {
+export interface HistogramProps<T> {
   s: ICommonStats<T> & { readonly min?: T; readonly max?: T };
   maxBin?: number;
   label?: boolean;
+}
+
+export function generateBinTitle<T>(props: HistogramProps<T>, h: IBin<T>) {
+  return `${props.s.format(h.x0)}${!props.label ? ` - ${props.s.format(h.x1)}` : ''}: ${h.count.toLocaleString()}`;
 }
 
 export default function Histogram<T>(props: HistogramProps<T>) {
@@ -30,9 +34,7 @@ export default function Histogram<T>(props: HistogramProps<T>) {
               backgroundImage: `linear-gradient(to top, ${h.color} ${p}, transparent ${p})`,
             }}
             data-label={props.label ? props.s.format(h.x0) : null}
-            title={`${props.s.format(h.x0)}${
-              !props.label ? ` - ${props.s.format(h.x1)}` : ''
-            }: ${h.count.toLocaleString()}`}
+            title={generateBinTitle<T>(props, h)}
           />
         );
       })}

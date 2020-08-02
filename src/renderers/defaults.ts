@@ -8,9 +8,9 @@ export function defaultConstantColorScale() {
   return 'rgba(0,0,0,0.25)';
 }
 
-// #f7fbff hsl(210deg 100% 98%)
-// #08306b
-export const defaultColorScale = (v: number) => interpolateBlues(1 - v);
+export function defaultColorScale(v: number) {
+  return interpolateBlues(1 - v);
+}
 
 export function autoAssignColors(colors: readonly string[], start = 0) {
   let i = start;

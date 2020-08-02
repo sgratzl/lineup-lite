@@ -9,6 +9,10 @@
   flex-grow: 1;
 }
 
+.lt-histogram-bin-interactive {
+  cursor: pointer;
+}
+
 .lt-histogram-bin[data-label]::before {
   content: attr(data-label);
   position: absolute;

@@ -6,6 +6,9 @@ import {
   UseResizeColumnsColumnOptions,
   UseFiltersColumnOptions,
   UseGlobalFiltersColumnOptions,
+  useFilters,
+  TableInstance,
+  UseFiltersInstanceProps,
 } from 'react-table';
 import useStats, { UseStatsColumnOptions } from '../hooks/useStats';
 import { generateData } from './data';
@@ -21,6 +24,7 @@ import { numberStats } from '../stats/numberStats';
 import { categoricalStats } from '../stats/categoricalStats';
 import { dateStats } from '../stats/dateStats';
 import BoxPlotRenderer from '../renderers/BoxPlotRenderer';
+import categoricalFilter from '../filters/categoricalFilter';
 
 declare type FullColumn<D extends object> = Column<D> &
   UseGroupByColumnOptions<D> &
@@ -30,13 +34,14 @@ declare type FullColumn<D extends object> = Column<D> &
   UseStatsColumnOptions<D>;
 
 function Table<D extends object>({ columns, data }: { columns: FullColumn<D>[]; data: D[] }) {
-  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = useTable<D>(
+  const { getTableProps, getTableBodyProps, headerGroups, prepareRow, rows } = useTable<D>(
     {
       columns,
       data,
     },
-    useStats
-  );
+    useStats,
+    useFilters
+  ) as TableInstance<D> & UseFiltersInstanceProps<D>;
 
   return (
     <table {...getTableProps()}>
@@ -82,6 +87,7 @@ const columns: FullColumn<IRow>[] = [
     Header: 'String',
     accessor: 'string',
     Summary: () => null,
+    filter: 'text',
     // stats: 'text'
   },
   {
@@ -108,6 +114,7 @@ const columns: FullColumn<IRow>[] = [
   {
     Header: 'Cat',
     accessor: 'cat',
+    filter: categoricalFilter,
     Cell: CategoricalRenderer(),
     Summary: CategoricalHistogramRenderer(),
     stats: categoricalStats(),
