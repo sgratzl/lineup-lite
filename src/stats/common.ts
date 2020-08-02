@@ -19,4 +19,7 @@ export interface ICommonStats<T> {
 export interface INumericStats<T> extends ICommonStats<T> {
   readonly min: T;
   readonly max: T;
+
+  scale: (v: T) => number;
+  invert: (v: number) => T;
 }

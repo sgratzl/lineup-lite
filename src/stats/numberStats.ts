@@ -1,7 +1,7 @@
 import boxplot, { BoxplotStatsOptions, IBoxPlot } from '@sgratzl/boxplots';
 import { defaultColorScale } from '../renderers/defaults';
 import { INumericStats } from './common';
-import { normalize } from './scale';
+import { normalize, deNormalize } from './scale';
 
 /**
  * computes the optimal number of bins for a given array length
@@ -23,9 +23,7 @@ export interface IBin<T> {
   x1: T;
 }
 
-export interface INumberStats extends IBoxPlot, INumericStats<number> {
-  scale: (v: number) => number;
-}
+export interface INumberStats extends IBoxPlot, INumericStats<number> {}
 
 export type NumberFormatter =
   | ((v: number) => string)
@@ -98,6 +96,7 @@ export function numberStats(options: NumberStatsOptions = {}) {
       hist,
       maxBin: hist.reduce((acc, b) => Math.max(acc, b.count), 0),
       scale: normalize(min, max),
+      invert: deNormalize(min, max),
       format,
       color,
     });

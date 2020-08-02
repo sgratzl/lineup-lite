@@ -133,11 +133,28 @@ export interface DateStatsOptions {
   max?: Date;
 }
 
+function normalizeDate(min: Date, max: Date) {
+  const minN = min.getTime();
+  const maxN = max.getTime();
+  const range = maxN - minN;
+  return {
+    min,
+    max,
+    scale: (v: Date) => (range === 0 ? 0.5 : (v.getTime() - minN) / range),
+    invert: (v: number) => (range === 0 ? min : new Date(v * range + minN)),
+  };
+}
+
 export function dateStats(options: DateStatsOptions = {}) {
   const format = resolveDateFormatter(options.format);
   const color = options.color ?? defaultConstantColorScale;
 
   return (arr: readonly (Date | null)[]): IDateStats => {
+    const base = {
+      color,
+      format,
+      count: arr.length,
+    };
     const simpleStats = arr.reduce(
       (acc, v) => {
         if (!v) {
@@ -153,16 +170,16 @@ export function dateStats(options: DateStatsOptions = {}) {
     );
 
     if (simpleStats.valid === 0) {
+      const now = new Date();
+      const min = options.min ?? now;
+      const max = options.max ?? now;
       return {
         hist: [],
         histGranularity: 'year',
         missing: arr.length,
-        count: arr.length,
-        min: options.min ?? new Date(),
-        max: options.max ?? new Date(),
         maxBin: 0,
-        color,
-        format,
+        ...normalizeDate(min, max),
+        ...base,
       };
     }
 
@@ -181,13 +198,10 @@ export function dateStats(options: DateStatsOptions = {}) {
     return {
       hist,
       histGranularity,
-      min,
-      max,
       missing,
-      count: arr.length,
       maxBin: hist.reduce((acc, b) => Math.max(acc, b.count), 0),
-      color,
-      format,
+      ...normalizeDate(min, max),
+      ...base,
     };
   };
 }
