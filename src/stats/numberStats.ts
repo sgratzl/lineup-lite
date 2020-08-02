@@ -1,7 +1,7 @@
 import boxplot, { BoxplotStatsOptions, IBoxPlot } from '@sgratzl/boxplots';
-import { defaultConstantColorScale, defaultColorScale } from '../renderers/defaults';
-import { normalize } from './scale';
+import { defaultColorScale } from '../renderers/defaults';
 import { INumericStats } from './common';
+import { normalize } from './scale';
 
 /**
  * computes the optimal number of bins for a given array length

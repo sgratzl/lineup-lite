@@ -1,11 +1,6 @@
 .lt-histogram {
   display: flex;
-  font-size: xx-small;
   justify-content: space-evenly;
-  min-height: 2.5em;
-  margin-bottom: 1em;
-  position: relative;
-  font-weight: normal;
 }
 
 .lt-histogram-bin {
@@ -23,26 +18,7 @@
   overflow: hidden;
   text-align: center;
 }
+
 .lt-histogram-bin-dense {
   margin-right: 0;
-}
-
-.lt-histogram[data-min]::before {
-  content: attr(data-min);
-  position: absolute;
-  top: 100%;
-  left: 0;
-  width: 50%;
-  overflow: hidden;
-  text-align: left;
-}
-
-.lt-histogram[data-max]::after {
-  content: attr(data-max);
-  position: absolute;
-  top: 100%;
-  right: 0;
-  width: 50%;
-  overflow: hidden;
-  text-align: right;
 }

@@ -1,0 +1,20 @@
+.lt-boxplot {
+  display: flex;
+}
+
+.lt-boxplot-wrapper {
+  flex-grow: 1;
+}
+
+.lt-boxplot-box {
+  stroke: black;
+}
+
+.lt-boxplot-frame {
+  fill: none;
+  stroke: black;
+}
+
+.lt-boxplot-outlier {
+  fill: black;
+}

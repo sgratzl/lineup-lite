@@ -1,0 +1,27 @@
+.lt-summary {
+  font-size: xx-small;
+  min-height: 2.5em;
+  margin-bottom: 1em;
+  position: relative;
+  font-weight: normal;
+}
+
+.lt-summary[data-min]::before {
+  content: attr(data-min);
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 50%;
+  overflow: hidden;
+  text-align: left;
+}
+
+.lt-summary[data-max]::after {
+  content: attr(data-max);
+  position: absolute;
+  top: 100%;
+  right: 0;
+  width: 50%;
+  overflow: hidden;
+  text-align: right;
+}

@@ -20,6 +20,7 @@ import CategoricalHistogramRenderer from '../renderers/CategoricalHistogramRende
 import { numberStats } from '../stats/numberStats';
 import { categoricalStats } from '../stats/categoricalStats';
 import { dateStats } from '../stats/dateStats';
+import BoxPlotRenderer from '../renderers/BoxPlotRenderer';
 
 declare type FullColumn<D extends object> = Column<D> &
   UseGroupByColumnOptions<D> &
@@ -94,7 +95,7 @@ const columns: FullColumn<IRow>[] = [
     Header: 'Number',
     accessor: 'number1',
     Cell: ColorRenderer({ scale: (v: number) => v / 10 }),
-    Summary: NumberHistogramRenderer(),
+    Summary: BoxPlotRenderer(),
     stats: numberStats(),
   },
   {

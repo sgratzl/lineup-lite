@@ -2,6 +2,7 @@ import React from 'react';
 import { ICommonStats } from '../../stats/common';
 import { toPercent } from '../utils';
 import './Histogram.css';
+import './Summary.css';
 
 interface HistogramProps<T> {
   s: ICommonStats<T> & { readonly min?: T; readonly max?: T };
@@ -15,7 +16,7 @@ export default function Histogram<T>(props: HistogramProps<T>) {
   const dense = props.s.hist.length > 10;
   return (
     <div
-      className="lt-histogram"
+      className="lt-histogram lt-summary"
       data-min={props.s.min != null ? props.s.format(props.s.min) : null}
       data-max={props.s.max != null ? props.s.format(props.s.max) : null}
     >
@@ -30,7 +31,7 @@ export default function Histogram<T>(props: HistogramProps<T>) {
             }}
             data-label={props.label ? props.s.format(h.x0) : null}
             title={`${props.s.format(h.x0)}${
-              !props.label ? `-${props.s.format(h.x1)}` : ''
+              !props.label ? ` - ${props.s.format(h.x1)}` : ''
             }: ${h.count.toLocaleString()}`}
           />
         );
