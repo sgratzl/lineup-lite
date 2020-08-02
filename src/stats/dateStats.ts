@@ -110,16 +110,31 @@ function pushDateHist(hist: IBin<Date>[], v: Date, count: number = 1) {
   hist[low].count += count;
 }
 
+export type DateFormatter =
+  | ((v: Date) => string)
+  | {
+      locales?: string | string[];
+      options?: Intl.DateTimeFormatOptions;
+    };
+
+export function resolveDateFormatter(format?: DateFormatter): (v: Date) => string {
+  if (typeof format === 'function') {
+    return format;
+  }
+  const f = new Intl.DateTimeFormat(format ? format.locales : undefined, format ? format.options : undefined);
+  return f.format.bind(f);
+}
+
 export interface DateStatsOptions {
   color?: (v: Date) => string;
   locales?: string | string[];
-  format?: Intl.DateTimeFormatOptions;
+  format?: DateFormatter;
   min?: Date;
   max?: Date;
 }
 
 export function dateStats(options: DateStatsOptions = {}) {
-  const format = new Intl.DateTimeFormat(options.locales, options.format);
+  const format = resolveDateFormatter(options.format);
   const color = options.color ?? defaultConstantColorScale;
 
   return (arr: readonly (Date | null)[]): IDateStats => {
@@ -147,7 +162,7 @@ export function dateStats(options: DateStatsOptions = {}) {
         max: options.max ?? new Date(),
         maxBin: 0,
         color,
-        format: format.format.bind(format),
+        format,
       };
     }
 
@@ -172,7 +187,7 @@ export function dateStats(options: DateStatsOptions = {}) {
       count: arr.length,
       maxBin: hist.reduce((acc, b) => Math.max(acc, b.count), 0),
       color,
-      format: format.format.bind(format),
+      format,
     };
   };
 }

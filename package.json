@@ -2,26 +2,6 @@
   "name": "lineup-table",
   "version": "0.1.0",
   "private": true,
-  "dependencies": {
-    "@sgratzl/boxplots": "^1.2.1",
-    "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.3.2",
-    "@testing-library/user-event": "^7.1.2",
-    "@types/d3-scale": "^2.2.0",
-    "@types/d3-scale-chromatic": "^1.5.0",
-    "@types/jest": "^24.0.0",
-    "@types/node": "^12.0.0",
-    "@types/react": "^16.9.0",
-    "@types/react-dom": "^16.9.0",
-    "@types/react-table": "^7.0.19",
-    "d3-scale": "^3.2.1",
-    "d3-scale-chromatic": "^1.5.0",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
-    "react-scripts": "3.4.1",
-    "react-table": "^7.3.2",
-    "typescript": "~3.7.2"
-  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
@@ -43,7 +23,30 @@
       "last 1 safari version"
     ]
   },
+  "dependencies": {
+    "@sgratzl/boxplots": "^1.2.1",
+    "@types/react-table": "^7.0.19",
+    "d3-scale-chromatic": "^1.5.0",
+    "react-table": "^7.3.2"
+  },
+  "peerDependencies": {
+    "@types/react": "^16.9.0",
+    "@types/react-dom": "^16.9.0",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
+  },
   "devDependencies": {
-    "prettier": "^2.0.5"
+    "prettier": "^2.0.5",
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.3.2",
+    "@testing-library/user-event": "^7.1.2",
+    "@types/d3-scale-chromatic": "^1.5.0",
+    "@types/jest": "^24.0.0",
+    "@types/node": "^12.0.0",
+    "@types/react-table": "^7.0.19",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-scripts": "3.4.1",
+    "typescript": "~3.7.2"
   }
 }

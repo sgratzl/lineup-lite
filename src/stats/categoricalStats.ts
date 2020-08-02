@@ -5,10 +5,12 @@ export interface ICategoricalStats extends ICommonStats<string> {}
 
 export interface CategoricalStatsOptions {
   color?: (v: string) => string;
+  format?: (v: string) => string;
 }
 
 export function categoricalStats(options: CategoricalStatsOptions = {}) {
   const color = options.color ?? defaultCategoricalColorScale();
+  const format = options.format ?? ((v: string) => v);
 
   return (arr: readonly string[]): ICategoricalStats => {
     let missing = 0;
@@ -32,7 +34,7 @@ export function categoricalStats(options: CategoricalStatsOptions = {}) {
       hist,
       maxBin: hist.reduce((acc, b) => Math.max(acc, b.count), 0),
       color,
-      format: (v) => v,
+      format,
       missing,
       count: arr.length,
     };

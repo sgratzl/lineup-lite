@@ -24,3 +24,13 @@ export function extractStats<S, T>(
   const values = props.flatRows.map((row) => row.values[props.column.id]);
   return statsGen(values);
 }
+
+export function resolve<T>(directValue: T | undefined, globalValue: T | undefined, defaultValue: () => T) {
+  if (directValue != null) {
+    return directValue;
+  }
+  if (globalValue != null) {
+    return globalValue;
+  }
+  return defaultValue();
+}

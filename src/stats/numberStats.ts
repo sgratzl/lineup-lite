@@ -27,12 +27,27 @@ export interface INumberStats extends IBoxPlot, INumericStats<number> {
   scale: (v: number) => number;
 }
 
+export type NumberFormatter =
+  | ((v: number) => string)
+  | {
+      locales?: string | string[];
+      options?: Intl.NumberFormatOptions;
+    };
+
+export function resolveNumberFormatter(format?: NumberFormatter): (v: number) => string {
+  if (typeof format === 'function') {
+    return format;
+  }
+  const f = new Intl.NumberFormat(format ? format.locales : undefined, format ? format.options : undefined);
+  return f.format.bind(f);
+}
+
 export interface NumberStatsOptions extends BoxplotStatsOptions {
-  color?: (v: number) => string;
-  locales?: string | string[];
-  format?: Intl.NumberFormatOptions;
   min?: number;
   max?: number;
+
+  color?: (v: number) => string;
+  format?: NumberFormatter;
 }
 
 function createHist(b: IBoxPlot, min: number, max: number, color: (v: number) => string) {
@@ -70,7 +85,7 @@ function createHist(b: IBoxPlot, min: number, max: number, color: (v: number) =>
 
 export function numberStats(options: NumberStatsOptions = {}) {
   const color = options.color ?? defaultColorScale;
-  const format = new Intl.NumberFormat(options.locales, options.format);
+  const format = resolveNumberFormatter(options.format);
 
   return (arr: readonly number[] | Float32Array | Float64Array): INumberStats => {
     const b = boxplot(arr, options);
@@ -83,7 +98,7 @@ export function numberStats(options: NumberStatsOptions = {}) {
       hist,
       maxBin: hist.reduce((acc, b) => Math.max(acc, b.count), 0),
       scale: normalize(min, max),
-      format: format.format.bind(format),
+      format,
       color,
     });
   };

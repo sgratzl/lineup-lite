@@ -1,12 +1,12 @@
 import React from 'react';
 import { Renderer, CellProps } from 'react-table';
-import { IDateStats } from '../stats/dateStats';
+import { IDateStats, DateFormatter, resolveDateFormatter } from '../stats/dateStats';
 import { UseStatsColumnProps } from '../hooks/useStats';
 import './DateRenderer.css';
+import { resolve } from './utils';
 
 export interface DateRendererOptions {
-  locales?: string | string[];
-  format?: Intl.DateTimeFormatOptions;
+  format?: DateFormatter;
 }
 
 export function deriveDateOptions<D extends object, P extends CellProps<D, Date>>(
@@ -14,12 +14,9 @@ export function deriveDateOptions<D extends object, P extends CellProps<D, Date>
   options: DateRendererOptions = {}
 ) {
   const col = props.column as Partial<UseStatsColumnProps>;
-  if (col.statsValue) {
-    return col.statsValue as IDateStats;
-  }
-  const f = new Intl.DateTimeFormat(options.locales, options.format);
+  const stats = col.statsValue as IDateStats | undefined;
   return {
-    format: f.format.bind(f),
+    format: resolveDateFormatter(resolve(options.format, stats?.format, () => ({}))),
   };
 }
 

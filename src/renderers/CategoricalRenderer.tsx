@@ -4,6 +4,7 @@ import { defaultCategoricalColorScale } from './defaults';
 import { ICategoricalStats } from '../stats/categoricalStats';
 import { UseStatsColumnProps } from '../hooks/useStats';
 import './CategoricalRenderer.css';
+import { resolve } from './utils';
 
 export interface CategoricalRendererOptions {
   color?: (v: string) => string;
@@ -14,11 +15,9 @@ export function deriveCategoricalOptions<D extends object, P extends CellProps<D
   options: CategoricalRendererOptions = {}
 ) {
   const col = props.column as Partial<UseStatsColumnProps>;
-  if (col.statsValue) {
-    return col.statsValue as ICategoricalStats;
-  }
+  const stats = col.statsValue as ICategoricalStats | undefined;
   return {
-    color: options.color ?? defaultCategoricalColorScale(),
+    color: resolve(options.color, stats?.color, () => defaultCategoricalColorScale()),
   };
 }
 
