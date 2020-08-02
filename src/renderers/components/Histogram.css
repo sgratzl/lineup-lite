@@ -5,6 +5,7 @@
   min-height: 2.5em;
   margin-bottom: 1em;
   position: relative;
+  font-weight: normal;
 }
 
 .lt-histogram-bin {
