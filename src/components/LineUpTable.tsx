@@ -25,6 +25,7 @@ import { categoricalStats } from '../stats/categoricalStats';
 import { dateStats } from '../stats/dateStats';
 import BoxPlotRenderer from '../renderers/BoxPlotRenderer';
 import categoricalFilter from '../filters/categoricalFilter';
+import rangeFilter from '../filters/rangeFilter';
 
 declare type FullColumn<D extends object> = Column<D> &
   UseGroupByColumnOptions<D> &
@@ -95,6 +96,7 @@ const columns: FullColumn<IRow>[] = [
     accessor: 'number',
     Cell: BarRenderer(),
     Summary: NumberHistogramRenderer(),
+    filter: rangeFilter,
     stats: numberStats({ min: 0, max: 10 }),
   },
   {

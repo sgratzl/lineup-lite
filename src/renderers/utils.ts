@@ -39,3 +39,7 @@ export function resolve<T>(directValue: T | undefined, globalValue: T | undefine
 export function isFilterAble<D extends object>(props: any): props is { column: UseFiltersColumnProps<D> } {
   return typeof (props.column as UseFiltersColumnProps<D>).setFilter === 'function';
 }
+
+export function cslx(...args: (boolean | string | undefined | null)[]) {
+  return args.filter(Boolean).join(' ');
+}
