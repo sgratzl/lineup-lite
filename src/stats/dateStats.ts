@@ -2,7 +2,7 @@ import { defaultConstantColorScale } from "../renderers/defaults";
 import { IBin } from "./numberStats";
 import { INumericStats } from "./common";
 
-export declare type DateHistGranularity = 'year' | 'month' | 'day';
+export declare type DateHistGranularity = 'year' | 'month' | 'day' | 'decade';
 
 export interface IDateStats extends INumericStats<Date> {
     histGranularity: DateHistGranularity;
@@ -13,6 +13,23 @@ export interface IDateStats extends INumericStats<Date> {
  */
 function computeGranularity(min: Date, max: Date, color: (v: Date) => string): { histGranularity: DateHistGranularity, hist: IBin<Date>[] } {
     const hist: IBin<Date>[] = [];
+
+    if (max.getFullYear() - min.getFullYear() >= 30) {
+        // more than 3 decades
+        const minYear = Math.floor(min.getFullYear() / 10) * 10;
+        const maxYear = Math.ceil(max.getFullYear() / 10) * 10;
+        for (let i = minYear; i <= maxYear; i += 10) {
+            hist.push({
+                x0: new Date(i, 0, 1),
+                x1: new Date(i + 10, 0, 1),
+                color: color(new Date(i + 5, 0, 1)),
+                count: 0
+            });
+        }
+        return { hist, histGranularity: 'decade' };
+    }
+
+
 
     if (max.getFullYear() - min.getFullYear() >= 2) {
         // more than two years difference

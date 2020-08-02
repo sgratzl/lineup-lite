@@ -61,11 +61,13 @@ export default function Histogram<T>(props: HistogramProps<T>) {
     return <div style={histWrapperStyle}>
         {props.s.hist.map((h, i) => {
             const p = toPercent(h.count / maxBin);
-            return <div key={String(h.x0)} style={{ ...histBinStyle, ...(dense || i === lastBin ? histBinStyleDense : {}), backgroundImage: `linear-gradient(to top, ${h.color} ${p}, transparent ${p})` }}>
+            return <div key={String(h.x0)}
+                style={{ ...histBinStyle, ...(dense || i === lastBin ? histBinStyleDense : {}), backgroundImage: `linear-gradient(to top, ${h.color} ${p}, transparent ${p})` }}
+                title={`${props.s.format(h.x0)}${!props.label ? `-${props.s.format(h.x1)}` : ''}: ${h.count.toLocaleString()}`}>
                 {props.label && <span style={histBinLabelStyle}>{props.s.format(h.x0)}</span>}
             </div>
         })}
-        {props.s.min != null && <span style={histMinSpanStyle} >{props.s.format(props.s.min)}</span>}
-        {props.s.max != null && <span style={histMaxSpanStyle} >{props.s.format(props.s.max)}</span>}
+        {props.s.min != null && <span style={histMinSpanStyle} title={props.s.format(props.s.min)}>{props.s.format(props.s.min)}</span>}
+        {props.s.max != null && <span style={histMaxSpanStyle} title={props.s.format(props.s.max)}>{props.s.format(props.s.max)}</span>}
     </div>
 }
