@@ -1,19 +1,7 @@
 import { defaultCategoricalColorScale } from "../renderers/defaults";
+import { ICommonStats } from "./common";
 
-export interface ICategoricalBin {
-    value: string;
-    count: number;
-    color: string;
-}
-
-export interface ICategoricalStats {
-    hist: readonly ICategoricalBin[];
-    maxBin: number;
-
-    missing: number;
-    count: number;
-
-    color: ((v: string) => string);
+export interface ICategoricalStats extends ICommonStats<string> {
 }
 
 export interface CategoricalStatsOptions {
@@ -34,13 +22,14 @@ export function categoricalStats(options: CategoricalStatsOptions = {}) {
             map.set(v, 1 + (map.get(v) ?? 0));
         }
         const hist = Array.from(map.entries()).sort((a, b) => a[0].localeCompare(b[0])).map(([value, count]) => ({
-            value, count,
+            x0: value, x1: value, count,
             color: color(value)
         }));
         return {
             hist,
             maxBin: hist.reduce((acc, b) => Math.max(acc, b.count), 0),
             color,
+            format: (v) => v,
             missing,
             count: arr.length
         }

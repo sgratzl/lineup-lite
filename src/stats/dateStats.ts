@@ -1,33 +1,18 @@
 import { defaultConstantColorScale } from "../renderers/defaults";
+import { IBin } from "./numberStats";
+import { INumericStats } from "./common";
 
 export declare type DateHistGranularity = 'year' | 'month' | 'day';
 
-export interface IDateBin {
-    count: number;
-    color: string;
-    x0: Date;
-    x1: Date;
-}
-
-export interface IDateStats {
-    hist: readonly IDateBin[];
+export interface IDateStats extends INumericStats<Date> {
     histGranularity: DateHistGranularity;
-    maxBin: number;
-
-    min: Date;
-    max: Date;
-    missing: number;
-    count: number;
-
-    color: (v: Date) => string;
-    format: (v: Date) => string;
 }
 
 /**
  * guesses the histogram granularity to use based on min and max date
  */
-function computeGranularity(min: Date, max: Date, color: (v: Date) => string): { histGranularity: DateHistGranularity, hist: IDateBin[] } {
-    const hist: IDateBin[] = [];
+function computeGranularity(min: Date, max: Date, color: (v: Date) => string): { histGranularity: DateHistGranularity, hist: IBin<Date>[] } {
+    const hist: IBin<Date>[] = [];
 
     if (max.getFullYear() - min.getFullYear() >= 2) {
         // more than two years difference
@@ -77,7 +62,7 @@ function computeGranularity(min: Date, max: Date, color: (v: Date) => string): {
     return { hist, histGranularity: 'month' };
 }
 
-function pushDateHist(hist: IDateBin[], v: Date, count: number = 1) {
+function pushDateHist(hist: IBin<Date>[], v: Date, count: number = 1) {
     if (v < hist[0].x1) {
         hist[0].count += count;
         return;
