@@ -42,6 +42,10 @@ export default function BarRenderer<D extends object, P extends CellProps<D, num
 ): Renderer<P> {
   return (props: P) => {
     const p = deriveNumberOptions<D, P>(props, options);
-    return <div style={barProps(p.scale(props.value), p.color)}>{p.format(props.value)}</div>;
+    return (
+      <div className="lt-bar" style={barProps(p.scale(props.value), p.color)}>
+        {p.format(props.value)}
+      </div>
+    );
   };
 }

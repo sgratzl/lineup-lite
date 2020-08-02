@@ -3,13 +3,7 @@ import { Renderer, CellProps } from 'react-table';
 import { defaultCategoricalColorScale } from './defaults';
 import { ICategoricalStats } from '../stats/categoricalStats';
 import { UseStatsColumnProps } from '../hooks/useStats';
-
-export function categoricalProps(color: string): React.CSSProperties {
-  return {
-    borderLeft: `1.2em solid ${color}`,
-    paddingLeft: '0.2em',
-  };
-}
+import './CategoricalRenderer.css';
 
 export interface CategoricalRendererOptions {
   color?: (v: string) => string;
@@ -33,6 +27,10 @@ export default function CategoricalRenderer<D extends object, P extends CellProp
 ): Renderer<P> {
   return (props: P) => {
     const p = deriveCategoricalOptions<D, P>(props, options);
-    return <div style={categoricalProps(p.color(props.value))}>{props.value}</div>;
+    return (
+      <div className="lt-categorical" style={{ borderLeftColor: p.color(props.value) }}>
+        {props.value}
+      </div>
+    );
   };
 }
