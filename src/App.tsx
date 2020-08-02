@@ -3,9 +3,7 @@ import './App.css';
 import TableExample from './components/LineUpTable';
 
 function App() {
-  return (
-    <TableExample />
-  );
+  return <TableExample />;
 }
 
 export default App;
