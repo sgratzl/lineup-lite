@@ -1,4 +1,12 @@
-import { HeaderProps, Hooks, IdType, Renderer, TableInstance } from 'react-table';
+import {
+  HeaderProps,
+  Hooks,
+  IdType,
+  Renderer,
+  TableInstance,
+  UseFiltersColumnOptions,
+  UseFiltersInstanceProps,
+} from 'react-table';
 
 export type UseStatsOptions<D extends object> = Partial<{
   manualStats: boolean;
@@ -26,7 +34,7 @@ export type StatsValue = any;
 export type Stats<D extends object> = Array<{ id: IdType<D>; value: StatsValue }>;
 
 export interface StatsType {
-  (values: readonly any[]): any;
+  (values: readonly any[], preFilterValues?: readonly any[]): any;
 }
 
 export default function useStats<D extends object = {}>(hooks: Hooks<D>) {
@@ -38,6 +46,14 @@ function useInstance<D extends object>(instance: TableInstance<D>) {
   instance.allColumns.forEach((col) => {
     // TODO do proper options
     const extended = (col as unknown) as UseStatsColumnProps & UseStatsColumnOptions<D>;
-    extended.statsValue = extended.stats ? extended.stats(instance.flatRows.map((row) => row.values[col.id])) : null;
+    if (!extended.stats) {
+      extended.statsValue = null;
+      return;
+    }
+
+    const values = instance.flatRows.map((row) => row.values[col.id]);
+    const preFilteredFlatRows = ((instance as unknown) as UseFiltersInstanceProps<D>).preFilteredFlatRows;
+    const preValues = preFilteredFlatRows ? preFilteredFlatRows.map((row) => row.values[col.id]) : undefined;
+    extended.statsValue = extended.stats(values, preValues);
   });
 }

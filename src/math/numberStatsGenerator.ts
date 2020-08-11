@@ -43,14 +43,15 @@ export function resolveNumberFormatter(format?: NumberFormatter): (v: number) =>
 export interface NumberStatsOptions extends BoxplotStatsOptions {
   min?: number;
   max?: number;
+  numberOfBins?: number;
 
   color?: (v: number) => string;
   format?: NumberFormatter;
 }
 
-function createHist(b: IBoxPlot, min: number, max: number, color: (v: number) => string) {
+function createHist(b: IBoxPlot, min: number, max: number, color: (v: number) => string, numberOfBins?: number) {
   const hist: IBin<number>[] = [];
-  const bins = getNumberOfBins(b.count);
+  const bins = numberOfBins ?? getNumberOfBins(b.count);
   const binWidth = (max - min) / bins;
   const scale = normalize(min, max);
   let bin: IBin<number> = {
@@ -89,7 +90,7 @@ export function numberStatsGenerator(options: NumberStatsOptions = {}) {
     const b = boxplot(arr, options);
     const min = options.min ?? b.min;
     const max = options.max ?? b.max;
-    const hist = createHist(b, min, max, color);
+    const hist = createHist(b, min, max, color, options.numberOfBins);
     return Object.assign(b, {
       min,
       max,

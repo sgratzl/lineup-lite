@@ -14,11 +14,12 @@ export interface IDateStats extends INumericStats<Date> {
 function computeGranularity(
   min: Date,
   max: Date,
-  color: (v: Date) => string
+  color: (v: Date) => string,
+  histGranularity?: DateHistGranularity
 ): { histGranularity: DateHistGranularity; hist: IBin<Date>[] } {
   const hist: IBin<Date>[] = [];
 
-  if (max.getFullYear() - min.getFullYear() >= 30) {
+  if (histGranularity === 'decade' || max.getFullYear() - min.getFullYear() >= 30) {
     // more than 3 decades
     const minYear = Math.floor(min.getFullYear() / 10) * 10;
     const maxYear = max.getFullYear();
@@ -33,7 +34,7 @@ function computeGranularity(
     return { hist, histGranularity: 'decade' };
   }
 
-  if (max.getFullYear() - min.getFullYear() >= 2) {
+  if (histGranularity === 'year' || max.getFullYear() - min.getFullYear() >= 2) {
     // more than two years difference
     const minYear = min.getFullYear();
     const maxYear = max.getFullYear();
@@ -48,7 +49,7 @@ function computeGranularity(
     return { hist, histGranularity: 'year' };
   }
 
-  if (max.getTime() - min.getTime() <= 1000 * 60 * 60 * 24 * 31) {
+  if (histGranularity === 'day' || max.getTime() - min.getTime() <= 1000 * 60 * 60 * 24 * 31) {
     // less than a month use day
     let x0 = new Date(min.getFullYear(), min.getMonth(), min.getDate());
     while (x0 <= max) {
@@ -131,6 +132,7 @@ export interface DateStatsOptions {
   format?: DateFormatter;
   min?: Date;
   max?: Date;
+  histGranularity?: DateHistGranularity;
 }
 
 function normalizeDate(min: Date, max: Date) {
@@ -185,7 +187,7 @@ export function dateStatsGenerator(options: DateStatsOptions = {}) {
 
     const min = options.min ?? new Date(simpleStats.min);
     const max = options.max ?? new Date(simpleStats.max);
-    const { hist, histGranularity } = computeGranularity(min, max, color);
+    const { hist, histGranularity } = computeGranularity(min, max, color, options.histGranularity);
 
     let missing = 0;
     for (const d of arr) {
