@@ -3,6 +3,7 @@ import { ICommonStats, IBin } from '../../stats/common';
 import { toPercent, cslx } from '../utils';
 import './Histogram.css';
 import './Summary.css';
+import { FilterRangeSliderProps, FilterRangeSlider } from './FilterRange';
 
 export interface HistogramProps<T> {
   s: ICommonStats<T> & { readonly min?: T; readonly max?: T };
@@ -107,49 +108,15 @@ export function FilterBinHistogram<T>(props: FilterBinHistogramProps<T>) {
   );
 }
 
-export interface FilterRangeHistogramProps<T> extends HistogramProps<T> {
-  setFilter: (value: [T | null, T | null]) => void;
-  filterValue: [T | null, T | null];
-}
+export type FilterRangeHistogramProps<T> = HistogramProps<T> & FilterRangeSliderProps<T>;
 
 export function FilterRangeHistogram<T>(props: FilterRangeHistogramProps<T>) {
-  const { setFilter, filterValue } = props;
-  const current = filterValue ?? [null, null];
-  const hist = props.s.hist;
-
-  const onClick = React.useCallback(
-    (evt: React.MouseEvent<HTMLElement>) => {
-      const bin = hist[Number.parseInt(evt.currentTarget.dataset.i!, 10)];
-      const value = bin.x0;
-      const next = current.includes(value) ? current.filter((d) => d !== value) : current.concat([value]);
-      setFilter(next);
-    },
-    [setFilter, hist, current]
-  );
   return (
     <HistogramWrapper s={props.s}>
       {props.s.hist.map((h, i) => (
         <Bin key={String(h.x0)} h={h} i={i} props={props} />
       ))}
-      <div>
-        <div className="" style={{width: toPercent(Math.max(0, props.s.))}}
-      </div>
-      <div class="${cssClass('histogram-min-hint')}" style="width: ${c.percent(f.filterMin)}%"></div>
-      <div class="${cssClass('histogram-max-hint')}" style="width: ${100 - c.percent(f.filterMax)}%"></div>
-      <div
-        class="${cssClass('histogram-min')}"
-        data-value="${c.format(f.filterMin)}"
-        data-raw="${c.formatRaw(f.filterMin)}"
-        style="left: ${c.percent(f.filterMin)}%"
-        title="min filter, drag to change"
-      />
-      <div
-        class="${cssClass('histogram-max')}"
-        data-value="${c.format(f.filterMax)}"
-        data-raw="${c.formatRaw(f.filterMax)}"
-        style="right: ${100 - c.percent(f.filterMax)}%"
-        title="max filter, drag to change"
-      />
+      <FilterRangeSlider {...props} />
     </HistogramWrapper>
   );
 }

@@ -104,6 +104,7 @@ const columns: FullColumn<IRow>[] = [
     accessor: 'number1',
     Cell: ColorRenderer(),
     Summary: BoxPlotRenderer(),
+    filter: rangeFilter,
     stats: numberStats({ min: 0, max: 10 }),
   },
   {
@@ -111,6 +112,7 @@ const columns: FullColumn<IRow>[] = [
     accessor: 'number2',
     Cell: ProportionalSymbolRenderer(),
     Summary: NumberHistogramRenderer(),
+    filter: rangeFilter,
     stats: numberStats({ min: 0, max: 10 }),
   },
   {
@@ -126,6 +128,7 @@ const columns: FullColumn<IRow>[] = [
     accessor: 'date',
     Cell: DateRenderer(),
     Summary: DateHistogramRenderer(),
+    filter: rangeFilter,
     stats: dateStats(),
   },
 ];

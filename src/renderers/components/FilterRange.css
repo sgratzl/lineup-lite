@@ -1,0 +1,50 @@
+.lt-filter-range {
+  position: absolute;
+  height: 100%;
+  background: repeating-linear-gradient(
+    -45deg,
+    rgba(255, 255, 255, 0.7),
+    rgba(255, 255, 255, 0.7) 7px,
+    rgba(0, 0, 0, 0.2) 7px,
+    rgba(0, 0, 0, 0.2) 10px
+  );
+}
+
+.lt-filter-range-min {
+  left: 0;
+}
+
+.lt-filter-range-max {
+  right: 0;
+}
+
+.lt-filter-range-drag {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  cursor: ew-resize;
+  opacity: 0.5;
+}
+
+.lt-filter-range-drag:hover {
+  opacity: 1;
+}
+
+.lt-filter-range-min > .lt-filter-range-drag {
+  border-right: 0px solid black;
+  transition: border-right-width 0.5s ease;
+  left: 100%;
+}
+
+.lt-filter-range-max > .lt-filter-range-drag {
+  border-left: 0px solid black;
+  transition: border-left-width 0.5s ease;
+  right: 100%;
+}
+
+.lt-summary:hover > .lt-filter-range-min > .lt-filter-range-drag {
+  border-right-width: 3px;
+}
+.lt-summary:hover > .lt-filter-range-max > .lt-filter-range-drag {
+  border-left-width: 3px;
+}

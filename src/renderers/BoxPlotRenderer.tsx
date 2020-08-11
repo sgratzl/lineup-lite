@@ -4,7 +4,8 @@ import { StatsProps } from '../hooks/useStats';
 import { numberStats, NumberStatsOptions } from '../stats/numberStats';
 import './BoxPlotRenderer.css';
 import BoxPlot from './components/BoxPlot';
-import { extractStats } from './utils';
+import { extractStats, isFilterAble } from './utils';
+import { FilterRangeSlider } from './components/FilterRange';
 
 export interface BoxPlotRendererOptions extends NumberStatsOptions {}
 
@@ -14,9 +15,15 @@ export default function BoxPlotRenderer<P extends { value: readonly number[] } |
   const stats = numberStats(options);
   return (props: P) => {
     const s = extractStats(props, stats);
+    let filter = null;
+    if (isFilterAble(props) && props.column.canFilter) {
+      const { setFilter, filterValue } = props.column;
+      filter = <FilterRangeSlider s={s} setFilter={setFilter} filterValue={filterValue} />;
+    }
     return (
       <div className="lt-boxplot lt-summary" data-min={s.format(s.min)} data-max={s.format(s.max)}>
         <BoxPlot s={s} className="lt-boxplot-wrapper" />
+        {filter}
       </div>
     );
   };

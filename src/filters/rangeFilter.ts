@@ -7,7 +7,7 @@ export default function rangeFilter<D extends object, T>(rows: Row<D>[], ids: Id
   return rows.filter((row) =>
     ids.some((id) => {
       const v = row.values[id];
-      return v >= filterValue[0] && v <= filterValue[1];
+      return (filterValue[0] == null || v >= filterValue[0]) && (filterValue[1] == null || v <= filterValue[1]);
     })
   );
 }
