@@ -1,5 +1,5 @@
 import React from 'react';
-import { INumberStats } from '../../stats/numberStats';
+import { INumberStats } from '../../math/numberStatsGenerator';
 import './BoxPlot.css';
 import './Summary.css';
 

@@ -118,9 +118,9 @@ const columns: FullColumn<IRow>[] = [
   {
     Header: 'Cat',
     accessor: 'cat',
-    filter: categoricalFilter,
     Cell: CategoricalRenderer(),
     Summary: CategoricalHistogramRenderer(),
+    filter: categoricalFilter,
     stats: categoricalStats(),
   },
   {

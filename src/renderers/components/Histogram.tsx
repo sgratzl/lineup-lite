@@ -1,5 +1,5 @@
 import React from 'react';
-import { ICommonStats, IBin } from '../../stats/common';
+import { ICommonStats, IBin } from '../../math/common';
 import { toPercent, cslx } from '../utils';
 import './Histogram.css';
 import './Summary.css';

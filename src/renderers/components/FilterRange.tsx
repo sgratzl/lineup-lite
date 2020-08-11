@@ -1,5 +1,5 @@
 import React from 'react';
-import { INumericStats } from '../../stats/common';
+import { INumericStats } from '../../math/common';
 import { toPercent } from '../utils';
 import './FilterRange.css';
 
@@ -72,14 +72,14 @@ export function FilterRangeSlider<T>(props: FilterRangeSliderProps<T>) {
     <>
       <div
         className="lt-filter-range lt-filter-range-min"
-        title={fMin == null ? undefined : props.s.format(fMin)}
+        title={fMin == null ? undefined : `Min Filter: ${props.s.format(fMin)}`}
         style={{ width: toPercent(fMin == null ? 0 : Math.max(0, props.s.scale(fMin))) }}
       >
         <div className="lt-filter-range-drag" onMouseDown={onMinMouseDown} />
       </div>
       <div
         className="lt-filter-range lt-filter-range-max"
-        title={fMax == null ? undefined : props.s.format(fMax)}
+        title={fMax == null ? undefined : `Max Filter: ${props.s.format(fMax)}`}
         style={{ width: toPercent(fMax == null ? 0 : Math.max(0, 1 - props.s.scale(fMax))) }}
       >
         <div className="lt-filter-range-drag" onMouseDown={onMaxMouseDown} />

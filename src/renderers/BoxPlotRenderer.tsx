@@ -1,7 +1,7 @@
 import React from 'react';
 import { Renderer } from 'react-table';
 import { StatsProps } from '../hooks/useStats';
-import { numberStats, NumberStatsOptions } from '../stats/numberStats';
+import { numberStatsGenerator, NumberStatsOptions } from '../math/numberStatsGenerator';
 import './BoxPlotRenderer.css';
 import BoxPlot from './components/BoxPlot';
 import { extractStats, isFilterAble } from './utils';
@@ -12,7 +12,7 @@ export interface BoxPlotRendererOptions extends NumberStatsOptions {}
 export default function BoxPlotRenderer<P extends { value: readonly number[] } | StatsProps<any>>(
   options: BoxPlotRendererOptions = {}
 ): Renderer<P> {
-  const stats = numberStats(options);
+  const stats = numberStatsGenerator(options);
   return (props: P) => {
     const s = extractStats(props, stats);
     let filter = null;

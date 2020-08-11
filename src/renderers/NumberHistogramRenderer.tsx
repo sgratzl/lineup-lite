@@ -1,9 +1,10 @@
 import React from 'react';
 import { Renderer } from 'react-table';
 import { StatsProps } from '../hooks/useStats';
-import { numberStats, NumberStatsOptions } from '../stats/numberStats';
-import Histogram, {FilterRangeHistogram} from './components/Histogram';
+import { NumberStatsOptions } from '../math/numberStatsGenerator';
+import Histogram, { FilterRangeHistogram } from './components/Histogram';
 import { extractStats, isFilterAble } from './utils';
+import { numberStats } from '../stats/numberStats';
 
 export interface NumberHistogramRendererOptions extends NumberStatsOptions {
   maxBin?: number;

@@ -3,7 +3,7 @@ import { Renderer, CellProps } from 'react-table';
 import { defaultConstantColorScale, defaultScale } from './defaults';
 import { toPercent, resolve } from './utils';
 import { UseStatsColumnProps } from '../hooks/useStats';
-import { INumberStats, NumberFormatter, resolveNumberFormatter } from '../stats/numberStats';
+import { INumberStats, NumberFormatter, resolveNumberFormatter } from '../math/numberStatsGenerator';
 import './BarRenderer.css';
 
 export function barProps(value: number, color: string | ((v: number) => string)): React.CSSProperties {

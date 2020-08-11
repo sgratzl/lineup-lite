@@ -1,6 +1,6 @@
 import React from 'react';
 import { Renderer, CellProps } from 'react-table';
-import { IDateStats, DateFormatter, resolveDateFormatter } from '../stats/dateStats';
+import { IDateStats, DateFormatter, resolveDateFormatter } from '../math/dateStatsGenerator';
 import { UseStatsColumnProps } from '../hooks/useStats';
 import './DateRenderer.css';
 import { resolve } from './utils';
