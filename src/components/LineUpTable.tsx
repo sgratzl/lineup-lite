@@ -40,8 +40,8 @@ function Table<D extends object>({ columns, data }: { columns: FullColumn<D>[]; 
       columns,
       data,
     },
-    useStats,
-    useFilters
+    useFilters,
+    useStats
   ) as TableInstance<D> & UseFiltersInstanceProps<D>;
 
   return (

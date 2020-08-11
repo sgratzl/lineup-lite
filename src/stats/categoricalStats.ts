@@ -10,7 +10,7 @@ export interface CategoricalStats extends ICategoricalStats {
 
 export function categoricalStats(options: CategoricalStatsOptions = {}) {
   const gen = categoricalStatsGenerator(options);
-  return (arr: readonly string[], preFilter?: readonly string[]) => {
+  return (arr: readonly string[], preFilter?: readonly string[]): CategoricalStats => {
     if (!preFilter) {
       return gen(arr);
     }

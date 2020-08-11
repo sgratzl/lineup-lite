@@ -6,7 +6,7 @@ export interface DateStats extends IDateStats {
 
 export function dateStats(options: DateStatsOptions = {}) {
   const gen = dateStatsGenerator(options);
-  return (arr: readonly (Date | null)[], preFilter?: readonly (Date | null)[]) => {
+  return (arr: readonly (Date | null)[], preFilter?: readonly (Date | null)[]): DateStats => {
     if (!preFilter) {
       return gen(arr);
     }

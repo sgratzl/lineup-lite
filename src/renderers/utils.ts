@@ -11,7 +11,7 @@ function isValueArray<T>(props: any): props is { value: readonly T[] } {
 
 export function extractStats<S, T>(
   props: { value: readonly T[] } | StatsProps<any>,
-  statsGen: (arr: readonly T[]) => S
+  statsGen: (arr: readonly T[], preFilterValues?: readonly T[]) => S
 ): S {
   if (isValueArray(props)) {
     return statsGen(props.value);
@@ -23,7 +23,9 @@ export function extractStats<S, T>(
     return props.column.statsValue as S;
   }
   const values = props.flatRows.map((row) => row.values[props.column.id]);
-  return statsGen(values);
+  const preFilteredRows = ((props as unknown) as UseFiltersColumnProps<any>).preFilteredRows;
+  const preValues = preFilteredRows ? preFilteredRows.map((row) => row.values[props.column.id]) : undefined;
+  return statsGen(values, preValues);
 }
 
 export function resolve<T>(directValue: T | undefined, globalValue: T | undefined, defaultValue: () => T) {

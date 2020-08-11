@@ -3,18 +3,23 @@ import { ICommonStats, IBin } from '../../math/common';
 import { toPercent, cslx } from '../utils';
 import './Histogram.css';
 import './Summary.css';
+import { color } from 'd3-color';
 import { FilterRangeSliderProps, FilterRangeSlider } from './FilterRange';
 
 export interface HistogramProps<T> {
-  s: ICommonStats<T> & { readonly min?: T; readonly max?: T };
+  s: ICommonStats<T> & { readonly min?: T; readonly max?: T; preFilter?: ICommonStats<T> };
   maxBin?: number;
   label?: boolean;
 }
 
 const DENSE = 10;
+const FILTERED_OPACITY = 0.2;
 
-function generateBinTitle<T>(props: HistogramProps<T>, h: IBin<T>) {
-  return `${props.s.format(h.x0)}${!props.label ? ` - ${props.s.format(h.x1)}` : ''}: ${h.count.toLocaleString()}`;
+function generateBinTitle<T>(props: HistogramProps<T>, h: IBin<T>, raw?: IBin<T>) {
+  const rawT = raw ? `/${raw.count.toLocaleString()}` : '';
+  return `${props.s.format(h.x0)}${
+    !props.label ? ` - ${props.s.format(h.x1)}` : ''
+  }: ${h.count.toLocaleString()}${rawT}`;
 }
 
 export default function Histogram<T>(props: HistogramProps<T>) {
@@ -44,7 +49,6 @@ function HistogramWrapper<T>(
 function Bin<T>({
   h,
   props,
-  opacity,
   i,
   onClick,
 }: {
@@ -52,23 +56,33 @@ function Bin<T>({
   i: number;
   onClick?: (evt: React.MouseEvent<HTMLElement>) => void;
   props: HistogramProps<T>;
-  opacity?: number;
 }) {
-  const maxBin = props.maxBin ?? props.s.maxBin;
+  const preFilter = props.s.preFilter;
+  const maxBin = props.maxBin ?? preFilter?.maxBin ?? props.s.maxBin;
   const lastBin = props.s.hist.length - 1;
   const dense = props.s.hist.length > DENSE || i === lastBin;
   const p = toPercent(h.count / maxBin);
+  let gradient = `${h.color} ${p}, transparent ${p}`;
+  const raw = preFilter?.hist[i];
+  if (raw) {
+    const rawP = toPercent(raw.count / maxBin);
+    if (raw.count > h.count) {
+      const c = color(h.color)!;
+      c.opacity *= FILTERED_OPACITY;
+      const semi = c.toString();
+      gradient = `${h.color} ${p}, ${semi} ${p}, ${semi} ${rawP}, transparent ${rawP}`;
+    }
+  }
   return (
     <div
       className={cslx('lt-histogram-bin', dense && 'lt-histogram-bin-dense', onClick && 'lt-histogram-bin-interactive')}
       style={{
-        backgroundImage: `linear-gradient(to top, ${h.color} ${p}, transparent ${p})`,
-        opacity,
+        backgroundImage: `linear-gradient(to top, ${gradient})`,
       }}
       data-i={i}
       onClick={onClick}
       data-label={props.label ? props.s.format(h.x0) : null}
-      title={generateBinTitle<T>(props, h)}
+      title={generateBinTitle<T>(props, h, raw)}
     />
   );
 }
@@ -95,14 +109,7 @@ export function FilterBinHistogram<T>(props: FilterBinHistogramProps<T>) {
   return (
     <HistogramWrapper s={props.s}>
       {props.s.hist.map((h, i) => (
-        <Bin
-          key={String(h.x0)}
-          h={h}
-          props={props}
-          opacity={current.includes(h.x0) ? 0.2 : undefined}
-          i={i}
-          onClick={onClick}
-        />
+        <Bin key={String(h.x0)} h={h} props={props} i={i} onClick={onClick} />
       ))}
     </HistogramWrapper>
   );

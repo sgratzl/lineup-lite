@@ -6,7 +6,7 @@ export interface NumberStats extends INumberStats {
 
 export function numberStats(options: NumberStatsOptions = {}) {
   const gen = numberStatsGenerator(options);
-  return (arr: readonly number[], preFilter?: readonly number[]) => {
+  return (arr: readonly number[], preFilter?: readonly number[]): NumberStats => {
     if (!preFilter) {
       return gen(arr);
     }

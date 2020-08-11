@@ -1,12 +1,4 @@
-import {
-  HeaderProps,
-  Hooks,
-  IdType,
-  Renderer,
-  TableInstance,
-  UseFiltersColumnOptions,
-  UseFiltersInstanceProps,
-} from 'react-table';
+import { HeaderProps, Hooks, IdType, Renderer, TableInstance, UseFiltersInstanceProps } from 'react-table';
 
 export type UseStatsOptions<D extends object> = Partial<{
   manualStats: boolean;
