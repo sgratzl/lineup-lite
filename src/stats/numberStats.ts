@@ -22,3 +22,10 @@ export function numberStats(options: NumberStatsOptions = {}) {
     });
   };
 }
+
+export function numberAggregate(options: NumberStatsOptions = {}) {
+  const gen = numberStatsGenerator(options);
+  return (arr: readonly number[]): NumberStats => {
+    return gen(arr);
+  };
+}

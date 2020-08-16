@@ -1,20 +1,33 @@
 import { StatsProps } from '../hooks/useStats';
 import { UseFiltersColumnProps } from 'react-table';
+import { ICommonStats } from '../math/common';
 
 export function toPercent(v: number) {
   return `${Math.round(v * 1000) / 10}%`;
 }
 
 function isValueArray<T>(props: any): props is { value: readonly T[] } {
-  return Array.isArray(props as { value: readonly T[] });
+  return Array.isArray((props as { value: readonly T[] }).value);
 }
 
-export function extractStats<S, T>(
+export function isValueStats<S extends ICommonStats>(props: any): props is { value: S } {
+  return (
+    props != null &&
+    props.value != null &&
+    typeof props.value.count === 'number' &&
+    typeof props.value.missing === 'number'
+  );
+}
+
+export function extractStats<S extends ICommonStats, T>(
   props: { value: readonly T[] } | StatsProps<any>,
   statsGen: (arr: readonly T[], preFilterValues?: readonly T[]) => S
 ): S {
   if (isValueArray(props)) {
     return statsGen(props.value);
+  }
+  if (isValueStats<S>(props)) {
+    return props.value;
   }
   if (Array.isArray(props.column.statsValue)) {
     return statsGen(props.column.statsValue);

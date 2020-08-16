@@ -22,3 +22,10 @@ export function dateStats(options: DateStatsOptions = {}) {
     });
   };
 }
+
+export function dateAggregate(options: DateStatsOptions = {}) {
+  const gen = dateStatsGenerator(options);
+  return (arr: readonly (Date | null)[]): DateStats => {
+    return gen(arr);
+  };
+}

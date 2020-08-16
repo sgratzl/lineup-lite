@@ -30,13 +30,13 @@ import NumberHistogramRenderer from '../renderers/NumberHistogramRenderer';
 import DateRenderer from '../renderers/DateRenderer';
 import DateHistogramRenderer from '../renderers/DateHistogramRenderer';
 import CategoricalHistogramRenderer from '../renderers/CategoricalHistogramRenderer';
-import { numberStats } from '../stats/numberStats';
-import { categoricalStats } from '../stats/categoricalStats';
-import { dateStats } from '../stats/dateStats';
+import { numberStats, numberAggregate } from '../stats/numberStats';
+import { categoricalStats, categoricalAggregate } from '../stats/categoricalStats';
+import { dateStats, dateAggregate } from '../stats/dateStats';
 import BoxPlotRenderer from '../renderers/BoxPlotRenderer';
 import categoricalFilter from '../filters/categoricalFilter';
 import rangeFilter from '../filters/rangeFilter';
-import { textStats } from '../stats/textStats';
+import { textStats, textAggregate } from '../stats/textStats';
 import TextSummaryRenderer from '../renderers/TextSummaryRenderer';
 
 declare type FullColumn<D extends object> = Column<D> &
@@ -170,6 +170,8 @@ const columns: FullColumn<IRow>[] = [
     Header: 'String',
     accessor: 'string',
     Summary: TextSummaryRenderer(),
+    Aggregated: TextSummaryRenderer(),
+    aggregate: textAggregate(),
     filter: 'text',
     stats: textStats(),
   },
@@ -178,6 +180,8 @@ const columns: FullColumn<IRow>[] = [
     accessor: 'number',
     Cell: BarRenderer(),
     Summary: NumberHistogramRenderer(),
+    Aggregated: NumberHistogramRenderer(),
+    aggregate: numberAggregate({ min: 0, max: 10 }),
     filter: rangeFilter,
     stats: numberStats({ min: 0, max: 10 }),
   },
@@ -186,6 +190,8 @@ const columns: FullColumn<IRow>[] = [
     accessor: 'number1',
     Cell: ColorRenderer(),
     Summary: BoxPlotRenderer(),
+    Aggregated: BoxPlotRenderer(),
+    aggregate: numberAggregate({ min: 0, max: 10 }),
     filter: rangeFilter,
     stats: numberStats({ min: 0, max: 10 }),
   },
@@ -194,6 +200,8 @@ const columns: FullColumn<IRow>[] = [
     accessor: 'number2',
     Cell: ProportionalSymbolRenderer(),
     Summary: NumberHistogramRenderer(),
+    Aggregated: NumberHistogramRenderer(),
+    aggregate: numberAggregate({ min: 0, max: 10 }),
     filter: rangeFilter,
     stats: numberStats({ min: 0, max: 10 }),
   },
@@ -202,6 +210,8 @@ const columns: FullColumn<IRow>[] = [
     accessor: 'cat',
     Cell: CategoricalRenderer(),
     Summary: CategoricalHistogramRenderer(),
+    Aggregated: CategoricalHistogramRenderer(),
+    aggregate: categoricalAggregate(),
     filter: categoricalFilter,
     stats: categoricalStats(),
   },
@@ -210,6 +220,8 @@ const columns: FullColumn<IRow>[] = [
     accessor: 'date',
     Cell: DateRenderer(),
     Summary: DateHistogramRenderer(),
+    Aggregated: DateHistogramRenderer(),
+    aggregate: dateAggregate(),
     filter: rangeFilter,
     stats: dateStats(),
   },

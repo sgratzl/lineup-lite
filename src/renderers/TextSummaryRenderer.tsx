@@ -3,7 +3,7 @@ import { Renderer, CellProps } from 'react-table';
 import { UseStatsColumnProps, StatsProps } from '../hooks/useStats';
 import './TextSummaryRenderer.css';
 import './components/Summary.css';
-import { resolve, extractStats, isFilterAble } from './utils';
+import { resolve, extractStats, isFilterAble, isValueStats } from './utils';
 import { ITextStats } from '../math/textStatsGenerator';
 import { textStats, TextStats } from '../stats/textStats';
 
@@ -28,6 +28,15 @@ export default function TextSummaryRenderer<P extends { value: readonly string[]
 ): Renderer<P> {
   const stats = textStats(options);
   return (props: P) => {
+    if (isValueStats<ITextStats>(props)) {
+      const s = props.value;
+      return (
+        <div className="lt-text-summary lt-summary lt-group">
+          <span>{s.count.toLocaleString()} items</span>
+          {s.unique < s.count && <span>{s.unique} unique</span>}
+        </div>
+      );
+    }
     const s = extractStats(props, stats);
     if (isFilterAble(props) && props.column.canFilter) {
       const { setFilter, filterValue } = props.column;

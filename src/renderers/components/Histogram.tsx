@@ -1,5 +1,5 @@
 import React from 'react';
-import { ICommonStats, IBin } from '../../math/common';
+import { IHistStats, IBin } from '../../math/common';
 import { toPercent, cslx } from '../utils';
 import './Histogram.css';
 import './Summary.css';
@@ -7,9 +7,10 @@ import { color } from 'd3-color';
 import { FilterRangeSliderProps, FilterRangeSlider } from './FilterRange';
 
 export interface HistogramProps<T> {
-  s: ICommonStats<T> & { readonly min?: T; readonly max?: T; preFilter?: ICommonStats<T> };
+  s: IHistStats<T> & { readonly min?: T; readonly max?: T; preFilter?: IHistStats<T> };
   maxBin?: number;
   label?: boolean;
+  summary?: boolean;
 }
 
 const DENSE = 10;
@@ -24,7 +25,7 @@ function generateBinTitle<T>(props: HistogramProps<T>, h: IBin<T>, raw?: IBin<T>
 
 export default function Histogram<T>(props: HistogramProps<T>) {
   return (
-    <HistogramWrapper s={props.s}>
+    <HistogramWrapper s={props.s} summary={props.summary}>
       {props.s.hist.map((h, i) => (
         <Bin key={String(h.x0)} h={h} i={i} props={props} />
       ))}
@@ -33,13 +34,13 @@ export default function Histogram<T>(props: HistogramProps<T>) {
 }
 
 function HistogramWrapper<T>(
-  props: React.PropsWithChildren<{ s: ICommonStats<T> & { readonly min?: T; readonly max?: T } }>
+  props: React.PropsWithChildren<{ s: IHistStats<T> & { readonly min?: T; readonly max?: T }; summary?: boolean }>
 ) {
   return (
     <div
-      className="lt-histogram lt-summary"
-      data-min={props.s.min != null ? props.s.format(props.s.min) : null}
-      data-max={props.s.max != null ? props.s.format(props.s.max) : null}
+      className={`lt-histogram lt-summary${!props.summary ? ' lt-group' : ''}`}
+      data-min={props.s.min != null && props.summary ? props.s.format(props.s.min) : null}
+      data-max={props.s.max != null && props.summary ? props.s.format(props.s.max) : null}
     >
       {props.children}
     </div>
@@ -107,7 +108,7 @@ export function FilterBinHistogram<T>(props: FilterBinHistogramProps<T>) {
     [setFilter, hist, current]
   );
   return (
-    <HistogramWrapper s={props.s}>
+    <HistogramWrapper s={props.s} summary>
       {props.s.hist.map((h, i) => (
         <Bin key={String(h.x0)} h={h} props={props} i={i} onClick={onClick} />
       ))}
@@ -119,7 +120,7 @@ export type FilterRangeHistogramProps<T> = HistogramProps<T> & FilterRangeSlider
 
 export function FilterRangeHistogram<T>(props: FilterRangeHistogramProps<T>) {
   return (
-    <HistogramWrapper s={props.s}>
+    <HistogramWrapper s={props.s} summary>
       {props.s.hist.map((h, i) => (
         <Bin key={String(h.x0)} h={h} i={i} props={props} />
       ))}

@@ -25,3 +25,10 @@ export function categoricalStats(options: CategoricalStatsOptions = {}) {
     });
   };
 }
+
+export function categoricalAggregate(options: CategoricalStatsOptions = {}) {
+  const gen = categoricalStatsGenerator(options);
+  return (arr: readonly string[]): CategoricalStats => {
+    return gen(arr);
+  };
+}

@@ -17,3 +17,10 @@ export function textStats(options: TextStatsOptions = {}) {
     });
   };
 }
+
+export function textAggregate(options: TextStatsOptions = {}) {
+  const gen = textStatsGenerator(options);
+  return (arr: readonly string[]): TextStats => {
+    return gen(arr);
+  };
+}

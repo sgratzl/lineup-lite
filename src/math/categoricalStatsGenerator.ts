@@ -1,7 +1,7 @@
 import { defaultCategoricalColorScale } from '../renderers/defaults';
-import { ICommonStats } from './common';
+import { IHistStats } from './common';
 
-export interface ICategoricalStats extends ICommonStats<string> {}
+export interface ICategoricalStats extends IHistStats<string> {}
 
 export interface CategoricalStatsOptions {
   color?: (v: string) => string;

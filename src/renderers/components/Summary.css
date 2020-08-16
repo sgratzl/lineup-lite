@@ -6,6 +6,10 @@
   font-weight: normal;
 }
 
+.lt-group {
+  margin-bottom: 0;
+}
+
 .lt-summary[data-min]::before {
   content: attr(data-min);
   white-space: nowrap;

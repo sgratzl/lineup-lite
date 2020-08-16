@@ -1,4 +1,13 @@
-import { HeaderProps, Hooks, IdType, Renderer, TableInstance, UseFiltersInstanceProps } from 'react-table';
+import {
+  HeaderProps,
+  Hooks,
+  IdType,
+  Renderer,
+  TableInstance,
+  UseFiltersInstanceProps,
+  ensurePluginOrder,
+  UseGroupByInstanceProps,
+} from 'react-table';
 
 export type UseStatsOptions<D extends object> = Partial<{
   manualStats: boolean;
@@ -35,6 +44,12 @@ export default function useStats<D extends object = {}>(hooks: Hooks<D>) {
 useStats.pluginName = 'useStats';
 
 function useInstance<D extends object>(instance: TableInstance<D>) {
+  ensurePluginOrder(instance.plugins, ['useFilters', 'useGroupBy'], 'useStats');
+
+  const extendedInstance = (instance as unknown) as TableInstance<D> &
+    UseFiltersInstanceProps<D> &
+    UseGroupByInstanceProps<D>;
+
   instance.allColumns.forEach((col) => {
     // TODO do proper options
     const extended = (col as unknown) as UseStatsColumnProps & UseStatsColumnOptions<D>;
@@ -43,8 +58,9 @@ function useInstance<D extends object>(instance: TableInstance<D>) {
       return;
     }
 
-    const values = instance.flatRows.map((row) => row.values[col.id]);
-    const preFilteredFlatRows = ((instance as unknown) as UseFiltersInstanceProps<D>).preFilteredFlatRows;
+    const flat = extendedInstance.nonGroupedFlatRows ?? instance.flatRows;
+    const values = flat.map((row) => row.values[col.id]);
+    const preFilteredFlatRows = extendedInstance.preFilteredFlatRows;
     const preValues = preFilteredFlatRows ? preFilteredFlatRows.map((row) => row.values[col.id]) : undefined;
     extended.statsValue = extended.stats(values, preValues);
   });

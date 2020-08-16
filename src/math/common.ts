@@ -5,18 +5,20 @@ export interface IBin<T> {
   x1: T;
 }
 
-export interface ICommonStats<T> {
-  readonly hist: readonly IBin<T>[];
-  readonly maxBin: number;
-
+export interface ICommonStats {
   readonly missing: number;
   readonly count: number;
+}
+
+export interface IHistStats<T> extends ICommonStats {
+  readonly hist: readonly IBin<T>[];
+  readonly maxBin: number;
 
   color: (v: T) => string;
   format: (v: T) => string;
 }
 
-export interface INumericStats<T> extends ICommonStats<T> {
+export interface INumericStats<T> extends IHistStats<T> {
   readonly min: T;
   readonly max: T;
 

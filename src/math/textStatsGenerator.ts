@@ -1,7 +1,6 @@
-export interface ITextStats {
-  readonly count: number;
-  readonly missing: number;
+import { ICommonStats } from './common';
 
+export interface ITextStats extends ICommonStats {
   readonly unique: number;
   readonly mostFrequent: readonly { value: string; count: number }[];
 
