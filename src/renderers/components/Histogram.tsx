@@ -7,7 +7,8 @@ import { color } from 'd3-color';
 import { FilterRangeSliderProps, FilterRangeSlider } from './FilterRange';
 
 export interface HistogramProps<T> {
-  s: IHistStats<T> & { readonly min?: T; readonly max?: T; preFilter?: IHistStats<T> };
+  s: IHistStats<T> & { readonly min?: T; readonly max?: T };
+  preFilter?: IHistStats<T>;
   maxBin?: number;
   label?: boolean;
   summary?: boolean;
@@ -58,7 +59,7 @@ function Bin<T>({
   onClick?: (evt: React.MouseEvent<HTMLElement>) => void;
   props: HistogramProps<T>;
 }) {
-  const preFilter = props.s.preFilter;
+  const preFilter = props.preFilter;
   const maxBin = props.maxBin ?? preFilter?.maxBin ?? props.s.maxBin;
   const lastBin = props.s.hist.length - 1;
   const dense = props.s.hist.length > DENSE || i === lastBin;

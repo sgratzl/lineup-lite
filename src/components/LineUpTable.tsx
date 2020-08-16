@@ -1,50 +1,53 @@
 import React from 'react';
 import {
+  Cell,
   Column,
-  useTable,
-  UseGroupByColumnOptions,
-  UseResizeColumnsColumnOptions,
-  UseFiltersColumnOptions,
-  UseGlobalFiltersColumnOptions,
-  useFilters,
+  ColumnInstance,
+  HeaderGroup,
+  Row,
   TableInstance,
-  UseFiltersInstanceProps,
-  useRowSelect,
-  useGroupBy,
   useExpanded,
   UseExpandedRowProps,
-  UseGroupByRowProps,
-  Cell,
-  Row,
+  useFilters,
+  UseFiltersColumnOptions,
+  UseFiltersInstanceProps,
+  UseGlobalFiltersColumnOptions,
+  useGroupBy,
   UseGroupByCellProps,
+  UseGroupByColumnOptions,
   UseGroupByColumnProps,
-  HeaderGroup,
+  UseGroupByRowProps,
+  UseResizeColumnsColumnOptions,
+  useRowSelect,
+  useTable,
 } from 'react-table';
-import useStats, { UseStatsColumnOptions } from '../hooks/useStats';
-import { generateData } from './data';
-import BarRenderer from '../renderers/BarRenderer';
-import CategoricalRenderer from '../renderers/CategoricalRenderer';
-import ColorRenderer from '../renderers/ColorRenderer';
-import ProportionalSymbolRenderer from '../renderers/ProportionalSymbolRenderer';
-import NumberHistogramRenderer from '../renderers/NumberHistogramRenderer';
-import DateRenderer from '../renderers/DateRenderer';
-import DateHistogramRenderer from '../renderers/DateHistogramRenderer';
-import CategoricalHistogramRenderer from '../renderers/CategoricalHistogramRenderer';
-import { numberStats, numberAggregate } from '../stats/numberStats';
-import { categoricalStats, categoricalAggregate } from '../stats/categoricalStats';
-import { dateStats, dateAggregate } from '../stats/dateStats';
-import BoxPlotRenderer from '../renderers/BoxPlotRenderer';
 import categoricalFilter from '../filters/categoricalFilter';
 import rangeFilter from '../filters/rangeFilter';
-import { textStats, textAggregate } from '../stats/textStats';
+import useStats, { UseStatsColumnOptions } from '../hooks/useStats';
+import BarRenderer from '../renderers/BarRenderer';
+import BoxPlotRenderer from '../renderers/BoxPlotRenderer';
+import CategoricalHistogramRenderer from '../renderers/CategoricalHistogramRenderer';
+import CategoricalRenderer from '../renderers/CategoricalRenderer';
+import ColorRenderer from '../renderers/ColorRenderer';
+import DateHistogramRenderer from '../renderers/DateHistogramRenderer';
+import DateRenderer from '../renderers/DateRenderer';
+import NumberHistogramRenderer from '../renderers/NumberHistogramRenderer';
+import ProportionalSymbolRenderer from '../renderers/ProportionalSymbolRenderer';
 import TextSummaryRenderer from '../renderers/TextSummaryRenderer';
+import { categoricalStats } from '../stats/categoricalStats';
+import { dateStats } from '../stats/dateStats';
+import { numberStats } from '../stats/numberStats';
+import { textStats } from '../stats/textStats';
+import { generateData } from './data';
 
 declare type FullColumn<D extends object> = Column<D> &
   UseGroupByColumnOptions<D> &
   UseResizeColumnsColumnOptions<D> &
   UseFiltersColumnOptions<D> &
   UseGlobalFiltersColumnOptions<D> &
-  UseStatsColumnOptions<D>;
+  UseStatsColumnOptions<D> & {
+    aggregateValue?(value: any, row: Row<D>, column: ColumnInstance<D>): any;
+  };
 
 const IndeterminateCheckbox = React.forwardRef<HTMLInputElement, { indeterminate?: boolean }>(
   ({ indeterminate, ...rest }, ref) => {
@@ -171,7 +174,7 @@ const columns: FullColumn<IRow>[] = [
     accessor: 'string',
     Summary: TextSummaryRenderer(),
     Aggregated: TextSummaryRenderer(),
-    aggregate: textAggregate(),
+    aggregate: (v) => v,
     filter: 'text',
     stats: textStats(),
   },
@@ -181,7 +184,7 @@ const columns: FullColumn<IRow>[] = [
     Cell: BarRenderer(),
     Summary: NumberHistogramRenderer(),
     Aggregated: NumberHistogramRenderer(),
-    aggregate: numberAggregate({ min: 0, max: 10 }),
+    aggregate: (v) => v,
     filter: rangeFilter,
     stats: numberStats({ min: 0, max: 10 }),
   },
@@ -191,7 +194,7 @@ const columns: FullColumn<IRow>[] = [
     Cell: ColorRenderer(),
     Summary: BoxPlotRenderer(),
     Aggregated: BoxPlotRenderer(),
-    aggregate: numberAggregate({ min: 0, max: 10 }),
+    aggregate: (v) => v,
     filter: rangeFilter,
     stats: numberStats({ min: 0, max: 10 }),
   },
@@ -201,7 +204,7 @@ const columns: FullColumn<IRow>[] = [
     Cell: ProportionalSymbolRenderer(),
     Summary: NumberHistogramRenderer(),
     Aggregated: NumberHistogramRenderer(),
-    aggregate: numberAggregate({ min: 0, max: 10 }),
+    aggregate: (v) => v,
     filter: rangeFilter,
     stats: numberStats({ min: 0, max: 10 }),
   },
@@ -211,7 +214,7 @@ const columns: FullColumn<IRow>[] = [
     Cell: CategoricalRenderer(),
     Summary: CategoricalHistogramRenderer(),
     Aggregated: CategoricalHistogramRenderer(),
-    aggregate: categoricalAggregate(),
+    aggregate: (v) => v,
     filter: categoricalFilter,
     stats: categoricalStats(),
   },
@@ -221,7 +224,7 @@ const columns: FullColumn<IRow>[] = [
     Cell: DateRenderer(),
     Summary: DateHistogramRenderer(),
     Aggregated: DateHistogramRenderer(),
-    aggregate: dateAggregate(),
+    aggregate: (v) => v,
     filter: rangeFilter,
     stats: dateStats(),
   },

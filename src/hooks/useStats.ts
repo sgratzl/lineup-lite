@@ -7,6 +7,7 @@ import {
   UseFiltersInstanceProps,
   ensurePluginOrder,
   UseGroupByInstanceProps,
+  CellProps,
 } from 'react-table';
 
 export type UseStatsOptions<D extends object> = Partial<{
@@ -28,14 +29,16 @@ export interface UseStatsInstanceProps {}
 export interface UseStatsColumnProps {
   setStats: (updater: ((statsValue: StatsValue) => StatsValue) | StatsValue) => void;
   statsValue: StatsValue;
+  preFilterStatsValue?: StatsValue;
 }
 
 export type StatsProps<D extends object> = HeaderProps<D> & { column: UseStatsColumnProps };
+export type StatsCellProps<D extends object> = CellProps<D> & { column: UseStatsColumnProps };
 export type StatsValue = any;
 export type Stats<D extends object> = Array<{ id: IdType<D>; value: StatsValue }>;
 
 export interface StatsType {
-  (values: readonly any[], preFilterValues?: readonly any[]): any;
+  (values: readonly any[], preFilterStats?: any): any;
 }
 
 export default function useStats<D extends object = {}>(hooks: Hooks<D>) {
@@ -61,7 +64,9 @@ function useInstance<D extends object>(instance: TableInstance<D>) {
     const flat = extendedInstance.nonGroupedFlatRows ?? instance.flatRows;
     const values = flat.map((row) => row.values[col.id]);
     const preFilteredFlatRows = extendedInstance.preFilteredFlatRows;
-    const preValues = preFilteredFlatRows ? preFilteredFlatRows.map((row) => row.values[col.id]) : undefined;
-    extended.statsValue = extended.stats(values, preValues);
+    extended.preFilterStatsValue = preFilteredFlatRows
+      ? extended.stats(preFilteredFlatRows.map((row) => row.values[col.id]))
+      : undefined;
+    extended.statsValue = extended.stats(values, extended.preFilterStatsValue);
   });
 }

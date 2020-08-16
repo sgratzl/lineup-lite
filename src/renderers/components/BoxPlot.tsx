@@ -5,7 +5,8 @@ import './Summary.css';
 import { IBoxPlot } from '@sgratzl/boxplots';
 
 export interface BoxPlotProps {
-  s: INumberStats & { preFilter?: IBoxPlot };
+  s: INumberStats;
+  preFilter?: IBoxPlot;
   className?: string;
   style?: React.CSSProperties;
 }
@@ -35,7 +36,7 @@ Maximum: ${s.format(s.max)}${pre ? p(pre.max) : ''}
 
 export default function BoxPlot(props: BoxPlotProps) {
   const s = props.s;
-  const pre = s.preFilter;
+  const pre = props.preFilter;
   const boxPadding = 2;
   const scale = (v: number) => Math.round(s.scale(v) * 1000) / 10;
   const outlierRadius = 4;

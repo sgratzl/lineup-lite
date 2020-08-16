@@ -4,31 +4,18 @@ import {
   ICategoricalStats,
 } from '../math/categoricalStatsGenerator';
 
-export interface CategoricalStats extends ICategoricalStats {
-  preFilter?: ICategoricalStats;
-}
-
 export function categoricalStats(options: CategoricalStatsOptions = {}) {
   const gen = categoricalStatsGenerator(options);
-  return (arr: readonly string[], preFilter?: readonly string[]): CategoricalStats => {
+  return (arr: readonly string[], preFilter?: ICategoricalStats): ICategoricalStats => {
     if (!preFilter) {
       return gen(arr);
     }
-    const stats = gen(arr) as CategoricalStats;
-    const raw = gen(preFilter);
+    const stats = gen(arr);
     const lookup = new Map(stats.hist.map((bin) => [bin.x0, bin]));
     // ensure the same hist structure
-    const hist = raw.hist.map((bin) => Object.assign({}, bin, lookup.get(bin.x0) ?? { count: 0 }));
+    const hist = preFilter.hist.map((bin) => Object.assign({}, bin, lookup.get(bin.x0) ?? { count: 0 }));
     return Object.assign(stats, {
       hist,
-      preFilter: raw,
     });
-  };
-}
-
-export function categoricalAggregate(options: CategoricalStatsOptions = {}) {
-  const gen = categoricalStatsGenerator(options);
-  return (arr: readonly string[]): CategoricalStats => {
-    return gen(arr);
   };
 }

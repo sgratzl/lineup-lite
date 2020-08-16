@@ -1,15 +1,15 @@
 import React from 'react';
 import { Renderer, CellProps } from 'react-table';
-import { UseStatsColumnProps, StatsProps } from '../hooks/useStats';
+import { UseStatsColumnProps } from '../hooks/useStats';
 import './TextSummaryRenderer.css';
 import './components/Summary.css';
-import { resolve, extractStats, isFilterAble, isValueStats } from './utils';
+import { resolve, extractStats, isFilterAble, StatsPropsLike } from './utils';
 import { ITextStats } from '../math/textStatsGenerator';
-import { textStats, TextStats } from '../stats/textStats';
+import { textStats } from '../stats/textStats';
 
 export interface TextSummaryRendererOptions {
   format?: (v: string) => string;
-  placeholder?: (s: TextStats) => string;
+  placeholder?: (s: ITextStats) => string;
 }
 
 export function deriveTextOptions<D extends object, P extends CellProps<D, string>>(
@@ -23,13 +23,13 @@ export function deriveTextOptions<D extends object, P extends CellProps<D, strin
   };
 }
 
-export default function TextSummaryRenderer<P extends { value: readonly string[] } | StatsProps<any>>(
+export default function TextSummaryRenderer<P extends StatsPropsLike<string>>(
   options: TextSummaryRendererOptions = {}
 ): Renderer<P> {
   const stats = textStats(options);
   return (props: P) => {
-    if (isValueStats<ITextStats>(props)) {
-      const s = props.value;
+    const { s, preFilter, isCell } = extractStats(props, stats);
+    if (isCell) {
       return (
         <div className="lt-text-summary lt-summary lt-group">
           <span>{s.count.toLocaleString()} items</span>
@@ -37,10 +37,9 @@ export default function TextSummaryRenderer<P extends { value: readonly string[]
         </div>
       );
     }
-    const s = extractStats(props, stats);
     if (isFilterAble(props) && props.column.canFilter) {
       const { setFilter, filterValue } = props.column;
-      const unique = `${s.count.toLocaleString()}${s.preFilter ? `/${s.preFilter.count.toLocaleString()}` : ''} items`;
+      const unique = `${s.count.toLocaleString()}${preFilter ? `/${preFilter.count.toLocaleString()}` : ''} items`;
       // eslint-disable-next-line react-hooks/rules-of-hooks
       const onChange = React.useCallback(
         (evt: React.ChangeEvent<HTMLInputElement>) => {
