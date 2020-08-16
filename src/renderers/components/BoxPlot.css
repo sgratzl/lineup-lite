@@ -10,3 +10,7 @@
 .lt-boxplot-outlier {
   fill: black;
 }
+
+.lt-boxplot-pre {
+  opacity: 0.2;
+}
