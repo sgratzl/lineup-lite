@@ -171,31 +171,18 @@ export function dateStatsGenerator(options: DateStatsOptions = {}) {
       { min: Number.POSITIVE_INFINITY, max: Number.NEGATIVE_INFINITY, valid: 0 }
     );
 
-    if (simpleStats.valid === 0) {
-      const now = new Date();
-      const min = options.min ?? now;
-      const max = options.max ?? now;
-      return {
-        hist: [],
-        histGranularity: 'year',
-        missing: arr.length,
-        maxBin: 0,
-        ...normalizeDate(min, max),
-        ...base,
-      };
-    }
-
-    const min = options.min ?? new Date(simpleStats.min);
-    const max = options.max ?? new Date(simpleStats.max);
+    const now = new Date();
+    const min = options.min ?? (simpleStats.valid === 0 ? now : new Date(simpleStats.min));
+    const max = options.max ?? (simpleStats.valid === 0 ? now : new Date(simpleStats.max));
     const { hist, histGranularity } = computeGranularity(min, max, color, options.histGranularity);
 
-    let missing = 0;
-    for (const d of arr) {
-      if (!d) {
-        missing++;
-        continue;
+    const missing = arr.length - simpleStats.valid;
+    if (simpleStats.valid > 0) {
+      for (const d of arr) {
+        if (d) {
+          pushDateHist(hist, d);
+        }
       }
-      pushDateHist(hist, d);
     }
     return {
       hist,

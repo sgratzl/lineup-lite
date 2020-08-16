@@ -50,35 +50,31 @@ export interface NumberStatsOptions extends BoxplotStatsOptions {
 }
 
 function createHist(b: IBoxPlot, min: number, max: number, color: (v: number) => string, numberOfBins?: number) {
-  const hist: IBin<number>[] = [];
   const bins = numberOfBins ?? getNumberOfBins(b.count);
   const binWidth = (max - min) / bins;
   const scale = normalize(min, max);
-  let bin: IBin<number> = {
-    count: 0,
-    x0: min,
-    x1: min + binWidth,
-    color: color(scale(b.min + binWidth / 2)),
-  };
-  hist.push(bin);
+  const hist: IBin<number>[] = Array(bins)
+    .fill(0)
+    .map((_, i) => {
+      const x0 = min + binWidth * i;
+      return {
+        count: 0,
+        x0,
+        x1: x0 + binWidth,
+        color: color(scale(x0 + binWidth / 2)),
+      };
+    });
+  if (hist.length === 0) {
+    return hist;
+  }
+  hist[hist.length - 1].x1 = max;
+
   // sorted
   for (let i = 0; i < b.items.length; i++) {
     const v = b.items[i];
-    if (v < bin.x1 || hist.length >= bins) {
-      bin.count++;
-      continue;
-    }
-    // need a new bin
-    bin = {
-      count: 0,
-      x0: bin.x1,
-      x1: bin.x1 + binWidth,
-      color: color(scale(bin.x1 + binWidth / 2)),
-    };
-    hist.push(bin);
+    const bin = hist.find((d) => v < d.x1) || hist[hist.length - 1];
+    bin.count++;
   }
-  // ensure last x1 is the max
-  bin.x1 = max;
   return hist;
 }
 
