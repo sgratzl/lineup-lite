@@ -13,6 +13,10 @@
   cursor: pointer;
 }
 
+.lt-histogram-bin-interactive:hover {
+  opacity: 0.8;
+}
+
 .lt-histogram-bin[data-label]::before {
   content: attr(data-label);
   position: absolute;

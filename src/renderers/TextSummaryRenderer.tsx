@@ -28,9 +28,27 @@ export default function TextSummaryRenderer<P extends { value: readonly string[]
   const stats = textStats(options);
   return (props: P) => {
     const s = extractStats(props, stats);
+    const unique = `${s.unique.toLocaleString()} unique`;
     if (isFilterAble(props) && props.column.canFilter) {
       const { setFilter, filterValue } = props.column;
-      return <div className="lt-text-summary lt-summary" data-setFilter={setFilter} data-filterValue={filterValue} />;
+      // eslint-disable-next-line react-hooks/rules-of-hooks
+      const onChange = React.useCallback(
+        (evt: React.ChangeEvent<HTMLInputElement>) => {
+          setFilter(evt.currentTarget.value || undefined);
+        },
+        [setFilter]
+      );
+      return (
+        <div className="lt-text-summary lt-summary" data-min={unique}>
+          <input
+            value={filterValue ?? ''}
+            onChange={onChange}
+            placeholder="Filter"
+            size={3}
+            className="lt-text-summary-input"
+          />
+        </div>
+      );
     }
     return (
       <div className="lt-text-summary lt-summary" data-s={s}>

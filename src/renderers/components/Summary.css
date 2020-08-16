@@ -8,6 +8,7 @@
 
 .lt-summary[data-min]::before {
   content: attr(data-min);
+  white-space: nowrap;
   position: absolute;
   top: 100%;
   left: 0;
@@ -16,8 +17,13 @@
   text-align: left;
 }
 
+.lt-summary[data-min]:not([data-max])::before {
+  width: 100%;
+}
+
 .lt-summary[data-max]::after {
   content: attr(data-max);
+  white-space: nowrap;
   position: absolute;
   top: 100%;
   right: 0;
