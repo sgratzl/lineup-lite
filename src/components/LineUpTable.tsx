@@ -26,6 +26,8 @@ import { dateStats } from '../stats/dateStats';
 import BoxPlotRenderer from '../renderers/BoxPlotRenderer';
 import categoricalFilter from '../filters/categoricalFilter';
 import rangeFilter from '../filters/rangeFilter';
+import { textStats } from '../stats/textStats';
+import TextSummaryRenderer from '../renderers/TextSummaryRenderer';
 
 declare type FullColumn<D extends object> = Column<D> &
   UseGroupByColumnOptions<D> &
@@ -87,9 +89,9 @@ const columns: FullColumn<IRow>[] = [
   {
     Header: 'String',
     accessor: 'string',
-    Summary: () => null,
+    Summary: TextSummaryRenderer(),
     filter: 'text',
-    // stats: 'text'
+    stats: textStats(),
   },
   {
     Header: 'Number',
