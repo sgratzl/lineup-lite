@@ -5,10 +5,11 @@ import './TextSummaryRenderer.css';
 import './components/Summary.css';
 import { resolve, extractStats, isFilterAble } from './utils';
 import { ITextStats } from '../math/textStatsGenerator';
-import { textStats } from '../stats/textStats';
+import { textStats, TextStats } from '../stats/textStats';
 
 export interface TextSummaryRendererOptions {
   format?: (v: string) => string;
+  placeholder?: (s: TextStats) => string;
 }
 
 export function deriveTextOptions<D extends object, P extends CellProps<D, string>>(
@@ -43,7 +44,7 @@ export default function TextSummaryRenderer<P extends { value: readonly string[]
           <input
             value={filterValue ?? ''}
             onChange={onChange}
-            placeholder="Filter"
+            placeholder={options.placeholder ? options.placeholder(s) : `Filter ${s.unique} unique items`}
             size={3}
             className="lt-text-summary-input"
           />
@@ -51,8 +52,9 @@ export default function TextSummaryRenderer<P extends { value: readonly string[]
       );
     }
     return (
-      <div className="lt-text-summary lt-summary" data-min={`${s.count.toLocaleString()} items`}>
-        Summary
+      <div className="lt-text-summary lt-summary">
+        <span>{s.count.toLocaleString()} items</span>
+        {s.unique < s.count && <span>{s.unique} unique</span>}
       </div>
     );
   };
