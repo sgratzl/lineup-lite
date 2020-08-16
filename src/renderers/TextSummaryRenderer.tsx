@@ -28,9 +28,9 @@ export default function TextSummaryRenderer<P extends { value: readonly string[]
   const stats = textStats(options);
   return (props: P) => {
     const s = extractStats(props, stats);
-    const unique = `${s.unique.toLocaleString()} unique`;
     if (isFilterAble(props) && props.column.canFilter) {
       const { setFilter, filterValue } = props.column;
+      const unique = `${s.count.toLocaleString()}${s.preFilter ? `/${s.preFilter.count.toLocaleString()}` : ''} items`;
       // eslint-disable-next-line react-hooks/rules-of-hooks
       const onChange = React.useCallback(
         (evt: React.ChangeEvent<HTMLInputElement>) => {
@@ -51,7 +51,7 @@ export default function TextSummaryRenderer<P extends { value: readonly string[]
       );
     }
     return (
-      <div className="lt-text-summary lt-summary" data-s={s}>
+      <div className="lt-text-summary lt-summary" data-min={`${s.count.toLocaleString()} items`}>
         Summary
       </div>
     );

@@ -18,7 +18,7 @@ export default function CategoricalHistogramRenderer<P extends { value: readonly
     const s = extractStats(props, stats);
     if (isFilterAble(props) && props.column.canFilter) {
       const { setFilter, filterValue } = props.column;
-      return <FilterBinHistogram s={s} maxBin={options.maxBin} setFilter={setFilter} filterValue={filterValue} />;
+      return <FilterBinHistogram s={s} maxBin={options.maxBin} setFilter={setFilter} filterValue={filterValue} label />;
     }
     return <Histogram s={s} maxBin={options.maxBin} label />;
   };
