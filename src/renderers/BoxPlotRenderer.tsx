@@ -1,6 +1,6 @@
 import React from 'react';
 import { Renderer } from 'react-table';
-import { numberStatsGenerator, NumberStatsOptions } from '../math/numberStatsGenerator';
+import { numberStatsGenerator, NumberStatsOptions } from '../math';
 import './BoxPlotRenderer.css';
 import BoxPlot from './components/BoxPlot';
 import { extractStats, isFilterAble, StatsPropsLike } from './utils';
@@ -8,9 +8,7 @@ import { FilterRangeSlider } from './components/FilterRange';
 
 export interface BoxPlotRendererOptions extends NumberStatsOptions {}
 
-export default function BoxPlotRenderer<P extends StatsPropsLike<number>>(
-  options: BoxPlotRendererOptions = {}
-): Renderer<P> {
+export function BoxPlotRenderer<P extends StatsPropsLike<number>>(options: BoxPlotRendererOptions = {}): Renderer<P> {
   const stats = numberStatsGenerator(options);
   return (props: P) => {
     const { s, preFilter, cell } = extractStats(props, stats);

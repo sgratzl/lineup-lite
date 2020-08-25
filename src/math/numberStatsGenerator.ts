@@ -1,6 +1,6 @@
 import boxplot, { BoxplotStatsOptions, IBoxPlot } from '@sgratzl/boxplots';
-import { defaultColorScale } from '../renderers/defaults';
-import { INumericStats } from './common';
+import { defaultColorScale } from './defaults';
+import { INumericStats, IBin } from './common';
 import { normalize, deNormalize } from './scale';
 
 /**
@@ -14,13 +14,6 @@ export function getNumberOfBins(length: number) {
   }
   // as by default used in d3 the Sturges' formula
   return Math.ceil(Math.log(length) / Math.LN2) + 1;
-}
-
-export interface IBin<T> {
-  count: number;
-  color: string;
-  x0: T;
-  x1: T;
 }
 
 export interface INumberStats extends IBoxPlot, INumericStats<number> {}

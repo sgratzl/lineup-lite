@@ -1,18 +1,18 @@
 import React from 'react';
 import { Renderer, CellProps } from 'react-table';
-import { UseStatsColumnProps } from '../hooks/useStats';
+import { UseStatsColumnProps } from '../hooks';
 import './TextSummaryRenderer.css';
 import './components/Summary.css';
 import { resolve, extractStats, isFilterAble, StatsPropsLike } from './utils';
-import { ITextStats } from '../math/textStatsGenerator';
-import { textStats } from '../stats/textStats';
+import { ITextStats } from '../math';
+import { textStats } from '../stats';
 
 export interface TextSummaryRendererOptions {
   format?: (v: string) => string;
   placeholder?: (s: ITextStats) => string;
 }
 
-export function deriveTextOptions<D extends object, P extends CellProps<D, string>>(
+function deriveTextOptions<D extends object, P extends CellProps<D, string>>(
   props: P,
   options: TextSummaryRendererOptions = {}
 ) {
@@ -23,7 +23,7 @@ export function deriveTextOptions<D extends object, P extends CellProps<D, strin
   };
 }
 
-export default function TextSummaryRenderer<P extends StatsPropsLike<string>>(
+export function TextSummaryRenderer<P extends StatsPropsLike<string>>(
   options: TextSummaryRendererOptions = {}
 ): Renderer<P> {
   const stats = textStats(options);

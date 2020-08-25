@@ -1,15 +1,16 @@
 import React from 'react';
 import { Renderer, CellProps } from 'react-table';
-import { BarRendererOptions, deriveNumberOptions } from './BarRenderer';
+import { BarRendererOptions } from './BarRenderer';
 import { toPercent } from './utils';
 import './ProportionalSymbolRenderer.css';
+import { deriveNumberOptions } from './barStats';
 
 function radiFromArea(area: number) {
   // r * r * PI = area
   return Math.sqrt(area);
 }
 
-export function proportionalSymbolProps(value: number, color: string | ((v: number) => string)): React.CSSProperties {
+function proportionalSymbolProps(value: number, color: string | ((v: number) => string)): React.CSSProperties {
   const c = typeof color === 'string' ? color : color(value);
   const p = toPercent(radiFromArea(value));
   return {
@@ -17,7 +18,7 @@ export function proportionalSymbolProps(value: number, color: string | ((v: numb
   };
 }
 
-export default function ProportionalSymbolRenderer<D extends object, P extends CellProps<D, number>>(
+export function ProportionalSymbolRenderer<D extends object, P extends CellProps<D, number>>(
   options: BarRendererOptions = {}
 ): Renderer<P> {
   return (props: P) => {

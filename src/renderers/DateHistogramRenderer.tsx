@@ -1,15 +1,15 @@
 import React from 'react';
 import { Renderer } from 'react-table';
-import { dateStats } from '../stats/dateStats';
+import { dateStats } from '../stats';
 import Histogram, { FilterRangeHistogram } from './components/Histogram';
 import { extractStats, isFilterAble, StatsPropsLike, groupMaxBin } from './utils';
-import { DateStatsOptions } from '../math/dateStatsGenerator';
+import { DateStatsOptions } from '../math';
 
 export interface HistogramRendererOptions extends DateStatsOptions {
   maxBin?: number;
 }
 
-export default function DateHistogramRenderer<P extends StatsPropsLike<Date | null>>(
+export function DateHistogramRenderer<P extends StatsPropsLike<Date | null>>(
   options: HistogramRendererOptions = {}
 ): Renderer<P> {
   const stats = dateStats(options);

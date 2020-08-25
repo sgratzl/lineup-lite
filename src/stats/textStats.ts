@@ -1,1 +1,1 @@
-export { textStatsGenerator as textStats } from '../math/textStatsGenerator';
+export { textStatsGenerator as textStats } from '../math';

@@ -1,9 +1,10 @@
 import React from 'react';
 import { CellProps, Renderer } from 'react-table';
-import { deriveNumberOptions, BarRendererOptions } from './BarRenderer';
+import { BarRendererOptions } from './BarRenderer';
 import './ColorRenderer.css';
+import { deriveNumberOptions } from './barStats';
 
-export default function ColorRenderer<D extends object, P extends CellProps<D, number>>(
+export function ColorRenderer<D extends object, P extends CellProps<D, number>>(
   options: BarRendererOptions = {}
 ): Renderer<P> {
   return (props: P) => {

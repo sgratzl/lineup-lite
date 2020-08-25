@@ -1,4 +1,4 @@
-import { numberStatsGenerator, NumberStatsOptions, INumberStats } from '../math/numberStatsGenerator';
+import { numberStatsGenerator, NumberStatsOptions, INumberStats } from '../math';
 
 export function numberStats(options: NumberStatsOptions = {}) {
   const gen = numberStatsGenerator(options);

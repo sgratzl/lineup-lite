@@ -1,6 +1,5 @@
-import { defaultConstantColorScale } from '../renderers/defaults';
-import { IBin } from './numberStatsGenerator';
-import { INumericStats } from './common';
+import { defaultConstantColorScale } from './defaults';
+import { INumericStats, IBin } from './common';
 
 export declare type DateHistGranularity = 'year' | 'month' | 'day' | 'decade';
 

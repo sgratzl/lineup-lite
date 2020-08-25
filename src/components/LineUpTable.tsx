@@ -21,24 +21,23 @@ import {
   useRowSelect,
   useTable,
 } from 'react-table';
-import categoricalFilter from '../filters/categoricalFilter';
-import rangeFilter from '../filters/rangeFilter';
-import useStats, { UseStatsColumnOptions } from '../hooks/useStats';
-import BarRenderer from '../renderers/BarRenderer';
-import BoxPlotRenderer from '../renderers/BoxPlotRenderer';
-import CategoricalHistogramRenderer from '../renderers/CategoricalHistogramRenderer';
-import CategoricalRenderer from '../renderers/CategoricalRenderer';
-import ColorRenderer from '../renderers/ColorRenderer';
-import DateHistogramRenderer from '../renderers/DateHistogramRenderer';
-import DateRenderer from '../renderers/DateRenderer';
-import NumberHistogramRenderer from '../renderers/NumberHistogramRenderer';
-import ProportionalSymbolRenderer from '../renderers/ProportionalSymbolRenderer';
-import TextSummaryRenderer from '../renderers/TextSummaryRenderer';
-import { categoricalStats } from '../stats/categoricalStats';
-import { dateStats } from '../stats/dateStats';
-import { numberStats } from '../stats/numberStats';
-import { textStats } from '../stats/textStats';
+import { categoricalFilter, rangeFilter } from '../filters';
+import { useStats, UseStatsColumnOptions } from '../hooks';
+import { categoricalStats, textStats, numberStats, dateStats } from '../stats';
 import { generateData } from './data';
+import IndeterminateCheckbox from './IndeterminateCheckbox';
+import {
+  TextSummaryRenderer,
+  BarRenderer,
+  NumberHistogramRenderer,
+  ColorRenderer,
+  BoxPlotRenderer,
+  ProportionalSymbolRenderer,
+  CategoricalRenderer,
+  CategoricalHistogramRenderer,
+  DateRenderer,
+  DateHistogramRenderer,
+} from '../renderers';
 
 declare type FullColumn<D extends object> = Column<D> &
   UseGroupByColumnOptions<D> &
@@ -48,23 +47,6 @@ declare type FullColumn<D extends object> = Column<D> &
   UseStatsColumnOptions<D> & {
     aggregateValue?(value: any, row: Row<D>, column: ColumnInstance<D>): any;
   };
-
-const IndeterminateCheckbox = React.forwardRef<HTMLInputElement, { indeterminate?: boolean }>(
-  ({ indeterminate, ...rest }, ref) => {
-    const defaultRef = React.useRef<HTMLInputElement>(null);
-    const resolvedRef = ref || defaultRef;
-
-    React.useEffect(() => {
-      (resolvedRef as React.RefObject<HTMLInputElement>).current!.indeterminate = indeterminate ?? false;
-    }, [resolvedRef, indeterminate]);
-
-    return (
-      <>
-        <input type="checkbox" ref={resolvedRef} {...rest} />
-      </>
-    );
-  }
-);
 
 function Table<D extends object>({ columns, data }: { columns: FullColumn<D>[]; data: D[] }) {
   const { getTableProps, getTableBodyProps, headerGroups, prepareRow, rows } = useTable<D>(

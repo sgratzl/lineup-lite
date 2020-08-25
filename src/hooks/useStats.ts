@@ -24,6 +24,7 @@ export interface UseStatsState<D extends object> {
 export type UseStatsColumnOptions<D extends object> = Partial<{
   Summary: Renderer<StatsProps<D>>;
   stats: StatsType;
+  // grouper:
 }>;
 
 export interface UseStatsInstanceProps {}
@@ -43,7 +44,7 @@ export interface StatsType {
   (values: readonly any[], preFilterStats?: any): any;
 }
 
-export default function useStats<D extends object = {}>(hooks: Hooks<D>) {
+export function useStats<D extends object = {}>(hooks: Hooks<D>) {
   hooks.useInstance.push(useInstance);
 }
 useStats.pluginName = 'useStats';

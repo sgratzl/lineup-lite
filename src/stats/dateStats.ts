@@ -1,4 +1,4 @@
-import { dateStatsGenerator, DateStatsOptions, IDateStats } from '../math/dateStatsGenerator';
+import { dateStatsGenerator, DateStatsOptions, IDateStats } from '../math';
 
 export function dateStats(options: DateStatsOptions = {}) {
   const gen = dateStatsGenerator(options);

@@ -1,6 +1,6 @@
 import { IdType, Row } from 'react-table';
 
-export default function rangeFilter<D extends object, T>(rows: Row<D>[], ids: IdType<D>[], filterValue: [T, T]) {
+export function rangeFilter<D extends object, T>(rows: Row<D>[], ids: IdType<D>[], filterValue: [T, T]) {
   if (filterValue == null) {
     return rows;
   }

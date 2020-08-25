@@ -1,8 +1,4 @@
-import {
-  CategoricalStatsOptions,
-  categoricalStatsGenerator,
-  ICategoricalStats,
-} from '../math/categoricalStatsGenerator';
+import { CategoricalStatsOptions, categoricalStatsGenerator, ICategoricalStats } from '../math';
 
 export function categoricalStats(options: CategoricalStatsOptions = {}) {
   const gen = categoricalStatsGenerator(options);

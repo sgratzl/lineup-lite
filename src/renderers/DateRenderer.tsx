@@ -1,7 +1,7 @@
 import React from 'react';
 import { Renderer, CellProps } from 'react-table';
-import { IDateStats, DateFormatter, resolveDateFormatter } from '../math/dateStatsGenerator';
-import { UseStatsColumnProps } from '../hooks/useStats';
+import { IDateStats, DateFormatter, resolveDateFormatter } from '../math';
+import { UseStatsColumnProps } from '../hooks';
 import './DateRenderer.css';
 import { resolve } from './utils';
 
@@ -9,7 +9,7 @@ export interface DateRendererOptions {
   format?: DateFormatter;
 }
 
-export function deriveDateOptions<D extends object, P extends CellProps<D, Date>>(
+function deriveDateOptions<D extends object, P extends CellProps<D, Date>>(
   props: P,
   options: DateRendererOptions = {}
 ) {
@@ -20,7 +20,7 @@ export function deriveDateOptions<D extends object, P extends CellProps<D, Date>
   };
 }
 
-export default function DateRenderer<D extends object, P extends CellProps<D, Date>>(
+export function DateRenderer<D extends object, P extends CellProps<D, Date>>(
   options: DateRendererOptions = {}
 ): Renderer<P> {
   return (props: P) => {

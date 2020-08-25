@@ -1,6 +1,6 @@
-import { StatsProps, StatsCellProps } from '../hooks/useStats';
+import { StatsProps, StatsCellProps } from '../hooks';
 import { UseFiltersColumnProps, UseGroupByInstanceProps, Cell, CellProps, UseGroupByCellProps } from 'react-table';
-import { ICommonStats, IHistStats } from '../math/common';
+import { ICommonStats, IHistStats } from '../math';
 
 export function toPercent(v: number) {
   return `${Math.round(v * 1000) / 10}%`;

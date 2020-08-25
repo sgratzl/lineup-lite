@@ -1,8 +1,7 @@
 import React from 'react';
 import { Renderer, CellProps } from 'react-table';
-import { defaultCategoricalColorScale } from './defaults';
-import { ICategoricalStats } from '../math/categoricalStatsGenerator';
-import { UseStatsColumnProps } from '../hooks/useStats';
+import { defaultCategoricalColorScale, ICategoricalStats } from '../math';
+import { UseStatsColumnProps } from '../hooks';
 import './CategoricalRenderer.css';
 import { resolve } from './utils';
 
@@ -10,7 +9,7 @@ export interface CategoricalRendererOptions {
   color?: (v: string) => string;
 }
 
-export function deriveCategoricalOptions<D extends object, P extends CellProps<D, string>>(
+function deriveCategoricalOptions<D extends object, P extends CellProps<D, string>>(
   props: P,
   options: CategoricalRendererOptions = {}
 ) {
@@ -21,7 +20,7 @@ export function deriveCategoricalOptions<D extends object, P extends CellProps<D
   };
 }
 
-export default function CategoricalRenderer<D extends object, P extends CellProps<D, string>>(
+export function CategoricalRenderer<D extends object, P extends CellProps<D, string>>(
   options: CategoricalRendererOptions = {}
 ): Renderer<P> {
   return (props: P) => {

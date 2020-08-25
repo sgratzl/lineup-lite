@@ -1,6 +1,6 @@
 import React from 'react';
 import { Renderer } from 'react-table';
-import { categoricalStats } from '../stats/categoricalStats';
+import { categoricalStats } from '../stats';
 import { CategoricalRendererOptions } from './CategoricalRenderer';
 import Histogram, { FilterBinHistogram } from './components/Histogram';
 import { extractStats, isFilterAble, StatsPropsLike, groupMaxBin } from './utils';
@@ -9,7 +9,7 @@ export interface CategoricalHistogramRendererOptions extends CategoricalRenderer
   maxBin?: number;
 }
 
-export default function CategoricalHistogramRenderer<P extends StatsPropsLike<string>>(
+export function CategoricalHistogramRenderer<P extends StatsPropsLike<string>>(
   options: CategoricalHistogramRendererOptions = {}
 ): Renderer<P> {
   const stats = categoricalStats(options);

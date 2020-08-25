@@ -1,12 +1,11 @@
 import React from 'react';
-import { Renderer, CellProps } from 'react-table';
-import { defaultConstantColorScale, defaultScale } from './defaults';
-import { toPercent, resolve } from './utils';
-import { UseStatsColumnProps } from '../hooks/useStats';
-import { INumberStats, NumberFormatter, resolveNumberFormatter } from '../math/numberStatsGenerator';
+import { CellProps, Renderer } from 'react-table';
+import { NumberFormatter } from '../math';
 import './BarRenderer.css';
+import { deriveNumberOptions } from './barStats';
+import { toPercent } from './utils';
 
-export function barProps(value: number, color: string | ((v: number) => string)): React.CSSProperties {
+function barProps(value: number, color: string | ((v: number) => string)): React.CSSProperties {
   const c = typeof color === 'string' ? color : color(value);
   const p = toPercent(value);
   return {
@@ -20,20 +19,7 @@ export interface BarRendererOptions {
   format?: NumberFormatter;
 }
 
-export function deriveNumberOptions<D extends object, P extends CellProps<D, number>>(
-  props: P,
-  options: BarRendererOptions = {}
-) {
-  const col = props.column as Partial<UseStatsColumnProps>;
-  const stats = col.statsValue as INumberStats | undefined;
-  return {
-    scale: resolve(options.scale, stats?.scale, () => defaultScale),
-    color: resolve(options.color, stats?.color, () => defaultConstantColorScale),
-    format: resolveNumberFormatter(resolve(options.format, stats?.format, () => ({}))),
-  };
-}
-
-export default function BarRenderer<D extends object, P extends CellProps<D, number>>(
+export function BarRenderer<D extends object, P extends CellProps<D, number>>(
   options: BarRendererOptions = {}
 ): Renderer<P> {
   return (props: P) => {
