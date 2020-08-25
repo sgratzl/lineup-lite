@@ -1,0 +1,28 @@
+{
+  "extends": "../../tsconfig.json",
+  "include": ["src/**/*.ts", "src/**/*.tsx"],
+  "compilerOptions": {
+    "rootDir": "./src",
+    "baseUrl": "./",
+    "outDir": "./dist",
+    "declaration": false,
+    "paths": {
+      "@": ["./src"],
+      "react": ["node_modules/preact/compat"],
+      "react-dom": ["node_modules/preact/compat"],
+      "*": ["*", "node_modules/*"]
+    }
+  },
+  "typedocOptions": {
+    "name": "LineUp-lite Bundle",
+    "out": "./docs",
+    "mode": "library",
+    "theme": "minimal",
+    "excludeNotExported": true,
+    "excludeExternals": true,
+    "excludePrivate": true,
+    "includeVersion": true,
+    "hideGenerator": true,
+    "entryPoint": "\"index\""
+  }
+}

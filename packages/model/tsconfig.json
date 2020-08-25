@@ -1,0 +1,26 @@
+{
+  "extends": "../../tsconfig.json",
+  "include": ["src/**/*.ts", "src/**/*.tsx"],
+  "compilerOptions": {
+    "rootDir": "./src",
+    "baseUrl": "./",
+    "outDir": "./dist",
+    "declaration": false,
+    "paths": {
+      "@": ["./src"],
+      "*": ["*", "node_modules/*"]
+    }
+  },
+  "typedocOptions": {
+    "name": "LineUp-lite Model",
+    "out": "./docs",
+    "mode": "library",
+    "theme": "minimal",
+    "excludeNotExported": true,
+    "excludeExternals": true,
+    "excludePrivate": true,
+    "includeVersion": true,
+    "hideGenerator": true,
+    "entryPoint": "\"index\""
+  }
+}

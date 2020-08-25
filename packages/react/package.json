@@ -1,0 +1,105 @@
+{
+  "name": "@lineup-lite/react",
+  "description": "",
+  "version": "1.0.0",
+  "license": "SEE LICENSE IN LICENSE.md",
+  "author": {
+    "name": "Samuel Gratzl",
+    "email": "sam@sgratzl.com",
+    "url": "https://wwww.sgratzl.com"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org"
+  },
+  "homepage": "https://github.com/sgratzl/lineup-lite",
+  "bugs": {
+    "url": "https://github.com/sgratzl/lineup-lite/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sgratzl/lineup-lite.git"
+  },
+  "module": "dist/react.esm.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "sideEffects": false,
+  "scripts": {
+    "compile": "tsc -p tsconfig.build.json --noEmit",
+    "start": "tsdx watch --tsconfig tsconfig.build.json --noClean --formats cjs",
+    "clean": "rimraf dist docs",
+    "build": "npm run build:impl && npm run typings",
+    "build:impl": "tsdx build --tsconfig tsconfig.build.json",
+    "typings": "rollup -c rollup.dts.config.js",
+    "test": "tsdx test --passWithNoTests",
+    "test:watch": "tsdx test --passWithNoTests --watch",
+    "test:coverage": "tsdx test --passWithNoTests --coverage",
+    "lint": "npm run eslint && npm run prettier",
+    "fix": "npm run eslint:fix && npm run prettier:write",
+    "prettier:impl": "prettier \"*.{md,json,js}\" \"{src,.storybook,sample}/**\"",
+    "prettier:write": "npm run prettier:impl -- --write",
+    "prettier": "npm run prettier:impl -- --check",
+    "eslint": "tsdx lint src --ext .ts,.tsx",
+    "eslint:fix": "npm run eslint -- --fix",
+    "prepare": "tsdx build",
+    "storybook": "start-storybook -p 8080",
+    "docs": "build-storybook --quiet -o ./docs"
+  },
+  "browserslist": [
+    "defaults"
+  ],
+  "peerDependencies": {
+    "react": ">=16"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.10.3",
+    "@rollup/plugin-commonjs": "^13.0.0",
+    "@storybook/addon-docs": "^6.0.0-beta.1",
+    "@storybook/addons": "^6.0.0-beta.1",
+    "@storybook/preset-typescript": "^3.0.0",
+    "@storybook/react": "^6.0.0-beta.1",
+    "@testing-library/react": "^10.3.0",
+    "@types/jest": "^26.0.0",
+    "@types/react-dom": "^16.9.8",
+    "@types/testing-library__react": "^10.0.1",
+    "@typescript-eslint/eslint-plugin": "^3.3.0",
+    "@typescript-eslint/parser": "^3.3.0",
+    "babel-loader": "^8.1.0",
+    "core-js": "^3.6.5",
+    "eslint": "^7.3.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-config-react-app": "^5.2.1",
+    "eslint-plugin-flowtype": "^5.1.3",
+    "eslint-plugin-import": "^2.21.2",
+    "eslint-plugin-jsx-a11y": "^6.3.1",
+    "eslint-plugin-prettier": "^3.1.4",
+    "eslint-plugin-react": "^7.20.0",
+    "eslint-plugin-react-hooks": "^4.0.4",
+    "eslint-plugin-testing-library": "^3.3.1",
+    "prettier": "^2.0.5",
+    "react": "^16.13.0",
+    "react-docgen-typescript-loader": "^3.7.2",
+    "react-dom": "^16.13.1",
+    "react-is": "^16.13.1",
+    "rimraf": "^3.0.2",
+    "rollup": "^2.17.1",
+    "rollup-plugin-cleanup": "^3.1.1",
+    "rollup-plugin-dts": "^1.4.7",
+    "rollup-plugin-pnp-resolve": "^2.0.0",
+    "ts-loader": "^7.0.5",
+    "tsdx": "~0.13.2",
+    "tslib": "^2.0.0",
+    "typedoc": "^0.17.7",
+    "typescript": "^3.9.5",
+    "webpack": "^4.43.0"
+  },
+  "dependencies": {
+    "@types/lz-string": "^1.3.34",
+    "@types/react": "^16.9.38",
+    "@lineup-lite/model": "~1.6.1",
+    "lz-string": "^1.4.4"
+  }
+}

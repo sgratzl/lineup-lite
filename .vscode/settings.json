@@ -1,5 +1,6 @@
 {
-  "editor.formatOnSave": true,
+  "eslint.enable": false,
+  "editor.formatOnSave": false,
   "editor.formatOnType": true,
   "[javascript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
@@ -16,8 +17,27 @@
   "[yaml]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
+  "eslint.nodePath": ".yarn/sdks",
+  "prettier.prettierPath": ".yarn/sdks/prettier/index.js",
   "files.eol": "\n",
   "editor.detectIndentation": false,
   "editor.tabSize": 2,
-  "typescript.tsdk": "node_modules\\typescript\\lib"
+  "typescript.tsdk": ".yarn/sdks/typescript/lib",
+  "typescript.enablePromptUseWorkspaceTsdk": true,
+  "npm.packageManager": "yarn",
+  "cSpell.enableFiletypes": [
+    "markdown"
+  ],
+  "cSpell.ignoreWords": [
+    "autorun",
+    "clsx",
+    "elems",
+    "i",
+    "papaparse",
+    "unparse"
+  ],
+  "cSpell.words": [
+    "addon",
+    "boxplot"
+  ]
 }

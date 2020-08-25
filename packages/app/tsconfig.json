@@ -1,0 +1,18 @@
+{
+  "extends": "../../tsconfig.json",
+  "include": ["src", "types", "test", "tsd.d.ts"],
+  "compilerOptions": {
+    "target": "es6",
+    "rootDir": "./",
+    "baseUrl": "./",
+    "composite": false,
+    "assumeChangesOnlyAffectDirectDependencies": false,
+    "declaration": false,
+    "sourceMap": true,
+    "skipLibCheck": true,
+    "paths": {
+      "@": ["./"],
+      "*": ["src/*", "node_modules/*"]
+    }
+  }
+}
