@@ -31,7 +31,7 @@ export default function TextSummaryRenderer<P extends StatsPropsLike<string>>(
     const { s, preFilter, cell } = extractStats(props, stats);
     if (cell) {
       return (
-        <div className="lt-text-summary lt-summary lt-group">
+        <div className="lt-text-summary lt-group">
           <span>{s.count.toLocaleString()} items</span>
           {s.unique < s.count && <span>{s.unique} unique</span>}
         </div>
