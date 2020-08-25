@@ -28,8 +28,8 @@ export default function TextSummaryRenderer<P extends StatsPropsLike<string>>(
 ): Renderer<P> {
   const stats = textStats(options);
   return (props: P) => {
-    const { s, preFilter, isCell } = extractStats(props, stats);
-    if (isCell) {
+    const { s, preFilter, cell } = extractStats(props, stats);
+    if (cell) {
       return (
         <div className="lt-text-summary lt-summary lt-group">
           <span>{s.count.toLocaleString()} items</span>

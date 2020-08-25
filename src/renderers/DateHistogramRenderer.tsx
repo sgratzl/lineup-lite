@@ -2,7 +2,7 @@ import React from 'react';
 import { Renderer } from 'react-table';
 import { dateStats } from '../stats/dateStats';
 import Histogram, { FilterRangeHistogram } from './components/Histogram';
-import { extractStats, isFilterAble, StatsPropsLike } from './utils';
+import { extractStats, isFilterAble, StatsPropsLike, groupMaxBin } from './utils';
 import { DateStatsOptions } from '../math/dateStatsGenerator';
 
 export interface HistogramRendererOptions extends DateStatsOptions {
@@ -14,9 +14,10 @@ export default function DateHistogramRenderer<P extends StatsPropsLike<Date | nu
 ): Renderer<P> {
   const stats = dateStats(options);
   return (props: P) => {
-    const { s, preFilter, isCell } = extractStats(props, stats);
-    if (isCell) {
-      return <Histogram s={s} maxBin={options.maxBin} />;
+    const { s, preFilter, cell } = extractStats(props, stats);
+    if (cell) {
+      const maxBin = groupMaxBin(options, cell, props);
+      return <Histogram s={s} maxBin={maxBin} />;
     }
     if (isFilterAble(props) && props.column.canFilter) {
       const { setFilter, filterValue } = props.column;

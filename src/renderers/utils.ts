@@ -1,6 +1,6 @@
 import { StatsProps, StatsCellProps } from '../hooks/useStats';
-import { UseFiltersColumnProps, UseGroupByInstanceProps } from 'react-table';
-import { ICommonStats } from '../math/common';
+import { UseFiltersColumnProps, UseGroupByInstanceProps, Cell, CellProps, UseGroupByCellProps } from 'react-table';
+import { ICommonStats, IHistStats } from '../math/common';
 
 export function toPercent(v: number) {
   return `${Math.round(v * 1000) / 10}%`;
@@ -39,15 +39,35 @@ export function extractStats<S extends ICommonStats, T>(
   statsGen: (arr: readonly T[], preFilterValues?: S) => S
 ) {
   const { s, preFilter } = deriveStats(props, statsGen);
-  if (isValueArray(props)) {
-    // cell case
+  const cellProps = (props as unknown) as CellProps<any, any>;
+  const cell = cellProps.cell as Cell<any, any> & UseGroupByCellProps<any>;
+
+  if (cell) {
     return {
-      s: statsGen(props.value, s),
+      s: isValueArray(props) ? statsGen(props.value, s) : (cellProps.value as S),
       preFilter,
-      isCell: true,
+      cell,
     };
   }
-  return { s, preFilter, isCell: false };
+  return {
+    s,
+    preFilter,
+    cell,
+    isAggregated: false,
+  };
+}
+
+export function groupMaxBin<P extends StatsPropsLike<any>>(
+  options: { maxBin?: number },
+  cell: { isAggregated: boolean },
+  props: P
+) {
+  if (options.maxBin != null || !cell.isAggregated) {
+    return options.maxBin;
+  }
+  const groups = ((props as unknown) as UseGroupByInstanceProps<any>).onlyGroupedFlatRows ?? [];
+  const stats = groups.map((group) => group.values[props.column.id]) as IHistStats<any>[];
+  return stats.reduce((acc, v) => (v != null && typeof v.maxBin === 'number' ? Math.max(acc, v.maxBin) : acc), 0);
 }
 
 export function resolve<T>(directValue: T | undefined, globalValue: T | undefined, defaultValue: () => T) {

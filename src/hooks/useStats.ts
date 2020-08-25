@@ -8,6 +8,8 @@ import {
   ensurePluginOrder,
   UseGroupByInstanceProps,
   CellProps,
+  UseGroupByColumnProps,
+  UseFiltersColumnProps,
 } from 'react-table';
 
 export type UseStatsOptions<D extends object> = Partial<{
@@ -55,7 +57,11 @@ function useInstance<D extends object>(instance: TableInstance<D>) {
 
   instance.allColumns.forEach((col) => {
     // TODO do proper options
-    const extended = (col as unknown) as UseStatsColumnProps & UseStatsColumnOptions<D>;
+    const extended = (col as unknown) as UseStatsColumnProps &
+      UseStatsColumnOptions<D> &
+      UseGroupByColumnProps<D> &
+      UseFiltersColumnProps<D>;
+
     if (!extended.stats) {
       extended.statsValue = null;
       return;
@@ -64,9 +70,23 @@ function useInstance<D extends object>(instance: TableInstance<D>) {
     const flat = extendedInstance.nonGroupedFlatRows ?? instance.flatRows;
     const values = flat.map((row) => row.values[col.id]);
     const preFilteredFlatRows = extendedInstance.preFilteredFlatRows;
+
+    // compute raw stats
     extended.preFilterStatsValue = preFilteredFlatRows
       ? extended.stats(preFilteredFlatRows.map((row) => row.values[col.id]))
       : undefined;
+    // compute current stats
     extended.statsValue = extended.stats(values, extended.preFilterStatsValue);
+
+    // compute groups
+    const grouped = extendedInstance.onlyGroupedFlatRows ?? [];
+    for (const group of grouped) {
+      const value = group.values[col.id];
+      if (!Array.isArray(value)) {
+        continue;
+      }
+      // compute stats
+      group.values[col.id] = extended.stats(value, extended.statsValue);
+    }
   });
 }

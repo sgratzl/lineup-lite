@@ -13,8 +13,8 @@ export default function BoxPlotRenderer<P extends StatsPropsLike<number>>(
 ): Renderer<P> {
   const stats = numberStatsGenerator(options);
   return (props: P) => {
-    const { s, preFilter, isCell } = extractStats(props, stats);
-    if (isCell) {
+    const { s, preFilter, cell } = extractStats(props, stats);
+    if (cell) {
       return (
         <div className="lt-boxplot lt-summary lt-group">
           <BoxPlot s={s} className="lt-boxplot-wrapper" />
@@ -22,7 +22,7 @@ export default function BoxPlotRenderer<P extends StatsPropsLike<number>>(
       );
     }
     let filter = null;
-    if (isFilterAble(props) && props.column.canFilter && !isCell) {
+    if (isFilterAble(props) && props.column.canFilter) {
       const { setFilter, filterValue } = props.column;
       filter = <FilterRangeSlider s={s} setFilter={setFilter} filterValue={filterValue} />;
     }
