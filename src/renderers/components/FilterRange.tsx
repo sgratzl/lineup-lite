@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useLayoutEffect } from 'react';
 import { INumericStats } from '../../math/common';
 import { toPercent } from '../utils';
 import './FilterRange.css';
+import { useAsyncDebounce, useGetLatest } from 'react-table';
 
 export interface FilterRangeSliderProps<T> {
   s: INumericStats<T>;
@@ -10,9 +11,20 @@ export interface FilterRangeSliderProps<T> {
 }
 
 export function FilterRangeSlider<T>(props: FilterRangeSliderProps<T>) {
-  const { setFilter, filterValue } = props;
+  const { setFilter } = props;
   const invert = props.s.invert;
-  const [fMin, fMax] = filterValue ?? [null, null];
+  const filterValue = props.filterValue ?? [null as T | null, null as T | null];
+  const [localFilter, setLocalFilter] = React.useState(filterValue);
+  const currentFilter = useGetLatest(localFilter);
+
+  useLayoutEffect(() => {
+    const v = currentFilter();
+    if (v[0] !== filterValue[0] || v[1] !== filterValue[1]) {
+      setLocalFilter(filterValue);
+    }
+  }, [setLocalFilter, currentFilter, filterValue]);
+
+  const setFilterDebounced = useAsyncDebounce(setFilter, 100);
 
   const onMinMouseDown = React.useMemo(() => {
     let ueber: HTMLElement | null = null;
@@ -21,7 +33,9 @@ export function FilterRangeSlider<T>(props: FilterRangeSliderProps<T>) {
 
     const onMinMouseMove = (evt: MouseEvent) => {
       const ratio = Math.min(1, Math.max(0, (evt.clientX - base) / width));
-      setFilter([ratio <= 0 ? null : invert(ratio), fMax]);
+      const v = [ratio <= 0 ? null : invert(ratio), currentFilter()[1]] as [T | null, T | null];
+      setLocalFilter(v);
+      setFilterDebounced(v);
     };
     const onMinMouseUp = () => {
       ueber!.removeEventListener('mousemove', onMinMouseMove);
@@ -39,7 +53,7 @@ export function FilterRangeSlider<T>(props: FilterRangeSliderProps<T>) {
       ueber.addEventListener('mouseleave', onMinMouseUp);
       ueber.addEventListener('mouseup', onMinMouseUp);
     };
-  }, [setFilter, fMax, invert]);
+  }, [setFilterDebounced, setLocalFilter, currentFilter, invert]);
 
   const onMaxMouseDown = React.useMemo(() => {
     let ueber: HTMLElement | null = null;
@@ -48,7 +62,9 @@ export function FilterRangeSlider<T>(props: FilterRangeSliderProps<T>) {
 
     const onMinMouseMove = (evt: MouseEvent) => {
       const ratio = Math.min(1, Math.max(0, (evt.clientX - base) / width));
-      setFilter([fMin, ratio >= 1 ? null : invert(ratio)]);
+      const v = [currentFilter()[0], ratio >= 1 ? null : invert(ratio)] as [T | null, T | null];
+      setLocalFilter(v);
+      setFilterDebounced(v);
     };
     const onMinMouseUp = () => {
       ueber!.removeEventListener('mousemove', onMinMouseMove);
@@ -66,21 +82,21 @@ export function FilterRangeSlider<T>(props: FilterRangeSliderProps<T>) {
       ueber.addEventListener('mouseleave', onMinMouseUp);
       ueber.addEventListener('mouseup', onMinMouseUp);
     };
-  }, [setFilter, fMin, invert]);
+  }, [setFilterDebounced, setLocalFilter, currentFilter, invert]);
 
   return (
     <>
       <div
         className="lt-filter-range lt-filter-range-min"
-        title={fMin == null ? undefined : `Min Filter: ${props.s.format(fMin)}`}
-        style={{ width: toPercent(fMin == null ? 0 : Math.max(0, props.s.scale(fMin))) }}
+        title={localFilter[0] == null ? undefined : `Min Filter: ${props.s.format(localFilter[0])}`}
+        style={{ width: toPercent(localFilter[0] == null ? 0 : Math.max(0, props.s.scale(localFilter[0]))) }}
       >
         <div className="lt-filter-range-drag" onMouseDown={onMinMouseDown} />
       </div>
       <div
         className="lt-filter-range lt-filter-range-max"
-        title={fMax == null ? undefined : `Max Filter: ${props.s.format(fMax)}`}
-        style={{ width: toPercent(fMax == null ? 0 : Math.max(0, 1 - props.s.scale(fMax))) }}
+        title={localFilter[1] == null ? undefined : `Max Filter: ${props.s.format(localFilter[1])}`}
+        style={{ width: toPercent(localFilter[1] == null ? 0 : Math.max(0, 1 - props.s.scale(localFilter[1]))) }}
       >
         <div className="lt-filter-range-drag" onMouseDown={onMaxMouseDown} />
       </div>

@@ -5,6 +5,7 @@ import './Histogram.css';
 import './Summary.css';
 import { color } from 'd3-color';
 import { FilterRangeSliderProps, FilterRangeSlider } from './FilterRange';
+import { useAsyncDebounce } from 'react-table';
 
 export interface HistogramProps<T> {
   s: IHistStats<T> & { readonly min?: T; readonly max?: T };
@@ -21,7 +22,7 @@ function generateBinTitle<T>(props: HistogramProps<T>, h: IBin<T>, raw?: IBin<T>
   const rawT = raw ? `/${raw.count.toLocaleString()}` : '';
   return `${props.s.format(h.x0)}${
     !props.label ? ` - ${props.s.format(h.x1)}` : ''
-  }: ${h.count.toLocaleString()}${rawT}`;
+  }: ${h.count.toLocaleString()}${rawT} items`;
 }
 
 export default function Histogram<T>(props: HistogramProps<T>) {
@@ -99,14 +100,16 @@ export function FilterBinHistogram<T>(props: FilterBinHistogramProps<T>) {
   const current: T[] = filterValue ?? [];
   const hist = props.s.hist;
 
+  const setFilterDebounced = useAsyncDebounce(setFilter, 1);
+
   const onClick = React.useCallback(
     (evt: React.MouseEvent<HTMLElement>) => {
       const bin = hist[Number.parseInt(evt.currentTarget.dataset.i!, 10)];
       const value = bin.x0;
       const next = current.includes(value) ? current.filter((d) => d !== value) : current.concat([value]);
-      setFilter(next);
+      setFilterDebounced(next);
     },
-    [setFilter, hist, current]
+    [setFilterDebounced, hist, current]
   );
   return (
     <HistogramWrapper s={props.s} summary>
