@@ -1,6 +1,6 @@
 {
-  "eslint.enable": false,
-  "editor.formatOnSave": false,
+  "eslint.enable": true,
+  "editor.formatOnSave": true,
   "editor.formatOnType": true,
   "[javascript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
@@ -25,19 +25,4 @@
   "typescript.tsdk": ".yarn/sdks/typescript/lib",
   "typescript.enablePromptUseWorkspaceTsdk": true,
   "npm.packageManager": "yarn",
-  "cSpell.enableFiletypes": [
-    "markdown"
-  ],
-  "cSpell.ignoreWords": [
-    "autorun",
-    "clsx",
-    "elems",
-    "i",
-    "papaparse",
-    "unparse"
-  ],
-  "cSpell.words": [
-    "addon",
-    "boxplot"
-  ]
 }
