@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { Renderer } from 'react-table';
 import { INumberStats, NumberStatsOptions } from '../math';
 import { numberStats } from '../stats';
-import Histogram, { FilterRangeHistogram } from './components/Histogram';
+import Histogram, { FilterRangeHistogram } from '../components/Histogram';
 import { extractStats, groupMaxBin, isFilterAble, optionContext, statsGeneratorContext, StatsPropsLike } from './utils';
 
 export interface NumberHistogramRendererOptions extends NumberStatsOptions {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { INumberStats } from '../../math/numberStatsGenerator';
+import { INumberStats } from '../math/numberStatsGenerator';
 import { IBoxPlot } from '@sgratzl/boxplots';
 
 export interface BoxPlotProps {

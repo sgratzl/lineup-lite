@@ -1,7 +1,7 @@
-import './renderers/components/BoxPlot.css';
-import './renderers/components/FilterRange.css';
-import './renderers/components/Histogram.css';
-import './renderers/components/Summary.css';
+import './components/BoxPlot.css';
+import './components/FilterRange.css';
+import './components/Histogram.css';
+import './components/Summary.css';
 
 import './renderers/BarRenderer.css';
 import './renderers/BoxPlotRenderer.css';

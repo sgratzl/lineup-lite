@@ -1,9 +1,9 @@
 import React, { useContext } from 'react';
 import { Renderer } from 'react-table';
 import { INumberStats, NumberStatsOptions } from '../math';
-import BoxPlot from './components/BoxPlot';
+import BoxPlot from '../components/BoxPlot';
 import { extractStats, isFilterAble, optionContext, statsGeneratorContext, StatsPropsLike } from './utils';
-import { FilterRangeSlider } from './components/FilterRange';
+import { FilterRangeSlider } from '../components/FilterRange';
 import { numberStats } from '../stats';
 
 export interface BoxPlotRendererOptions extends NumberStatsOptions {}

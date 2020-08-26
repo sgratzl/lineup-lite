@@ -16,6 +16,7 @@ import {
   textStats,
   TextSummaryRenderer,
   useStats,
+  useRowSelectColumn,
   UseStatsColumnOptions,
 } from '@lineup-lite/hooks';
 import '@lineup-lite/hooks/dist/hooks.css';
@@ -43,7 +44,9 @@ import {
   useTable,
 } from 'react-table';
 import { generateData } from '../data/genData';
-import IndeterminateCheckbox from './IndeterminateCheckbox';
+import { observer } from 'mobx-react-lite';
+import { makeStyles } from '@material-ui/core/styles';
+import { useStore } from '../store';
 
 declare type FullColumn<D extends object> = Column<D> &
   UseGroupByColumnOptions<D> &
@@ -65,30 +68,7 @@ function Table<D extends object>({ columns, data }: { columns: FullColumn<D>[]; 
     useExpanded, // useGroupBy would be pretty useless without useExpanded ;)
     useStats,
     useRowSelect,
-    (hooks) => {
-      hooks.visibleColumns.push((columns) => [
-        // Let's make a column for selection
-        {
-          id: 'selection',
-          // The header can use the table's getToggleAllRowsSelectedProps method
-          // to render a checkbox
-          Header: ({ getToggleAllRowsSelectedProps }: any) => (
-            <div>
-              <IndeterminateCheckbox {...getToggleAllRowsSelectedProps()} />
-            </div>
-          ),
-          Summary: () => null,
-          // The cell can use the individual row's getToggleRowSelectedProps method
-          // to the render a checkbox
-          Cell: ({ row }: any) => (
-            <div>
-              <IndeterminateCheckbox {...row.getToggleRowSelectedProps()} />
-            </div>
-          ),
-        },
-        ...columns,
-      ]);
-    }
+    useRowSelectColumn
   ) as TableInstance<D> & UseFiltersInstanceProps<D>;
 
   return (
@@ -218,7 +198,15 @@ const columns: FullColumn<IRow>[] = [
   },
 ];
 
-export default function TableExample() {
+const useStyles = makeStyles(() => ({
+  root: {
+    flex: '1 1 0',
+  },
+}));
+
+export default observer(() => {
+  const store = useStore();
+  const classes = useStyles();
   const data = React.useMemo(
     () =>
       generateData({
@@ -227,6 +215,9 @@ export default function TableExample() {
       }) as IRow[],
     []
   );
-
-  return <Table columns={columns} data={data} />;
-}
+  return (
+    <div data-id={store} className={classes.root}>
+      <Table columns={columns} data={data} />
+    </div>
+  );
+});

@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { Renderer } from 'react-table';
 import { dateStats } from '../stats';
-import Histogram, { FilterRangeHistogram } from './components/Histogram';
+import Histogram, { FilterRangeHistogram } from '../components/Histogram';
 import { extractStats, isFilterAble, StatsPropsLike, groupMaxBin, statsGeneratorContext, optionContext } from './utils';
 import { DateStatsOptions, IDateStats } from '../math';
 
