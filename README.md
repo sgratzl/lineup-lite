@@ -1,11 +1,11 @@
 # LineUp-lite
 
-[![NPM Package][npm-image]][npm-url] [![Github Actions][github-actions-image]][github-actions-url]
+[![NPM Package][npm-image]][npm-url] [![Github Actions][github-actions-image]][github-actions-url] [![License: MPL 2.0][license-image]][license-url]
 
 This monorepo contains following packages:
 
-- [@lineup-lite/model](https://github.com/sgratzl/lineup-lite/tree/master/packages/model) the data model definition of LineUp-lite
-  [![Open Docs][docs]](https://lineup-lite.js.org/api/model)
+- [@lineup-lite/hooks](https://github.com/sgratzl/lineup-lite/tree/master/packages/hooks) the data model definition of LineUp-lite
+  [![Open Docs][docs]](https://lineup-lite.js.org/api/hooks)
 
 - [@lineup-lite/react](https://github.com/sgratzl/lineup-lite/tree/master/packages/react) the main LineUp-lite React component
   [![Open Docs][docs]](https://lineup-lite.js.org/api/react)
@@ -37,6 +37,7 @@ npm install @lineup-lite/bundle
 ```
 
 ```js
+
 ```
 
 ## LineUp-lite App
@@ -107,6 +108,7 @@ Thus, a next unified patch release should be increased to the next 10 potent.
 e.g.,
 
 ```
+
 ```
 
 ## Privacy Policy
@@ -117,15 +119,10 @@ However, as soon as you export your session within the app to an external servic
 
 ## License / Terms of Service
 
-### Commercial license
+This library is released under the `MPL-2.0` license.
 
-If you want to use LineUp-lite for a commercial application the commercial license is the appropriate license. Contact [@sgratzl](mailto:sam@sgratzl.com) for details.
-
-### Open-source license
-
-This library is released under the `GNU AGPLv3` version to be used for private and academic purposes.
-In case of a commercial use, please get in touch regarding a commercial license.
-
+[license-image]: https://img.shields.io/badge/License-MPL%202.0-brightgreen.svg
+[license-url]: https://opensource.org/licenses/MPL-2.0
 [npm-image]: https://badge.fury.io/js/%40lineup-lite%2Freact.svg
 [npm-url]: https://npmjs.org/package/@lineup-lite/react
 [github-actions-image]: https://github.com/sgratzl/lineup-lite/workflows/ci/badge.svg

@@ -1,6 +1,6 @@
 # LineUp-lite App
 
-[![Github Actions][github-actions-image]][github-actions-url]
+[![Github Actions][github-actions-image]][github-actions-url] [![License: MPL 2.0][license-image]][license-url]
 
 This package is part of the LineUp-lite ecosystem located at the main [Github Monorepo](https://github.com/sgratzl/lineup-lite).
 
