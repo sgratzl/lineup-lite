@@ -1996,7 +1996,7 @@ __metadata:
     "@babel/core": ^7.11.4
     "@babel/preset-env": ^7.11.0
     "@lineup-lite/bundle": ~1.0.0
-    "@lineup-lite/model": ~1.0.0
+    "@lineup-lite/hooks": ~1.0.0
     "@lineup-lite/react": ~1.0.0
     "@material-ui/core": ^4.11.0
     "@material-ui/lab": ^4.0.0-alpha.56
@@ -2059,7 +2059,7 @@ __metadata:
   resolution: "@lineup-lite/bundle@workspace:packages/bundle"
   dependencies:
     "@babel/core": ^7.11.4
-    "@lineup-lite/model": 1.0.0
+    "@lineup-lite/hooks": 1.0.0
     "@lineup-lite/react": 1.0.0
     "@rollup/plugin-alias": ^3.1.1
     "@rollup/plugin-commonjs": ^15.0.0
@@ -2089,9 +2089,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@lineup-lite/model@1.0.0, @lineup-lite/model@workspace:packages/model, @lineup-lite/model@~1.0.0":
+"@lineup-lite/hooks@1.0.0, @lineup-lite/hooks@workspace:packages/hooks, @lineup-lite/hooks@~1.0.0":
   version: 0.0.0-use.local
-  resolution: "@lineup-lite/model@workspace:packages/model"
+  resolution: "@lineup-lite/hooks@workspace:packages/hooks"
   dependencies:
     "@rollup/plugin-commonjs": ^15.0.0
     "@types/jest": ^26.0.10
@@ -2125,7 +2125,7 @@ __metadata:
   resolution: "@lineup-lite/react@workspace:packages/react"
   dependencies:
     "@babel/core": ^7.11.4
-    "@lineup-lite/model": ~1.0.0
+    "@lineup-lite/hooks": ~1.0.0
     "@rollup/plugin-commonjs": ^15.0.0
     "@storybook/addon-docs": ^6.0.18
     "@storybook/addons": ^6.0.18
