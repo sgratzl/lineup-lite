@@ -5,14 +5,14 @@
     "rootDir": "./src",
     "baseUrl": "./",
     "outDir": "./dist",
-    "declaration": false,
+    "declaration": true,
     "paths": {
       "@": ["./src"],
       "*": ["*", "node_modules/*"]
     }
   },
   "typedocOptions": {
-    "name": "LineUp-lite Model",
+    "name": "LineUp-lite Hooks",
     "out": "./docs",
     "mode": "library",
     "theme": "minimal",

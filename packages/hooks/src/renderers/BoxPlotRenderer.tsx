@@ -1,7 +1,6 @@
 import React from 'react';
 import { Renderer } from 'react-table';
 import { numberStatsGenerator, NumberStatsOptions } from '../math';
-import './BoxPlotRenderer.css';
 import BoxPlot from './components/BoxPlot';
 import { extractStats, isFilterAble, StatsPropsLike } from './utils';
 import { FilterRangeSlider } from './components/FilterRange';

@@ -2,7 +2,6 @@ import React from 'react';
 import { Renderer, CellProps } from 'react-table';
 import { IDateStats, DateFormatter, resolveDateFormatter } from '../math';
 import { UseStatsColumnProps } from '../hooks';
-import './DateRenderer.css';
 import { resolve } from './utils';
 
 export interface DateRendererOptions {

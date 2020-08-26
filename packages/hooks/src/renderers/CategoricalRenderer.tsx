@@ -2,7 +2,6 @@ import React from 'react';
 import { Renderer, CellProps } from 'react-table';
 import { defaultCategoricalColorScale, ICategoricalStats } from '../math';
 import { UseStatsColumnProps } from '../hooks';
-import './CategoricalRenderer.css';
 import { resolve } from './utils';
 
 export interface CategoricalRendererOptions {

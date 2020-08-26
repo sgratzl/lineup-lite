@@ -1,7 +1,6 @@
 import React, { useLayoutEffect } from 'react';
 import { INumericStats } from '../../math/common';
 import { toPercent } from '../utils';
-import './FilterRange.css';
 import { useAsyncDebounce, useGetLatest } from 'react-table';
 
 export interface FilterRangeSliderProps<T> {

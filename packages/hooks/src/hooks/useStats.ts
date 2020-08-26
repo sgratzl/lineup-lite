@@ -12,7 +12,7 @@ import {
   UseFiltersColumnProps,
 } from 'react-table';
 
-export type UseStatsOptions<D extends object> = Partial<{
+export type UseStatsOptions = Partial<{
   manualStats: boolean;
   autoResetStats?: boolean;
 }>;
@@ -81,13 +81,13 @@ function useInstance<D extends object>(instance: TableInstance<D>) {
 
     // compute groups
     const grouped = extendedInstance.onlyGroupedFlatRows ?? [];
-    for (const group of grouped) {
+    grouped.forEach((group) => {
       const value = group.values[col.id];
       if (!Array.isArray(value)) {
-        continue;
+        return;
       }
       // compute stats
-      group.values[col.id] = extended.stats(value, extended.statsValue);
-    }
+      group.values[col.id] = extended.stats!(value, extended.statsValue);
+    });
   });
 }

@@ -15,13 +15,13 @@ export function categoricalStatsGenerator(options: CategoricalStatsOptions = {})
   return (arr: readonly string[]): ICategoricalStats => {
     let missing = 0;
     const map = new Map<string, number>();
-    for (const v of arr) {
+    arr.forEach((v) => {
       if (v == null) {
         missing++;
-        continue;
+        return;
       }
       map.set(v, 1 + (map.get(v) ?? 0));
-    }
+    });
     const hist = Array.from(map.entries())
       .sort((a, b) => a[0].localeCompare(b[0]))
       .map(([value, count]) => ({

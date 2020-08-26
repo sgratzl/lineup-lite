@@ -1,9 +1,10 @@
 const commonjs = require('@rollup/plugin-commonjs');
 const resolve = require('rollup-plugin-pnp-resolve');
 const cleanup = require('rollup-plugin-cleanup');
+const css = require('rollup-plugin-css-only');
 
 module.exports = {
-  rollup(config) {
+  rollup(config, options) {
     const c = config.plugins.findIndex((d) => d.name === 'commonjs');
     if (c !== -1) {
       config.plugins.splice(c, 1);
@@ -15,6 +16,15 @@ module.exports = {
         extensions: ['ts', 'tsx', 'js', 'jsx'],
       })
     );
+    if (options.format === 'esm') {
+      config.input = './src/bundle.ts';
+      config.plugins.push(
+        css({
+          output: './dist/hooks.css',
+        })
+      );
+    }
+
     config.output.banner = `/**
  * @lineup-lite/model
  * https://github.com/sgratzl/lineup-lite

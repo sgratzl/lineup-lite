@@ -1,7 +1,5 @@
 import React from 'react';
 import { INumberStats } from '../../math/numberStatsGenerator';
-import './BoxPlot.css';
-import './Summary.css';
 import { IBoxPlot } from '@sgratzl/boxplots';
 
 export interface BoxPlotProps {

@@ -2125,6 +2125,7 @@ __metadata:
     rimraf: ^3.0.2
     rollup: ^2.26.5
     rollup-plugin-cleanup: ^3.1.1
+    rollup-plugin-css-only: ^2.1.0
     rollup-plugin-dts: ^1.4.12
     rollup-plugin-pnp-resolve: ^2.0.0
     tsdx: ~0.13.3
@@ -2521,7 +2522,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rollup/pluginutils@npm:^3.0.8, @rollup/pluginutils@npm:^3.1.0":
+"@rollup/pluginutils@npm:^3.0.0, @rollup/pluginutils@npm:^3.0.8, @rollup/pluginutils@npm:^3.1.0":
   version: 3.1.0
   resolution: "@rollup/pluginutils@npm:3.1.0"
   dependencies:
@@ -16279,6 +16280,18 @@ resolve@1.15.1:
   peerDependencies:
     rollup: ">=0.50.0"
   checksum: 7c6a4f583ca746faf56f0c48dbd49b8c354453f7bdac9f5f3830178387e8ee1c86a973a114c9ad5565a3576fd4460e11aa6bcad0ae727a24a50bc49c41a30b8f
+  languageName: node
+  linkType: hard
+
+"rollup-plugin-css-only@npm:^2.1.0":
+  version: 2.1.0
+  resolution: "rollup-plugin-css-only@npm:2.1.0"
+  dependencies:
+    "@rollup/pluginutils": ^3.0.0
+    fs-extra: ^9.0.0
+  peerDependencies:
+    rollup: 1 || 2
+  checksum: ff8daf6a69ebb8d020d5015b25977ade98424b6b50cac7eebfc040cb91db255d0100d38a4de620e4366cd6dfcb61a7a5be2f4712872708ff38b97227ae2c7211
   languageName: node
   linkType: hard
 

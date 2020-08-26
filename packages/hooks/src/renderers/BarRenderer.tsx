@@ -1,7 +1,6 @@
 import React from 'react';
 import { CellProps, Renderer } from 'react-table';
 import { NumberFormatter } from '../math';
-import './BarRenderer.css';
 import { deriveNumberOptions } from './barStats';
 import { toPercent } from './utils';
 

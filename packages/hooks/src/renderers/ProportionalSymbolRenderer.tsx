@@ -2,7 +2,6 @@ import React from 'react';
 import { Renderer, CellProps } from 'react-table';
 import { BarRendererOptions } from './BarRenderer';
 import { toPercent } from './utils';
-import './ProportionalSymbolRenderer.css';
 import { deriveNumberOptions } from './barStats';
 
 function radiFromArea(area: number) {

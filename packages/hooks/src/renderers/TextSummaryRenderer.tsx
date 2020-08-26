@@ -1,8 +1,6 @@
 import React from 'react';
 import { Renderer } from 'react-table';
 // import { UseStatsColumnProps } from '../hooks';
-import './TextSummaryRenderer.css';
-import './components/Summary.css';
 import { extractStats, isFilterAble, StatsPropsLike } from './utils';
 import { ITextStats } from '../math';
 import { textStats } from '../stats';

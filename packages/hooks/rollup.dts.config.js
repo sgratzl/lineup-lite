@@ -1,3 +1,4 @@
+import css from 'rollup-plugin-css-only';
 import dts from 'rollup-plugin-dts';
 
 export default {
@@ -9,6 +10,9 @@ export default {
   plugins: [
     dts({
       respectExternal: true,
+    }),
+    css({
+      output: false,
     }),
   ],
 };

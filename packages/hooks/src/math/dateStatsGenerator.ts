@@ -177,11 +177,11 @@ export function dateStatsGenerator(options: DateStatsOptions = {}) {
 
     const missing = arr.length - simpleStats.valid;
     if (simpleStats.valid > 0) {
-      for (const d of arr) {
+      arr.forEach((d) => {
         if (d) {
           pushDateHist(hist, d);
         }
-      }
+      });
     }
     return {
       hist,

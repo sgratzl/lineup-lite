@@ -19,7 +19,7 @@ export function textStatsGenerator(options: TextStatsOptions = {}) {
   return (arr: readonly string[]): ITextStats => {
     let missing = 0;
     const counter = new Map<string, { value: string; count: number }>();
-    for (const v of arr) {
+    arr.forEach((v) => {
       if (!v) {
         missing++;
       } else if (counter.has(v)) {
@@ -27,7 +27,7 @@ export function textStatsGenerator(options: TextStatsOptions = {}) {
       } else {
         counter.set(v, { value: v, count: 1 });
       }
-    }
+    });
     return {
       unique: counter.size,
       mostFrequent:
