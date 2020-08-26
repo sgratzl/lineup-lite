@@ -1,3 +1,24 @@
+import {
+  BarRenderer,
+  BoxPlotRenderer,
+  categoricalFilter,
+  CategoricalHistogramRenderer,
+  CategoricalRenderer,
+  categoricalStats,
+  ColorRenderer,
+  DateHistogramRenderer,
+  DateRenderer,
+  dateStats,
+  NumberHistogramRenderer,
+  numberStats,
+  ProportionalSymbolRenderer,
+  rangeFilter,
+  textStats,
+  TextSummaryRenderer,
+  useStats,
+  UseStatsColumnOptions,
+} from '@lineup-lite/hooks';
+import '@lineup-lite/hooks/dist/hooks.css';
 import React from 'react';
 import {
   Cell,
@@ -21,23 +42,8 @@ import {
   useRowSelect,
   useTable,
 } from 'react-table';
-import { categoricalFilter, rangeFilter } from '../filters';
-import { useStats, UseStatsColumnOptions } from '../hooks';
-import { categoricalStats, textStats, numberStats, dateStats } from '../stats';
-import { generateData } from './data';
+import { generateData } from '../data/genData';
 import IndeterminateCheckbox from './IndeterminateCheckbox';
-import {
-  TextSummaryRenderer,
-  BarRenderer,
-  NumberHistogramRenderer,
-  ColorRenderer,
-  BoxPlotRenderer,
-  ProportionalSymbolRenderer,
-  CategoricalRenderer,
-  CategoricalHistogramRenderer,
-  DateRenderer,
-  DateHistogramRenderer,
-} from '../renderers';
 
 declare type FullColumn<D extends object> = Column<D> &
   UseGroupByColumnOptions<D> &
@@ -107,7 +113,7 @@ function Table<D extends object>({ columns, data }: { columns: FullColumn<D>[]; 
         ))}
       </thead>
       <tbody {...getTableBodyProps()}>
-        {rows.map((rowR, i) => {
+        {rows.map((rowR) => {
           prepareRow(rowR);
           const row = (rowR as unknown) as Row<D> & UseExpandedRowProps<D> & UseGroupByRowProps<D>;
           return (

@@ -56,6 +56,7 @@
     "@types/jest": "^26.0.10",
     "@types/react": "^16.9.47",
     "@types/react-dom": "^16.9.8",
+    "@types/react-table": "^7.0.22",
     "@typescript-eslint/eslint-plugin": "^3.10.1",
     "@typescript-eslint/parser": "^3.10.1",
     "core-js": "^3.6.5",
@@ -71,6 +72,7 @@
     "prettier": "^2.1.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-table": "^7.5.0",
     "rimraf": "^3.0.2",
     "rollup": "^2.26.5",
     "rollup-plugin-cleanup": "^3.1.1",
@@ -85,16 +87,16 @@
   "peerDependencies": {
     "@types/react": "^16.9.47",
     "@types/react-dom": "^16.9.8",
+    "@types/react-table": "^7.0.22",
     "react": "^16.13.1",
-    "react-dom": "^16.13.1"
+    "react-dom": "^16.13.1",
+    "react-table": "^7.5.0"
   },
   "dependencies": {
     "@sgratzl/boxplots": "^1.2.1",
     "@types/d3-color": "^1.2.2",
     "@types/d3-scale-chromatic": "^1.5.0",
-    "@types/react-table": "^7.0.22",
     "d3-color": "^2.0.0",
-    "d3-scale-chromatic": "^2.0.0",
-    "react-table": "^7.5.0"
+    "d3-scale-chromatic": "^2.0.0"
   }
 }

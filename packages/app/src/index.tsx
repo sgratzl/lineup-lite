@@ -1,17 +1,41 @@
-import React from 'react';
+/**
+ * @lineup-lite/app
+ * https://github.com/sgratzl/lineup-lite
+ *
+ * Copyright (c) 2020 Samuel Gratzl <sam@sgratzl.com>
+ */
+
+import 'core-js/stable';
+import 'regenerator-runtime';
+
+import React, { lazy, Suspense } from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from 'lineup-lite/n/src/serviceWorker';
+import { optimizeScheduler } from 'mobx-react-lite';
+import Skeleton from './components/Skeleton';
+
+optimizeScheduler(ReactDOM.unstable_batchedUpdates as any);
+
+const App = lazy(() => import('./components/App'));
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Suspense fallback={<Skeleton />}>
+      <App />
+    </Suspense>
   </React.StrictMode>,
-  document.getElementById('root')
+  document.querySelector('#app')
 );
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+// register service worker
+if (process.env.PRODUCTION && 'serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker
+      .register('./service-worker.js')
+      .then((registration) => {
+        console.log('SW registered: ', registration);
+      })
+      .catch((registrationError) => {
+        console.warn('SW registration failed: ', registrationError);
+      });
+  });
+}

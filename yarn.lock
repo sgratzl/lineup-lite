@@ -2009,6 +2009,7 @@ __metadata:
     "@types/react": ^16.9.47
     "@types/react-dom": ^16.9.8
     "@types/react-resize-detector": ^4.2.0
+    "@types/react-table": ^7.0.22
     "@typescript-eslint/eslint-plugin": ^3.10.1
     "@typescript-eslint/parser": ^3.10.1
     babel-eslint: ^10.1.0
@@ -2040,6 +2041,7 @@ __metadata:
     react: ^16.13.1
     react-dom: ^16.13.1
     react-resize-detector: ^5.0.7
+    react-table: ^7.5.0
     regenerator-runtime: ^0.13.7
     rimraf: ^3.0.2
     style-loader: ^1.2.1
@@ -2135,8 +2137,10 @@ __metadata:
   peerDependencies:
     "@types/react": ^16.9.47
     "@types/react-dom": ^16.9.8
+    "@types/react-table": ^7.0.22
     react: ^16.13.1
     react-dom: ^16.13.1
+    react-table: ^7.5.0
   languageName: unknown
   linkType: soft
 
