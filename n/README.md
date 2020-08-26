@@ -1,3 +1,0 @@
-# LineUp React Table
-
-TODO
