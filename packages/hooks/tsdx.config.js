@@ -26,7 +26,7 @@ module.exports = {
     }
 
     config.output.banner = `/**
- * @lineup-lite/model
+ * @lineup-lite/hooks
  * https://github.com/sgratzl/lineup-lite
  *
  * Copyright (c) 2020 Samuel Gratzl <sam@sgratzl.com>

@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Renderer, CellProps } from 'react-table';
 import { BarRendererOptions } from './BarRenderer';
-import { toPercent } from './utils';
+import { toPercent, optionContext } from './utils';
 import { deriveNumberOptions } from './barStats';
 
 function radiFromArea(area: number) {
@@ -17,15 +17,22 @@ function proportionalSymbolProps(value: number, color: string | ((v: number) => 
   };
 }
 
-export function ProportionalSymbolRenderer<D extends object, P extends CellProps<D, number>>(
+export function ProportionalSymbolRenderer<D extends object, P extends CellProps<D, number>>(props: P) {
+  const options = useContext(optionContext) as BarRendererOptions;
+  const p = deriveNumberOptions<D, P>(props, options);
+  return (
+    <div className="lt-proportional-symbol" style={proportionalSymbolProps(p.scale(props.value), p.color)}>
+      {p.format(props.value)}
+    </div>
+  );
+}
+
+export function ProportionalSymbolRendererFactory<D extends object, P extends CellProps<D, number>>(
   options: BarRendererOptions = {}
 ): Renderer<P> {
-  return (props: P) => {
-    const p = deriveNumberOptions<D, P>(props, options);
-    return (
-      <div className="lt-proportional-symbol" style={proportionalSymbolProps(p.scale(props.value), p.color)}>
-        {p.format(props.value)}
-      </div>
-    );
-  };
+  return (props: P) => (
+    <optionContext.Provider value={options}>
+      <ProportionalSymbolRenderer<D, P> {...props} />
+    </optionContext.Provider>
+  );
 }

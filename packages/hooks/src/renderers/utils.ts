@@ -1,6 +1,10 @@
 import { StatsProps, StatsCellProps } from '../hooks';
 import { UseFiltersColumnProps, UseGroupByInstanceProps, Cell, CellProps, UseGroupByCellProps } from 'react-table';
 import { ICommonStats, IHistStats } from '../math';
+import { createContext } from 'react';
+
+export const optionContext = createContext<{ [key: string]: any }>({});
+export const statsGeneratorContext = createContext<null | any>(null);
 
 export function toPercent(v: number) {
   return `${Math.round(v * 1000) / 10}%`;

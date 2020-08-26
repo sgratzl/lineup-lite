@@ -132,7 +132,7 @@ export default observer(({ className }: { className?: string }) => {
         </IconButton>
         <div className={classes.line} onDragOver={dragOver} onDrop={drop}>
           <Typography variant="h6" className={classes.title}>
-            {'LineUp-lite.js: '}
+            {'LineUp-lite: '}
             <Select
               className={classes.select}
               onChange={useCallback(

@@ -3,5 +3,6 @@
 }
 
 .lt-boxplot-wrapper {
-  flex-grow: 1;
+  flex: 1;
+  width: 0;
 }

@@ -7,6 +7,7 @@
 
 import 'core-js/stable';
 import 'regenerator-runtime';
+import './index.css';
 
 import React, { lazy, Suspense } from 'react';
 import ReactDOM from 'react-dom';
