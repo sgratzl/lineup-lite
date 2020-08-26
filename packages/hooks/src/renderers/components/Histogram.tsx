@@ -97,19 +97,19 @@ export interface FilterBinHistogramProps<T> extends HistogramProps<T> {
 
 export function FilterBinHistogram<T>(props: FilterBinHistogramProps<T>) {
   const { setFilter, filterValue } = props;
-  const current: T[] = filterValue ?? [];
   const hist = props.s.hist;
 
   const setFilterDebounced = useAsyncDebounce(setFilter, 1);
 
   const onClick = React.useCallback(
     (evt: React.MouseEvent<HTMLElement>) => {
+      const current: T[] = filterValue ?? [];
       const bin = hist[Number.parseInt(evt.currentTarget.dataset.i!, 10)];
       const value = bin.x0;
       const next = current.includes(value) ? current.filter((d) => d !== value) : current.concat([value]);
       setFilterDebounced(next);
     },
-    [setFilterDebounced, hist, current]
+    [setFilterDebounced, hist, filterValue]
   );
   return (
     <HistogramWrapper s={props.s} summary>

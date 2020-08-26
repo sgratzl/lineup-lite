@@ -1,9 +1,9 @@
 import React from 'react';
-import { Renderer, CellProps } from 'react-table';
-import { UseStatsColumnProps } from '../hooks';
+import { Renderer } from 'react-table';
+// import { UseStatsColumnProps } from '../hooks';
 import './TextSummaryRenderer.css';
 import './components/Summary.css';
-import { resolve, extractStats, isFilterAble, StatsPropsLike } from './utils';
+import { extractStats, isFilterAble, StatsPropsLike } from './utils';
 import { ITextStats } from '../math';
 import { textStats } from '../stats';
 
@@ -12,16 +12,16 @@ export interface TextSummaryRendererOptions {
   placeholder?: (s: ITextStats) => string;
 }
 
-function deriveTextOptions<D extends object, P extends CellProps<D, string>>(
-  props: P,
-  options: TextSummaryRendererOptions = {}
-) {
-  const col = props.column as Partial<UseStatsColumnProps>;
-  const stats = col.statsValue as ITextStats | undefined;
-  return {
-    format: resolve(options.format, stats?.format, () => (v: string) => (v ? v.toString() : v)),
-  };
-}
+// function deriveTextOptions<D extends object, P extends CellProps<D, string>>(
+//   props: P,
+//   options: TextSummaryRendererOptions = {}
+// ) {
+//   const col = props.column as Partial<UseStatsColumnProps>;
+//   const stats = col.statsValue as ITextStats | undefined;
+//   return {
+//     format: resolve(options.format, stats?.format, () => (v: string) => (v ? v.toString() : v)),
+//   };
+// }
 
 export function TextSummaryRenderer<P extends StatsPropsLike<string>>(
   options: TextSummaryRendererOptions = {}

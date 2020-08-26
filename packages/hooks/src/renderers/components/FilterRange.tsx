@@ -13,14 +13,15 @@ export interface FilterRangeSliderProps<T> {
 export function FilterRangeSlider<T>(props: FilterRangeSliderProps<T>) {
   const { setFilter } = props;
   const invert = props.s.invert;
-  const filterValue = props.filterValue ?? [null as T | null, null as T | null];
-  const [localFilter, setLocalFilter] = React.useState(filterValue);
+  const filterValue = props.filterValue;
+  const [localFilter, setLocalFilter] = React.useState(filterValue ?? [null as T | null, null as T | null]);
   const currentFilter = useGetLatest(localFilter);
 
   useLayoutEffect(() => {
     const v = currentFilter();
-    if (v[0] !== filterValue[0] || v[1] !== filterValue[1]) {
-      setLocalFilter(filterValue);
+    const l = filterValue ?? [null as T | null, null as T | null];
+    if (v[0] !== l[0] || v[1] !== l[1]) {
+      setLocalFilter(l);
     }
   }, [setLocalFilter, currentFilter, filterValue]);
 

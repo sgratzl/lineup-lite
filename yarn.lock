@@ -2094,10 +2094,21 @@ __metadata:
   resolution: "@lineup-lite/hooks@workspace:packages/hooks"
   dependencies:
     "@rollup/plugin-commonjs": ^15.0.0
+    "@sgratzl/boxplots": ^1.2.1
+    "@testing-library/jest-dom": ^5.11.4
+    "@testing-library/react": ^10.4.9
+    "@testing-library/user-event": ^12.1.3
+    "@types/d3-color": ^1.2.2
+    "@types/d3-scale-chromatic": ^1.5.0
     "@types/jest": ^26.0.10
+    "@types/react": ^16.9.47
+    "@types/react-dom": ^16.9.8
+    "@types/react-table": ^7.0.22
     "@typescript-eslint/eslint-plugin": ^3.10.1
     "@typescript-eslint/parser": ^3.10.1
     core-js: ^3.6.5
+    d3-color: ^2.0.0
+    d3-scale-chromatic: ^2.0.0
     eslint: ^7.7.0
     eslint-config-prettier: ^6.11.0
     eslint-config-react-app: ^5.2.1
@@ -2108,6 +2119,9 @@ __metadata:
     eslint-plugin-react: ^7.20.6
     eslint-plugin-react-hooks: ^4.1.0
     prettier: ^2.1.0
+    react: ^16.13.1
+    react-dom: ^16.13.1
+    react-table: ^7.5.0
     rimraf: ^3.0.2
     rollup: ^2.26.5
     rollup-plugin-cleanup: ^3.1.1
@@ -2117,6 +2131,11 @@ __metadata:
     tslib: ^2.0.1
     typedoc: ^0.18.0
     typescript: ^4.0.2
+  peerDependencies:
+    "@types/react": ^16.9.47
+    "@types/react-dom": ^16.9.8
+    react: ^16.13.1
+    react-dom: ^16.13.1
   languageName: unknown
   linkType: soft
 
@@ -2512,6 +2531,13 @@ __metadata:
   peerDependencies:
     rollup: ^1.20.0||^2.0.0
   checksum: 45da6411e045d1b034242a8144f4a5e8c02ff1b68a2e0857807f5bb4b091c416f2015e075057f0f0dec200e7b35efe6ed4e301b43e365cedea09192f01a6839b
+  languageName: node
+  linkType: hard
+
+"@sgratzl/boxplots@npm:^1.2.1":
+  version: 1.2.1
+  resolution: "@sgratzl/boxplots@npm:1.2.1"
+  checksum: c01aa25f9b23c3f50ed24491d9c37690bd055a9688c3a9e600f310d2b73e27fc0b1d57c3128fe93bf79355e1a4eb2f7e520c1364edb22442b28c971720e4d412
   languageName: node
   linkType: hard
 
@@ -3232,6 +3258,22 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@testing-library/jest-dom@npm:^5.11.4":
+  version: 5.11.4
+  resolution: "@testing-library/jest-dom@npm:5.11.4"
+  dependencies:
+    "@babel/runtime": ^7.9.2
+    "@types/testing-library__jest-dom": ^5.9.1
+    aria-query: ^4.2.2
+    chalk: ^3.0.0
+    css: ^3.0.0
+    css.escape: ^1.5.1
+    lodash: ^4.17.15
+    redent: ^3.0.0
+  checksum: 2d59d588285017896060b76c175414adf246639558665ad3a8662d91c320f366d2bd3c95cf60163617090e2ca7bdc4b27d7a101bf96d8318513f15b45855991f
+  languageName: node
+  linkType: hard
+
 "@testing-library/react@npm:*, @testing-library/react@npm:^10.4.9":
   version: 10.4.9
   resolution: "@testing-library/react@npm:10.4.9"
@@ -3242,6 +3284,17 @@ __metadata:
     react: "*"
     react-dom: "*"
   checksum: 9f06d88dc13085790985543253005dca7703bda7a5e0ee2b96e0385a88b8c14b98d74951c1e2d940bcac1c231767e935f4cd90345e9202b79df57994538ad7f3
+  languageName: node
+  linkType: hard
+
+"@testing-library/user-event@npm:^12.1.3":
+  version: 12.1.3
+  resolution: "@testing-library/user-event@npm:12.1.3"
+  dependencies:
+    "@babel/runtime": ^7.10.2
+  peerDependencies:
+    "@testing-library/dom": ">=7.21.4"
+  checksum: af9844d63dd8f8c3d4e3950bf67900a52347fcd5d182531b5de5d4203b762e7377d83a3ba9c1278dce1ea88763994d72d070c29e012ae59df9d43c81e32fdbf5
   languageName: node
   linkType: hard
 
@@ -3323,6 +3376,13 @@ __metadata:
   version: 1.1.1
   resolution: "@types/color-name@npm:1.1.1"
   checksum: 8311db94a9c4ecd247763b81e783ee49d87678b4ce6a7ee502e2bd5cea242b7357804a04855db009f713174bc654cc0c01c7303d40d757e5d710f5ac0368500f
+  languageName: node
+  linkType: hard
+
+"@types/d3-color@npm:^1.2.2":
+  version: 1.2.2
+  resolution: "@types/d3-color@npm:1.2.2"
+  checksum: ece68df71bab742a657243e66d40a9c26295d2af0e2c961abc0d6efea7f1c007719e78daed65319ef9d882b7038f3934b3edf0df4290da27404eeb88cb8784c4
   languageName: node
   linkType: hard
 
@@ -3466,22 +3526,22 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/jest@npm:^24.0.15":
-  version: 24.9.1
-  resolution: "@types/jest@npm:24.9.1"
-  dependencies:
-    jest-diff: ^24.3.0
-  checksum: 2a950309a2d848c292b0c324aa124e4833f6446ddfcdb1f854c454000738ab918ac45f57ddbd667491381ad55b138a21d7aa049d7fe642b6ea87095990aa054b
-  languageName: node
-  linkType: hard
-
-"@types/jest@npm:^26.0.10":
+"@types/jest@npm:*, @types/jest@npm:^26.0.10":
   version: 26.0.10
   resolution: "@types/jest@npm:26.0.10"
   dependencies:
     jest-diff: ^25.2.1
     pretty-format: ^25.2.1
   checksum: bb9f6b06c8c22b05d139b0193110a56cf47f1a912e2ab65ef501ba1888d948660be774204f183bf7ab4c94d59fc3ba8e20f4795dce5f637553bf7750f27a2a4f
+  languageName: node
+  linkType: hard
+
+"@types/jest@npm:^24.0.15":
+  version: 24.9.1
+  resolution: "@types/jest@npm:24.9.1"
+  dependencies:
+    jest-diff: ^24.3.0
+  checksum: 2a950309a2d848c292b0c324aa124e4833f6446ddfcdb1f854c454000738ab918ac45f57ddbd667491381ad55b138a21d7aa049d7fe642b6ea87095990aa054b
   languageName: node
   linkType: hard
 
@@ -3678,6 +3738,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/react-table@npm:^7.0.22":
+  version: 7.0.22
+  resolution: "@types/react-table@npm:7.0.22"
+  dependencies:
+    "@types/react": "*"
+  checksum: b8d4ac072c58fcea91bb93418a8fc35806fb3b609f070ba88d20ff24b83675263fe7de21e0e86140afb21ad003339e9201d8c1eae12facfabaf27e6be59d184b
+  languageName: node
+  linkType: hard
+
 "@types/react-transition-group@npm:^4.2.0":
   version: 4.4.0
   resolution: "@types/react-transition-group@npm:4.4.0"
@@ -3742,6 +3811,15 @@ __metadata:
   version: 1.0.6
   resolution: "@types/tapable@npm:1.0.6"
   checksum: 01709a2f8dbea665a39c008ba6995c76210fabb52434815e7632c7fff22ecad1dd49a1d75b8f5b2e9b365c6d7a6407127bed834587df4777b800110c2a74fc36
+  languageName: node
+  linkType: hard
+
+"@types/testing-library__jest-dom@npm:^5.9.1":
+  version: 5.9.2
+  resolution: "@types/testing-library__jest-dom@npm:5.9.2"
+  dependencies:
+    "@types/jest": "*"
+  checksum: 34621bc2f1336a073c93552c427d891b796639fd54100bef52665d635530fc95b000d71c523fd5cc6b13c4342c72f6f7a8f098a47e36e1e62bd14c54d197a804
   languageName: node
   linkType: hard
 
@@ -4990,7 +5068,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"babel-eslint@npm:^10.0.3, babel-eslint@npm:^10.1.0":
+"babel-eslint@npm:*, babel-eslint@npm:^10.0.3, babel-eslint@npm:^10.1.0":
   version: 10.1.0
   resolution: "babel-eslint@npm:10.1.0"
   dependencies:
@@ -7188,6 +7266,24 @@ __metadata:
   languageName: node
   linkType: hard
 
+"css.escape@npm:^1.5.1":
+  version: 1.5.1
+  resolution: "css.escape@npm:1.5.1"
+  checksum: 44fe5e93fee46fe60dbd0cdd078b14ef75697ee93519a7157f976b655463dd66eba598b0df16c16a897ac884c97845d2a3819cb8d370cbf91bc59bb557ebe826
+  languageName: node
+  linkType: hard
+
+"css@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "css@npm:3.0.0"
+  dependencies:
+    inherits: ^2.0.4
+    source-map: ^0.6.1
+    source-map-resolve: ^0.6.0
+  checksum: a62cc8350fa1f6805a81447dc4a1df30f37316bcb671e4669531b5ddf24a8dd7024324ce321a8ec0b1dd48baafb38781ae4b0d80fa7c7f5adab5f46b8b9e29c8
+  languageName: node
+  linkType: hard
+
 "cssesc@npm:^3.0.0":
   version: 3.0.0
   resolution: "cssesc@npm:3.0.0"
@@ -7243,7 +7339,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"d3-color@npm:1 - 2":
+"d3-color@npm:1 - 2, d3-color@npm:^2.0.0":
   version: 2.0.0
   resolution: "d3-color@npm:2.0.0"
   checksum: 637e1115981b7598d3f86418478e7bfc4939d23b48eecbf5ea2297048724e13e42dda60963cbf2ebe3866705fe2eb87fa27e529da55ad57cda16aa799747554d
@@ -8241,7 +8337,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-config-prettier@npm:^6.0.0, eslint-config-prettier@npm:^6.11.0":
+"eslint-config-prettier@npm:*, eslint-config-prettier@npm:^6.0.0, eslint-config-prettier@npm:^6.11.0":
   version: 6.11.0
   resolution: "eslint-config-prettier@npm:6.11.0"
   dependencies:
@@ -15439,6 +15535,15 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
+"react-table@npm:^7.5.0":
+  version: 7.5.0
+  resolution: "react-table@npm:7.5.0"
+  peerDependencies:
+    react: ^16.8.3
+  checksum: be6f42ab1919333e8ac43249e386acfe8c8e975a7e952a2d4dac32707dd899a36b18650acd54b73fe98206ea056309cad25932cf8abe61a57839317187e365f6
+  languageName: node
+  linkType: hard
+
 "react-textarea-autosize@npm:^8.1.1":
   version: 8.2.0
   resolution: "react-textarea-autosize@npm:8.2.0"
@@ -15618,6 +15723,16 @@ fsevents@^1.2.7:
   dependencies:
     minimatch: 3.0.4
   checksum: 7ca5c180a8f1158171bd68ecb8b540e3c4e187de52a724eeea5383faece2b8ccae45f99e212d69ac7af574e1014d4963bfdf13fa124f18604aa9f47563e9f086
+  languageName: node
+  linkType: hard
+
+"redent@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "redent@npm:3.0.0"
+  dependencies:
+    indent-string: ^4.0.0
+    strip-indent: ^3.0.0
+  checksum: 78c8aa0a1076f47e0e198bfc8a9aa7d4ae3163c6951bd5de1015e47661bba62ea36573337bbeb4b309b48cc71954edbe43ae4aa3163db1996a781b757c5c47d7
   languageName: node
   linkType: hard
 
@@ -16818,6 +16933,16 @@ resolve@1.15.1:
     source-map-url: ^0.4.0
     urix: ^0.1.0
   checksum: 042ad0c0ba70458ba45fc8726a4eb61068ca0a5273578994803e25fc0fb8da00854cf5004616c9b6d0cb7fcd528c50313789d75dfc56a2f5c789cbd332bf4331
+  languageName: node
+  linkType: hard
+
+"source-map-resolve@npm:^0.6.0":
+  version: 0.6.0
+  resolution: "source-map-resolve@npm:0.6.0"
+  dependencies:
+    atob: ^2.1.2
+    decode-uri-component: ^0.2.0
+  checksum: 9bbd2656937ce422f1526026638a91dacba0822f1ab954ac34728c9b4f2960dbfc22a8463af9fbf74f28f3722263444df79b2b5ffa07de07dbcda2ec5a8c7513
   languageName: node
   linkType: hard
 
@@ -18721,7 +18846,7 @@ typescript@^4.0.2:
   languageName: node
   linkType: hard
 
-"vue-template-compiler@npm:*, vue-template-compiler@npm:^2.6.11":
+"vue-template-compiler@npm:^2.6.11":
   version: 2.6.12
   resolution: "vue-template-compiler@npm:2.6.12"
   dependencies:
