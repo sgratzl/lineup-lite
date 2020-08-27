@@ -1,6 +1,6 @@
 import React from 'react';
 import { IHistStats, IBin } from '../math/common';
-import { toPercent, cslx } from '../renderers/utils';
+import { toPercent, cslx } from './utils';
 import { color } from 'd3-color';
 import { FilterRangeSliderProps, FilterRangeSlider } from './FilterRange';
 import { useAsyncDebounce } from 'react-table';

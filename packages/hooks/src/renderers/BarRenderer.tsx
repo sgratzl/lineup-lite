@@ -2,15 +2,8 @@ import React, { useContext } from 'react';
 import { CellProps, Renderer } from 'react-table';
 import { NumberFormatter } from '../math';
 import { deriveNumberOptions } from './barStats';
-import { optionContext, toPercent } from './utils';
-
-function barProps(value: number, color: string | ((v: number) => string)): React.CSSProperties {
-  const c = typeof color === 'string' ? color : color(value);
-  const p = toPercent(value);
-  return {
-    backgroundImage: `linear-gradient(to right, ${c} ${p}, transparent ${p})`,
-  };
-}
+import { optionContext } from './utils';
+import { NumberBar } from '../components/NumberBar';
 
 export interface BarRendererOptions {
   scale?: (v: number) => number;
@@ -21,11 +14,7 @@ export interface BarRendererOptions {
 export function BarRenderer<D extends object, P extends CellProps<D, number>>(props: P) {
   const options = useContext(optionContext) as BarRendererOptions;
   const p = deriveNumberOptions<D, P>(props, options);
-  return (
-    <div className="lt-bar" style={barProps(p.scale(props.value), p.color)}>
-      {p.format(props.value)}
-    </div>
-  );
+  return <NumberBar {...p} value={props.value} />;
 }
 
 export function BarRendererFactory<D extends object, P extends CellProps<D, number>>(

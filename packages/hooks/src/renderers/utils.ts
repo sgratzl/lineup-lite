@@ -6,10 +6,6 @@ import { createContext } from 'react';
 export const optionContext = createContext<{ [key: string]: any }>({});
 export const statsGeneratorContext = createContext<null | any>(null);
 
-export function toPercent(v: number) {
-  return `${Math.round(v * 1000) / 10}%`;
-}
-
 export type StatsPropsLike<T> = ({ value: readonly T[] } & StatsCellProps<any>) | StatsProps<any>;
 
 function isValueArray<T>(props: any): props is { value: readonly T[] } {
