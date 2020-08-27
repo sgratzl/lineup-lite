@@ -1,0 +1,10 @@
+.lt-text-summary {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.lt-text-summary-input {
+  min-width: 0;
+  font-size: xx-small;
+}

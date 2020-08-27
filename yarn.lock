@@ -2091,6 +2091,57 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@lineup-lite/components@workspace:packages/components":
+  version: 0.0.0-use.local
+  resolution: "@lineup-lite/components@workspace:packages/components"
+  dependencies:
+    "@babel/core": ^7.11.4
+    "@rollup/plugin-commonjs": ^15.0.0
+    "@storybook/addon-docs": ^6.0.19
+    "@storybook/addons": ^6.0.19
+    "@storybook/preset-typescript": ^3.0.0
+    "@storybook/react": ^6.0.19
+    "@testing-library/react": ^10.4.9
+    "@types/jest": ^26.0.10
+    "@types/react": ^16.9.48
+    "@types/react-dom": ^16.9.8
+    "@types/testing-library__react": ^10.2.0
+    "@typescript-eslint/eslint-plugin": ^3.10.1
+    "@typescript-eslint/parser": ^3.10.1
+    babel-loader: ^8.1.0
+    core-js: ^3.6.5
+    eslint: ^7.7.0
+    eslint-config-prettier: ^6.11.0
+    eslint-config-react-app: ^5.2.1
+    eslint-plugin-flowtype: ^5.2.0
+    eslint-plugin-import: ^2.22.0
+    eslint-plugin-jsx-a11y: ^6.3.1
+    eslint-plugin-prettier: ^3.1.4
+    eslint-plugin-react: ^7.20.6
+    eslint-plugin-react-hooks: ^4.1.0
+    eslint-plugin-testing-library: ^3.7.0
+    prettier: ^2.1.1
+    react: ^16.13.0
+    react-docgen-typescript-loader: ^3.7.2
+    react-dom: ^16.13.1
+    react-is: ^16.13.1
+    rimraf: ^3.0.2
+    rollup: ^2.26.6
+    rollup-plugin-cleanup: ^3.1.1
+    rollup-plugin-dts: ^1.4.12
+    rollup-plugin-pnp-resolve: ^2.0.0
+    ts-loader: ^8.0.3
+    tsdx: ~0.13.3
+    tslib: ^2.0.1
+    typedoc: ^0.18.0
+    typescript: ^4.0.2
+    webpack: ^4.44.1
+  peerDependencies:
+    "@types/react": ^16.9.48
+    react: ">=16"
+  languageName: unknown
+  linkType: soft
+
 "@lineup-lite/hooks@1.0.0, @lineup-lite/hooks@workspace:packages/hooks, @lineup-lite/hooks@~1.0.0":
   version: 0.0.0-use.local
   resolution: "@lineup-lite/hooks@workspace:packages/hooks"
