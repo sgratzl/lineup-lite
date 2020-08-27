@@ -41,13 +41,17 @@ import {
   UseGroupByColumnProps,
   UseGroupByRowProps,
   UseResizeColumnsColumnOptions,
+  UseResizeColumnsColumnProps,
   useRowSelect,
   useTable,
+  useResizeColumns,
+  useBlockLayout,
 } from 'react-table';
 import { generateData } from '../data/genData';
 import { observer } from 'mobx-react-lite';
 import { makeStyles } from '@material-ui/core/styles';
 import { useStore } from '../store';
+import clsx from 'clsx';
 
 declare type FullColumn<D extends object> = Column<D> &
   UseGroupByColumnOptions<D> &
@@ -58,11 +62,52 @@ declare type FullColumn<D extends object> = Column<D> &
     aggregateValue?(value: any, row: Row<D>, column: ColumnInstance<D>): any;
   };
 
+const useStyles = makeStyles(() => ({
+  root: {
+    flex: '1 1 0',
+  },
+  resizer: {
+    display: 'inline-block',
+    background: 'blue',
+    width: 10,
+    height: '100%',
+    position: 'absolute',
+    right: 0,
+    top: 0,
+    transform: 'translateX(50%)',
+    zIndex: 1,
+    /* prevents from scrolling while dragging on touch devices */
+    touchAction: 'none',
+  },
+  isResizing: {
+    background: 'red',
+  },
+  tr: {
+    marginBottom: 2,
+  },
+  td: {
+    marginRight: 1,
+  },
+}));
+
+function isSupportColumn(col: any) {
+  return col.support === true;
+}
+
 function Table<D extends object>({ columns, data }: { columns: FullColumn<D>[]; data: D[] }) {
+  const defaultColumn = React.useMemo(
+    () => ({
+      minWidth: 30,
+      width: 150,
+      maxWidth: 400,
+    }),
+    []
+  );
   const { getTableProps, getTableBodyProps, headerGroups, prepareRow, rows } = useTable<D>(
     {
       columns,
       data,
+      defaultColumn,
     },
     useFilters,
     useGroupBy,
@@ -70,40 +115,52 @@ function Table<D extends object>({ columns, data }: { columns: FullColumn<D>[]; 
     useStats,
     useRowSelect,
     useRowSelectColumn,
-    useRowExpandColumn
+    useRowExpandColumn,
+    useBlockLayout,
+    useResizeColumns
   ) as TableInstance<D> & UseFiltersInstanceProps<D>;
 
+  const classes = useStyles();
+
   return (
-    <table {...getTableProps()}>
-      <thead>
+    <div {...getTableProps()}>
+      <div>
         {headerGroups.map((headerGroup) => (
-          <tr {...headerGroup.getHeaderGroupProps()}>
+          <div {...headerGroup.getHeaderGroupProps()}>
             {headerGroup.headers.map((col) => {
-              const column = (col as unknown) as HeaderGroup<D> & UseGroupByColumnProps<D>;
+              const column = (col as unknown) as HeaderGroup<D> &
+                UseGroupByColumnProps<D> &
+                UseResizeColumnsColumnProps<D>;
               return (
-                <th {...column.getHeaderProps()}>
+                <div {...column.getHeaderProps()}>
                   {column.canGroupBy ? (
                     // If the column can be grouped, let's add a toggle
                     <span {...column.getGroupByToggleProps()}>{column.isGrouped ? '🛑 ' : '👊 '}</span>
                   ) : null}
                   {column.render('Header')}
                   {column.render('Summary')}
-                </th>
+                  {!isSupportColumn(column) && (
+                    <div
+                      {...column.getResizerProps()}
+                      className={clsx(classes.resizer, column.isResizing && classes.isResizing)}
+                    />
+                  )}
+                </div>
               );
             })}
-          </tr>
+          </div>
         ))}
-      </thead>
-      <tbody {...getTableBodyProps()}>
+      </div>
+      <div {...getTableBodyProps()}>
         {rows.map((rowR) => {
           prepareRow(rowR);
           const row = (rowR as unknown) as Row<D> & UseExpandedRowProps<D> & UseGroupByRowProps<D>;
           return (
-            <tr {...row.getRowProps()}>
+            <div {...row.getRowProps()} className={classes.tr}>
               {row.cells.map((cellR) => {
                 const cell = (cellR as unknown) as Cell<D> & UseGroupByCellProps<D>;
                 return (
-                  <td {...cell.getCellProps()}>
+                  <div {...cell.getCellProps()} className={classes.td}>
                     {cell.isGrouped ? (
                       // If it's a grouped cell, add an expander and row count
                       <>
@@ -118,14 +175,14 @@ function Table<D extends object>({ columns, data }: { columns: FullColumn<D>[]; 
                       // Otherwise, just render the regular cell
                       cell.render('Cell')
                     )}
-                  </td>
+                  </div>
                 );
               })}
-            </tr>
+            </div>
           );
         })}
-      </tbody>
-    </table>
+      </div>
+    </div>
   );
 }
 
@@ -147,6 +204,7 @@ const columns: FullColumn<IRow>[] = [
     aggregate: (v) => v,
     filter: 'text',
     stats: textStats,
+    minWidth: 100,
   },
   {
     Header: 'Number',
@@ -157,6 +215,7 @@ const columns: FullColumn<IRow>[] = [
     aggregate: (v) => v,
     filter: rangeFilter,
     stats: numberStats({ min: 0, max: 10 }),
+    minWidth: 100,
   },
   {
     Header: 'Number',
@@ -167,6 +226,7 @@ const columns: FullColumn<IRow>[] = [
     aggregate: (v) => v,
     filter: rangeFilter,
     stats: numberStats({ min: 0, max: 10 }),
+    minWidth: 100,
   },
   {
     Header: 'Number',
@@ -177,6 +237,7 @@ const columns: FullColumn<IRow>[] = [
     aggregate: (v) => v,
     filter: rangeFilter,
     stats: numberStats({ min: 0, max: 10 }),
+    minWidth: 100,
   },
   {
     Header: 'Cat',
@@ -187,6 +248,7 @@ const columns: FullColumn<IRow>[] = [
     aggregate: (v) => v,
     filter: categoricalFilter,
     stats: categoricalStats,
+    minWidth: 100,
   },
   {
     Header: 'Date',
@@ -197,14 +259,9 @@ const columns: FullColumn<IRow>[] = [
     aggregate: (v) => v,
     filter: rangeFilter,
     stats: dateStats,
+    minWidth: 100,
   },
 ];
-
-const useStyles = makeStyles(() => ({
-  root: {
-    flex: '1 1 0',
-  },
-}));
 
 export default observer(() => {
   const store = useStore();
