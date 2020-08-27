@@ -30,6 +30,7 @@
   "scripts": {
     "compile": "tsc -p tsconfig.build.json --noEmit",
     "start": "tsdx watch --tsconfig tsconfig.build.json --noClean --formats cjs",
+    "watch": "tsdx watch --tsconfig tsconfig.build.json --noClean --formats cjs",
     "clean": "rimraf dist docs",
     "build": "npm run build:impl && npm run typings",
     "build:impl": "tsdx build --tsconfig tsconfig.build.json",

@@ -31,6 +31,7 @@
   "scripts": {
     "compile": "tsc -p tsconfig.json --noEmit",
     "start": "tsdx watch --noClean",
+    "watch": "tsdx watch --noClean",
     "clean": "rimraf dist docs",
     "build": "npm run build:impl",
     "build:impl": "tsdx build",

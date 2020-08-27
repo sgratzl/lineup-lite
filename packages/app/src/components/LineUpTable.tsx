@@ -17,6 +17,7 @@ import {
   TextSummaryRenderer,
   useStats,
   useRowSelectColumn,
+  useRowExpandColumn,
   UseStatsColumnOptions,
 } from '@lineup-lite/hooks';
 import '@lineup-lite/hooks/dist/hooks.css';
@@ -68,7 +69,8 @@ function Table<D extends object>({ columns, data }: { columns: FullColumn<D>[]; 
     useExpanded, // useGroupBy would be pretty useless without useExpanded ;)
     useStats,
     useRowSelect,
-    useRowSelectColumn
+    useRowSelectColumn,
+    useRowExpandColumn
   ) as TableInstance<D> & UseFiltersInstanceProps<D>;
 
   return (

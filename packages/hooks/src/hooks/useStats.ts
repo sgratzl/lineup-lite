@@ -44,6 +44,10 @@ export interface StatsType {
   (values: readonly any[], preFilterStats?: any): any;
 }
 
+function DummyComponent() {
+  return null;
+}
+
 export function useStats<D extends object = {}>(hooks: Hooks<D>) {
   hooks.useInstance.push(useInstance);
 }
@@ -72,6 +76,9 @@ function useInstance<D extends object>(instance: TableInstance<D>) {
     const values = flat.map((row) => row.values[col.id]);
     const preFilteredFlatRows = extendedInstance.preFilteredFlatRows;
 
+    if (!extended.Summary) {
+      extended.Summary = (extended as any).Filter ?? DummyComponent;
+    }
     // compute raw stats
     extended.preFilterStatsValue = preFilteredFlatRows
       ? extended.stats(preFilteredFlatRows.map((row) => row.values[col.id]))
