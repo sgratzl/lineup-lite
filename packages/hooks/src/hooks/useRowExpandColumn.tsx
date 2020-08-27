@@ -8,11 +8,15 @@ export function useRowExpandColumn<D extends object = {}>(hooks: Hooks<D>) {
 useRowExpandColumn.pluginName = 'useRowExpandColumn';
 
 function generateColumn<D extends object = {}>(columns: ColumnInstance<D>[]) {
-  const expandColumn: Column<D> & UseStatsColumnOptions<D> = {
-    id: 'selection',
+  const expandColumn: Column<D> & UseStatsColumnOptions<D> & { support?: boolean } = {
+    id: 'expand',
     // The header can use the table's getToggleAllRowsSelectedProps method
     // to render a checkbox
     Header: () => null,
+    minWidth: 20,
+    width: 20,
+    maxWidth: 20,
+    support: true,
     Summary: () => <div className="le-expand le-summary"></div>,
     // The cell can use the individual row's getToggleRowSelectedProps method
     // to the render a checkbox
