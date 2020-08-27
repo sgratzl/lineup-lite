@@ -32,7 +32,7 @@ Maximum: ${s.format(s.max)}${pre ? p(pre.max) : ''}
 # Items: ${s.count.toLocaleString()}${pre ? `/${pre.count.toLocaleString()}` : ''}`;
 }
 
-export default function BoxPlot(props: BoxPlotProps) {
+export function BoxPlot(props: BoxPlotProps) {
   const s = props.s;
   const pre = props.preFilter;
   const boxPadding = 2;

@@ -2097,11 +2097,14 @@ __metadata:
   dependencies:
     "@babel/core": ^7.11.4
     "@rollup/plugin-commonjs": ^15.0.0
+    "@sgratzl/boxplots": ^1.2.1
     "@storybook/addon-docs": ^6.0.19
     "@storybook/addons": ^6.0.19
     "@storybook/preset-typescript": ^3.0.0
     "@storybook/react": ^6.0.19
     "@testing-library/react": ^10.4.9
+    "@types/d3-color": ^1.2.2
+    "@types/d3-scale-chromatic": ^1.5.0
     "@types/jest": ^26.0.10
     "@types/react": ^16.9.48
     "@types/react-dom": ^16.9.8
@@ -2110,6 +2113,8 @@ __metadata:
     "@typescript-eslint/parser": ^3.10.1
     babel-loader: ^8.1.0
     core-js: ^3.6.5
+    d3-color: ^2.0.0
+    d3-scale-chromatic: ^2.0.0
     eslint: ^7.7.0
     eslint-config-prettier: ^6.11.0
     eslint-config-react-app: ^5.2.1
@@ -2128,6 +2133,7 @@ __metadata:
     rimraf: ^3.0.2
     rollup: ^2.26.6
     rollup-plugin-cleanup: ^3.1.1
+    rollup-plugin-css-only: ^2.1.0
     rollup-plugin-dts: ^1.4.12
     rollup-plugin-pnp-resolve: ^2.0.0
     ts-loader: ^8.0.3

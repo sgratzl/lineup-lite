@@ -24,6 +24,7 @@ export function BoxPlotRenderer<P extends StatsPropsLike<number>>(props: P) {
   let filter = null;
   if (isFilterAble(props) && props.column.canFilter) {
     const { setFilter, filterValue } = props.column;
+    // TODO debounce filter
     filter = <FilterRangeSlider s={s} setFilter={setFilter} filterValue={filterValue} />;
   }
   return (

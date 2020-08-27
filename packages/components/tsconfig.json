@@ -5,7 +5,7 @@
     "rootDir": "./src",
     "baseUrl": "./",
     "outDir": "./dist",
-    "declaration": false,
+    "declaration": true,
     "paths": {
       "@": ["./"],
       "*": ["src/*", "node_modules/*"]

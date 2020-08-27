@@ -1,7 +1,6 @@
 import React, { useLayoutEffect } from 'react';
 import { INumericStats } from '../math/common';
 import { toPercent } from './utils';
-import { useAsyncDebounce, useGetLatest } from 'react-table';
 
 export interface FilterRangeSliderProps<T> {
   s: INumericStats<T>;
@@ -14,17 +13,16 @@ export function FilterRangeSlider<T>(props: FilterRangeSliderProps<T>) {
   const invert = props.s.invert;
   const filterValue = props.filterValue;
   const [localFilter, setLocalFilter] = React.useState(filterValue ?? [null as T | null, null as T | null]);
-  const currentFilter = useGetLatest(localFilter);
+  const filterRef = React.useRef(localFilter);
+  filterRef.current = localFilter;
 
   useLayoutEffect(() => {
-    const v = currentFilter();
+    const v = filterRef.current;
     const l = filterValue ?? [null as T | null, null as T | null];
     if (v[0] !== l[0] || v[1] !== l[1]) {
       setLocalFilter(l);
     }
-  }, [setLocalFilter, currentFilter, filterValue]);
-
-  const setFilterDebounced = useAsyncDebounce(setFilter, 100);
+  }, [setLocalFilter, filterRef, filterValue]);
 
   const onMinMouseDown = React.useMemo(() => {
     let ueber: HTMLElement | null = null;
@@ -33,9 +31,9 @@ export function FilterRangeSlider<T>(props: FilterRangeSliderProps<T>) {
 
     const onMinMouseMove = (evt: MouseEvent) => {
       const ratio = Math.min(1, Math.max(0, (evt.clientX - base) / width));
-      const v = [ratio <= 0 ? null : invert(ratio), currentFilter()[1]] as [T | null, T | null];
+      const v = [ratio <= 0 ? null : invert(ratio), filterRef.current[1]] as [T | null, T | null];
       setLocalFilter(v);
-      setFilterDebounced(v);
+      setFilter(v);
     };
     const onMinMouseUp = () => {
       ueber!.removeEventListener('mousemove', onMinMouseMove);
@@ -53,7 +51,7 @@ export function FilterRangeSlider<T>(props: FilterRangeSliderProps<T>) {
       ueber.addEventListener('mouseleave', onMinMouseUp);
       ueber.addEventListener('mouseup', onMinMouseUp);
     };
-  }, [setFilterDebounced, setLocalFilter, currentFilter, invert]);
+  }, [setFilter, setLocalFilter, filterRef, invert]);
 
   const onMaxMouseDown = React.useMemo(() => {
     let ueber: HTMLElement | null = null;
@@ -62,9 +60,9 @@ export function FilterRangeSlider<T>(props: FilterRangeSliderProps<T>) {
 
     const onMinMouseMove = (evt: MouseEvent) => {
       const ratio = Math.min(1, Math.max(0, (evt.clientX - base) / width));
-      const v = [currentFilter()[0], ratio >= 1 ? null : invert(ratio)] as [T | null, T | null];
+      const v = [filterRef.current[0], ratio >= 1 ? null : invert(ratio)] as [T | null, T | null];
       setLocalFilter(v);
-      setFilterDebounced(v);
+      setFilter(v);
     };
     const onMinMouseUp = () => {
       ueber!.removeEventListener('mousemove', onMinMouseMove);
@@ -82,7 +80,7 @@ export function FilterRangeSlider<T>(props: FilterRangeSliderProps<T>) {
       ueber.addEventListener('mouseleave', onMinMouseUp);
       ueber.addEventListener('mouseup', onMinMouseUp);
     };
-  }, [setFilterDebounced, setLocalFilter, currentFilter, invert]);
+  }, [setFilter, setLocalFilter, filterRef, invert]);
 
   return (
     <>
