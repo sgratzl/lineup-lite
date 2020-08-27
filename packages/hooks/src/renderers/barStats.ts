@@ -1,7 +1,7 @@
 import { BarRendererOptions } from './BarRenderer';
 import { CellProps } from 'react-table';
 import { UseStatsColumnProps } from '../hooks';
-import { INumberStats, defaultScale, defaultConstantColorScale, resolveNumberFormatter } from '../math';
+import { INumberStats, defaultScale, defaultConstantColorScale, resolveNumberFormatter } from '@lineup-lite/components';
 import { resolve } from './utils';
 
 export function deriveNumberOptions<D extends object, P extends CellProps<D, number>>(

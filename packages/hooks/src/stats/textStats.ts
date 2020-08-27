@@ -1,7 +1,7 @@
-import { ITextStats, TextStatsOptions } from '../math';
+import { ITextStats, TextStatsOptions } from '@lineup-lite/components';
 import { isStatsOptions } from './utils';
 
-import { textStatsGenerator } from '../math';
+import { textStatsGenerator } from '@lineup-lite/components';
 
 function compute(gen: ReturnType<typeof textStatsGenerator>, arr: readonly string[]) {
   return gen(arr);

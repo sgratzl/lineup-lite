@@ -1,8 +1,7 @@
+import { FilterRangeHistogram, Histogram, INumberStats, NumberStatsOptions } from '@lineup-lite/components';
 import React, { useContext } from 'react';
 import { Renderer } from 'react-table';
-import { INumberStats, NumberStatsOptions } from '../math';
 import { numberStats } from '../stats';
-import Histogram, { FilterRangeHistogram } from '../components/Histogram';
 import { extractStats, groupMaxBin, isFilterAble, optionContext, statsGeneratorContext, StatsPropsLike } from './utils';
 
 export interface NumberHistogramRendererOptions extends NumberStatsOptions {
@@ -21,6 +20,7 @@ export function NumberHistogramRenderer<P extends StatsPropsLike<number>>(props:
   }
   if (isFilterAble(props) && props.column.canFilter) {
     const { setFilter, filterValue } = props.column;
+    // TODO debounc
     return (
       <FilterRangeHistogram
         s={s}

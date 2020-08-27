@@ -1,4 +1,4 @@
-import { CategoricalStatsOptions, categoricalStatsGenerator, ICategoricalStats } from '../math';
+import { CategoricalStatsOptions, categoricalStatsGenerator, ICategoricalStats } from '@lineup-lite/components';
 import { isStatsOptions } from './utils';
 
 function compute(

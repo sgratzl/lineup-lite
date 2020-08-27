@@ -1,9 +1,9 @@
 import React, { useContext } from 'react';
 import { Renderer, CellProps } from 'react-table';
-import { IDateStats, DateFormatter, resolveDateFormatter } from '../math';
+import { IDateStats, DateFormatter, resolveDateFormatter } from '@lineup-lite/components';
 import { UseStatsColumnProps } from '../hooks';
 import { optionContext, resolve } from './utils';
-import { DateLabel } from '../components/DateLabel';
+import { DateLabel } from '@lineup-lite/components';
 
 export interface DateRendererOptions {
   format?: DateFormatter;

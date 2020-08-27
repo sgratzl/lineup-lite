@@ -1,9 +1,8 @@
+import { NumberBar, NumberFormatter } from '@lineup-lite/components';
 import React, { useContext } from 'react';
 import { CellProps, Renderer } from 'react-table';
-import { NumberFormatter } from '../math';
 import { deriveNumberOptions } from './barStats';
 import { optionContext } from './utils';
-import { NumberBar } from '../components/NumberBar';
 
 export interface BarRendererOptions {
   scale?: (v: number) => number;

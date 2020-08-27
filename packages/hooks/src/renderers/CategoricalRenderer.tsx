@@ -1,9 +1,8 @@
+import { CategoricalColor, defaultCategoricalColorScale, ICategoricalStats } from '@lineup-lite/components';
 import React, { useContext } from 'react';
-import { Renderer, CellProps } from 'react-table';
-import { defaultCategoricalColorScale, ICategoricalStats } from '../math';
+import { CellProps, Renderer } from 'react-table';
 import { UseStatsColumnProps } from '../hooks';
 import { optionContext, resolve } from './utils';
-import { CategoricalColor } from '../components/CategoricalColor';
 
 export interface CategoricalRendererOptions {
   color?: (v: string) => string;

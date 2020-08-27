@@ -1,4 +1,4 @@
-import { numberStatsGenerator, NumberStatsOptions, INumberStats } from '../math';
+import { numberStatsGenerator, NumberStatsOptions, INumberStats } from '@lineup-lite/components';
 import { isStatsOptions } from './utils';
 
 function compute(

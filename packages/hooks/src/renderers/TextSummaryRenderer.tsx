@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { Renderer } from 'react-table';
 // import { UseStatsColumnProps } from '../hooks';
 import { extractStats, isFilterAble, StatsPropsLike, statsGeneratorContext, optionContext } from './utils';
-import { ITextStats } from '../math';
+import { ITextStats } from '@lineup-lite/components';
 import { textStats } from '../stats';
 
 export interface TextSummaryRendererOptions {

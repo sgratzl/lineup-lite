@@ -1,10 +1,8 @@
+import { BoxPlot, FilterRangeSlider, INumberStats, NumberStatsOptions } from '@lineup-lite/components';
 import React, { useContext } from 'react';
 import { Renderer } from 'react-table';
-import { INumberStats, NumberStatsOptions } from '../math';
-import BoxPlot from '../components/BoxPlot';
-import { extractStats, isFilterAble, optionContext, statsGeneratorContext, StatsPropsLike } from './utils';
-import { FilterRangeSlider } from '../components/FilterRange';
 import { numberStats } from '../stats';
+import { extractStats, isFilterAble, optionContext, statsGeneratorContext, StatsPropsLike } from './utils';
 
 export interface BoxPlotRendererOptions extends NumberStatsOptions {}
 

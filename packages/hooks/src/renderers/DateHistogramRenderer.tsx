@@ -1,9 +1,8 @@
+import { DateStatsOptions, FilterRangeHistogram, Histogram, IDateStats } from '@lineup-lite/components';
 import React, { useContext } from 'react';
 import { Renderer } from 'react-table';
 import { dateStats } from '../stats';
-import Histogram, { FilterRangeHistogram } from '../components/Histogram';
-import { extractStats, isFilterAble, StatsPropsLike, groupMaxBin, statsGeneratorContext, optionContext } from './utils';
-import { DateStatsOptions, IDateStats } from '../math';
+import { extractStats, groupMaxBin, isFilterAble, optionContext, statsGeneratorContext, StatsPropsLike } from './utils';
 
 export interface HistogramRendererOptions extends DateStatsOptions {
   maxBin?: number;
@@ -21,6 +20,7 @@ export function DateHistogramRenderer<P extends StatsPropsLike<Date | null>>(pro
   }
   if (isFilterAble(props) && props.column.canFilter) {
     const { setFilter, filterValue } = props.column;
+    // todo DEBOUNCE
     return (
       <FilterRangeHistogram
         s={s}

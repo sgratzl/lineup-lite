@@ -1,10 +1,9 @@
+import { Histogram, FilterBinHistogram, ICategoricalStats } from '@lineup-lite/components';
 import React, { useContext } from 'react';
 import { Renderer } from 'react-table';
-import { ICategoricalStats } from '../math';
 import { categoricalStats } from '../stats';
 import { CategoricalRendererOptions } from './CategoricalRenderer';
-import Histogram, { FilterBinHistogram } from '../components/Histogram';
-import { extractStats, isFilterAble, StatsPropsLike, groupMaxBin, statsGeneratorContext, optionContext } from './utils';
+import { extractStats, groupMaxBin, isFilterAble, optionContext, statsGeneratorContext, StatsPropsLike } from './utils';
 
 export interface CategoricalHistogramRendererOptions extends CategoricalRendererOptions {
   maxBin?: number;

@@ -1,4 +1,4 @@
-import { dateStatsGenerator, DateStatsOptions, IDateStats } from '../math';
+import { dateStatsGenerator, DateStatsOptions, IDateStats } from '@lineup-lite/components';
 import { isStatsOptions } from './utils';
 
 function compute(

@@ -3,7 +3,7 @@ import { Renderer, CellProps } from 'react-table';
 import { BarRendererOptions } from './BarRenderer';
 import { optionContext } from './utils';
 import { deriveNumberOptions } from './barStats';
-import { NumberSymbol } from '../components/NumberSymbol';
+import { NumberSymbol } from '@lineup-lite/components';
 
 export function ProportionalSymbolRenderer<D extends object, P extends CellProps<D, number>>(props: P) {
   const options = useContext(optionContext) as BarRendererOptions;

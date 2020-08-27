@@ -3,7 +3,7 @@ import { CellProps, Renderer } from 'react-table';
 import { BarRendererOptions } from './BarRenderer';
 import { deriveNumberOptions } from './barStats';
 import { optionContext } from './utils';
-import { NumberColor } from '../components/NumberColor';
+import { NumberColor } from '@lineup-lite/components';
 
 export function ColorRenderer<D extends object, P extends CellProps<D, number>>(props: P) {
   const options = useContext(optionContext) as BarRendererOptions;
