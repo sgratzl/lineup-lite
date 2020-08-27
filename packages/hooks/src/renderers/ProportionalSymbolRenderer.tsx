@@ -11,9 +11,11 @@ function radiFromArea(area: number) {
 
 function proportionalSymbolProps(value: number, color: string | ((v: number) => string)): React.CSSProperties {
   const c = typeof color === 'string' ? color : color(value);
-  const p = toPercent(radiFromArea(value));
+  const v = radiFromArea(value);
+  const p = toPercent(v);
+  const p2 = toPercent(Math.min(1, v + 0.04));
   return {
-    backgroundImage: `radial-gradient(circle closest-side at 0.6em 50%, ${c} ${p}, transparent ${p})`,
+    backgroundImage: `radial-gradient(circle closest-side at 0.6em 50%, ${c} ${p}, transparent ${p2})`,
   };
 }
 
