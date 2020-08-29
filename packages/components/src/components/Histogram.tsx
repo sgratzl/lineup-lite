@@ -3,6 +3,7 @@ import { IHistStats, IBin } from '../math/common';
 import { toPercent, cslx } from './utils';
 import { color } from 'd3-color';
 import { FilterRangeSliderProps, FilterRangeSlider } from './FilterRange';
+import { NumberStatsWrapper } from './NumberStatsWrapper';
 
 export interface HistogramProps<T> {
   s: IHistStats<T> & { readonly min?: T; readonly max?: T };
@@ -24,25 +25,11 @@ function generateBinTitle<T>(props: HistogramProps<T>, h: IBin<T>, raw?: IBin<T>
 
 export function Histogram<T>(props: HistogramProps<T>) {
   return (
-    <HistogramWrapper s={props.s} summary={props.summary}>
+    <NumberStatsWrapper className="lt-histogram" s={props.s} summary={props.summary}>
       {props.s.hist.map((h, i) => (
         <Bin key={String(h.x0)} h={h} i={i} props={props} />
       ))}
-    </HistogramWrapper>
-  );
-}
-
-function HistogramWrapper<T>(
-  props: React.PropsWithChildren<{ s: IHistStats<T> & { readonly min?: T; readonly max?: T }; summary?: boolean }>
-) {
-  return (
-    <div
-      className={`lt-histogram lt-summary${!props.summary ? ' lt-group' : ''}`}
-      data-min={props.s.min != null && props.summary ? props.s.format(props.s.min) : null}
-      data-max={props.s.max != null && props.summary ? props.s.format(props.s.max) : null}
-    >
-      {props.children}
-    </div>
+    </NumberStatsWrapper>
   );
 }
 
@@ -107,11 +94,11 @@ export function FilterBinHistogram<T>(props: FilterBinHistogramProps<T>) {
     [setFilter, hist, filterValue]
   );
   return (
-    <HistogramWrapper s={props.s} summary>
+    <NumberStatsWrapper className="lt-histogram" s={props.s} summary>
       {props.s.hist.map((h, i) => (
         <Bin key={String(h.x0)} h={h} props={props} i={i} onClick={onClick} />
       ))}
-    </HistogramWrapper>
+    </NumberStatsWrapper>
   );
 }
 
@@ -119,11 +106,11 @@ export type FilterRangeHistogramProps<T> = HistogramProps<T> & FilterRangeSlider
 
 export function FilterRangeHistogram<T>(props: FilterRangeHistogramProps<T>) {
   return (
-    <HistogramWrapper s={props.s} summary>
+    <NumberStatsWrapper className="lt-histogram" s={props.s} summary>
       {props.s.hist.map((h, i) => (
         <Bin key={String(h.x0)} h={h} i={i} props={props} />
       ))}
       <FilterRangeSlider {...props} />
-    </HistogramWrapper>
+    </NumberStatsWrapper>
   );
 }

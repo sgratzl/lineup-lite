@@ -1,8 +1,10 @@
 import React from 'react';
 import { INumberStats } from '../math/numberStatsGenerator';
 import { IBoxPlot } from '@sgratzl/boxplots';
+import { NumberStatsWrapper } from './NumberStatsWrapper';
+import { FilterRangeSlider, FilterRangeSliderProps } from './FilterRange';
 
-export interface BoxPlotProps {
+export interface BoxPlotChartProps {
   s: INumberStats;
   preFilter?: IBoxPlot;
   className?: string;
@@ -32,7 +34,7 @@ Maximum: ${s.format(s.max)}${pre ? p(pre.max) : ''}
 # Items: ${s.count.toLocaleString()}${pre ? `/${pre.count.toLocaleString()}` : ''}`;
 }
 
-export function BoxPlot(props: BoxPlotProps) {
+export function BoxPlotChart(props: BoxPlotChartProps) {
   const s = props.s;
   const pre = props.preFilter;
   const boxPadding = 2;
@@ -87,5 +89,30 @@ export function BoxPlot(props: BoxPlotProps) {
       )}
       {generateBoxPlot(s)}
     </svg>
+  );
+}
+
+export interface BoxPlotProps {
+  s: INumberStats;
+  preFilter?: IBoxPlot;
+  summary?: boolean;
+}
+
+export function BoxPlot(props: BoxPlotProps) {
+  return (
+    <NumberStatsWrapper className="lt-boxplot" s={props.s} summary={props.summary}>
+      <BoxPlotChart {...props} className="lt-boxplot-wrapper" />
+    </NumberStatsWrapper>
+  );
+}
+
+export type FilterRangeBoxPlotProps = BoxPlotProps & FilterRangeSliderProps<number>;
+
+export function FilterRangeBoxPlot(props: FilterRangeBoxPlotProps) {
+  return (
+    <NumberStatsWrapper className="lt-boxplot" s={props.s} summary={props.summary}>
+      <BoxPlotChart {...props} className="lt-boxplot-wrapper" />
+      <FilterRangeSlider {...props} />
+    </NumberStatsWrapper>
   );
 }

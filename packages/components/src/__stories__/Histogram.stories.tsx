@@ -5,17 +5,18 @@
  * Copyright (c) 2020 Samuel Gratzl <sam@sgratzl.com>
  */
 import React from 'react';
-import { BoxPlot } from '../components/BoxPlot';
+import { Histogram } from '../components/Histogram';
 import { filtered, stats } from './data';
 
 export default {
-  title: 'BoxPlot',
-  component: BoxPlot,
+  title: 'Histogram',
+  component: Histogram,
 };
+
 export const Default = () => {
-  return <BoxPlot s={stats} />;
+  return <Histogram s={stats} />;
 };
 
 export const Filtered = () => {
-  return <BoxPlot s={filtered} preFilter={stats} />;
+  return <Histogram s={filtered} preFilter={stats} />;
 };

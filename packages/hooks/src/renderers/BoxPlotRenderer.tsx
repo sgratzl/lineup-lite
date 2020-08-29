@@ -1,4 +1,4 @@
-import { BoxPlot, FilterRangeSlider, INumberStats, NumberStatsOptions } from '@lineup-lite/components';
+import { BoxPlot, FilteredBoxPlot, INumberStats, NumberStatsOptions } from '@lineup-lite/components';
 import React, { useContext } from 'react';
 import { Renderer } from 'react-table';
 import { numberStats } from '../stats';
@@ -13,24 +13,14 @@ export function BoxPlotRenderer<P extends StatsPropsLike<number>>(props: P) {
     numberStats(options);
   const { s, preFilter, cell } = extractStats(props, stats);
   if (cell) {
-    return (
-      <div className="lt-boxplot lt-summary lt-group">
-        <BoxPlot s={s} className="lt-boxplot-wrapper" />
-      </div>
-    );
+    return <BoxPlot s={s} />;
   }
-  let filter = null;
   if (isFilterAble(props) && props.column.canFilter) {
     const { setFilter, filterValue } = props.column;
     // TODO debounce filter
-    filter = <FilterRangeSlider s={s} setFilter={setFilter} filterValue={filterValue} />;
+    return <FilteredBoxPlot s={s} setFilter={setFilter} filterValue={filterValue} />;
   }
-  return (
-    <div className="lt-boxplot lt-summary" data-min={s.format(s.min)} data-max={s.format(s.max)}>
-      <BoxPlot s={s} preFilter={preFilter} className="lt-boxplot-wrapper" />
-      {filter}
-    </div>
-  );
+  return <BoxPlot s={s} preFilter={preFilter} summary />;
 }
 
 export function BoxPlotRendererFactory<P extends StatsPropsLike<number>>(
