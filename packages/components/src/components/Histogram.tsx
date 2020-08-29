@@ -6,10 +6,25 @@ import { FilterRangeSliderProps, FilterRangeSlider } from './FilterRange';
 import { NumberStatsWrapper } from './NumberStatsWrapper';
 
 export interface HistogramProps<T> {
+  /**
+   * the stats to render
+   */
   s: IHistStats<T> & { readonly min?: T; readonly max?: T };
+  /**
+   * the unfiltered stats in case the normal stats were filtered
+   */
   preFilter?: IHistStats<T>;
+  /**
+   * the max bin size to use in case of synchronizing between charts
+   */
   maxBin?: number;
+  /**
+   * whether bin title should only be the x0
+   */
   label?: boolean;
+  /**
+   * whether to render it as a summary with range text
+   */
   summary?: boolean;
 }
 
@@ -23,6 +38,9 @@ function generateBinTitle<T>(props: HistogramProps<T>, h: IBin<T>, raw?: IBin<T>
   }: ${h.count.toLocaleString()}${rawT} items`;
 }
 
+/**
+ * renders a number or date histogram
+ */
 export function Histogram<T>(props: HistogramProps<T>) {
   return (
     <NumberStatsWrapper className="lt-histogram" s={props.s} summary={props.summary}>
@@ -104,6 +122,9 @@ export function FilterBinHistogram<T>(props: FilterBinHistogramProps<T>) {
 
 export type FilterRangeHistogramProps<T> = HistogramProps<T> & FilterRangeSliderProps<T>;
 
+/**
+ * renders a histogram along with a range filter
+ */
 export function FilterRangeHistogram<T>(props: FilterRangeHistogramProps<T>) {
   return (
     <NumberStatsWrapper className="lt-histogram" s={props.s} summary>

@@ -5,7 +5,14 @@ import { NumberStatsWrapper } from './NumberStatsWrapper';
 import { FilterRangeSlider, FilterRangeSliderProps } from './FilterRange';
 
 export interface BoxPlotChartProps {
+  /**
+   * the number boxplot statistics
+   */
   s: INumberStats;
+  /**
+   * the optional stats containing the unfiltered stats in case of filtering operation applied
+   * to the regular one
+   */
   preFilter?: IBoxPlot;
   className?: string;
   style?: React.CSSProperties;
@@ -34,6 +41,9 @@ Maximum: ${s.format(s.max)}${pre ? p(pre.max) : ''}
 # Items: ${s.count.toLocaleString()}${pre ? `/${pre.count.toLocaleString()}` : ''}`;
 }
 
+/**
+ * renders a boxplot as a SVG chart
+ */
 export function BoxPlotChart(props: BoxPlotChartProps) {
   const s = props.s;
   const pre = props.preFilter;
@@ -93,11 +103,24 @@ export function BoxPlotChart(props: BoxPlotChartProps) {
 }
 
 export interface BoxPlotProps {
+  /**
+   * the stats to render
+   */
   s: INumberStats;
+  /**
+   * the optional stats containing the unfiltered stats in case of filtering operation applied
+   * to the regular one
+   */
   preFilter?: IBoxPlot;
+  /**
+   * whether to render it as a summary including labels
+   */
   summary?: boolean;
 }
 
+/**
+ * renders a boxplot
+ */
 export function BoxPlot(props: BoxPlotProps) {
   return (
     <NumberStatsWrapper className="lt-boxplot" s={props.s} summary={props.summary}>
@@ -108,6 +131,9 @@ export function BoxPlot(props: BoxPlotProps) {
 
 export type FilterRangeBoxPlotProps = BoxPlotProps & FilterRangeSliderProps<number>;
 
+/**
+ * renders a boxplot along with a range filter
+ */
 export function FilterRangeBoxPlot(props: FilterRangeBoxPlotProps) {
   return (
     <NumberStatsWrapper className="lt-boxplot" s={props.s} summary={props.summary}>

@@ -17,10 +17,16 @@ function proportionalSymbolProps(value: number, color: string | ((v: number) => 
   };
 }
 
+/**
+ * renders a numeric value along with a circle whose area is proportional to the value
+ */
 export function NumberSymbol(props: NumberBarProps) {
   return (
-    <div className="lt-proportional-symbol" style={proportionalSymbolProps(props.scale(props.value), props.color)}>
-      {props.format(props.value)}
+    <div
+      className="lt-proportional-symbol"
+      style={proportionalSymbolProps(props.scale ? props.scale(props.value) : props.value, props.color)}
+    >
+      {typeof props.format === 'string' ? props.format : props.format(props.value)}
     </div>
   );
 }

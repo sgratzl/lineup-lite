@@ -3,8 +3,17 @@ import { INumericStats } from '../math/common';
 import { toPercent } from './utils';
 
 export interface FilterRangeSliderProps<T> {
+  /**
+   * stats to render
+   */
   s: INumericStats<T>;
+  /**
+   * set the filter
+   */
   setFilter: (value: [T | null, T | null]) => void;
+  /**
+   * get current filter value
+   */
   filterValue: [T | null, T | null];
 }
 

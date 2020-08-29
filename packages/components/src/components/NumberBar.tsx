@@ -2,10 +2,22 @@ import React from 'react';
 import { toPercent } from './utils';
 
 export interface NumberBarProps {
+  /**
+   * the value to render
+   */
   value: number;
-  scale: (v: number) => number;
-  color: (v: number) => string;
-  format: (v: number) => string;
+  /**
+   * optional scale to convert the number in the 0..1 range
+   */
+  scale?: (v: number) => number;
+  /**
+   * value or value to color function
+   */
+  color: string | ((v: number) => string);
+  /**
+   * label for value to label function
+   */
+  format: string | ((v: number) => string);
 }
 
 function barProps(value: number, color: string | ((v: number) => string)): React.CSSProperties {
@@ -16,10 +28,13 @@ function barProps(value: number, color: string | ((v: number) => string)): React
   };
 }
 
+/**
+ * renders a numeric value along with a bar
+ */
 export function NumberBar(props: NumberBarProps) {
   return (
-    <div className="lt-bar" style={barProps(props.scale(props.value), props.color)}>
-      {props.format(props.value)}
+    <div className="lt-bar" style={barProps(props.scale ? props.scale(props.value) : props.value, props.color)}>
+      {typeof props.format === 'string' ? props.format : props.format(props.value)}
     </div>
   );
 }
