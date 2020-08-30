@@ -20,7 +20,7 @@ import {
   useRowExpandColumn,
   UseStatsColumnOptions,
 } from '@lineup-lite/hooks';
-import '@lineup-lite/hooks/dist/hooks.css';
+import '@lineup-lite/components/dist/components.css';
 import React from 'react';
 import {
   Cell,
