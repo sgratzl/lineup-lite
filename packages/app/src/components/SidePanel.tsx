@@ -9,6 +9,7 @@ import React from 'react';
 import { observer } from 'mobx-react-lite';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
+import DataSetInfo from './DataSetInfo';
 
 const useStyles = makeStyles((theme) => ({
   wrapper: {
@@ -31,7 +32,9 @@ export default observer(() => {
   const classes = useStyles();
   return (
     <Paper className={classes.wrapper}>
-      <div className={classes.root}></div>
+      <div className={classes.root}>
+        <DataSetInfo />
+      </div>
     </Paper>
   );
 });

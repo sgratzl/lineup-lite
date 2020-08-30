@@ -6,8 +6,10 @@
  */
 
 import { action, autorun, computed, observable, runInAction } from 'mobx';
-import { IDataSet, IElems, listStatic, listLocal, deleteLocal } from '../data';
-import UIStore from './UIStore';
+import { IDataSet, IElems, listStatic, listLocal, deleteLocal, saveLocal } from '../data';
+import UIStore, { IToastLink } from './UIStore';
+import { exportJSON, importJSON } from '../data/exportJSON';
+import { exportCSV, importCSV } from '../data/exportCSV';
 
 export default class Store {
   @observable
@@ -109,21 +111,21 @@ export default class Store {
   }
 
   // @action.bound
-  // private pushDataSet(dataset: IDataSet) {
-  //   this.datasets.push(dataset);
-  //   this.sortDatasets();
-  //   this.dataset = dataset;
-  //   this.loadDataSet(dataset, () => {
-  //     saveLocal(this).then((stored) => {
-  //       this.dataset = stored;
-  //       this.datasets.splice(this.datasets.indexOf(dataset), 1, stored);
-  //     });
-  //   });
-  //   this.ui.showToast({
-  //     severity: 'success',
-  //     message: 'Data set loaded',
-  //   });
-  // }
+  private pushDataSet(dataset: IDataSet) {
+    this.datasets.push(dataset);
+    this.sortDatasets();
+    this.dataset = dataset;
+    this.loadDataSet(dataset, () => {
+      saveLocal(this).then((stored) => {
+        this.dataset = stored;
+        this.datasets.splice(this.datasets.indexOf(dataset), 1, stored);
+      });
+    });
+    this.ui.showToast({
+      severity: 'success',
+      message: 'Data set loaded',
+    });
+  }
 
   @action
   deleteDataSet(dataset: IDataSet) {
@@ -178,6 +180,40 @@ export default class Store {
     return `LineUp-lite - ${this.dataset?.name ?? 'Unknown'}`;
   }
 
+  private downloadFile(text: string, mimeType: string, extension: string, link?: IToastLink) {
+    const b = new Blob([text], {
+      type: mimeType,
+    });
+    const url = URL.createObjectURL(b);
+
+    const a = document.createElement('a');
+    a.download = `${this.title}.${extension}`;
+    a.href = url;
+    a.style.position = 'absolute';
+    a.style.left = '-10000px';
+    a.style.top = '-10000px';
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+
+    URL.revokeObjectURL(url);
+    this.ui.showToast({
+      severity: 'success',
+      message: `${this.title}.${extension} generated`,
+      link,
+    });
+  }
+
+  @action.bound
+  exportCSV() {
+    this.downloadFile(exportCSV(this), 'text/csv', 'csv');
+  }
+
+  @action.bound
+  exportJSON() {
+    this.downloadFile(exportJSON(this), 'application/json', 'json');
+  }
+
   @action.bound
   importFile(file: File | string) {
     const name = typeof file == 'string' ? file : file.name;
@@ -185,7 +221,7 @@ export default class Store {
       severity: 'info',
       message: `Importing Dataset: ${name}...`,
     });
-    const loader = null;
+    const loader = name.endsWith('.json') ? importJSON : name.endsWith('.csv') ? importCSV : null;
 
     if (!loader) {
       this.ui.showToast({
@@ -194,17 +230,17 @@ export default class Store {
       });
       return;
     }
-    // loader(file)
-    //   .then((ds) => {
-    //     this.ui.closeToast();
-    //     this.pushDataSet(ds);
-    //   })
-    //   .catch((error) => {
-    //     console.error(error);
-    //     this.ui.showToast({
-    //       severity: 'error',
-    //       message: 'Error occurred during dataset import!',
-    //     });
-    //   });
+    loader(file)
+      .then((ds) => {
+        this.ui.closeToast();
+        this.pushDataSet(ds);
+      })
+      .catch((error) => {
+        console.error(error);
+        this.ui.showToast({
+          severity: 'error',
+          message: 'Error occurred during dataset import!',
+        });
+      });
   }
 }

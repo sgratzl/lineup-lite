@@ -18,8 +18,8 @@ import Tooltip from '@material-ui/core/Tooltip';
 import MenuIcon from 'mdi-material-ui/Menu';
 // import FileImage from 'mdi-material-ui/FileImage';
 // import FileChart from 'mdi-material-ui/FileChart';
-// import FileCode from 'mdi-material-ui/FileCode';
-// import FileExcel from 'mdi-material-ui/FileExcel';
+import FileCode from 'mdi-material-ui/FileCode';
+import FileExcel from 'mdi-material-ui/FileExcel';
 // import Codepen from 'mdi-material-ui/Codepen';
 // import JSFiddle from 'mdi-material-ui/Jsfiddle';
 // import CodeString from 'mdi-material-ui/CodeString';
@@ -27,7 +27,7 @@ import MenuIcon from 'mdi-material-ui/Menu';
 // import LanguagePython from 'mdi-material-ui/LanguagePython';
 
 import SpeedDial from '@material-ui/lab/SpeedDial';
-// import SpeedDialAction from '@material-ui/lab/SpeedDialAction';
+import SpeedDialAction from '@material-ui/lab/SpeedDialAction';
 
 import Download from 'mdi-material-ui/Download';
 import Upload from 'mdi-material-ui/Upload';
@@ -182,7 +182,7 @@ export default observer(({ className }: { className?: string }) => {
           onOpen={useCallback(() => store.ui.setSpeedDial(true), [store])}
           open={store.ui.speedDial}
         >
-          {/* <SpeedDialAction
+          <SpeedDialAction
             icon={<FileExcel />}
             tooltipTitle={'CSV File'}
             tooltipPlacement="bottom"
@@ -194,7 +194,7 @@ export default observer(({ className }: { className?: string }) => {
             tooltipPlacement="bottom"
             onClick={store.exportJSON}
           />
-          <SpeedDialAction
+          {/* <SpeedDialAction
             icon={<Codepen />}
             tooltipTitle={'Export to Codepen.io'}
             tooltipPlacement="bottom"
