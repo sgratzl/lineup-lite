@@ -1,0 +1,99 @@
+{
+  "name": "@lineup-lite/hooks",
+  "description": "",
+  "version": "1.0.0",
+  "license": "MPL-2.0",
+  "author": {
+    "name": "Samuel Gratzl",
+    "email": "sam@sgratzl.com",
+    "url": "https://wwww.sgratzl.com"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org"
+  },
+  "homepage": "https://github.com/sgratzl/lineup-lite",
+  "bugs": {
+    "url": "https://github.com/sgratzl/lineup-lite/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sgratzl/lineup-lite.git"
+  },
+  "module": "dist/model.esm.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "sideEffects": false,
+  "scripts": {
+    "compile": "tsc -p tsconfig.json --noEmit",
+    "start": "tsdx watch --noClean",
+    "watch": "tsdx watch --noClean",
+    "clean": "rimraf dist docs",
+    "build": "npm run build:impl",
+    "build:impl": "tsdx build",
+    "typings": "rollup -c rollup.dts.config.js",
+    "test": "tsdx test --passWithNoTests",
+    "test:watch": "tsdx test --passWithNoTests --watch",
+    "test:coverage": "tsdx test --passWithNoTests --coverage",
+    "lint": "npm run eslint && npm run prettier",
+    "fix": "npm run eslint:fix && npm run prettier:write",
+    "prettier:impl": "prettier \"*.{md,json,js}\" \"src/**\"",
+    "prettier:write": "npm run prettier:impl -- --write",
+    "prettier": "npm run prettier:impl -- --check",
+    "eslint": "tsdx lint src --ext .ts,.tsx",
+    "eslint:fix": "npm run eslint -- --fix",
+    "prepare": "tsdx build",
+    "docs": "typedoc"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^15.0.0",
+    "@testing-library/jest-dom": "^5.11.4",
+    "@testing-library/react": "^10.4.9",
+    "@testing-library/user-event": "^12.1.3",
+    "@types/jest": "^26.0.10",
+    "@types/react": "^16.9.48",
+    "@types/react-dom": "^16.9.8",
+    "@types/react-table": "^7.0.22",
+    "@typescript-eslint/eslint-plugin": "^3.10.1",
+    "@typescript-eslint/parser": "^3.10.1",
+    "core-js": "^3.6.5",
+    "eslint": "^7.7.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-config-react-app": "^5.2.1",
+    "eslint-plugin-flowtype": "^5.2.0",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-jsx-a11y": "^6.3.1",
+    "eslint-plugin-prettier": "^3.1.4",
+    "eslint-plugin-react": "^7.20.6",
+    "eslint-plugin-react-hooks": "^4.1.0",
+    "prettier": "^2.1.1",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-table": "^7.5.0",
+    "rimraf": "^3.0.2",
+    "rollup": "^2.26.6",
+    "rollup-plugin-cleanup": "^3.1.1",
+    "rollup-plugin-css-only": "^2.1.0",
+    "rollup-plugin-dts": "^1.4.12",
+    "rollup-plugin-pnp-resolve": "^2.0.0",
+    "tsdx": "~0.13.3",
+    "tslib": "^2.0.1",
+    "typedoc": "^0.18.0",
+    "typescript": "^4.0.2"
+  },
+  "peerDependencies": {
+    "@types/react": "^16.9.48",
+    "@types/react-dom": "^16.9.8",
+    "@types/react-table": "^7.0.22",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-table": "^7.5.0"
+  },
+  "dependencies": {
+    "@lineup-lite/components": "~1.0.0"
+  }
+}

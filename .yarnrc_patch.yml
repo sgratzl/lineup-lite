@@ -1,0 +1,19 @@
+packageExtensions:
+  '@storybook/preset-typescript@*':
+    dependencies:
+      '@babel/core': ^7.9.6
+  jss-plugin-rule-value-function@*:
+    dependencies:
+      tiny-warning: '*'
+  semver@*:
+    optionalDependencies:
+      core-js: '*'
+  tsdx@*:
+    dependencies:
+      babel-jest: ^25.5.1
+  'eslint-config-react-app@*':
+    dependencies:
+      'babel-eslint': '*'
+  'eslint-plugin-prettier@*':
+    dependencies:
+      'eslint-config-prettier': '*'

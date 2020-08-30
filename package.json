@@ -1,54 +1,58 @@
 {
-  "name": "lineup-table",
-  "version": "0.1.0",
+  "name": "lineup-lite",
+  "description": "",
+  "version": "1.0.0",
   "private": true,
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+  "license": "MPL-2.0",
+  "author": {
+    "name": "Samuel Gratzl",
+    "email": "sam@sgratzl.com",
+    "url": "https://wwww.sgratzl.com"
   },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
+  "workspaces": {
+    "packages": [
+      "packages/*"
     ]
   },
-  "dependencies": {
-    "@sgratzl/boxplots": "^1.2.1",
-    "@types/d3-color": "^1.2.2",
-    "@types/react-table": "^7.0.19",
-    "d3-color": "^1.4.1",
-    "d3-scale-chromatic": "^1.5.0",
-    "react-table": "^7.3.2"
+  "homepage": "https://github.com/sgratzl/lineup-lite",
+  "bugs": {
+    "url": "https://github.com/sgratzl/lineup-lite/issues"
   },
-  "peerDependencies": {
-    "@types/react": "^16.9.0",
-    "@types/react-dom": "^16.9.0",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sgratzl/lineup-lite.git"
+  },
+  "scripts": {
+    "lint": "npm run prettier:check && yarn workspaces foreach -v -p --topological-dev run lint",
+    "fix": "npm run prettier:write && yarn workspaces foreach -v --topological-dev run fix",
+    "clean": "yarn workspaces foreach -v -p --topological-dev run clean",
+    "test": "yarn workspaces foreach -v -p --topological-dev run test",
+    "build": "yarn workspaces foreach -v -p --topological-dev run build",
+    "build:packages": "yarn workspaces foreach -v --topological-dev --include \"@lineupjs-lite/(model|bundle|react)\" run build",
+    "build:preapp": "yarn workspaces foreach -v --topological-dev --include \"@lineup-lite/(model|bundle|react)\" run build",
+    "docs": "yarn workspaces foreach -v -p run docs",
+    "storybook": "yarn workspace @lineup-lite/react run storybook",
+    "app": "yarn workspace @lineup-lite/app run start",
+    "prettier": "prettier .eslintrc.js .prettierrc.js *.json .yarnrc_patch.yml \".github/**\"",
+    "prettier:write": "npm run prettier -- --write",
+    "prettier:check": "npm run prettier -- --check"
   },
   "devDependencies": {
-    "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.3.2",
-    "@testing-library/user-event": "^7.1.2",
-    "@types/d3-scale-chromatic": "^1.5.0",
-    "@types/jest": "^24.0.0",
-    "@types/node": "^12.0.0",
-    "@types/react-table": "^7.0.19",
-    "prettier": "^2.0.5",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
-    "react-scripts": "3.4.1",
-    "typescript": "~3.7.2"
+    "@typescript-eslint/eslint-plugin": "^3.10.1",
+    "@typescript-eslint/parser": "^3.10.1",
+    "@typescript-eslint/typescript-estree": "^3.10.1",
+    "@yarnpkg/pnpify": "^2.1.0",
+    "babel-eslint": "^10.1.0",
+    "eslint": "^7.7.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-config-react-app": "^5.2.1",
+    "eslint-plugin-flowtype": "^5.2.0",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-jsx-a11y": "^6.3.1",
+    "eslint-plugin-prettier": "^3.1.4",
+    "eslint-plugin-react": "^7.20.6",
+    "eslint-plugin-react-hooks": "^4.1.0",
+    "prettier": "^2.1.1",
+    "typescript": "^4.0.2"
   }
 }
