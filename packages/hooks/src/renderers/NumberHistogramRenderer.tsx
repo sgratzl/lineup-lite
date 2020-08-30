@@ -1,11 +1,22 @@
-import { FilterRangeHistogram, Histogram, INumberStats, NumberStatsOptions } from '@lineup-lite/components';
+import {
+  FilterRangeHistogram,
+  FilterRangeHistogramProps,
+  Histogram,
+  INumberStats,
+  NumberStatsOptions,
+} from '@lineup-lite/components';
 import React, { useContext } from 'react';
-import { Renderer } from 'react-table';
+import { Renderer, useAsyncDebounce } from 'react-table';
 import { numberStats } from '../stats';
 import { extractStats, groupMaxBin, isFilterAble, optionContext, statsGeneratorContext, StatsPropsLike } from './utils';
 
 export interface NumberHistogramRendererOptions extends NumberStatsOptions {
   maxBin?: number;
+}
+
+function Filtered(props: FilterRangeHistogramProps<number>) {
+  const setFilter = useAsyncDebounce(props.setFilter, 100);
+  return <FilterRangeHistogram {...props} setFilter={setFilter} />;
 }
 
 export function NumberHistogramRenderer<P extends StatsPropsLike<number>>(props: P) {
@@ -20,15 +31,8 @@ export function NumberHistogramRenderer<P extends StatsPropsLike<number>>(props:
   }
   if (isFilterAble(props) && props.column.canFilter) {
     const { setFilter, filterValue } = props.column;
-    // TODO debounc
     return (
-      <FilterRangeHistogram
-        s={s}
-        preFilter={preFilter}
-        maxBin={options.maxBin}
-        setFilter={setFilter}
-        filterValue={filterValue}
-      />
+      <Filtered s={s} preFilter={preFilter} maxBin={options.maxBin} setFilter={setFilter} filterValue={filterValue} />
     );
   }
   return <Histogram s={s} maxBin={options.maxBin} summary />;

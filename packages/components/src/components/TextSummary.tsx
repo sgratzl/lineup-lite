@@ -1,15 +1,17 @@
 import React from 'react';
 import { ITextStats } from '../math';
+import { cslx } from './utils';
 
 export interface TextSummaryProps {
   s: ITextStats;
   preFilter?: ITextStats;
+  summary?: boolean;
 }
 
 export function TextSummary(props: TextSummaryProps) {
   const s = props.s;
   return (
-    <div className="lt-text-summary lt-group">
+    <div className={cslx('lt-text-summary', !props.summary && 'lt-group')}>
       <span>{s.count.toLocaleString()} items</span>
       {s.unique < s.count && <span>{s.unique} unique</span>}
     </div>

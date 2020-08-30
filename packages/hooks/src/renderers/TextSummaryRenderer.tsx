@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
-import { Renderer } from 'react-table';
+import { Renderer, useAsyncDebounce } from 'react-table';
 // import { UseStatsColumnProps } from '../hooks';
 import { extractStats, isFilterAble, StatsPropsLike, statsGeneratorContext, optionContext } from './utils';
-import { ITextStats } from '@lineup-lite/components';
+import { ITextStats, TextSummary, FilterTextSummary, FilterTextSummaryProps } from '@lineup-lite/components';
 import { textStats } from '../stats';
 
 export interface TextSummaryRendererOptions {
@@ -21,6 +21,11 @@ export interface TextSummaryRendererOptions {
 //   };
 // }
 
+function Filtered(props: FilterTextSummaryProps) {
+  const setFilter = useAsyncDebounce(props.setFilter, 10);
+  return <FilterTextSummary {...props} setFilter={setFilter} />;
+}
+
 export function TextSummaryRenderer<P extends StatsPropsLike<string>>(props: P) {
   const options = useContext(optionContext) as TextSummaryRendererOptions;
   const stats =
@@ -28,41 +33,13 @@ export function TextSummaryRenderer<P extends StatsPropsLike<string>>(props: P) 
     textStats(options);
   const { s, preFilter, cell } = extractStats(props, stats);
   if (cell) {
-    return (
-      <div className="lt-text-summary lt-group">
-        <span>{s.count.toLocaleString()} items</span>
-        {s.unique < s.count && <span>{s.unique} unique</span>}
-      </div>
-    );
+    return <TextSummary s={s} preFilter={preFilter} />;
   }
   if (isFilterAble(props) && props.column.canFilter) {
     const { setFilter, filterValue } = props.column;
-    const unique = `${s.count.toLocaleString()}${preFilter ? `/${preFilter.count.toLocaleString()}` : ''} items`;
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    const onChange = React.useCallback(
-      (evt: React.ChangeEvent<HTMLInputElement>) => {
-        setFilter(evt.currentTarget.value || undefined);
-      },
-      [setFilter]
-    );
-    return (
-      <div className="lt-text-summary lt-summary" data-min={unique}>
-        <input
-          value={filterValue ?? ''}
-          onChange={onChange}
-          placeholder={options.placeholder ? options.placeholder(s) : `Filter ${s.unique} unique items`}
-          size={3}
-          className="lt-text-summary-input"
-        />
-      </div>
-    );
+    return <Filtered s={s} preFilter={preFilter} setFilter={setFilter} filterValue={filterValue} />;
   }
-  return (
-    <div className="lt-text-summary lt-summary">
-      <span>{s.count.toLocaleString()} items</span>
-      {s.unique < s.count && <span>{s.unique} unique</span>}
-    </div>
-  );
+  return <TextSummary s={s} preFilter={preFilter} summary />;
 }
 
 export function TextSummaryRendererFactory<P extends StatsPropsLike<string>>(

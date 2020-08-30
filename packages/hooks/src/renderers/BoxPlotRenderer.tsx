@@ -1,10 +1,21 @@
-import { BoxPlot, FilteredBoxPlot, INumberStats, NumberStatsOptions } from '@lineup-lite/components';
+import {
+  BoxPlot,
+  FilterRangeBoxPlot,
+  FilterRangeBoxPlotProps,
+  INumberStats,
+  NumberStatsOptions,
+} from '@lineup-lite/components';
 import React, { useContext } from 'react';
-import { Renderer } from 'react-table';
+import { Renderer, useAsyncDebounce } from 'react-table';
 import { numberStats } from '../stats';
 import { extractStats, isFilterAble, optionContext, statsGeneratorContext, StatsPropsLike } from './utils';
 
 export interface BoxPlotRendererOptions extends NumberStatsOptions {}
+
+function FilterBoxPlot(props: FilterRangeBoxPlotProps) {
+  const setFilter = useAsyncDebounce(props.setFilter);
+  return <FilterRangeBoxPlot {...props} setFilter={setFilter} />;
+}
 
 export function BoxPlotRenderer<P extends StatsPropsLike<number>>(props: P) {
   const options = useContext(optionContext) as BoxPlotRendererOptions;
@@ -17,8 +28,7 @@ export function BoxPlotRenderer<P extends StatsPropsLike<number>>(props: P) {
   }
   if (isFilterAble(props) && props.column.canFilter) {
     const { setFilter, filterValue } = props.column;
-    // TODO debounce filter
-    return <FilteredBoxPlot s={s} setFilter={setFilter} filterValue={filterValue} />;
+    return <FilterBoxPlot s={s} setFilter={setFilter} filterValue={filterValue} />;
   }
   return <BoxPlot s={s} preFilter={preFilter} summary />;
 }

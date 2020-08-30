@@ -1,11 +1,22 @@
-import { DateStatsOptions, FilterRangeHistogram, Histogram, IDateStats } from '@lineup-lite/components';
+import {
+  DateStatsOptions,
+  FilterRangeHistogram,
+  FilterRangeHistogramProps,
+  Histogram,
+  IDateStats,
+} from '@lineup-lite/components';
 import React, { useContext } from 'react';
-import { Renderer } from 'react-table';
+import { Renderer, useAsyncDebounce } from 'react-table';
 import { dateStats } from '../stats';
 import { extractStats, groupMaxBin, isFilterAble, optionContext, statsGeneratorContext, StatsPropsLike } from './utils';
 
 export interface HistogramRendererOptions extends DateStatsOptions {
   maxBin?: number;
+}
+
+function Filtered(props: FilterRangeHistogramProps<Date>) {
+  const setFilter = useAsyncDebounce(props.setFilter);
+  return <FilterRangeHistogram {...props} setFilter={setFilter} />;
 }
 
 export function DateHistogramRenderer<P extends StatsPropsLike<Date | null>>(props: P) {
@@ -20,15 +31,8 @@ export function DateHistogramRenderer<P extends StatsPropsLike<Date | null>>(pro
   }
   if (isFilterAble(props) && props.column.canFilter) {
     const { setFilter, filterValue } = props.column;
-    // todo DEBOUNCE
     return (
-      <FilterRangeHistogram
-        s={s}
-        preFilter={preFilter}
-        maxBin={options.maxBin}
-        setFilter={setFilter}
-        filterValue={filterValue}
-      />
+      <Filtered s={s} preFilter={preFilter} maxBin={options.maxBin} setFilter={setFilter} filterValue={filterValue} />
     );
   }
   return <Histogram s={s} maxBin={options.maxBin} summary />;
