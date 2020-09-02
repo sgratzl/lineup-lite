@@ -1,4 +1,4 @@
-import { numberStatsGenerator } from '../math/numberStatsGenerator';
+import { numberStatsGenerator } from '@lineup-lite/components';
 
 export const arr = Array(100)
   .fill(0)

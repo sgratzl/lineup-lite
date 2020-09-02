@@ -1,0 +1,14 @@
+/.pnp.js
+/.yarnrc.yml
+/.yarn
+build/
+dist/
+docs
+coverage
+/.gitattributes
+/.gitignore
+/.prettierignore
+/yarn.lock
+/.vscode
+*.map
+.browserslistrc

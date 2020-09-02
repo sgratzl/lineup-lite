@@ -4,23 +4,9 @@
   "compilerOptions": {
     "rootDir": "./src",
     "baseUrl": "./",
-    "outDir": "./dist",
-    "declaration": true,
     "paths": {
-      "@": ["./src"],
-      "*": ["*", "node_modules/*"]
+      "@": ["./"],
+      "*": ["src/*", "node_modules/*"]
     }
-  },
-  "typedocOptions": {
-    "name": "LineUp-lite Hooks",
-    "out": "./docs",
-    "mode": "library",
-    "theme": "minimal",
-    "excludeNotExported": true,
-    "excludeExternals": true,
-    "excludePrivate": true,
-    "includeVersion": true,
-    "hideGenerator": true,
-    "entryPoint": "\"index\""
   }
 }
