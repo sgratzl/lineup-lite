@@ -5,10 +5,6 @@
     "target": "es6",
     "rootDir": "./",
     "baseUrl": "./",
-    "composite": false,
-    "assumeChangesOnlyAffectDirectDependencies": false,
-    "declaration": false,
-    "sourceMap": true,
     "skipLibCheck": true,
     "paths": {
       "@": ["./"],

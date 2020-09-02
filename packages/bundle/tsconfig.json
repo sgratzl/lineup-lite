@@ -1,11 +1,9 @@
 {
   "extends": "../../tsconfig.json",
-  "include": ["src/**/*.ts", "src/**/*.tsx"],
+  "include": ["src/**/*.ts", "src/**/*.tsx", "../react/src/__stories__/BoxPlot.stories.tsx"],
   "compilerOptions": {
     "rootDir": "./src",
     "baseUrl": "./",
-    "outDir": "./dist",
-    "declaration": false,
     "paths": {
       "@": ["./src"],
       "react": ["node_modules/preact/compat"],
