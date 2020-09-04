@@ -5,12 +5,8 @@ import {
   asStringColumn,
   BoxPlotRenderer,
   ColorRenderer,
-  NumberHistogramRenderer,
-  numberStats,
   ProportionalSymbolRenderer,
-  rangeFilter,
   UseStatsColumnOptions,
-  statsAggregate,
 } from '@lineup-lite/hooks';
 import LineUpLite from '@lineup-lite/table';
 import '@lineup-lite/table/dist/table.css';
@@ -73,28 +69,26 @@ const columns: FullColumn<IRow>[] = [
     },
     { min: 0, max: 10 }
   ),
-  {
-    Header: 'Number',
-    accessor: 'number1',
-    Cell: ColorRenderer,
-    Summary: BoxPlotRenderer,
-    Aggregated: BoxPlotRenderer,
-    aggregate: statsAggregate,
-    filter: rangeFilter,
-    stats: numberStats({ min: 0, max: 10 }),
-    minWidth: 100,
-  },
-  {
-    Header: 'Number',
-    accessor: 'number2',
-    Cell: ProportionalSymbolRenderer,
-    Summary: NumberHistogramRenderer,
-    Aggregated: NumberHistogramRenderer,
-    aggregate: statsAggregate,
-    filter: rangeFilter,
-    stats: numberStats({ min: 0, max: 10 }),
-    minWidth: 100,
-  },
+  asNumberColumn(
+    {
+      Header: 'Number',
+      accessor: 'number1',
+      minWidth: 100,
+      Cell: ColorRenderer,
+      Summary: BoxPlotRenderer,
+      Aggregated: BoxPlotRenderer,
+    },
+    { min: 0, max: 10 }
+  ),
+  asNumberColumn(
+    {
+      Header: 'Number',
+      accessor: 'number2',
+      minWidth: 100,
+      Cell: ProportionalSymbolRenderer,
+    },
+    { min: 0, max: 10 }
+  ),
   asCategoricalColumn({
     Header: 'Cat',
     accessor: 'cat',

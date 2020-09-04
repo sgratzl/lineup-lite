@@ -1,4 +1,4 @@
-import { useRowExpandColumn, useRowSelectColumn, useStats } from '@lineup-lite/hooks';
+import { useRowExpandColumn, useRowSelectColumn, useStats, FullColumn } from '@lineup-lite/hooks';
 import React, { Ref } from 'react';
 import {
   Cell,
@@ -6,29 +6,41 @@ import {
   HeaderGroup,
   Row,
   TableInstance,
+  TableOptions,
   useBlockLayout,
   useExpanded,
+  UseExpandedOptions,
   UseExpandedRowProps,
   useFilters,
   UseFiltersInstanceProps,
+  UseFiltersOptions,
   useGroupBy,
   UseGroupByCellProps,
   UseGroupByColumnProps,
+  UseGroupByOptions,
   UseGroupByRowProps,
   useResizeColumns,
   UseResizeColumnsColumnProps,
+  UseRowSelectOptions,
+  UseSortByOptions,
   useRowSelect,
   useTable,
+  useSortBy,
 } from 'react-table';
 import { clsx } from './utils';
 import Toolbar from './Toolbar';
 
 export type MultiCustomizeKeys = 'tbody' | 'tr' | 'thead' | 'th' | 'thGroup' | 'td' | 'header';
 
-export interface ILineUpLiteProps<D extends object> {
-  columns: Column<D>[];
-  defaultColumn?: Partial<Column<D>>;
-  data: D[];
+export type FullTableOptions<D extends object> = TableOptions<D> &
+  UseFiltersOptions<D> &
+  UseExpandedOptions<D> &
+  UseGroupByOptions<D> &
+  UseRowSelectOptions<D> &
+  UseSortByOptions<D>;
+
+export interface ILineUpLiteProps<D extends object> extends FullTableOptions<D> {
+  columns: (Column<D> & Partial<FullColumn<D>>)[];
   className?: string;
   classNames?: Partial<Record<MultiCustomizeKeys, string>>;
   style?: React.CSSProperties;
@@ -39,10 +51,14 @@ export const LineUpLite = /*!#__PURE__*/ React.forwardRef(function LineUpLite<D 
   props: ILineUpLiteProps<D>,
   ref: Ref<HTMLDivElement>
 ) {
+  const tableProps: FullTableOptions<D> = {
+    ...props,
+  };
   const { getTableProps, getTableBodyProps, headerGroups, prepareRow, rows } = useTable<D>(
-    props,
+    tableProps,
     useFilters,
     useGroupBy,
+    useSortBy,
     useExpanded, // useGroupBy would be pretty useless without useExpanded ;)
     useStats,
     useRowSelect,

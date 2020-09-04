@@ -1,7 +1,7 @@
 import React from 'react';
-import { Column, ColumnInstance, Hooks, UseResizeColumnsColumnOptions } from 'react-table';
+import { ColumnInstance, Hooks } from 'react-table';
+import { FullColumn } from '../interfaces';
 import IndeterminateCheckbox from './IndeterminateCheckbox';
-import { UseStatsColumnOptions } from './useStats';
 
 export function useRowSelectColumn<D extends object = {}>(hooks: Hooks<D>) {
   hooks.visibleColumns.push(generateColumn);
@@ -29,15 +29,18 @@ function Header() {
 }
 
 function generateColumn<D extends object = {}>(columns: ColumnInstance<D>[]) {
-  const selectionColumn: Column<D> & UseStatsColumnOptions<D> & UseResizeColumnsColumnOptions<D> = {
+  const selectionColumn: FullColumn<D> = {
     id: 'selection',
     Header,
     Summary,
+    Cell,
     minWidth: 20,
     width: 20,
     maxWidth: 20,
+    disableFilters: true,
+    disableSortBy: true,
+    disableGroupBy: true,
     disableResizing: true,
-    Cell,
   };
   return [selectionColumn, ...columns];
 }

@@ -17,66 +17,93 @@ import {
 } from './renderers';
 import { textStats, categoricalStats, dateStats, numberStats } from './stats';
 import { rangeFilter, categoricalFilter } from './filters';
+import { FullColumn } from './interfaces';
+import { sortCompare, sortCategories } from './sort';
 
 export function statsAggregate<T>(v: T) {
   return v;
 }
 
-export function asStringColumn<D extends object, C extends Column<D>>(col: C, options?: TextStatsOptions) {
+export function asStringColumn<D extends object, C extends Column<D>>(
+  col: C,
+  options?: TextStatsOptions
+): C & Partial<FullColumn<D>> {
   return {
-    ...col,
     Summary: TextSummaryRenderer,
     Aggregated: TextSummaryRenderer,
     aggregate: statsAggregate,
     filter: 'text',
     stats: options ? textStats(options) : textStats,
+    sortType: sortCompare,
+    defaultCanSort: true,
+    ...col,
   };
 }
 
-export function asNumberColumn<D extends object, C extends Column<D>>(col: C, options?: NumberStatsOptions) {
+export function asNumberColumn<D extends object, C extends Column<D>>(
+  col: C,
+  options?: NumberStatsOptions
+): C & Partial<FullColumn<D>> {
   return {
-    ...col,
     Cell: BarRenderer,
     Summary: NumberHistogramRenderer,
     Aggregated: NumberHistogramRenderer,
     aggregate: statsAggregate,
     filter: rangeFilter,
     stats: options ? numberStats(options) : numberStats,
+    sortType: sortCompare,
+    sortDescFirst: true,
+    ...col,
   };
 }
 
-export function asNumberBoxPlotColumn<D extends object, C extends Column<D>>(col: C, options?: NumberStatsOptions) {
+export function asNumberBoxPlotColumn<D extends object, C extends Column<D>>(
+  col: C,
+  options?: NumberStatsOptions
+): C & Partial<FullColumn<D>> {
   return {
-    ...col,
     Cell: BarRenderer,
     Summary: BoxPlotRenderer,
     Aggregated: BoxPlotRenderer,
     aggregate: statsAggregate,
     filter: rangeFilter,
     stats: options ? numberStats(options) : numberStats,
+    sortType: sortCompare,
+    sortDescFirst: true,
+    ...col,
   };
 }
 
-export function asCategoricalColumn<D extends object, C extends Column<D>>(col: C, options?: CategoricalStatsOptions) {
+export function asCategoricalColumn<D extends object, C extends Column<D>>(
+  col: C,
+  options?: CategoricalStatsOptions
+): C & Partial<FullColumn<D>> {
   return {
-    ...col,
     Cell: CategoricalRenderer,
     Summary: CategoricalHistogramRenderer,
     Aggregated: CategoricalHistogramRenderer,
     aggregate: statsAggregate,
     filter: categoricalFilter,
     stats: options ? categoricalStats(options) : categoricalStats,
+    sortType: options && options.categories ? sortCategories(options.categories) : sortCompare,
+    defaultCanSort: true,
+    ...col,
   };
 }
 
-export function asDateColumn<D extends object, C extends Column<D>>(col: C, options?: DateStatsOptions) {
+export function asDateColumn<D extends object, C extends Column<D>>(
+  col: C,
+  options?: DateStatsOptions
+): C & Partial<FullColumn<D>> {
   return {
-    ...col,
     Cell: DateRenderer,
     Summary: DateHistogramRenderer,
     Aggregated: DateHistogramRenderer,
     aggregate: statsAggregate,
     filter: rangeFilter,
     stats: options ? dateStats(options) : dateStats,
+    sortType: sortCompare,
+    sortDescFirst: true,
+    ...col,
   };
 }

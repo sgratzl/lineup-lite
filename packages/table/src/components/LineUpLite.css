@@ -31,13 +31,17 @@
   height: 100%;
   background-color: white;
   cursor: col-resize;
-  right: 0;
   transform: translateX(50%);
   z-index: 1;
   /* prevents from scrolling while dragging on touch devices */
   touch-action: none;
+
+  transition: opacity 0.25s ease;
+  opacity: 0;
 }
 
+.lt-th:hover > .lt-column-resize-handle,
 .lt-column-resizing > .lt-column-resize-handle {
   background: lightgray;
+  opacity: 1;
 }

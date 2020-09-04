@@ -1,6 +1,6 @@
 import React from 'react';
-import { Column, ColumnInstance, Hooks, UseGroupByColumnOptions, UseResizeColumnsColumnOptions } from 'react-table';
-import { UseStatsColumnOptions } from './useStats';
+import { ColumnInstance, Hooks } from 'react-table';
+import { FullColumn } from '../interfaces';
 
 export function useRowExpandColumn<D extends object = {}>(hooks: Hooks<D>) {
   hooks.visibleColumns.push(generateColumn);
@@ -27,19 +27,19 @@ function Header() {
 }
 
 function generateColumn<D extends object = {}>(columns: ColumnInstance<D>[]) {
-  const expandColumn: Column<D> &
-    UseStatsColumnOptions<D> &
-    UseGroupByColumnOptions<D> &
-    UseResizeColumnsColumnOptions<D> = {
+  const expandColumn: FullColumn<D> = {
     id: 'expand',
     Header,
+    Summary,
+    Aggregated,
+    Cell,
     minWidth: 20,
     width: 20,
     maxWidth: 20,
-    Summary,
-    Aggregated,
+    disableFilters: true,
+    disableSortBy: true,
+    disableGroupBy: true,
     disableResizing: true,
-    Cell,
   };
   return [expandColumn, ...columns];
 }
