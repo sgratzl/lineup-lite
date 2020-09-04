@@ -1,4 +1,10 @@
-import { useRowExpandColumn, useRowSelectColumn, useStats, FullColumn } from '@lineup-lite/hooks';
+import {
+  useRowExpandColumn,
+  useRowSelectColumn,
+  useStats,
+  FullColumn,
+  columnSpecificGroupByFn,
+} from '@lineup-lite/hooks';
 import React, { Ref } from 'react';
 import {
   Cell,
@@ -52,6 +58,7 @@ export const LineUpLite = /*!#__PURE__*/ React.forwardRef(function LineUpLite<D 
   ref: Ref<HTMLDivElement>
 ) {
   const tableProps: FullTableOptions<D> = {
+    groupByFn: columnSpecificGroupByFn,
     ...props,
   };
   const { getTableProps, getTableBodyProps, headerGroups, prepareRow, rows } = useTable<D>(
