@@ -1,4 +1,4 @@
-import { useRowExpandColumn, useRowSelectColumn, useStats, isSupportColumn } from '@lineup-lite/hooks';
+import { useRowExpandColumn, useRowSelectColumn, useStats } from '@lineup-lite/hooks';
 import React, { Ref } from 'react';
 import {
   Cell,
@@ -21,8 +21,9 @@ import {
   useTable,
 } from 'react-table';
 import { clsx } from './utils';
+import Toolbar from './Toolbar';
 
-export type MultiCustomizeKeys = 'tbody' | 'tr' | 'thead' | 'th' | 'thGroup' | 'td';
+export type MultiCustomizeKeys = 'tbody' | 'tr' | 'thead' | 'th' | 'thGroup' | 'td' | 'header';
 
 export interface ILineUpLiteProps<D extends object> {
   columns: Column<D>[];
@@ -34,7 +35,7 @@ export interface ILineUpLiteProps<D extends object> {
   styles?: Partial<Record<MultiCustomizeKeys, React.CSSProperties>>;
 }
 
-export const LineUpLite = React.forwardRef(function LineUpLite<D extends object>(
+export const LineUpLite = /*!#__PURE__*/ React.forwardRef(function LineUpLite<D extends object>(
   props: ILineUpLiteProps<D>,
   ref: Ref<HTMLDivElement>
 ) {
@@ -78,14 +79,17 @@ export const LineUpLite = React.forwardRef(function LineUpLite<D extends object>
                     style: props.styles?.th,
                   })}
                 >
-                  {column.canGroupBy ? (
-                    // If the column can be grouped, let's add a toggle
-                    <span {...column.getGroupByToggleProps()}>{column.isGrouped ? '🛑 ' : '👊 '}</span>
-                  ) : null}
-                  {column.render('Header')}
+                  <div className={clsx('lt-header', props.classNames?.header)} style={props.styles?.header}>
+                    {column.render('Header')}
+                  </div>
+                  <Toolbar {...col} />
                   {column.render('Summary')}
-                  {!isSupportColumn(column) && (
-                    <div {...column.getResizerProps()} className={clsx('lt-column-resize-handle')} />
+                  {column.canResize && (
+                    <div
+                      {...column.getResizerProps({
+                        className: 'lt-column-resize-handle',
+                      })}
+                    />
                   )}
                 </div>
               );

@@ -1,0 +1,23 @@
+.lt-toolbar {
+  display: flex;
+  justify-content: center;
+}
+
+.lt-action {
+  margin: 0.1em 0.2em;
+}
+
+.lt-action-group::before {
+  content: 'G';
+}
+
+.lt-action-sort::before {
+  content: 'S';
+}
+
+.lt-action-hide::before {
+  content: 'H';
+}
+
+.lt-action-active {
+}

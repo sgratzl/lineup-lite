@@ -19,6 +19,10 @@
 .lt-td {
 }
 
+.lt-header {
+  text-align: center;
+}
+
 .lt-column-resize-handle {
   position: absolute;
   top: 0;
