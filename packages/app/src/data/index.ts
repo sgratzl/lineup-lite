@@ -5,11 +5,11 @@
  * Copyright (c) 2020 Samuel Gratzl <sam@sgratzl.com>
  */
 
-import got_small from './got_small';
+// import got_small from './got_small';
 export { listLocal, saveLocal, deleteLocal } from './db';
 
 export * from './interfaces';
 
 export function listStatic() {
-  return [got_small];
+  return [];
 }

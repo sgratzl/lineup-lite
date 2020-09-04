@@ -9,11 +9,9 @@
     "email": "sam@sgratzl.com",
     "url": "https://wwww.sgratzl.com"
   },
-  "workspaces": {
-    "packages": [
-      "packages/*"
-    ]
-  },
+  "workspaces": [
+    "packages/*"
+  ],
   "homepage": "https://github.com/sgratzl/lineup-lite",
   "bugs": {
     "url": "https://github.com/sgratzl/lineup-lite/issues"
@@ -30,7 +28,7 @@
     "build": "yarn workspaces foreach -v -p --topological-dev run build",
     "build:packages": "yarn workspaces foreach -v --topological-dev --include \"@lineupjs-lite/(model|bundle|react)\" run build",
     "build:preapp": "yarn workspaces foreach -v --topological-dev --include \"@lineup-lite/(model|bundle|react)\" run build",
-    "docs": "yarn workspaces foreach -v -p run docs",
+    "docs": "yarn workspaces foreach -v --topological-dev run docs",
     "storybook": "yarn workspace @lineup-lite/react run storybook",
     "app": "yarn workspace @lineup-lite/app run start",
     "prettier": "prettier .eslintrc.js .prettierrc.js *.json .yarnrc_patch.yml \".github/**\"",

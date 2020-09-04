@@ -34,12 +34,8 @@ jobs:
           mv packages/app/dist/* public/app/
           mkdir -p public/api/bundle
           mv packages/bundle/docs/* public/api/bundle/
-          mkdir -p public/api/components
-          mv packages/components/docs/* public/api/components/
-          mkdir -p public/api/hooks
-          mv packages/hooks/docs/* public/api/hooks/
-          mkdir -p public/api/react
-          mv packages/react/docs/* public/api/react/
+          mkdir -p public/api/table
+          mv packages/table/docs/* public/api/table/
 
       # - name: Deploy Master
       #   if: github.ref == 'refs/heads/master' && github.event_name == 'push'

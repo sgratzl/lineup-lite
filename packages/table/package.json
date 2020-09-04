@@ -94,6 +94,7 @@
     "prettier": "^2.1.1",
     "react": "^16.13.0",
     "react-docgen-typescript-loader": "^3.7.2",
+    "react-dom": "^16.13.1",
     "react-is": "^16.13.1",
     "rimraf": "^3.0.2",
     "rollup": "^2.26.9",

@@ -2,10 +2,11 @@
   "extends": "../../tsconfig.json",
   "include": ["src", "types", "test", "tsd.d.ts", "../hooks/src/components/IndeterminateCheckbox.tsx"],
   "compilerOptions": {
-    "target": "es6",
     "rootDir": "./",
     "baseUrl": "./",
     "skipLibCheck": true,
+    "noEmit": false,
+    "importHelpers": true,
     "paths": {
       "@": ["./"],
       "*": ["src/*", "node_modules/*"]

@@ -19,11 +19,11 @@ optimizeScheduler(ReactDOM.unstable_batchedUpdates as any);
 const App = lazy(() => import('./components/App'));
 
 ReactDOM.render(
-  <React.StrictMode>
-    <Suspense fallback={<Skeleton />}>
-      <App />
-    </Suspense>
-  </React.StrictMode>,
+  // <React.StrictMode>
+  <Suspense fallback={<Skeleton />}>
+    <App />
+  </Suspense>,
+  // </React.StrictMode>,
   document.querySelector('#app')
 );
 
