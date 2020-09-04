@@ -9,6 +9,7 @@ import {
   BarRenderer,
   BoxPlotRenderer,
   CategoricalHistogramRenderer,
+  CategoricalRenderer,
   DateHistogramRenderer,
   DateRenderer,
   NumberHistogramRenderer,
@@ -59,7 +60,7 @@ export function asNumberBoxPlotColumn<D extends object, C extends Column<D>>(col
 export function asCategoricalColumn<D extends object, C extends Column<D>>(col: C, options?: CategoricalStatsOptions) {
   return {
     ...col,
-    Cell: BarRenderer,
+    Cell: CategoricalRenderer,
     Summary: CategoricalHistogramRenderer,
     Aggregated: CategoricalHistogramRenderer,
     aggregate: statsAggregate,
