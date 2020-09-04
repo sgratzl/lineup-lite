@@ -5,7 +5,7 @@ import typescript from '@rollup/plugin-typescript';
 import { terser } from 'rollup-plugin-terser';
 import replace from '@rollup/plugin-replace';
 import babel from '@rollup/plugin-babel';
-import css from 'rollup-plugin-css-only';
+import scss from 'rollup-plugin-scss';
 
 import fs from 'fs';
 
@@ -24,7 +24,8 @@ const banner = `/**
  */
 const watchOnly = ['esm', 'types'];
 
-const isDependency = (v) => Object.keys(pkg.dependencies || {}).some((e) => e === v || v.startsWith(e + '/'));
+const isDependency = (v) =>
+  !v.endsWith('css') && Object.keys(pkg.dependencies || {}).some((e) => e === v || v.startsWith(e + '/'));
 const isPeerDependency = (v) => Object.keys(pkg.peerDependencies || {}).some((e) => e === v || v.startsWith(e + '/'));
 
 export default (options) => {
@@ -48,10 +49,11 @@ export default (options) => {
         'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV) || 'production',
         __VERSION__: JSON.stringify(pkg.version),
       }),
-      css({
-        output: pkg.style,
-      }),
-    ],
+      pkg.style &&
+        scss({
+          output: pkg.style,
+        }),
+    ].filter(Boolean),
   };
   return [
     (buildFormat('esm') || buildFormat('cjs')) && {
@@ -103,10 +105,11 @@ export default (options) => {
         dts({
           respectExternal: true,
         }),
-        css({
-          output: false,
-        }),
-      ],
+        pkg.style &&
+          scss({
+            output: false,
+          }),
+      ].filter(Boolean),
     },
   ].filter(Boolean);
 };

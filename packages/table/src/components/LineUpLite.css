@@ -1,0 +1,39 @@
+.lt-table {
+}
+
+.lt-thead {
+}
+
+.lt-th {
+}
+
+.lt-th-group {
+}
+
+.lt-tbody {
+}
+
+.lt-tr {
+}
+
+.lt-td {
+}
+
+.lt-column-resize-handle {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 5px;
+  height: 100%;
+  background-color: white;
+  cursor: col-resize;
+  right: 0;
+  transform: translateX(50%);
+  z-index: 1;
+  /* prevents from scrolling while dragging on touch devices */
+  touch-action: none;
+}
+
+.lt-column-resizing > .lt-column-resize-handle {
+  background: lightgray;
+}

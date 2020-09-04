@@ -17,7 +17,7 @@ import {
 import { textStats, categoricalStats, dateStats, numberStats } from './stats';
 import { rangeFilter, categoricalFilter } from './filters';
 
-function identity<T>(v: T) {
+export function statsAggregate<T>(v: T) {
   return v;
 }
 
@@ -26,7 +26,7 @@ export function asStringColumn<D extends object, C extends Column<D>>(col: C, op
     ...col,
     Summary: TextSummaryRenderer,
     Aggregated: TextSummaryRenderer,
-    aggregate: identity,
+    aggregate: statsAggregate,
     filter: 'text',
     stats: options ? textStats(options) : textStats,
   };
@@ -38,7 +38,7 @@ export function asNumberColumn<D extends object, C extends Column<D>>(col: C, op
     Cell: BarRenderer,
     Summary: NumberHistogramRenderer,
     Aggregated: NumberHistogramRenderer,
-    aggregate: identity,
+    aggregate: statsAggregate,
     filter: rangeFilter,
     stats: options ? numberStats(options) : numberStats,
   };
@@ -50,7 +50,7 @@ export function asNumberBoxPlotColumn<D extends object, C extends Column<D>>(col
     Cell: BarRenderer,
     Summary: BoxPlotRenderer,
     Aggregated: BoxPlotRenderer,
-    aggregate: identity,
+    aggregate: statsAggregate,
     filter: rangeFilter,
     stats: options ? numberStats(options) : numberStats,
   };
@@ -62,7 +62,7 @@ export function asCategoricalColumn<D extends object, C extends Column<D>>(col: 
     Cell: BarRenderer,
     Summary: CategoricalHistogramRenderer,
     Aggregated: CategoricalHistogramRenderer,
-    aggregate: identity,
+    aggregate: statsAggregate,
     filter: categoricalFilter,
     stats: options ? categoricalStats(options) : categoricalStats,
   };
@@ -74,7 +74,7 @@ export function asDateColumn<D extends object, C extends Column<D>>(col: C, opti
     Cell: DateRenderer,
     Summary: DateHistogramRenderer,
     Aggregated: DateHistogramRenderer,
-    aggregate: identity,
+    aggregate: statsAggregate,
     filter: rangeFilter,
     stats: options ? dateStats(options) : dateStats,
   };
