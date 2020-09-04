@@ -6,6 +6,7 @@ export interface ICategoricalStats extends IHistStats<string> {}
 export interface CategoricalStatsOptions {
   color?: (v: string) => string;
   format?: (v: string) => string;
+  categories?: string[];
 }
 
 export function categoricalStatsGenerator(options: CategoricalStatsOptions = {}) {
@@ -15,6 +16,9 @@ export function categoricalStatsGenerator(options: CategoricalStatsOptions = {})
   return (arr: readonly string[]): ICategoricalStats => {
     let missing = 0;
     const map = new Map<string, number>();
+    if (options.categories) {
+      options.categories.forEach((cat) => map.set(cat, 0));
+    }
     arr.forEach((v) => {
       if (v == null) {
         missing++;
