@@ -1,23 +1,26 @@
-import '@lineup-lite/components/dist/components.css';
 import {
-  asCategoricalColumn,
-  asDateColumn,
-  asNumberColumn,
-  asStringColumn,
+  BarRenderer,
   BoxPlotRenderer,
+  categoricalFilter,
+  CategoricalHistogramRenderer,
+  CategoricalRenderer,
+  categoricalStats,
   ColorRenderer,
+  DateHistogramRenderer,
+  DateRenderer,
+  dateStats,
   NumberHistogramRenderer,
   numberStats,
   ProportionalSymbolRenderer,
   rangeFilter,
-  useRowExpandColumn,
-  useRowSelectColumn,
+  textStats,
+  TextSummaryRenderer,
   useStats,
+  useRowSelectColumn,
+  useRowExpandColumn,
   UseStatsColumnOptions,
 } from '@lineup-lite/hooks';
-import { makeStyles } from '@material-ui/core/styles';
-import clsx from 'clsx';
-import { observer } from 'mobx-react-lite';
+import '@lineup-lite/components/dist/components.css';
 import React from 'react';
 import {
   Cell,
@@ -26,7 +29,6 @@ import {
   HeaderGroup,
   Row,
   TableInstance,
-  useBlockLayout,
   useExpanded,
   UseExpandedRowProps,
   useFilters,
@@ -38,14 +40,18 @@ import {
   UseGroupByColumnOptions,
   UseGroupByColumnProps,
   UseGroupByRowProps,
-  useResizeColumns,
   UseResizeColumnsColumnOptions,
   UseResizeColumnsColumnProps,
   useRowSelect,
   useTable,
+  useResizeColumns,
+  useBlockLayout,
 } from 'react-table';
 import { generateData } from '../data/genData';
+import { observer } from 'mobx-react-lite';
+import { makeStyles } from '@material-ui/core/styles';
 import { useStore } from '../store';
+import clsx from 'clsx';
 
 declare type FullColumn<D extends object> = Column<D> &
   UseGroupByColumnOptions<D> &
@@ -190,19 +196,27 @@ export interface IRow {
 }
 
 const columns: FullColumn<IRow>[] = [
-  asStringColumn({
+  {
     Header: 'String',
     accessor: 'string',
+    Summary: TextSummaryRenderer,
+    Aggregated: TextSummaryRenderer,
+    aggregate: (v) => v,
+    filter: 'text',
+    stats: textStats,
     minWidth: 100,
-  }),
-  asNumberColumn(
-    {
-      Header: 'Number',
-      accessor: 'number',
-      minWidth: 100,
-    },
-    { min: 0, max: 10 }
-  ),
+  },
+  {
+    Header: 'Number',
+    accessor: 'number',
+    Cell: BarRenderer,
+    Summary: NumberHistogramRenderer,
+    Aggregated: NumberHistogramRenderer,
+    aggregate: (v) => v,
+    filter: rangeFilter,
+    stats: numberStats({ min: 0, max: 10 }),
+    minWidth: 100,
+  },
   {
     Header: 'Number',
     accessor: 'number1',
@@ -225,16 +239,28 @@ const columns: FullColumn<IRow>[] = [
     stats: numberStats({ min: 0, max: 10 }),
     minWidth: 100,
   },
-  asCategoricalColumn({
+  {
     Header: 'Cat',
     accessor: 'cat',
+    Cell: CategoricalRenderer,
+    Summary: CategoricalHistogramRenderer,
+    Aggregated: CategoricalHistogramRenderer,
+    aggregate: (v) => v,
+    filter: categoricalFilter,
+    stats: categoricalStats,
     minWidth: 100,
-  }),
-  asDateColumn({
+  },
+  {
     Header: 'Date',
     accessor: 'date',
+    Cell: DateRenderer,
+    Summary: DateHistogramRenderer,
+    Aggregated: DateHistogramRenderer,
+    aggregate: (v) => v,
+    filter: rangeFilter,
+    stats: dateStats,
     minWidth: 100,
-  }),
+  },
 ];
 
 export default observer(() => {
