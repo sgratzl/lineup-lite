@@ -1,5 +1,5 @@
 import React from 'react';
-import { Column, ColumnInstance, Hooks, UseGroupByColumnOptions } from 'react-table';
+import { Column, ColumnInstance, Hooks, UseGroupByColumnOptions, UseResizeColumnsColumnOptions } from 'react-table';
 import { UseStatsColumnOptions } from './useStats';
 
 export function useRowExpandColumn<D extends object = {}>(hooks: Hooks<D>) {
@@ -27,15 +27,18 @@ function Header() {
 }
 
 function generateColumn<D extends object = {}>(columns: ColumnInstance<D>[]) {
-  const expandColumn: Column<D> & UseStatsColumnOptions<D> & UseGroupByColumnOptions<D> & { support?: boolean } = {
+  const expandColumn: Column<D> &
+    UseStatsColumnOptions<D> &
+    UseGroupByColumnOptions<D> &
+    UseResizeColumnsColumnOptions<D> = {
     id: 'expand',
     Header,
     minWidth: 20,
     width: 20,
     maxWidth: 20,
-    support: true,
     Summary,
     Aggregated,
+    disableResizing: true,
     Cell,
   };
   return [expandColumn, ...columns];

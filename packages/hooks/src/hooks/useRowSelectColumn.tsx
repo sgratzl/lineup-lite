@@ -1,5 +1,5 @@
 import React from 'react';
-import { Column, ColumnInstance, Hooks } from 'react-table';
+import { Column, ColumnInstance, Hooks, UseResizeColumnsColumnOptions } from 'react-table';
 import IndeterminateCheckbox from './IndeterminateCheckbox';
 import { UseStatsColumnOptions } from './useStats';
 
@@ -29,14 +29,14 @@ function Header() {
 }
 
 function generateColumn<D extends object = {}>(columns: ColumnInstance<D>[]) {
-  const selectionColumn: Column<D> & UseStatsColumnOptions<D> & { support?: boolean } = {
+  const selectionColumn: Column<D> & UseStatsColumnOptions<D> & UseResizeColumnsColumnOptions<D> = {
     id: 'selection',
     Header,
     Summary,
-    support: true,
     minWidth: 20,
     width: 20,
     maxWidth: 20,
+    disableResizing: true,
     Cell,
   };
   return [selectionColumn, ...columns];
