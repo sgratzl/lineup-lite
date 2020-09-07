@@ -25,7 +25,7 @@ function Summary({ getToggleAllRowsSelectedProps }: any) {
 }
 
 function Header() {
-  return null;
+  return <div> </div>;
 }
 
 function generateColumn<D extends object = {}>(columns: ColumnInstance<D>[]) {

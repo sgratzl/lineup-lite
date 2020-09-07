@@ -43,7 +43,7 @@ export default /*!#__PURE__*/ React.memo(function Toolbar(props: React.PropsWith
       {column.canResize && (
         <div
           {...column.getToggleHiddenProps({
-            className: clsx('lt-action', 'lt-action-hide', column.isVisible && 'lt-action-active'),
+            className: clsx('lt-action', 'lt-action-hide', !column.isVisible && 'lt-action-active'),
           })}
         />
       )}

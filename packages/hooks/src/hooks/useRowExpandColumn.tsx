@@ -1,6 +1,15 @@
 import React from 'react';
-import { ColumnInstance, Hooks } from 'react-table';
+import {
+  ColumnInstance,
+  Hooks,
+  Row,
+  TableCellProps,
+  UseExpandedRowProps,
+  UseGroupByCellProps,
+  UseTableCellProps,
+} from 'react-table';
 import { FullColumn } from '../interfaces';
+import { cslx } from '../renderers/utils';
 
 export function useRowExpandColumn<D extends object = {}>(hooks: Hooks<D>) {
   hooks.visibleColumns.push(generateColumn);
@@ -8,22 +17,46 @@ export function useRowExpandColumn<D extends object = {}>(hooks: Hooks<D>) {
 useRowExpandColumn.pluginName = 'useRowExpandColumn';
 
 function Cell() {
-  // TODO
-  return <div className="le-expand"></div>;
+  //props: TableCellProps & UseTableCellProps<any, any> & UseGroupByCellProps<any>) {
+  // if ((props as any).allColumns.some((d: { isGrouped: boolean }) => d.isGrouped)) {
+  //   return <div className="lt-expand-sub"></div>;
+  // }
+  return null;
 }
 
-function Aggregated() {
-  // TODO
-  return <div className="le-expand"></div>;
+function Aggregated(props: TableCellProps & UseTableCellProps<any, any> & UseGroupByCellProps<any>) {
+  const row = props.row as Row<any> & UseExpandedRowProps<any>;
+  if (!row.canExpand) {
+    return null;
+  }
+  return (
+    <div
+      {...row.getToggleRowExpandedProps({
+        className: cslx('lt-expand-agg', row.isExpanded && 'lt-expanded'),
+      })}
+    >
+      ▲
+    </div>
+  );
 }
 
-function Summary() {
-  // TODO
-  return <div className="le-expand le-summary"></div>;
+function Summary(props: any) {
+  if (props.allColumns.some((d: any) => d.isGrouped)) {
+    return (
+      <div
+        {...props.getToggleAllRowsExpandedProps({
+          className: cslx('lt-expand-agg', props.isAllRowsExpanded && 'lt-expanded'),
+        })}
+      >
+        ▲
+      </div>
+    );
+  }
+  return null;
 }
 
 function Header() {
-  return null;
+  return <div> </div>;
 }
 
 function generateColumn<D extends object = {}>(columns: ColumnInstance<D>[]) {

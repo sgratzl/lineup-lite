@@ -26,6 +26,7 @@
   "main": "dist/hooks.js",
   "module": "dist/hooks.esm.js",
   "types": "dist/hooks.d.ts",
+  "style": "dist/hooks.css",
   "sideEffects": false,
   "files": [
     "dist",

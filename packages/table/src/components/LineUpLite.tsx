@@ -98,21 +98,32 @@ export const LineUpLite = /*!#__PURE__*/ React.forwardRef(function LineUpLite<D 
               return (
                 <div
                   {...column.getHeaderProps({
-                    className: clsx('lt-th', props.classNames?.th, clsx(column.isResizing && 'lt-column-resizing')),
+                    className: clsx(
+                      'lt-th',
+                      !column.canResize && 'lt-th-support',
+                      props.classNames?.th,
+                      clsx(column.isResizing && 'lt-column-resizing')
+                    ),
                     style: props.styles?.th,
                   })}
                 >
-                  <div className={clsx('lt-header', props.classNames?.header)} style={props.styles?.header}>
-                    {column.render('Header')}
-                  </div>
-                  <Toolbar {...col} />
-                  {column.render('Summary')}
-                  {column.canResize && (
-                    <div
-                      {...column.getResizerProps({
-                        className: 'lt-column-resize-handle',
-                      })}
-                    />
+                  {column.canResize ? (
+                    <>
+                      <div className={clsx('lt-header', props.classNames?.header)} style={props.styles?.header}>
+                        {column.render('Header')}
+                      </div>
+                      <Toolbar {...col} />
+                      {column.render('Summary')}
+                      {column.canResize && (
+                        <div
+                          {...column.getResizerProps({
+                            className: 'lt-column-resize-handle',
+                          })}
+                        />
+                      )}
+                    </>
+                  ) : (
+                    column.render('Summary')
                   )}
                 </div>
               );
@@ -145,20 +156,14 @@ export const LineUpLite = /*!#__PURE__*/ React.forwardRef(function LineUpLite<D 
                       style: props.styles?.td,
                     })}
                   >
-                    {cell.isGrouped ? (
-                      // If it's a grouped cell, add an expander and row count
-                      <>
-                        <span {...row.getToggleRowExpandedProps()}>{row.isExpanded ? '👇' : '👉'}</span>{' '}
-                        {cell.render('Cell')} ({row.subRows.length})
-                      </>
-                    ) : cell.isAggregated ? (
-                      // If the cell is aggregated, use the Aggregated
-                      // renderer for cell
-                      cell.render('Aggregated')
-                    ) : cell.isPlaceholder ? null : ( // For cells with repeated values, render null
-                      // Otherwise, just render the regular cell
-                      cell.render('Cell')
-                    )}
+                    {cell.isGrouped
+                      ? // If it's a grouped cell, add an expander and row count
+                        cell.render('Cell')
+                      : cell.isAggregated
+                      ? // If the cell is aggregated, use the Aggregated
+                        // renderer for cell
+                        cell.render('Aggregated')
+                      : cell.render('Cell')}
                   </div>
                 );
               })}

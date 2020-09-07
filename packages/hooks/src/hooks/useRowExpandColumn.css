@@ -1,0 +1,37 @@
+.lt-expand-agg {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: rotate(90deg);
+  text-align: center;
+  transition: transform 0.25s ease;
+}
+
+/* .lt-expand-agg::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  border: 1px solid black;
+  border-right: none;
+  width: 3px;
+  top: 0;
+  bottom: 0;
+} */
+
+/* .lt-expand-agg {
+  content: '▲';
+
+} */
+
+/* .lt-expanded::before {
+  border-bottom: none;
+} */
+
+.lt-expanded {
+  transform: rotate(180deg);
+}
+
+/* .lt-expand-sub {
+  border-left: 1px solid black;
+} */
