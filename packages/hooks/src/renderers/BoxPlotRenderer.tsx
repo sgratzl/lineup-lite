@@ -14,7 +14,7 @@ export interface BoxPlotRendererOptions extends NumberStatsOptions {}
 
 function FilterBoxPlot(props: FilterRangeBoxPlotProps) {
   const setFilter = useAsyncDebounce(props.setFilter);
-  return <FilterRangeBoxPlot {...props} setFilter={setFilter} />;
+  return <FilterRangeBoxPlot {...props} setFilter={setFilter} summary />;
 }
 
 export function BoxPlotRenderer<P extends StatsPropsLike<number>>(props: P) {
@@ -28,7 +28,7 @@ export function BoxPlotRenderer<P extends StatsPropsLike<number>>(props: P) {
   }
   if (isFilterAble(props) && props.column.canFilter) {
     const { setFilter, filterValue } = props.column;
-    return <FilterBoxPlot s={s} setFilter={setFilter} filterValue={filterValue} />;
+    return <FilterBoxPlot s={s} setFilter={setFilter} preFilter={preFilter} filterValue={filterValue} />;
   }
   return <BoxPlot s={s} preFilter={preFilter} summary />;
 }

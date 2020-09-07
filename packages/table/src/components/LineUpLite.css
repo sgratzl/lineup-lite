@@ -32,7 +32,6 @@
   background-color: white;
   cursor: col-resize;
   transform: translateX(50%);
-  z-index: 1;
   /* prevents from scrolling while dragging on touch devices */
   touch-action: none;
 
@@ -43,6 +42,7 @@
 .lt-th:hover > .lt-column-resize-handle,
 .lt-column-resizing > .lt-column-resize-handle {
   background: lightgray;
+  z-index: 1;
   opacity: 1;
 }
 

@@ -109,11 +109,6 @@ export const LineUpLite = /*!#__PURE__*/ React.forwardRef(function LineUpLite<D 
                 >
                   {column.canResize ? (
                     <>
-                      <div className={clsx('lt-header', props.classNames?.header)} style={props.styles?.header}>
-                        {column.render('Header')}
-                      </div>
-                      <Toolbar {...col} />
-                      {column.render('Summary')}
                       {column.canResize && (
                         <div
                           {...column.getResizerProps({
@@ -121,6 +116,11 @@ export const LineUpLite = /*!#__PURE__*/ React.forwardRef(function LineUpLite<D 
                           })}
                         />
                       )}
+                      <div className={clsx('lt-header', props.classNames?.header)} style={props.styles?.header}>
+                        {column.render('Header')}
+                      </div>
+                      <Toolbar {...col} />
+                      {column.render('Summary')}
                     </>
                   ) : (
                     column.render('Summary')

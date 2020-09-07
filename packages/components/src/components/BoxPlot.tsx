@@ -89,7 +89,7 @@ export function BoxPlotChart(props: BoxPlotChartProps) {
       viewBox={`0 0 100 ${height + offset}`}
       className={props.className}
       style={props.style}
-      preserveAspectRatio="xMaxYMid"
+      preserveAspectRatio="none"
     >
       <title>{generateTitle(s, pre)}</title>
       {pre != null && pre.count > s.count && (

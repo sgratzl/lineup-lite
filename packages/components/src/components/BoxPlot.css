@@ -14,3 +14,12 @@
 .lt-boxplot-pre {
   opacity: 0.2;
 }
+
+.lt-boxplot {
+  display: flex;
+  flex-direction: column;
+}
+
+.lt-boxplot-wrapper {
+  flex: 1 1 0;
+}
