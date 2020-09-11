@@ -55,6 +55,7 @@ export function asNumberColumn<D extends object, C extends Column<D>>(
     stats: options ? numberStats(options) : numberStats,
     sortType: sortCompare,
     sortDescFirst: true,
+    defaultCanGroupBy: false,
     groupBy: numberGroupBy,
     ...col,
   };
@@ -73,6 +74,7 @@ export function asNumberBoxPlotColumn<D extends object, C extends Column<D>>(
     stats: options ? numberStats(options) : numberStats,
     sortType: sortCompare,
     sortDescFirst: true,
+    defaultCanGroupBy: false,
     groupBy: numberGroupBy,
     ...col,
   };

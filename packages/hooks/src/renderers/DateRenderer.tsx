@@ -22,6 +22,9 @@ function deriveDateOptions<D extends object, P extends CellProps<D, Date>>(
 
 export function DateRenderer<D extends object, P extends CellProps<D, Date>>(props: P) {
   const options = useContext(optionContext) as DateRendererOptions;
+  if (typeof props.value === 'string') {
+    return <div className="lt-date">{props.value}</div>;
+  }
   const p = deriveDateOptions<D, P>(props, options);
   return <DateLabel {...p} value={props.value} />;
 }

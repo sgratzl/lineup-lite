@@ -91,43 +91,45 @@ export const LineUpLite = /*!#__PURE__*/ React.forwardRef(function LineUpLite<D 
               style: props.styles?.thGroup,
             })}
           >
-            {headerGroup.headers.map((col) => {
-              const column = (col as unknown) as HeaderGroup<D> &
-                UseGroupByColumnProps<D> &
-                UseResizeColumnsColumnProps<D>;
-              return (
-                <div
-                  {...column.getHeaderProps({
-                    className: clsx(
-                      'lt-th',
-                      !column.canResize && 'lt-th-support',
-                      props.classNames?.th,
-                      clsx(column.isResizing && 'lt-column-resizing')
-                    ),
-                    style: props.styles?.th,
-                  })}
-                >
-                  {column.canResize ? (
-                    <>
-                      {column.canResize && (
-                        <div
-                          {...column.getResizerProps({
-                            className: 'lt-column-resize-handle',
-                          })}
-                        />
-                      )}
-                      <div className={clsx('lt-header', props.classNames?.header)} style={props.styles?.header}>
-                        {column.render('Header')}
-                      </div>
-                      <Toolbar {...col} />
-                      {column.render('Summary')}
-                    </>
-                  ) : (
-                    column.render('Summary')
-                  )}
-                </div>
-              );
-            })}
+            {headerGroup.headers
+              .filter((d) => d.isVisible)
+              .map((col) => {
+                const column = (col as unknown) as HeaderGroup<D> &
+                  UseGroupByColumnProps<D> &
+                  UseResizeColumnsColumnProps<D>;
+                return (
+                  <div
+                    {...column.getHeaderProps({
+                      className: clsx(
+                        'lt-th',
+                        !column.canResize && 'lt-th-support',
+                        props.classNames?.th,
+                        clsx(column.isResizing && 'lt-column-resizing')
+                      ),
+                      style: props.styles?.th,
+                    })}
+                  >
+                    {column.canResize ? (
+                      <>
+                        {column.canResize && (
+                          <div
+                            {...column.getResizerProps({
+                              className: 'lt-column-resize-handle',
+                            })}
+                          />
+                        )}
+                        <div className={clsx('lt-header', props.classNames?.header)} style={props.styles?.header}>
+                          {column.render('Header')}
+                        </div>
+                        <Toolbar {...col} />
+                        {column.render('Summary')}
+                      </>
+                    ) : (
+                      column.render('Summary')
+                    )}
+                  </div>
+                );
+              })}
           </div>
         ))}
       </div>
@@ -147,26 +149,28 @@ export const LineUpLite = /*!#__PURE__*/ React.forwardRef(function LineUpLite<D 
                 style: props.styles?.tr,
               })}
             >
-              {row.cells.map((cellR) => {
-                const cell = (cellR as unknown) as Cell<D> & UseGroupByCellProps<D>;
-                return (
-                  <div
-                    {...cell.getCellProps({
-                      className: clsx('lt-td', props.classNames?.td),
-                      style: props.styles?.td,
-                    })}
-                  >
-                    {cell.isGrouped
-                      ? // If it's a grouped cell, add an expander and row count
-                        cell.render('Cell')
-                      : cell.isAggregated
-                      ? // If the cell is aggregated, use the Aggregated
-                        // renderer for cell
-                        cell.render('Aggregated')
-                      : cell.render('Cell')}
-                  </div>
-                );
-              })}
+              {row.cells
+                .filter((d) => d.column.isVisible)
+                .map((cellR) => {
+                  const cell = (cellR as unknown) as Cell<D> & UseGroupByCellProps<D>;
+                  return (
+                    <div
+                      {...cell.getCellProps({
+                        className: clsx('lt-td', props.classNames?.td),
+                        style: props.styles?.td,
+                      })}
+                    >
+                      {cell.isGrouped
+                        ? // If it's a grouped cell, add an expander and row count
+                          cell.render('Cell')
+                        : cell.isAggregated
+                        ? // If the cell is aggregated, use the Aggregated
+                          // renderer for cell
+                          cell.render('Aggregated')
+                        : cell.render('Cell')}
+                    </div>
+                  );
+                })}
             </div>
           );
         })}
