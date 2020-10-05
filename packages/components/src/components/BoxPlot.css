@@ -22,4 +22,5 @@
 
 .lt-boxplot-wrapper {
   flex: 1 1 0;
+  vector-effect: non-scaling-stroke;
 }
