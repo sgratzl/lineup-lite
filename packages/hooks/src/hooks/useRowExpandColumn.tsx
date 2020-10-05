@@ -11,10 +11,24 @@ import {
 import { FullColumn } from '../interfaces';
 import { cslx } from '../renderers/utils';
 
+export interface UseRowExpandColumnTableOptions {
+  expandIcon?: React.ComponentType;
+}
+
 export function useRowExpandColumn<D extends object = {}>(hooks: Hooks<D>) {
   hooks.visibleColumns.push(generateColumn);
 }
 useRowExpandColumn.pluginName = 'useRowExpandColumn';
+
+// https://remixicon.com/
+function ArrowDropRightLine() {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1.2em">
+      <path fill="none" d="M0 0h24v24H0z" />
+      <path d="M12.172 12L9.343 9.172l1.414-1.415L15 12l-4.243 4.243-1.414-1.415z" />
+    </svg>
+  );
+}
 
 function Cell() {
   //props: TableCellProps & UseTableCellProps<any, any> & UseGroupByCellProps<any>) {
@@ -24,7 +38,9 @@ function Cell() {
   return null;
 }
 
-function Aggregated(props: TableCellProps & UseTableCellProps<any, any> & UseGroupByCellProps<any>) {
+function Aggregated(
+  props: TableCellProps & UseTableCellProps<any, any> & UseGroupByCellProps<any> & UseRowExpandColumnTableOptions
+) {
   const row = props.row as Row<any> & UseExpandedRowProps<any>;
   if (!row.canExpand) {
     return null;
@@ -35,7 +51,7 @@ function Aggregated(props: TableCellProps & UseTableCellProps<any, any> & UseGro
         className: cslx('lt-expand-agg', row.isExpanded && 'lt-expanded'),
       })}
     >
-      ▲
+      {props.expandIcon ? <props.expandIcon /> : <ArrowDropRightLine />}
     </div>
   );
 }
@@ -48,7 +64,7 @@ function Summary(props: any) {
           className: cslx('lt-expand-agg', props.isAllRowsExpanded && 'lt-expanded'),
         })}
       >
-        ▲
+        {props.expandIcon ? <props.expandIcon /> : <ArrowDropRightLine />}
       </div>
     );
   }

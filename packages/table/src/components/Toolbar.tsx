@@ -7,10 +7,12 @@ import {
   UseResizeColumnsColumnProps,
   UseSortByColumnProps,
 } from 'react-table';
+import { DEFAULT_ICONS, IIcons } from '../icons';
 
 export interface IToolbarProps<D extends object> extends HeaderGroup<D> {
   className?: string;
   style?: React.CSSProperties;
+  icons?: IIcons;
 }
 
 export default /*!#__PURE__*/ React.memo(function Toolbar(props: React.PropsWithChildren<IToolbarProps<any>>) {
@@ -19,6 +21,11 @@ export default /*!#__PURE__*/ React.memo(function Toolbar(props: React.PropsWith
     UseResizeColumnsColumnProps<any> &
     UseFiltersColumnProps<any> &
     UseSortByColumnProps<any>;
+
+  const icons = {
+    ...DEFAULT_ICONS,
+    ...(props.icons ?? {}),
+  };
   return (
     <div className={clsx('lt-toolbar', props.className)} style={props.style}>
       {column.canGroupBy && (
@@ -26,7 +33,9 @@ export default /*!#__PURE__*/ React.memo(function Toolbar(props: React.PropsWith
           {...column.getGroupByToggleProps({
             className: clsx('lt-action', 'lt-action-group', column.isGrouped && 'lt-action-active'),
           })}
-        />
+        >
+          {<icons.groupBy />}
+        </div>
       )}
       {column.canSort && (
         <div
@@ -38,14 +47,22 @@ export default /*!#__PURE__*/ React.memo(function Toolbar(props: React.PropsWith
               column.isSortedDesc && 'lt-action-desc'
             ),
           })}
-        />
+        >
+          {column.isSortedDesc || (!column.isSorted && (column as any).sortDescFirst) ? (
+            <icons.sortDesc />
+          ) : (
+            <icons.sortAsc />
+          )}
+        </div>
       )}
       {column.canResize && (
         <div
           {...column.getToggleHiddenProps({
             className: clsx('lt-action', 'lt-action-hide', !column.isVisible && 'lt-action-active'),
           })}
-        />
+        >
+          {<icons.hideColumn />}
+        </div>
       )}
     </div>
   );

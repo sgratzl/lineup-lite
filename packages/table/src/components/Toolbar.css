@@ -5,20 +5,13 @@
 
 .lt-action {
   margin: 0.1em 0.2em;
+  opacity: 0.25;
+  transition: opacity 0.25s ease;
+  font-size: inherit;
+  box-sizing: border-box;
 }
 
-.lt-action-group::before {
-  content: 'G';
-}
-
-.lt-action-sort::before {
-  content: 'S';
-}
-
-.lt-action-hide::before {
-  content: 'H';
-}
-
+.lt-action:hover,
 .lt-action-active {
-  font-weight: bold;
+  opacity: 1;
 }

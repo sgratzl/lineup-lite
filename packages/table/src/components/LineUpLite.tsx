@@ -1,5 +1,6 @@
 import {
   useRowExpandColumn,
+  UseRowExpandColumnTableOptions,
   useRowSelectColumn,
   useStats,
   FullColumn,
@@ -35,6 +36,7 @@ import {
 } from 'react-table';
 import { clsx } from './utils';
 import Toolbar from './Toolbar';
+import { IIcons } from '../icons';
 
 export type MultiCustomizeKeys = 'tbody' | 'tr' | 'thead' | 'th' | 'thGroup' | 'td' | 'header';
 
@@ -51,14 +53,19 @@ export interface ILineUpLiteProps<D extends object> extends FullTableOptions<D> 
   classNames?: Partial<Record<MultiCustomizeKeys, string>>;
   style?: React.CSSProperties;
   styles?: Partial<Record<MultiCustomizeKeys, React.CSSProperties>>;
+  /**
+   * customize the icons to use
+   */
+  icons?: IIcons;
 }
 
 export const LineUpLite = /*!#__PURE__*/ React.forwardRef(function LineUpLite<D extends object>(
   props: ILineUpLiteProps<D>,
   ref: Ref<HTMLDivElement>
 ) {
-  const tableProps: FullTableOptions<D> = {
+  const tableProps: FullTableOptions<D> & UseRowExpandColumnTableOptions = {
     groupByFn: columnSpecificGroupByFn,
+    expandIcon: props.icons?.expandGroup,
     ...props,
   };
   const { getTableProps, getTableBodyProps, headerGroups, prepareRow, rows } = useTable<D>(
@@ -121,7 +128,7 @@ export const LineUpLite = /*!#__PURE__*/ React.forwardRef(function LineUpLite<D 
                         <div className={clsx('lt-header', props.classNames?.header)} style={props.styles?.header}>
                           {column.render('Header')}
                         </div>
-                        <Toolbar {...col} />
+                        <Toolbar {...col} icons={props.icons} />
                         {column.render('Summary')}
                       </>
                     ) : (
