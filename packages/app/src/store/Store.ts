@@ -5,7 +5,7 @@
  * Copyright (c) 2020 Samuel Gratzl <sam@sgratzl.com>
  */
 
-import { action, autorun, computed, observable, runInAction } from 'mobx';
+import { action, autorun, computed, makeObservable, observable, runInAction } from 'mobx';
 import { IDataSet, IElems, listStatic, listLocal, deleteLocal, saveLocal } from '../data';
 import UIStore, { IToastLink } from './UIStore';
 import { exportJSON, importJSON } from '../data/exportJSON';
@@ -30,6 +30,7 @@ export default class Store {
   selection: IElems | null = null;
 
   constructor() {
+    makeObservable(this);
     this.appendDatasets(listStatic());
     this.ui.showToast({
       severity: 'info',

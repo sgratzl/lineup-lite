@@ -5,7 +5,7 @@
  * Copyright (c) 2020 Samuel Gratzl <sam@sgratzl.com>
  */
 
-import { action, observable, autorun, computed } from 'mobx';
+import { action, observable, autorun, computed, makeObservable } from 'mobx';
 import { createRef } from 'react';
 
 export interface IToastLink {
@@ -44,6 +44,7 @@ export default class UIStore {
   toast: IToast | null = null;
 
   constructor() {
+    makeObservable(this);
     autorun(() => {
       localStorage.setItem('zen', this.zen ? 'T' : 'F');
     });

@@ -5,6 +5,7 @@
     "rootDir": "./",
     "baseUrl": "./",
     "skipLibCheck": true,
+    "useDefineForClassFields": true,
     "noEmit": false,
     "importHelpers": true,
     "paths": {
