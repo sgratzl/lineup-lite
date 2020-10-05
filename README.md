@@ -4,30 +4,33 @@
 
 This monorepo contains following packages:
 
-- [@lineup-lite/hooks](https://github.com/sgratzl/lineup-lite/tree/master/packages/hooks) the data model definition of LineUp-lite
+- [@lineup-lite/components](https://github.com/sgratzl/lineup-lite/tree/main/packages/components) basic React components and statistic utils
+  [![Open Docs][docs]](https://lineup-lite.js.org/api/components)
+
+- [@lineup-lite/hooks](https://github.com/sgratzl/lineup-lite/tree/main/packages/hooks) hooks and renderers for react-table
   [![Open Docs][docs]](https://lineup-lite.js.org/api/hooks)
 
-- [@lineup-lite/react](https://github.com/sgratzl/lineup-lite/tree/master/packages/react) the main LineUp-lite React component
+- [@lineup-lite/table](https://github.com/sgratzl/lineup-lite/tree/main/packages/react) higher level table component based on react-table and hooks
   [![Open Docs][docs]](https://lineup-lite.js.org/api/react)
 
-- [@lineup-lite/bundle](https://github.com/sgratzl/lineup-lite/tree/master/packages/bundle) zero dependency bundle of the react and addons component using Preact
+- [@lineup-lite/bundle](https://github.com/sgratzl/lineup-lite/tree/main/packages/bundle) zero dependency bundle of the table component using Preact
   [![Open Docs][docs]](https://lineup-lite.js.org/api/bundle)
 
-- [@lineup-lite/app](https://github.com/sgratzl/lineup-lite/tree/master/packages/app) example application to explore datasets using LineUp-lite with import and export features
+- [@lineup-lite/app](https://github.com/sgratzl/lineup-lite/tree/main/packages/app) example application to explore datasets using LineUp-lite with import and export features
   [![Open Example][example]](https://lineup-lite.js.org/app)
-
-In addition, there are the following sibling repositories and projects
 
 ## Usage and Installation
 
-### React
+### Table
 
 ```sh
-npm install @lineup-lite/react react react-dom
+npm install @lineup-lite/table react react-dom
 ```
 
 ```ts
 import React from 'react';
+
+TODO;
 ```
 
 ### Bundled version
@@ -37,7 +40,7 @@ npm install @lineup-lite/bundle
 ```
 
 ```js
-
+TODO;
 ```
 
 ## LineUp-lite App
@@ -63,7 +66,7 @@ yarn pnpify --sdk vscode
 Run inside another terminal:
 
 ```sh
-yarn workspace @lineup-lite/react storybook
+yarn workspace @lineup-lite/table storybook
 ```
 
 ### Testing
@@ -114,7 +117,7 @@ e.g.,
 ## Privacy Policy
 
 LineUp-lite is a client only library. The library or any of its integrations doesn't track you or transfers your data to any server.
-The uploaded data in the app are stored in your browser only using IndexedDB. The Tableau extension can run in a sandbox environment prohibiting any server requests.
+The uploaded data in the app are stored in your browser only using IndexedDB.
 However, as soon as you export your session within the app to an external service (e.g., Codepen.io) your data will be transferred.
 
 ## License / Terms of Service
