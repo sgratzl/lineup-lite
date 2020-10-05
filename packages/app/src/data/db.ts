@@ -62,7 +62,7 @@ function byCreationDate(arr: IStoredDump[]) {
 
 export function listLocal(): Promise<IDataSet[]> {
   return getDB()
-    .then((db) => db.datasets.toArray())
+    .then((db) => (db.datasets ? db.datasets.toArray() : []))
     .then(byCreationDate)
     .then((d) => d.map(asDataSet));
 }
