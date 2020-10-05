@@ -42,9 +42,6 @@ const useStyles = makeStyles(() => ({
   tr: {
     marginBottom: 2,
   },
-  td: {
-    marginRight: 1,
-  },
 }));
 
 export interface IRow {
@@ -130,7 +127,6 @@ export default observer(() => {
         defaultColumn={defaultColumn}
         classNames={{
           tr: classes.tr,
-          td: classes.td,
         }}
       />
     </div>
