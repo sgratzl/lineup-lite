@@ -53,6 +53,11 @@ export default class UIStore {
     });
   }
 
+  @action
+  setDefaultTheme(theme: 'dark' | 'light' | null) {
+    this.defaultTheme = theme;
+  }
+
   @computed
   get theme() {
     return this.defaultTheme ?? 'light';

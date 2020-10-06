@@ -31,7 +31,7 @@ const AppWrapper = observer(() => {
   const store = useStore();
   useEffect(() => {
     if (store.ui.defaultTheme == null) {
-      store.ui.defaultTheme = prefersDarkMode ? 'dark' : 'light';
+      store.ui.setDefaultTheme(prefersDarkMode ? 'dark' : 'light');
     }
   });
   return (
