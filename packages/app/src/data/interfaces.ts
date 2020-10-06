@@ -4,15 +4,23 @@
  *
  * Copyright (c) 2020 Samuel Gratzl <sam@sgratzl.com>
  */
+import { FullColumn } from '@lineup-lite/table';
 
-export interface IElem {
-  name: string;
+export interface IRow {
+  id: string;
+  [key: string]: string | Date | number | null;
 }
 
-export declare type IElems = readonly IElem[];
+export type IRows = IRow[];
+
+export type IColumn<T extends IRow = IRow> = FullColumn<T>;
+
+export type IColumns<T extends IRow = IRow> = IColumn<T>[];
 
 export interface ILoadedDataSet {
-  elems: IElems;
+  rows: IRows;
+  columns: IColumns;
+  defaultColumn: Partial<IColumn>;
 }
 
 export interface IDataSet {
@@ -28,5 +36,5 @@ export interface IDataSet {
 
 export interface IDumpInfo {
   ds: IDataSet;
-  elems: IElems;
+  rows: IRows;
 }

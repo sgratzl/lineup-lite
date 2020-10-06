@@ -8,12 +8,14 @@
 import { toJS } from 'mobx';
 import { loadFile } from '../dump';
 import Store from '../store/Store';
-import { IDataSet, IElem } from './interfaces';
+import { IDataSet, IRow } from './interfaces';
 import { loadJSON } from '../dump';
 
 export function exportJSON(store: Store) {
   const r = {
-    elements: toJS(store.elems),
+    rows: toJS(store.rows),
+    // TODO columns
+    // TODO default columns
   };
   return JSON.stringify(r, null, 2);
 }
@@ -26,16 +28,18 @@ export function fromDump(dump: any, id: string): IDataSet {
     description: dump.description,
     creationDate: new Date(),
     load: () => {
-      const elems = dump.elements;
+      const rows = dump.rows;
       return Promise.resolve({
-        elems,
+        rows,
+        columns: [],
+        defaultColumn: {},
       });
     },
   };
 }
 
 export function fromJSON(arr: ReadonlyArray<{ name: string; sets: string[] }>, id: string): IDataSet {
-  const elems: (IElem & { sets: string[] })[] = arr.map((e, i) => Object.assign({}, { name: i.toString() }, e));
+  const elems: (IRow & { sets: string[] })[] = arr.map((e, i) => Object.assign({}, { name: i.toString() }, e));
   return {
     id,
     name: id,

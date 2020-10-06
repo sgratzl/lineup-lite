@@ -6,7 +6,7 @@
  */
 
 import { action, autorun, computed, makeObservable, observable, runInAction } from 'mobx';
-import { IDataSet, IElems, listStatic, listLocal, deleteLocal, saveLocal } from '../data';
+import { IDataSet, IRows, listStatic, listLocal, deleteLocal, saveLocal, IColumns, IColumn } from '../data';
 import UIStore, { IToastLink } from './UIStore';
 import { exportJSON, importJSON } from '../data/exportJSON';
 import { exportCSV, importCSV } from '../data/exportCSV';
@@ -22,12 +22,18 @@ export default class Store {
   dataset: IDataSet | null = null;
 
   @observable.shallow
-  elems: IElems = [];
+  rows: IRows = [];
+
+  @observable.shallow
+  columns: IColumns = [];
 
   @observable.ref
-  hover: IElems | null = null;
+  defaultColumn: Partial<IColumn> = {};
+
   @observable.ref
-  selection: IElems | null = null;
+  hover: IRows | null = null;
+  @observable.ref
+  selection: IRows | null = null;
 
   constructor() {
     makeObservable(this);
@@ -149,7 +155,9 @@ export default class Store {
 
   private loadDataSet(dataset: IDataSet | null, done?: () => void) {
     this.dataset = dataset;
-    this.elems = [];
+    this.rows = [];
+    this.columns = [];
+    this.defaultColumn = {};
     this.hover = null;
     this.selection = null;
 
@@ -158,7 +166,9 @@ export default class Store {
     }
     this.dataset.load().then((d) =>
       runInAction(() => {
-        this.elems = d.elems;
+        this.rows = d.rows;
+        this.columns = d.columns;
+        this.defaultColumn = d.defaultColumn;
         if (done) {
           done();
         }
@@ -167,12 +177,12 @@ export default class Store {
   }
 
   @action.bound
-  setHover(set: IElems | null) {
+  setHover(set: IRows | null) {
     this.hover = set;
   }
 
   @action.bound
-  setSelection(set: IElems | null) {
+  setSelection(set: IRows | null) {
     this.selection = set;
   }
 

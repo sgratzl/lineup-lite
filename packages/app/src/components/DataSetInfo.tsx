@@ -19,7 +19,7 @@ export default observer(() => {
     <SidePanelEntry id="datasetinfo" title="Dataset Information">
       <Typography variant="subtitle2">Name:</Typography>
       <Typography>{ds?.name}</Typography>
-      <Typography variant="subtitle2">#Items: {store.elems.length}</Typography>
+      <Typography variant="subtitle2">#Items: {store.rows.length}</Typography>
       <Typography variant="subtitle2">Author:</Typography>
       <Typography>{ds?.author}</Typography>
       <Typography variant="subtitle2">Description:</Typography>

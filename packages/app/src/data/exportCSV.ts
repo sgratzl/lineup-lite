@@ -5,15 +5,16 @@
  * Copyright (c) 2020 Samuel Gratzl <sam@sgratzl.com>
  */
 
+import { asStringColumn } from '@lineup-lite/hooks';
 import { unparse, parse } from 'papaparse';
 import Store from '../store/Store';
 import { IDataSet } from './interfaces';
 
 export function exportCSV(store: Store) {
   return unparse([
-    ['Name'],
-    ...store.elems.map((c) => {
-      return [c.name];
+    ['ID'],
+    ...store.rows.map((c) => {
+      return [c.id];
     }),
   ]);
 }
@@ -29,15 +30,15 @@ function deriveDataSetName(file: File | string) {
   return name.includes('.') ? name.slice(0, name.lastIndexOf('.')) : name;
 }
 
-function findNameAttr(fields: string[]) {
+function findIDAttr(fields: string[]) {
   const fs = fields.map((f) => f.toLowerCase());
-  if (fs.includes('name')) {
-    return fields[fs.indexOf('name')];
-  }
   if (fs.includes('id')) {
     return fields[fs.indexOf('id')];
   }
-  return fields[0]; // first one
+  if (fs.includes('name')) {
+    return fields[fs.indexOf('name')];
+  }
+  return null;
 }
 
 function safeName(name: string | undefined | number, i: number) {
@@ -57,7 +58,7 @@ export function importCSV(file: File | string): Promise<IDataSet> {
       skipEmptyLines: true,
       complete(results) {
         const fields = results.meta.fields!;
-        const nameAttr = findNameAttr(fields);
+        const nameAttr = findIDAttr(fields);
         resolve({
           id: name,
           name,
@@ -65,11 +66,14 @@ export function importCSV(file: File | string): Promise<IDataSet> {
           author: 'User',
           description: `imported from ${name}`,
           load: () => {
-            const elems = results.data.map((e, i) => ({
-              name: safeName(e[nameAttr], i),
+            const rows = results.data.map((e, i) => ({
+              id: nameAttr == null ? i.toString() : safeName(e[nameAttr], i),
+              // TODO other columns
             }));
             return Promise.resolve({
-              elems,
+              rows,
+              columns: [asStringColumn({ accessor: 'id', Header: 'ID' })],
+              defaultColumn: {},
             });
           },
         });
