@@ -1,6 +1,6 @@
-import React, { useLayoutEffect } from 'react';
+import React, { MutableRefObject, useCallback, useLayoutEffect, useRef } from 'react';
 import { INumericStats } from '../math/common';
-import { toPercent } from './utils';
+import { cslx, toPercent } from './utils';
 
 export interface FilterRangeSliderProps<T> {
   /**
@@ -17,9 +17,14 @@ export interface FilterRangeSliderProps<T> {
   filterValue: [T | null, T | null];
 }
 
-export function FilterRangeSlider<T>(props: FilterRangeSliderProps<T>) {
+interface FilterRefData {
+  clearFilter(): void;
+  setShortCutFilter(evt: React.MouseEvent<HTMLElement>): void;
+}
+
+function FilterRangeSlider<T>(props: FilterRangeSliderProps<T> & { refData: MutableRefObject<FilterRefData> }) {
   const { setFilter } = props;
-  const invert = props.s.invert;
+  const { invert, scale } = props.s;
   const filterValue = props.filterValue;
   const [localFilter, setLocalFilter] = React.useState(filterValue ?? [null as T | null, null as T | null]);
   const filterRef = React.useRef(localFilter);
@@ -91,6 +96,40 @@ export function FilterRangeSlider<T>(props: FilterRangeSliderProps<T>) {
     };
   }, [setFilter, setLocalFilter, filterRef, invert]);
 
+  const clearFilter = useCallback(() => {
+    setLocalFilter([null, null]);
+    setFilter([null, null]);
+  }, [setFilter, setLocalFilter]);
+
+  const setShortCutFilter = useCallback(
+    (evt: React.MouseEvent<HTMLElement>) => {
+      // set filter shortcut
+      const bb = evt.currentTarget.getBoundingClientRect();
+      const ratio = Math.min(1, Math.max(0, (evt.clientX - bb.x) / bb.width));
+      // jump the closest to it
+      const currentMinDistance = Math.abs(
+        ratio - (typeof filterRef.current[0] === 'number' ? scale(filterRef.current[0]) : 0)
+      );
+      const currentMaxDistance = Math.abs(
+        ratio - (typeof filterRef.current[1] === 'number' ? scale(filterRef.current[1]) : 1)
+      );
+      const useMin = currentMinDistance <= currentMaxDistance;
+      const domainValue = invert(ratio);
+      if (useMin) {
+        setLocalFilter([domainValue, filterRef.current[1]]);
+        setFilter([domainValue, filterRef.current[1]]);
+      } else {
+        setLocalFilter([filterRef.current[0], domainValue]);
+        setFilter([filterRef.current[0], domainValue]);
+      }
+    },
+    [setFilter, setLocalFilter, filterRef, invert, scale]
+  );
+  props.refData.current = {
+    clearFilter,
+    setShortCutFilter,
+  };
+
   return (
     <>
       <div
@@ -108,5 +147,35 @@ export function FilterRangeSlider<T>(props: FilterRangeSliderProps<T>) {
         <div className="lt-filter-range-drag" onMouseDown={onMaxMouseDown} />
       </div>
     </>
+  );
+}
+
+export function FilterRangeWrapper<T>(
+  props: React.PropsWithChildren<
+    {
+      s: INumericStats<T>;
+      summary?: boolean;
+      className?: string;
+    } & FilterRangeSliderProps<T>
+  >
+) {
+  const refData = useRef({ clearFilter() {}, setShortCutFilter() {} } as FilterRefData);
+  const clearFilter = useCallback(() => refData.current.clearFilter(), [refData]);
+  const setShortCutFilter = useCallback(
+    (evt: React.MouseEvent<HTMLElement>) => refData.current.setShortCutFilter(evt),
+    [refData]
+  );
+
+  return (
+    <div
+      className={cslx(props.className, 'lt-summary', !props.summary && 'lt-group')}
+      data-min={props.s.min != null && props.summary ? props.s.format(props.s.min) : null}
+      data-max={props.s.max != null && props.summary ? props.s.format(props.s.max) : null}
+      onDoubleClick={clearFilter}
+      onClick={setShortCutFilter}
+    >
+      {props.children}
+      <FilterRangeSlider {...props} refData={refData} />
+    </div>
   );
 }

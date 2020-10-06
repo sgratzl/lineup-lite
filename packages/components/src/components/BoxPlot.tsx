@@ -2,7 +2,7 @@ import React from 'react';
 import { INumberStats } from '../math/numberStatsGenerator';
 import { IBoxPlot } from '@sgratzl/boxplots';
 import { NumberStatsWrapper } from './NumberStatsWrapper';
-import { FilterRangeSlider, FilterRangeSliderProps } from './FilterRange';
+import { FilterRangeWrapper, FilterRangeSliderProps } from './FilterRange';
 
 export interface BoxPlotChartProps {
   /**
@@ -131,9 +131,8 @@ export type FilterRangeBoxPlotProps = BoxPlotProps & FilterRangeSliderProps<numb
  */
 export function FilterRangeBoxPlot(props: FilterRangeBoxPlotProps) {
   return (
-    <NumberStatsWrapper className="lt-boxplot" s={props.s} summary={props.summary}>
+    <FilterRangeWrapper className="lt-boxplot" summary={props.summary} {...props}>
       <BoxPlotChart {...props} className="lt-boxplot-wrapper" />
-      <FilterRangeSlider {...props} />
-    </NumberStatsWrapper>
+    </FilterRangeWrapper>
   );
 }

@@ -2,7 +2,7 @@ import React from 'react';
 import { IHistStats, IBin } from '../math/common';
 import { toPercent, cslx } from './utils';
 import { color } from 'd3-color';
-import { FilterRangeSliderProps, FilterRangeSlider } from './FilterRange';
+import { FilterRangeSliderProps, FilterRangeWrapper } from './FilterRange';
 import { NumberStatsWrapper } from './NumberStatsWrapper';
 
 export interface HistogramProps<T> {
@@ -127,11 +127,10 @@ export type FilterRangeHistogramProps<T> = HistogramProps<T> & FilterRangeSlider
  */
 export function FilterRangeHistogram<T>(props: FilterRangeHistogramProps<T>) {
   return (
-    <NumberStatsWrapper className="lt-histogram" s={props.s} summary>
+    <FilterRangeWrapper className="lt-histogram" summary {...props}>
       {props.s.hist.map((h, i) => (
         <Bin key={String(h.x0)} h={h} i={i} props={props} />
       ))}
-      <FilterRangeSlider {...props} />
-    </NumberStatsWrapper>
+    </FilterRangeWrapper>
   );
 }
