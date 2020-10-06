@@ -1,6 +1,6 @@
-import { ColumnInstance, defaultGroupByFn, Row } from 'react-table';
+import { ColumnInstance, Row } from 'react-table';
+import { histGroupBy } from './histGroupBy';
 
 export function numberGroupBy<D extends object>(rows: Row<D>[], column: ColumnInstance<D>): Record<string, Row<D>[]> {
-  // TODO
-  return defaultGroupByFn(rows, column.id);
+  return histGroupBy<D, number>(rows, column);
 }
