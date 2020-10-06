@@ -15,6 +15,8 @@ import {
   DateGroupRenderer,
   NumberHistogramRenderer,
   TextSummaryRenderer,
+  TextGroupRenderer,
+  NumberGroupRenderer,
 } from './renderers';
 import { textStats, categoricalStats, dateStats, numberStats } from './stats';
 import { rangeFilter, categoricalFilter } from './filters';
