@@ -36,6 +36,8 @@ export function FilterTextSummary(props: FilterTextSummaryProps) {
     [setFilter]
   );
 
+  const clearFilter = React.useCallback(() => setFilter(undefined), [setFilter]);
+
   return (
     <div className="lt-text-summary lt-summary" data-min={unique}>
       <input
@@ -45,6 +47,16 @@ export function FilterTextSummary(props: FilterTextSummaryProps) {
         size={3}
         className="lt-text-summary-input"
       />
+      {
+        <button
+          className="lt-text-summary-clear"
+          aria-label="clear filter"
+          disabled={!Boolean(filterValue)}
+          onClick={clearFilter}
+        >
+          &times;
+        </button>
+      }
     </div>
   );
 }

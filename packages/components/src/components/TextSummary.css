@@ -8,3 +8,22 @@
   min-width: 0;
   font-size: xx-small;
 }
+
+.lt-text-summary-clear {
+  position: absolute;
+  right: 0.1em;
+  border: none;
+  background: none;
+  z-index: 1;
+}
+
+.lt-text-summary-clear:hover,
+.lt-text-summary-clear:focus {
+  border: none;
+  outline: none;
+  font-weight: bolder;
+}
+
+.lt-text-summary-clear:disabled {
+  display: none;
+}
