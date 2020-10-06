@@ -2,6 +2,7 @@
 }
 
 .lt-thead {
+  margin-bottom: 0.25em;
 }
 
 .lt-th {
@@ -22,6 +23,11 @@
 .lt-th,
 .lt-td {
   margin: 0 0.25em;
+}
+
+.lt-th-support,
+.lt-td-support {
+  margin: 0;
 }
 
 .lt-header {

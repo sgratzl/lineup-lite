@@ -33,6 +33,7 @@ import {
   useRowSelect,
   useTable,
   useSortBy,
+  ColumnInstance,
 } from 'react-table';
 import { clsx } from './utils';
 import Toolbar from './Toolbar';
@@ -94,7 +95,7 @@ export const LineUpLite = /*!#__PURE__*/ React.forwardRef(function LineUpLite<D 
       })}
       ref={ref}
     >
-      <div className={clsx('lt-th-group', props.classNames?.thead)} style={props.styles?.thead}>
+      <div className={clsx('lt-thead', props.classNames?.thead)} style={props.styles?.thead}>
         {headerGroups.map((headerGroup) => (
           <div
             {...headerGroup.getHeaderGroupProps({
@@ -164,15 +165,16 @@ export const LineUpLite = /*!#__PURE__*/ React.forwardRef(function LineUpLite<D 
                 .filter((d) => d.column.isVisible)
                 .map((cellR) => {
                   const cell = (cellR as unknown) as Cell<D> & UseGroupByCellProps<D>;
+                  const column = cell.column as FullColumn<D> & ColumnInstance<D> & UseResizeColumnsColumnProps<D>;
                   return (
                     <div
                       {...cell.getCellProps({
-                        className: clsx('lt-td', props.classNames?.td),
+                        className: clsx('lt-td', !column.canResize && 'lt-td-support', props.classNames?.td),
                         style: props.styles?.td,
                       })}
                     >
                       {cell.isGrouped
-                        ? cell.render((cell.column as FullColumn<D>).Group ? 'Group' : 'Cell')
+                        ? cell.render(column.Group ? 'Group' : 'Cell')
                         : cell.isAggregated
                         ? cell.render('Aggregated')
                         : cell.render('Cell')}
