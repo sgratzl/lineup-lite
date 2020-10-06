@@ -31,15 +31,6 @@ export default /*!#__PURE__*/ React.memo(function Toolbar(props: React.PropsWith
   const hide = useCallback(() => column.toggleHidden(true), [column]);
   return (
     <div className={clsx('lt-toolbar', props.className)} style={props.style}>
-      {column.canGroupBy && (
-        <div
-          {...column.getGroupByToggleProps({
-            className: clsx('lt-action', 'lt-action-group', column.isGrouped && 'lt-action-active'),
-          })}
-        >
-          {<icons.groupBy />}
-        </div>
-      )}
       {column.canSort && (
         <div
           {...column.getSortByToggleProps({
@@ -58,6 +49,16 @@ export default /*!#__PURE__*/ React.memo(function Toolbar(props: React.PropsWith
           )}
         </div>
       )}
+      {column.canGroupBy && (
+        <div
+          {...column.getGroupByToggleProps({
+            className: clsx('lt-action', 'lt-action-group', column.isGrouped && 'lt-action-active'),
+          })}
+        >
+          {<icons.groupBy />}
+        </div>
+      )}
+      {props.children}
       {column.canResize && column.canHide !== false && (
         <div
           {...column.getToggleHiddenProps({
