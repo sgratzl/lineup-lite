@@ -33,9 +33,9 @@ jobs:
           mkdir -p public/app
           mv packages/app/dist/* public/app/
           mkdir -p public/api/bundle
-          mv packages/bundle/docs/* public/api/bundle/
           mkdir -p public/api/table
           mv packages/table/docs/* public/api/table/
+      # mv packages/bundle/docs/* public/api/bundle/
 
       # - name: Deploy Master
       #   if: github.ref == 'refs/heads/master' && github.event_name == 'push'
