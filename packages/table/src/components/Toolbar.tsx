@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { clsx } from './utils';
 import {
   HeaderGroup,
@@ -26,6 +26,7 @@ export default /*!#__PURE__*/ React.memo(function Toolbar(props: React.PropsWith
     ...DEFAULT_ICONS,
     ...(props.icons ?? {}),
   };
+  const hide = useCallback(() => column.toggleHidden(true), [column]);
   return (
     <div className={clsx('lt-toolbar', props.className)} style={props.style}>
       {column.canGroupBy && (
@@ -60,6 +61,7 @@ export default /*!#__PURE__*/ React.memo(function Toolbar(props: React.PropsWith
           {...column.getToggleHiddenProps({
             className: clsx('lt-action', 'lt-action-hide', !column.isVisible && 'lt-action-active'),
           })}
+          onClick={hide}
         >
           {<icons.hideColumn />}
         </div>
