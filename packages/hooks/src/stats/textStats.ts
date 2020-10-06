@@ -8,7 +8,9 @@ function compute(gen: ReturnType<typeof textStatsGenerator>, arr: readonly strin
 }
 
 export function textStats(options: TextStatsOptions): (arr: readonly string[], preFilter?: ITextStats) => ITextStats;
+// eslint-disable-next-line no-redeclare
 export function textStats(arr: readonly string[], preFilter?: ITextStats): ITextStats;
+// eslint-disable-next-line no-redeclare
 export function textStats(optionsOrArr: TextStatsOptions | readonly string[]) {
   if (isStatsOptions(optionsOrArr)) {
     return textStatsGenerator(optionsOrArr);

@@ -21,7 +21,9 @@ function compute(
 export function numberStats(
   options: NumberStatsOptions
 ): (arr: readonly number[], preFilter?: INumberStats) => INumberStats;
+// eslint-disable-next-line no-redeclare
 export function numberStats(arr: readonly number[], preFilter?: INumberStats): INumberStats;
+// eslint-disable-next-line no-redeclare
 export function numberStats(optionsOrArr: NumberStatsOptions | readonly number[], preFilter?: INumberStats) {
   if (isStatsOptions(optionsOrArr)) {
     const gen = numberStatsGenerator(optionsOrArr);

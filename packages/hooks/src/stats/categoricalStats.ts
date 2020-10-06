@@ -21,7 +21,9 @@ function compute(
 export function categoricalStats(
   options: CategoricalStatsOptions
 ): (arr: readonly string[], preFilter?: ICategoricalStats) => ICategoricalStats;
+// eslint-disable-next-line no-redeclare
 export function categoricalStats(arr: readonly string[], preFilter?: ICategoricalStats): ICategoricalStats;
+// eslint-disable-next-line no-redeclare
 export function categoricalStats(
   optionsOrArr: CategoricalStatsOptions | readonly string[],
   preFilter?: ICategoricalStats
