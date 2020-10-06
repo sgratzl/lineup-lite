@@ -10,3 +10,21 @@
 .lt-expanded {
   transform: rotate(90deg);
 }
+.lt-expand-1 {
+  transform: translate(2px, 0);
+}
+.lt-expand-1.lt-expanded {
+  transform: translate(2px, 0) rotate(90deg);
+}
+.lt-expand-2 {
+  transform: translate(4px, 0);
+}
+.lt-expand-2.lt-expanded {
+  transform: translate(4px, 0) rotate(90deg);
+}
+.lt-expand-3 {
+  transform: translate(6px, 0);
+}
+.lt-expand-4.lt-expanded {
+  transform: translate(6px, 0) rotate(90deg);
+}

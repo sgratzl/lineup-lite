@@ -41,14 +41,14 @@ function Cell() {
 function Aggregated(
   props: TableCellProps & UseTableCellProps<any, any> & UseGroupByCellProps<any> & UseRowExpandColumnTableOptions
 ) {
-  const row = props.row as Row<any> & UseExpandedRowProps<any>;
+  const row = props.row as Row<any> & UseExpandedRowProps<any> & { depth: number };
   if (!row.canExpand) {
     return null;
   }
   return (
     <div
       {...row.getToggleRowExpandedProps({
-        className: cslx('lt-expand-agg', row.isExpanded && 'lt-expanded'),
+        className: cslx('lt-expand-agg', `lt-expand-${row.depth}`, row.isExpanded && 'lt-expanded'),
       })}
     >
       {props.expandIcon ? <props.expandIcon /> : <ArrowDropRightLine />}
