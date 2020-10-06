@@ -1,16 +1,13 @@
 import {
+  columnSpecificGroupByFn,
   useRowExpandColumn,
   UseRowExpandColumnTableOptions,
   useRowSelectColumn,
   useStats,
-  FullColumn as FullHookColumn,
-  columnSpecificGroupByFn,
 } from '@lineup-lite/hooks';
-import React, { Ref } from 'react';
+import React, { Ref, useMemo } from 'react';
 import {
-  Cell,
   Column,
-  HeaderGroup,
   Row,
   TableInstance,
   TableOptions,
@@ -22,24 +19,19 @@ import {
   UseFiltersInstanceProps,
   UseFiltersOptions,
   useGroupBy,
-  UseGroupByCellProps,
-  UseGroupByColumnProps,
   UseGroupByOptions,
   UseGroupByRowProps,
   useResizeColumns,
-  UseResizeColumnsColumnProps,
-  UseRowSelectOptions,
-  UseSortByOptions,
   useRowSelect,
-  useTable,
+  UseRowSelectOptions,
   useSortBy,
-  ColumnInstance,
+  UseSortByOptions,
+  useTable,
 } from 'react-table';
+import { FullColumn, ISharedLineUpProps } from './interfaces';
+import { LineUpLiteTD } from './LineUpLiteTD';
+import { LineUpLiteTH } from './LineUpLiteTH';
 import { clsx } from './utils';
-import Toolbar from './Toolbar';
-import { IIcons } from '../icons';
-
-export type MultiCustomizeKeys = 'tbody' | 'tr' | 'thead' | 'th' | 'thGroup' | 'td' | 'header';
 
 export type FullTableOptions<D extends object> = TableOptions<D> &
   UseFiltersOptions<D> &
@@ -48,20 +40,11 @@ export type FullTableOptions<D extends object> = TableOptions<D> &
   UseRowSelectOptions<D> &
   UseSortByOptions<D>;
 
-export type FullColumn<D extends object> = FullHookColumn<D> & {
-  canHide?: boolean;
-};
-export interface ILineUpLiteProps<D extends object> extends FullTableOptions<D> {
+export interface ILineUpLiteProps<D extends object> extends FullTableOptions<D>, ISharedLineUpProps {
   defaultColumn: Partial<FullColumn<D>>;
   columns: (Column<D> & Partial<FullColumn<D>>)[];
   className?: string;
-  classNames?: Partial<Record<MultiCustomizeKeys, string>>;
   style?: React.CSSProperties;
-  styles?: Partial<Record<MultiCustomizeKeys, React.CSSProperties>>;
-  /**
-   * customize the icons to use
-   */
-  icons?: IIcons;
 }
 
 export const LineUpLite = /*!#__PURE__*/ React.forwardRef(function LineUpLite<D extends object>(
@@ -87,6 +70,15 @@ export const LineUpLite = /*!#__PURE__*/ React.forwardRef(function LineUpLite<D 
     useResizeColumns
   ) as TableInstance<D> & UseFiltersInstanceProps<D>;
 
+  const shared: ISharedLineUpProps = useMemo(
+    () => ({
+      styles: props.styles,
+      classNames: props.classNames,
+      icons: props.icons,
+    }),
+    [props.styles, props.classNames, props.icons]
+  );
+
   return (
     <div
       {...getTableProps({
@@ -105,43 +97,9 @@ export const LineUpLite = /*!#__PURE__*/ React.forwardRef(function LineUpLite<D 
           >
             {headerGroup.headers
               .filter((d) => d.isVisible)
-              .map((col) => {
-                const column = (col as unknown) as HeaderGroup<D> &
-                  UseGroupByColumnProps<D> &
-                  UseResizeColumnsColumnProps<D>;
-                return (
-                  <div
-                    {...column.getHeaderProps({
-                      className: clsx(
-                        'lt-th',
-                        !column.canResize && 'lt-th-support',
-                        props.classNames?.th,
-                        clsx(column.isResizing && 'lt-column-resizing')
-                      ),
-                      style: props.styles?.th,
-                    })}
-                  >
-                    {column.canResize ? (
-                      <>
-                        {column.canResize && (
-                          <div
-                            {...column.getResizerProps({
-                              className: 'lt-column-resize-handle',
-                            })}
-                          />
-                        )}
-                        <div className={clsx('lt-header', props.classNames?.header)} style={props.styles?.header}>
-                          {column.render('Header')}
-                        </div>
-                        <Toolbar {...col} icons={props.icons} />
-                        {column.render('Summary')}
-                      </>
-                    ) : (
-                      column.render('Summary')
-                    )}
-                  </div>
-                );
-              })}
+              .map((col) => (
+                <LineUpLiteTH key={col.id} col={col} shared={shared} />
+              ))}
           </div>
         ))}
       </div>
@@ -163,24 +121,9 @@ export const LineUpLite = /*!#__PURE__*/ React.forwardRef(function LineUpLite<D 
             >
               {row.cells
                 .filter((d) => d.column.isVisible)
-                .map((cellR) => {
-                  const cell = (cellR as unknown) as Cell<D> & UseGroupByCellProps<D>;
-                  const column = cell.column as FullColumn<D> & ColumnInstance<D> & UseResizeColumnsColumnProps<D>;
-                  return (
-                    <div
-                      {...cell.getCellProps({
-                        className: clsx('lt-td', !column.canResize && 'lt-td-support', props.classNames?.td),
-                        style: props.styles?.td,
-                      })}
-                    >
-                      {cell.isGrouped
-                        ? cell.render(column.Group ? 'Group' : 'Cell')
-                        : cell.isAggregated
-                        ? cell.render('Aggregated')
-                        : cell.render('Cell')}
-                    </div>
-                  );
-                })}
+                .map((cell) => (
+                  <LineUpLiteTD key={cell.column.id} cell={cell} shared={shared} />
+                ))}
             </div>
           );
         })}
