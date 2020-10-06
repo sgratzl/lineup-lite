@@ -54,3 +54,32 @@ export function TextSummaryRendererFactory<P extends StatsPropsLike<string>>(
     </statsGeneratorContext.Provider>
   );
 }
+
+export function TextGroupRenderer<P extends StatsPropsLike<string>>(props: P) {
+  const options = useContext(optionContext) as TextSummaryRendererOptions;
+  const stats =
+    useContext<((arr: readonly string[], preFilter?: ITextStats) => ITextStats) | null>(statsGeneratorContext) ??
+    textStats(options);
+  const { s, preFilter, cell } = extractStats(props, stats);
+  if (cell) {
+    return <TextSummary s={s} preFilter={preFilter} />;
+  }
+  if (isFilterAble(props) && props.column.canFilter) {
+    const { setFilter, filterValue } = props.column;
+    return <Filtered s={s} preFilter={preFilter} setFilter={setFilter} filterValue={filterValue} />;
+  }
+  return <TextSummary s={s} preFilter={preFilter} summary />;
+}
+
+export function TextGroupRendererFactory<P extends StatsPropsLike<string>>(
+  options: TextSummaryRendererOptions = {}
+): Renderer<P> {
+  const stats = textStats(options);
+  return (props: P) => (
+    <statsGeneratorContext.Provider value={stats}>
+      <optionContext.Provider value={options}>
+        <TextGroupRenderer {...props} />
+      </optionContext.Provider>
+    </statsGeneratorContext.Provider>
+  );
+}

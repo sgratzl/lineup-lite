@@ -1,5 +1,6 @@
 import {
   Column,
+  Renderer,
   UseFiltersColumnOptions,
   UseGroupByColumnOptions,
   UseResizeColumnsColumnOptions,
@@ -12,4 +13,6 @@ export type FullColumn<D extends object> = Column<D> &
   UseGroupByColumnOptions<D> &
   UseSortByColumnOptions<D> &
   UseStatsColumnOptions<D> &
-  UseResizeColumnsColumnOptions<D>;
+  UseResizeColumnsColumnOptions<D> & {
+    Group?: Renderer<D>;
+  };

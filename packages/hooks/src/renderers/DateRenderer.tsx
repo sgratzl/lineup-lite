@@ -38,3 +38,22 @@ export function DateRendererFactory<D extends object, P extends CellProps<D, Dat
     </optionContext.Provider>
   );
 }
+
+export function DateGroupRenderer<D extends object, P extends CellProps<D, Date>>(props: P) {
+  const options = useContext(optionContext) as DateRendererOptions;
+  if (typeof props.value === 'string') {
+    return <div className="lt-date">{props.value}</div>;
+  }
+  const p = deriveDateOptions<D, P>(props, options);
+  return <DateLabel {...p} value={props.value} />;
+}
+
+export function DateGroupRendererFactory<D extends object, P extends CellProps<D, Date>>(
+  options: DateRendererOptions = {}
+): Renderer<P> {
+  return (props: P) => (
+    <optionContext.Provider value={options}>
+      <DateRenderer<D, P> {...props} />
+    </optionContext.Provider>
+  );
+}

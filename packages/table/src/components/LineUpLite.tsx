@@ -168,12 +168,9 @@ export const LineUpLite = /*!#__PURE__*/ React.forwardRef(function LineUpLite<D 
                       })}
                     >
                       {cell.isGrouped
-                        ? // If it's a grouped cell, add an expander and row count
-                          cell.render('Cell')
+                        ? cell.render(cell.column.Group ? 'Group' : 'Cell')
                         : cell.isAggregated
-                        ? // If the cell is aggregated, use the Aggregated
-                          // renderer for cell
-                          cell.render('Aggregated')
+                        ? cell.render('Aggregated')
                         : cell.render('Cell')}
                     </div>
                   );
