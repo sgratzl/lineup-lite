@@ -15,7 +15,7 @@ export function invertColorScale(scale: (v: number) => string) {
 export function defaultColorScale(v: number) {
   const maxL = 1;
   const minL = 0.23;
-  return `hsl(206deg, 64%, ${Math.round(100 * (v * (maxL - minL) + minL))}%)`;
+  return `hsl(206, 64%, ${Math.round(100 * (v * (maxL - minL) + minL))}%)`;
 }
 
 export function autoAssignColors(colors: readonly string[], start = 0) {
