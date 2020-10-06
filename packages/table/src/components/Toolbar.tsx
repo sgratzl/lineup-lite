@@ -20,7 +20,9 @@ export default /*!#__PURE__*/ React.memo(function Toolbar(props: React.PropsWith
     UseGroupByColumnProps<any> &
     UseResizeColumnsColumnProps<any> &
     UseFiltersColumnProps<any> &
-    UseSortByColumnProps<any>;
+    UseSortByColumnProps<any> & {
+      canHide?: boolean;
+    };
 
   const icons = {
     ...DEFAULT_ICONS,
@@ -56,7 +58,7 @@ export default /*!#__PURE__*/ React.memo(function Toolbar(props: React.PropsWith
           )}
         </div>
       )}
-      {column.canResize && (
+      {column.canResize && column.canHide !== false && (
         <div
           {...column.getToggleHiddenProps({
             className: clsx('lt-action', 'lt-action-hide', !column.isVisible && 'lt-action-active'),

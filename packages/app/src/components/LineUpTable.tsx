@@ -108,6 +108,7 @@ export default observer(() => {
       minWidth: 30,
       width: 150,
       maxWidth: 400,
+      canHide: false,
     }),
     []
   );

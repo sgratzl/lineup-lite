@@ -3,7 +3,7 @@ import {
   UseRowExpandColumnTableOptions,
   useRowSelectColumn,
   useStats,
-  FullColumn,
+  FullColumn as FullHookColumn,
   columnSpecificGroupByFn,
 } from '@lineup-lite/hooks';
 import React, { Ref } from 'react';
@@ -47,7 +47,11 @@ export type FullTableOptions<D extends object> = TableOptions<D> &
   UseRowSelectOptions<D> &
   UseSortByOptions<D>;
 
+export type FullColumn<D extends object> = FullHookColumn<D> & {
+  canHide?: boolean;
+};
 export interface ILineUpLiteProps<D extends object> extends FullTableOptions<D> {
+  defaultColumn: Partial<FullColumn<D>>;
   columns: (Column<D> & Partial<FullColumn<D>>)[];
   className?: string;
   classNames?: Partial<Record<MultiCustomizeKeys, string>>;
@@ -168,7 +172,7 @@ export const LineUpLite = /*!#__PURE__*/ React.forwardRef(function LineUpLite<D 
                       })}
                     >
                       {cell.isGrouped
-                        ? cell.render(cell.column.Group ? 'Group' : 'Cell')
+                        ? cell.render((cell.column as FullColumn<D>).Group ? 'Group' : 'Cell')
                         : cell.isAggregated
                         ? cell.render('Aggregated')
                         : cell.render('Cell')}
