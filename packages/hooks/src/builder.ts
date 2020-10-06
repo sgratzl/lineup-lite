@@ -12,11 +12,9 @@ import {
   CategoricalRenderer,
   DateHistogramRenderer,
   DateRenderer,
-  DateGroupRenderer,
   NumberHistogramRenderer,
+  GroupValueRenderer,
   TextSummaryRenderer,
-  TextGroupRenderer,
-  NumberGroupRenderer,
 } from './renderers';
 import { textStats, categoricalStats, dateStats, numberStats } from './stats';
 import { rangeFilter, categoricalFilter } from './filters';
@@ -35,7 +33,7 @@ export function asStringColumn<D extends object, C extends Column<D>>(
   return {
     Summary: TextSummaryRenderer,
     Aggregated: TextSummaryRenderer,
-    Group: TextGroupRenderer,
+    Group: GroupValueRenderer,
     aggregate: statsAggregate,
     filter: 'text',
     stats: options ? textStats(options) : textStats,
@@ -53,7 +51,7 @@ export function asNumberColumn<D extends object, C extends Column<D>>(
   return {
     Cell: BarRenderer,
     Summary: NumberHistogramRenderer,
-    Group: NumberGroupRenderer,
+    Group: GroupValueRenderer,
     Aggregated: NumberHistogramRenderer,
     aggregate: statsAggregate,
     filter: rangeFilter,
@@ -73,7 +71,7 @@ export function asNumberBoxPlotColumn<D extends object, C extends Column<D>>(
   return {
     Cell: BarRenderer,
     Summary: BoxPlotRenderer,
-    Group: NumberGroupRenderer,
+    Group: GroupValueRenderer,
     Aggregated: BoxPlotRenderer,
     aggregate: statsAggregate,
     filter: rangeFilter,
@@ -112,7 +110,7 @@ export function asDateColumn<D extends object, C extends Column<D>>(
   return {
     Cell: DateRenderer,
     Summary: DateHistogramRenderer,
-    Group: DateGroupRenderer,
+    Group: GroupValueRenderer,
     Aggregated: DateHistogramRenderer,
     aggregate: statsAggregate,
     filter: rangeFilter,

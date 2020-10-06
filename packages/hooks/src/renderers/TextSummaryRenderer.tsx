@@ -54,6 +54,3 @@ export function TextSummaryRendererFactory<P extends StatsPropsLike<string>>(
     </statsGeneratorContext.Provider>
   );
 }
-
-export const TextGroupRenderer = TextSummaryRenderer;
-export const TextGroupRendererFactory = TextSummaryRendererFactory;

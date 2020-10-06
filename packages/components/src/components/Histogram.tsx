@@ -31,11 +31,9 @@ export interface HistogramProps<T> {
 const DENSE = 10;
 const FILTERED_OPACITY = 0.2;
 
-function generateBinTitle<T>(props: HistogramProps<T>, h: IBin<T>, raw?: IBin<T>) {
+function generateBinTitle<T>(h: IBin<T>, raw?: IBin<T>) {
   const rawT = raw ? `/${raw.count.toLocaleString()}` : '';
-  return `${props.s.format(h.x0)}${
-    !props.label ? ` - ${props.s.format(h.x1)}` : ''
-  }: ${h.count.toLocaleString()}${rawT} items`;
+  return `${h.label}: ${h.count.toLocaleString()}${rawT} items`;
 }
 
 /**
@@ -86,8 +84,8 @@ function Bin<T>({
       }}
       data-i={i}
       onClick={onClick}
-      data-label={props.label ? props.s.format(h.x0) : null}
-      title={generateBinTitle<T>(props, h, raw)}
+      data-label={props.label ? h.label : null}
+      title={generateBinTitle<T>(h, raw)}
     />
   );
 }

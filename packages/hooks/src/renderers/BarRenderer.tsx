@@ -25,6 +25,3 @@ export function BarRendererFactory<D extends object, P extends CellProps<D, numb
     </optionContext.Provider>
   );
 }
-
-export const NumberGroupRenderer = BarRenderer;
-export const NumberGroupRendererFactory = BarRendererFactory;

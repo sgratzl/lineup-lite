@@ -8,3 +8,4 @@ export * from './DateRenderer';
 export * from './NumberHistogramRenderer';
 export * from './ProportionalSymbolRenderer';
 export * from './TextSummaryRenderer';
+export * from './GroupValueRenderer';

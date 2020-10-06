@@ -31,6 +31,7 @@ export function categoricalStatsGenerator(options: CategoricalStatsOptions = {})
       .map(([value, count]) => ({
         x0: value,
         x1: value,
+        label: value,
         count,
         color: color(value),
       }));

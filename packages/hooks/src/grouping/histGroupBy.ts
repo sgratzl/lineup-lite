@@ -13,7 +13,7 @@ export function histGroupBy<D extends object, T extends number | Date>(
   // group by bin
   const r: Record<string, Row<D>[]> = {};
   stats.hist.forEach((bin, i) => {
-    const key = stats.format(bin.x0);
+    const key = bin.label;
     const group = rows.filter((row) => {
       const v = row.values[column.id];
       return (

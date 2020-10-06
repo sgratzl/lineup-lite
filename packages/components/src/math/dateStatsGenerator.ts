@@ -14,18 +14,22 @@ function computeGranularity(
   min: Date,
   max: Date,
   color: (v: Date) => string,
+  format?: DateFormatter,
   histGranularity?: DateHistGranularity
 ): { histGranularity: DateHistGranularity; hist: IBin<Date>[] } {
   const hist: IBin<Date>[] = [];
 
   if (histGranularity === 'decade' || max.getFullYear() - min.getFullYear() >= 30) {
+    const formatter = yearFormatter(format);
     // more than 3 decades
     const minYear = Math.floor(min.getFullYear() / 10) * 10;
     const maxYear = max.getFullYear();
     for (let i = minYear; i <= maxYear; i += 10) {
+      const x0 = new Date(i, 0, 1);
       hist.push({
-        x0: new Date(i, 0, 1),
+        x0,
         x1: new Date(i + 10, 0, 1),
+        label: formatter(x0),
         color: color(new Date(i + 5, 0, 1)),
         count: 0,
       });
@@ -35,12 +39,15 @@ function computeGranularity(
 
   if (histGranularity === 'year' || max.getFullYear() - min.getFullYear() >= 2) {
     // more than two years difference
+    const formatter = yearFormatter(format);
     const minYear = min.getFullYear();
     const maxYear = max.getFullYear();
     for (let i = minYear; i <= maxYear; ++i) {
+      const x0 = new Date(i, 0, 1);
       hist.push({
-        x0: new Date(i, 0, 1),
+        x0,
         x1: new Date(i + 1, 0, 1),
+        label: formatter(x0),
         color: color(new Date(i, 6, 1)),
         count: 0,
       });
@@ -51,12 +58,14 @@ function computeGranularity(
   if (histGranularity === 'day' || max.getTime() - min.getTime() <= 1000 * 60 * 60 * 24 * 31) {
     // less than a month use day
     let x0 = new Date(min.getFullYear(), min.getMonth(), min.getDate());
+    const formatter = resolveDateFormatter(format);
     while (x0 <= max) {
       const x1 = new Date(x0);
       x1.setDate(x1.getDate() + 1);
       hist.push({
         x0,
         x1,
+        label: formatter(x0),
         color: color(new Date(x0.getFullYear(), x0.getMonth(), x0.getDate(), 12)),
         count: 0,
       });
@@ -67,12 +76,14 @@ function computeGranularity(
 
   // by month
   let x0 = new Date(min.getFullYear(), min.getMonth(), 1);
+  const formatter = monthFormatter(format);
   while (x0 <= max) {
     const x1 = new Date(x0);
     x1.setMonth(x1.getMonth() + 1);
     hist.push({
       x0,
       x1,
+      label: formatter(x0),
       color: color(new Date(x0.getFullYear(), x0.getMonth(), 15)),
       count: 0,
     });
@@ -121,7 +132,30 @@ export function resolveDateFormatter(format?: DateFormatter): (v: Date) => strin
   if (typeof format === 'function') {
     return format;
   }
-  const f = new Intl.DateTimeFormat(format ? format.locales : undefined, format ? format.options : undefined);
+  const f = new Intl.DateTimeFormat(format?.locales, format?.options);
+  return f.format.bind(f);
+}
+
+function yearFormatter(format?: DateFormatter): (v: Date) => string {
+  if (typeof format === 'function') {
+    return format;
+  }
+  const f = new Intl.DateTimeFormat(format?.locales, {
+    year: 'numeric',
+    ...(format?.options ?? {}),
+  });
+  return f.format.bind(f);
+}
+
+function monthFormatter(format?: DateFormatter): (v: Date) => string {
+  if (typeof format === 'function') {
+    return format;
+  }
+  const f = new Intl.DateTimeFormat(format?.locales, {
+    year: 'numeric',
+    month: 'short',
+    ...(format?.options ?? {}),
+  });
   return f.format.bind(f);
 }
 
@@ -173,7 +207,7 @@ export function dateStatsGenerator(options: DateStatsOptions = {}) {
     const now = new Date();
     const min = options.min ?? (simpleStats.valid === 0 ? now : new Date(simpleStats.min));
     const max = options.max ?? (simpleStats.valid === 0 ? now : new Date(simpleStats.max));
-    const { hist, histGranularity } = computeGranularity(min, max, color, options.histGranularity);
+    const { hist, histGranularity } = computeGranularity(min, max, color, options.format, options.histGranularity);
 
     const missing = arr.length - simpleStats.valid;
     if (simpleStats.valid > 0) {

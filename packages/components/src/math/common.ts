@@ -1,6 +1,7 @@
 export interface IBin<T> {
   count: number;
   color: string;
+  label: string;
   x0: T;
   x1: T;
 }

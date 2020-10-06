@@ -42,7 +42,14 @@ export interface NumberStatsOptions extends BoxplotStatsOptions {
   format?: NumberFormatter;
 }
 
-function createHist(b: IBoxPlot, min: number, max: number, color: (v: number) => string, numberOfBins?: number) {
+function createHist(
+  b: IBoxPlot,
+  min: number,
+  max: number,
+  color: (v: number) => string,
+  format: (v: number) => string,
+  numberOfBins?: number
+) {
   const bins = numberOfBins ?? getNumberOfBins(b.count);
   const binWidth = (max - min) / bins;
   const scale = normalize(min, max);
@@ -54,6 +61,7 @@ function createHist(b: IBoxPlot, min: number, max: number, color: (v: number) =>
         count: 0,
         x0,
         x1: x0 + binWidth,
+        label: `${format(x0)} - ${format(x0 + binWidth)}`,
         color: color(scale(x0 + binWidth / 2)),
       };
     });
@@ -79,7 +87,7 @@ export function numberStatsGenerator(options: NumberStatsOptions = {}) {
     const b = boxplot(arr, options);
     const min = options.min ?? b.min;
     const max = options.max ?? b.max;
-    const hist = createHist(b, min, max, color, options.numberOfBins);
+    const hist = createHist(b, min, max, color, format, options.numberOfBins);
     return Object.assign(b, {
       min,
       max,
