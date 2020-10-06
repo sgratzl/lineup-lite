@@ -1,4 +1,4 @@
-import { interpolateBlues, schemeTableau10 } from 'd3-scale-chromatic';
+import { schemeTableau10 } from 'd3-scale-chromatic';
 
 export function defaultScale(v: number) {
   return Math.max(Math.min(v, 1), 0);
@@ -12,7 +12,11 @@ export function invertColorScale(scale: (v: number) => string) {
   return (v: number) => scale(1 - v);
 }
 
-export const defaultColorScale = invertColorScale(interpolateBlues);
+export function defaultColorScale(v: number) {
+  const maxL = 1;
+  const minL = 0.23;
+  return `hsl(206deg, 64%, ${Math.round(100 * (v * (maxL - minL) + minL))}%)`;
+}
 
 export function autoAssignColors(colors: readonly string[], start = 0) {
   let i = start;
