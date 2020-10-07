@@ -1,4 +1,4 @@
-NUMBER,CODE,SERIAL,NAME,TYPE1,TYPE2,COLOR,ABILITY1,ABILITY2,ABILITY HIDDEN,GENERATION,LEGENDARY,MEGA_EVOLUTION,HEIGHT,WEIGHT,HP,ATK,DEF,SP_ATK,SP_DEF,SPD,TOTAL
+number,code,serial,name,type1,type2,color,ability1,ability2,ability hidden,generation,legendary,mega_evolution,height,weight,hp,atk,def,sp_atk,sp_def,spd,total
 1,1,11,Bulbasaur,Grass,Poison,Green,Overgrow,,Chrolophyll,1,0,0,0.7,6.9,45,49,49,65,65,45,318
 2,1,21,Ivysaur,Grass,Poison,Green,Overgrow,,Chrolophyll,1,0,0,1,13,60,62,63,80,80,60,405
 3,1,31,Venusaur,Grass,Poison,Green,Overgrow,,Chrolophyll,1,0,0,2,100,80,82,83,100,100,80,525

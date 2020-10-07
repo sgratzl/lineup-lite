@@ -8,7 +8,7 @@ import { FullColumn } from '@lineup-lite/table';
 
 export interface IRow {
   id: string;
-  [key: string]: string | Date | number | null;
+  [key: string]: string | Date | number | boolean | null;
 }
 
 export type IRows = IRow[];

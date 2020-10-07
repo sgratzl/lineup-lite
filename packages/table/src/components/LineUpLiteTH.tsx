@@ -5,7 +5,9 @@ import Toolbar from './Toolbar';
 import { ISharedLineUpProps } from './interfaces';
 
 export function LineUpLiteTH<D extends object>({ col, shared }: { col: HeaderGroup<D>; shared: ISharedLineUpProps }) {
-  const column = (col as unknown) as HeaderGroup<D> & UseGroupByColumnProps<D> & UseResizeColumnsColumnProps<D>;
+  const column = (col as unknown) as HeaderGroup<D> &
+    UseGroupByColumnProps<D> &
+    UseResizeColumnsColumnProps<D> & { tooltip?: string };
   return (
     <div
       {...column.getHeaderProps({
@@ -27,7 +29,11 @@ export function LineUpLiteTH<D extends object>({ col, shared }: { col: HeaderGro
               })}
             />
           )}
-          <div className={clsx('lt-header', shared.classNames?.header)} style={shared.styles?.header}>
+          <div
+            className={clsx('lt-header', shared.classNames?.header)}
+            style={shared.styles?.header}
+            title={column.tooltip}
+          >
             {column.render('Header')}
           </div>
           <Toolbar {...col} icons={shared.icons} />

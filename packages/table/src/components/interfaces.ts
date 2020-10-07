@@ -14,4 +14,5 @@ export interface ISharedLineUpProps {
 
 export type FullColumn<D extends object> = FullHookColumn<D> & {
   canHide?: boolean;
+  tooltip?: string;
 };

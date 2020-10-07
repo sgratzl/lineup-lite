@@ -5,11 +5,12 @@
  * Copyright (c) 2020 Samuel Gratzl <sam@sgratzl.com>
  */
 
+import pokemon from './pokemon';
 import random from './random';
 export { listLocal, saveLocal, deleteLocal } from './db';
 
 export * from './interfaces';
 
 export function listStatic() {
-  return [random];
+  return [pokemon, random];
 }

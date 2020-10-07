@@ -2204,6 +2204,7 @@ __metadata:
     papaparse: ^5.3.0
     pnp-webpack-plugin: ^1.6.4
     prettier: ^2.1.2
+    raw-loader: ^4.0.1
     react: ^16.13.1
     react-dom: ^16.13.1
     react-resize-detector: ^5.2.0
