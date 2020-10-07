@@ -2415,6 +2415,7 @@ __metadata:
     react-dom: ^16.13.1
     react-is: ^16.13.1
     react-table: ^7.5.2
+    react-virtual: ^2.2.7
     rimraf: ^3.0.2
     rollup: ^2.28.2
     rollup-plugin-dts: ^1.4.13
@@ -2659,6 +2660,13 @@ __metadata:
   dependencies:
     mkdirp: ^1.0.4
   checksum: ed2cb75eefe218113794416fae43b5307f7c30476506942ed6c6c51f702713323842f81102ae1327f9134130bec0360312e6f858ddef143c21d9e269e90737ac
+  languageName: node
+  linkType: hard
+
+"@reach/observe-rect@npm:^1.1.0":
+  version: 1.2.0
+  resolution: "@reach/observe-rect@npm:1.2.0"
+  checksum: 4aa32fa1ab410527cecf62e3143664e4b7823212bb7b79b5fd84d0d390fa086fcdba27fceebc0e24e2958f2a0649d5b88ec8b0ed907c72730964ac33eb3089af
   languageName: node
   linkType: hard
 
@@ -15761,6 +15769,18 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
+"react-virtual@npm:^2.2.7":
+  version: 2.2.7
+  resolution: "react-virtual@npm:2.2.7"
+  dependencies:
+    "@reach/observe-rect": ^1.1.0
+    ts-toolbelt: ^6.4.2
+  peerDependencies:
+    react: ^16.6.3
+  checksum: c488ed22993f005e55a8bce8df657b3e90c70784fc578a2d5b54d8c856795bad7d23e5e4e5a63d8f2d7873170f67cab3179220b212831d7c0f6a862040a84a27
+  languageName: node
+  linkType: hard
+
 "react@npm:^16.13.0, react@npm:^16.13.1, react@npm:^16.8.3":
   version: 16.13.1
   resolution: "react@npm:16.13.1"
@@ -18282,6 +18302,13 @@ fsevents@^1.2.7:
     typescript:
       optional: true
   checksum: 78341a27939de565e2754ff65ebb689743c16e3295528089d143c08d91842cf9029c3d6b3c95a9a20854a114a7904329d02c710d63f7ce4dbf671b8a3e560ac1
+  languageName: node
+  linkType: hard
+
+"ts-toolbelt@npm:^6.4.2":
+  version: 6.15.5
+  resolution: "ts-toolbelt@npm:6.15.5"
+  checksum: d2f585ee3439ae7a72dd7c00630491195b2a4f34107c595d567242482b9fa911b5a9b5921fb4984506c2f7d8efce61351c7f48519438df67b6c0a8dcd40c862c
   languageName: node
   linkType: hard
 

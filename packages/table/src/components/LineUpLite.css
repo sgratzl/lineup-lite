@@ -1,6 +1,11 @@
 .lt-table {
 }
 
+.lt-table-virtual {
+  display: flex;
+  flex-direction: column;
+}
+
 .lt-thead {
   margin-bottom: 0.25em;
 }
@@ -12,6 +17,11 @@
 }
 
 .lt-tbody {
+}
+
+.lt-tbody-virtual {
+  flex: 1 1 0;
+  overflow: auto;
 }
 
 .lt-tr {

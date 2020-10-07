@@ -5,22 +5,19 @@ import {
   useRowSelectColumn,
   useStats,
 } from '@lineup-lite/hooks';
-import React, { Ref, useMemo } from 'react';
+import React, { Ref, useCallback, useMemo, useRef } from 'react';
 import {
   Column,
-  Row,
   TableInstance,
   TableOptions,
   useBlockLayout,
   useExpanded,
   UseExpandedOptions,
-  UseExpandedRowProps,
   useFilters,
   UseFiltersInstanceProps,
   UseFiltersOptions,
   useGroupBy,
   UseGroupByOptions,
-  UseGroupByRowProps,
   useResizeColumns,
   useRowSelect,
   UseRowSelectOptions,
@@ -28,9 +25,10 @@ import {
   UseSortByOptions,
   useTable,
 } from 'react-table';
+import { useVirtual } from 'react-virtual';
 import { FullColumn, ISharedLineUpProps } from './interfaces';
-import { LineUpLiteTD } from './LineUpLiteTD';
-import { LineUpLiteTH } from './LineUpLiteTH';
+import { LineUpLiteTHead } from './LineUpLiteTHead';
+import { LineUpLiteTR } from './LineUpLiteTR';
 import { clsx } from './utils';
 
 export type FullTableOptions<D extends object> = TableOptions<D> &
@@ -47,16 +45,13 @@ export interface ILineUpLiteProps<D extends object> extends FullTableOptions<D>,
   style?: React.CSSProperties;
 }
 
-export const LineUpLite = /*!#__PURE__*/ React.forwardRef(function LineUpLite<D extends object>(
-  props: ILineUpLiteProps<D>,
-  ref: Ref<HTMLDivElement>
-) {
+export function useFullTable<D extends object>(props: ILineUpLiteProps<D>) {
   const tableProps: FullTableOptions<D> & UseRowExpandColumnTableOptions = {
     groupByFn: columnSpecificGroupByFn,
     expandIcon: props.icons?.expandGroup,
     ...props,
   };
-  const { getTableProps, getTableBodyProps, headerGroups, prepareRow, rows } = useTable<D>(
+  return useTable<D>(
     tableProps,
     useFilters,
     useGroupBy,
@@ -69,8 +64,10 @@ export const LineUpLite = /*!#__PURE__*/ React.forwardRef(function LineUpLite<D 
     useBlockLayout,
     useResizeColumns
   ) as TableInstance<D> & UseFiltersInstanceProps<D>;
+}
 
-  const shared: ISharedLineUpProps = useMemo(
+function useShared(props: ISharedLineUpProps): ISharedLineUpProps {
+  return useMemo(
     () => ({
       styles: props.styles,
       classNames: props.classNames,
@@ -78,6 +75,15 @@ export const LineUpLite = /*!#__PURE__*/ React.forwardRef(function LineUpLite<D 
     }),
     [props.styles, props.classNames, props.icons]
   );
+}
+
+export const LineUpLite = /*!#__PURE__*/ React.forwardRef(function LineUpLite<D extends object>(
+  props: ILineUpLiteProps<D>,
+  ref: Ref<HTMLDivElement>
+) {
+  const { getTableProps, getTableBodyProps, headerGroups, prepareRow, rows } = useFullTable<D>(props);
+
+  const shared = useShared(props);
 
   return (
     <div
@@ -87,46 +93,16 @@ export const LineUpLite = /*!#__PURE__*/ React.forwardRef(function LineUpLite<D 
       })}
       ref={ref}
     >
-      <div className={clsx('lt-thead', props.classNames?.thead)} style={props.styles?.thead}>
-        {headerGroups.map((headerGroup) => (
-          <div
-            {...headerGroup.getHeaderGroupProps({
-              className: clsx('lt-th-group', props.classNames?.thGroup),
-              style: props.styles?.thGroup,
-            })}
-          >
-            {headerGroup.headers
-              .filter((d) => d.isVisible)
-              .map((col) => (
-                <LineUpLiteTH key={col.id} col={col} shared={shared} />
-              ))}
-          </div>
-        ))}
-      </div>
+      <LineUpLiteTHead headerGroups={headerGroups} shared={shared} />
       <div
         {...getTableBodyProps({
           className: clsx('lt-tbody', props.classNames?.tbody),
           style: props.styles?.tbody,
         })}
       >
-        {rows.map((rowR) => {
-          prepareRow(rowR);
-          const row = (rowR as unknown) as Row<D> & UseExpandedRowProps<D> & UseGroupByRowProps<D>;
-          return (
-            <div
-              {...row.getRowProps({
-                className: clsx('lt-tr', props.classNames?.tr),
-                style: props.styles?.tr,
-              })}
-            >
-              {row.cells
-                .filter((d) => d.column.isVisible)
-                .map((cell) => (
-                  <LineUpLiteTD key={cell.column.id} cell={cell} shared={shared} />
-                ))}
-            </div>
-          );
-        })}
+        {rows.map((row) => (
+          <LineUpLiteTR key={row.id} row={row} shared={shared} prepareRow={prepareRow} />
+        ))}
       </div>
     </div>
   );
@@ -135,3 +111,58 @@ export const LineUpLite = /*!#__PURE__*/ React.forwardRef(function LineUpLite<D 
 export default LineUpLite as <D extends object>(
   p: ILineUpLiteProps<D> & React.RefAttributes<HTMLDivElement>
 ) => React.ReactElement;
+
+export interface ILineUpLiteVirtualProps<D extends object> extends ILineUpLiteProps<D> {
+  estimatedSize: number | ((index: number) => number);
+  overscan?: number;
+}
+
+export function LineUpLiteVirtual<D extends object>(props: ILineUpLiteProps<D> & ILineUpLiteVirtualProps<D>) {
+  const { getTableProps, getTableBodyProps, headerGroups, prepareRow, rows } = useFullTable<D>(props);
+
+  const shared = useShared(props);
+
+  const ref = useRef<HTMLDivElement>(null);
+  const givenEstimate = props.estimatedSize;
+  const estimateSize = useCallback(
+    (index: number) => (typeof givenEstimate === 'function' ? givenEstimate(index) : givenEstimate),
+    [givenEstimate]
+  );
+  const rowVirtualizer = useVirtual({
+    size: props.data.length,
+    overscan: props.overscan ?? 5,
+    parentRef: ref,
+    estimateSize,
+  });
+
+  return (
+    <div
+      {...getTableProps({
+        className: clsx('lt-table', 'lt-table-virtual', props.className),
+        style: props.style,
+      })}
+    >
+      <LineUpLiteTHead headerGroups={headerGroups} shared={shared} />
+      <div
+        {...getTableBodyProps({
+          className: clsx('lt-tbody', 'lt-tbody-virtual', props.classNames?.tbody),
+          style: props.styles?.tbody,
+        })}
+        ref={ref}
+      >
+        <div
+          style={{
+            height: `${rowVirtualizer.totalSize}px`,
+            width: '100%',
+            position: 'relative',
+          }}
+        >
+          {rowVirtualizer.virtualItems.map((item) => {
+            const row = rows[item.index];
+            return <LineUpLiteTR key={row.id} row={row} shared={shared} prepareRow={prepareRow} />;
+          })}
+        </div>
+      </div>
+    </div>
+  );
+}
