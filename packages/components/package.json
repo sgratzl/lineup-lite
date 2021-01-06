@@ -38,7 +38,7 @@
     "src/**/*.css"
   ],
   "scripts": {
-    "clean": "rimraf build node_modules \"*.tgz\"",
+    "clean": "rimraf dist node_modules \"*.tgz\"",
     "compile": "tsc -p tsconfig.json --noEmit",
     "start": "npm run watch",
     "watch": "rollup -c -w",
