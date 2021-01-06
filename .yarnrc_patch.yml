@@ -5,6 +5,3 @@ packageExtensions:
   jss-plugin-rule-value-function@*:
     dependencies:
       tiny-warning: '*'
-  semver@*:
-    optionalDependencies:
-      core-js: '*'

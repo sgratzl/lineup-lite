@@ -39,14 +39,14 @@ module.exports = function (env, argv) {
         {
           test: /\.tsx?$/,
           use: [
-            babel,
+            p && babel,
             {
               loader: require.resolve('ts-loader'),
             },
-          ],
+          ].filter(Boolean),
         },
-        {
-          test: /\.js?$/,
+        p && {
+          test: /\.m?js?$/,
           use: [babel],
         },
         {
@@ -60,7 +60,7 @@ module.exports = function (env, argv) {
             limit: 20000, //inline <= 20kb
           },
         },
-      ],
+      ].filter(Boolean),
     },
     plugins: [
       new DefinePlugin({
