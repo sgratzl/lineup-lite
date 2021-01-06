@@ -6,7 +6,6 @@ import { terser } from 'rollup-plugin-terser';
 import replace from '@rollup/plugin-replace';
 import babel from '@rollup/plugin-babel';
 import scss from 'rollup-plugin-scss';
-import { resolve as resolvePath, relative, dirname } from 'path';
 import fs from 'fs';
 
 const pkg = JSON.parse(fs.readFileSync('./package.json'));
@@ -27,12 +26,6 @@ const watchOnly = ['esm', 'types'];
 const isDependency = (v) =>
   !v.endsWith('css') && Object.keys(pkg.dependencies || {}).some((e) => e === v || v.startsWith(e + '/'));
 const isPeerDependency = (v) => Object.keys(pkg.peerDependencies || {}).some((e) => e === v || v.startsWith(e + '/'));
-
-const relativeToMain = (path) => {
-  const a = resolvePath(__dirname, path);
-  const b = resolvePath(__dirname, dirname(pkg.main));
-  return relative(b, a);
-};
 
 export default (options) => {
   const buildFormat = (format) => !options.watch || watchOnly.includes(format);
@@ -57,7 +50,7 @@ export default (options) => {
       }),
       pkg.style &&
         scss({
-          output: relativeToMain(pkg.style),
+          output: pkg.style,
         }),
     ].filter(Boolean),
   };
