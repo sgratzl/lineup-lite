@@ -21,9 +21,7 @@ export interface IToast {
 
 export default class UIStore {
   @observable
-  readonly sidePanelExpanded = new Set<string>(
-    (localStorage.getItem('sidePanel') || 'queries,options,sets,elems').split(',')
-  );
+  readonly sidePanelExpanded = new Set<string>((localStorage.getItem('sidePanel') || 'datasetinfo').split(','));
 
   @observable
   menu = false;
