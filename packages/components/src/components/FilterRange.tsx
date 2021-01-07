@@ -1,5 +1,6 @@
 import React, { MutableRefObject, useCallback, useLayoutEffect, useRef } from 'react';
 import { INumericStats } from '../math/common';
+import { CommonProps } from './common';
 import { cslx, toPercent } from './utils';
 
 export interface FilterRangeSliderProps<T> {
@@ -155,8 +156,8 @@ export function FilterRangeWrapper<T>(
     {
       s: INumericStats<T>;
       summary?: boolean;
-      className?: string;
-    } & FilterRangeSliderProps<T>
+    } & FilterRangeSliderProps<T> &
+      CommonProps
   >
 ) {
   const refData = useRef({ clearFilter() {}, setShortCutFilter() {} } as FilterRefData);
@@ -168,11 +169,12 @@ export function FilterRangeWrapper<T>(
 
   return (
     <div
-      className={cslx(props.className, 'lt-summary', !props.summary && 'lt-group')}
+      className={cslx('lt-summary', !props.summary && 'lt-group', props.className)}
       data-min={props.s.min != null && props.summary ? props.s.format(props.s.min) : null}
       data-max={props.s.max != null && props.summary ? props.s.format(props.s.max) : null}
       onDoubleClick={clearFilter}
       onClick={setShortCutFilter}
+      style={props.style}
     >
       {props.children}
       <FilterRangeSlider {...props} refData={refData} />

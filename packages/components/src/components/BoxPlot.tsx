@@ -3,8 +3,10 @@ import { INumberStats } from '../math/numberStatsGenerator';
 import { IBoxPlot } from '@sgratzl/boxplots';
 import { NumberStatsWrapper } from './NumberStatsWrapper';
 import { FilterRangeWrapper, FilterRangeSliderProps } from './FilterRange';
+import { CommonProps } from './common';
+import { cslx } from './utils';
 
-export interface BoxPlotChartProps {
+export interface BoxPlotChartProps extends CommonProps {
   /**
    * the number boxplot statistics
    */
@@ -14,8 +16,6 @@ export interface BoxPlotChartProps {
    * to the regular one
    */
   preFilter?: IBoxPlot;
-  className?: string;
-  style?: React.CSSProperties;
 }
 
 function generatePath(stats: IBoxPlot, s: (v: number) => number, h: number, padding: number) {
@@ -60,7 +60,7 @@ export function BoxPlotChart(props: BoxPlotChartProps) {
         <rect
           x={scale(b.q1)}
           y={boxPadding}
-          height={height - boxPadding}
+          height={height - boxPadding * 2}
           width={scale(b.median) - scale(b.q1)}
           className="lt-boxplot-box"
           style={{ fill: s.color(s.scale((b.median + b.q1) / 2)) }}
@@ -68,7 +68,7 @@ export function BoxPlotChart(props: BoxPlotChartProps) {
         <rect
           x={scale(b.median)}
           y={boxPadding}
-          height={height - boxPadding}
+          height={height - boxPadding * 2}
           width={scale(b.q3) - scale(b.median)}
           style={{ fill: s.color(s.scale((b.median + b.q3) / 2)) }}
           className="lt-boxplot-box"
@@ -97,7 +97,7 @@ export function BoxPlotChart(props: BoxPlotChartProps) {
   );
 }
 
-export interface BoxPlotProps {
+export interface BoxPlotProps extends CommonProps {
   /**
    * the stats to render
    */
@@ -118,8 +118,13 @@ export interface BoxPlotProps {
  */
 export function BoxPlot(props: BoxPlotProps) {
   return (
-    <NumberStatsWrapper className="lt-boxplot" s={props.s} summary={props.summary}>
-      <BoxPlotChart {...props} className="lt-boxplot-wrapper" />
+    <NumberStatsWrapper
+      className={cslx('lt-boxplot', props.className)}
+      s={props.s}
+      summary={props.summary}
+      style={props.style}
+    >
+      <BoxPlotChart {...props} className={cslx('lt-boxplot-wrapper', props.className)} />
     </NumberStatsWrapper>
   );
 }
@@ -131,8 +136,8 @@ export type FilterRangeBoxPlotProps = BoxPlotProps & FilterRangeSliderProps<numb
  */
 export function FilterRangeBoxPlot(props: FilterRangeBoxPlotProps) {
   return (
-    <FilterRangeWrapper className="lt-boxplot" summary={props.summary} {...props}>
-      <BoxPlotChart {...props} className="lt-boxplot-wrapper" />
+    <FilterRangeWrapper summary={props.summary} {...props} className={cslx('lt-boxplot', props.className)}>
+      <BoxPlotChart {...props} className={cslx('lt-boxplot-wrapper', props.className)} />
     </FilterRangeWrapper>
   );
 }

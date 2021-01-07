@@ -6,6 +6,7 @@
  */
 import React from 'react';
 import { Histogram } from '@lineup-lite/components';
+import '@lineup-lite/components/dist/components.css';
 import { filtered, stats } from './data';
 
 export default {
@@ -14,9 +15,9 @@ export default {
 };
 
 export const Default = () => {
-  return <Histogram s={stats} />;
+  return <Histogram s={stats} style={{ width: 300, height: 100 }} />;
 };
 
 export const Filtered = () => {
-  return <Histogram s={filtered} preFilter={stats} />;
+  return <Histogram s={filtered} preFilter={stats} style={{ width: 300, height: 100 }} />;
 };

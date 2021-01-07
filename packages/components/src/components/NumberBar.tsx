@@ -1,7 +1,8 @@
 import React from 'react';
-import { toPercent } from './utils';
+import { CommonProps } from './common';
+import { cslx, mergeStyles, toPercent } from './utils';
 
-export interface NumberBarProps {
+export interface NumberBarProps extends CommonProps {
   /**
    * the value to render
    */
@@ -33,7 +34,10 @@ function barProps(value: number, color: string | ((v: number) => string)): React
  */
 export function NumberBar(props: NumberBarProps) {
   return (
-    <div className="lt-bar" style={barProps(props.scale ? props.scale(props.value) : props.value, props.color)}>
+    <div
+      className={cslx('lt-bar', props.className)}
+      style={mergeStyles(props.style, barProps(props.scale ? props.scale(props.value) : props.value, props.color))}
+    >
       {typeof props.format === 'string' ? props.format : props.format(props.value)}
     </div>
   );

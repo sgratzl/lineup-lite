@@ -4,8 +4,9 @@ import { toPercent, cslx } from './utils';
 import { color } from 'd3-color';
 import { FilterRangeSliderProps, FilterRangeWrapper } from './FilterRange';
 import { NumberStatsWrapper } from './NumberStatsWrapper';
+import { CommonProps } from './common';
 
-export interface HistogramProps<T> {
+export interface HistogramProps<T> extends CommonProps {
   /**
    * the stats to render
    */
@@ -41,7 +42,12 @@ function generateBinTitle<T>(h: IBin<T>, raw?: IBin<T>) {
  */
 export function Histogram<T>(props: HistogramProps<T>) {
   return (
-    <NumberStatsWrapper className="lt-histogram" s={props.s} summary={props.summary}>
+    <NumberStatsWrapper
+      style={props.style}
+      className={cslx('lt-histogram', props.className)}
+      s={props.s}
+      summary={props.summary}
+    >
       {props.s.hist.map((h, i) => (
         <Bin key={String(h.x0)} h={h} i={i} props={props} />
       ))}
@@ -110,7 +116,7 @@ export function FilterBinHistogram<T>(props: FilterBinHistogramProps<T>) {
     [setFilter, hist, filterValue]
   );
   return (
-    <NumberStatsWrapper className="lt-histogram" s={props.s} summary>
+    <NumberStatsWrapper style={props.style} className={cslx('lt-histogram', props.className)} s={props.s} summary>
       {props.s.hist.map((h, i) => (
         <Bin key={String(h.x0)} h={h} props={props} i={i} onClick={onClick} />
       ))}
@@ -125,7 +131,7 @@ export type FilterRangeHistogramProps<T> = HistogramProps<T> & FilterRangeSlider
  */
 export function FilterRangeHistogram<T>(props: FilterRangeHistogramProps<T>) {
   return (
-    <FilterRangeWrapper className="lt-histogram" summary {...props}>
+    <FilterRangeWrapper summary {...props} className={cslx('lt-histogram', props.className)}>
       {props.s.hist.map((h, i) => (
         <Bin key={String(h.x0)} h={h} i={i} props={props} />
       ))}

@@ -6,6 +6,7 @@
  */
 import React from 'react';
 import { BoxPlot } from '@lineup-lite/components';
+import '@lineup-lite/components/dist/components.css';
 import { filtered, stats } from './data';
 
 export default {
@@ -13,9 +14,9 @@ export default {
   component: BoxPlot,
 };
 export const Default = () => {
-  return <BoxPlot s={stats} />;
+  return <BoxPlot s={stats} style={{ width: 300, height: 100 }} />;
 };
 
 export const Filtered = () => {
-  return <BoxPlot s={filtered} preFilter={stats} />;
+  return <BoxPlot s={filtered} preFilter={stats} style={{ width: 300, height: 100 }} />;
 };

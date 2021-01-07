@@ -1,8 +1,9 @@
 import React from 'react';
 import { ITextStats } from '../math';
+import { CommonProps } from './common';
 import { cslx } from './utils';
 
-export interface TextSummaryProps {
+export interface TextSummaryProps extends CommonProps {
   s: ITextStats;
   preFilter?: ITextStats;
   summary?: boolean;
@@ -11,7 +12,7 @@ export interface TextSummaryProps {
 export function TextSummary(props: TextSummaryProps) {
   const s = props.s;
   return (
-    <div className={cslx('lt-text-summary', !props.summary && 'lt-group')}>
+    <div className={cslx('lt-text-summary', !props.summary && 'lt-group', props.className)} style={props.style}>
       <span>{s.count.toLocaleString()} items</span>
       {s.unique < s.count && <span>{s.unique} unique</span>}
     </div>
@@ -39,7 +40,7 @@ export function FilterTextSummary(props: FilterTextSummaryProps) {
   const clearFilter = React.useCallback(() => setFilter(undefined), [setFilter]);
 
   return (
-    <div className="lt-text-summary lt-summary" data-min={unique}>
+    <div className={cslx('lt-text-summary', 'lt-summary', props.className)} data-min={unique} style={props.style}>
       <input
         value={filterValue ?? ''}
         onChange={onChange}

@@ -1,6 +1,8 @@
 import React from 'react';
+import { CommonProps } from './common';
+import { cslx, mergeStyles } from './utils';
 
-export interface CategoricalColorProps {
+export interface CategoricalColorProps extends CommonProps {
   value: string;
   color: string | ((v: string) => string);
 }
@@ -8,8 +10,10 @@ export interface CategoricalColorProps {
 export function CategoricalColor(props: CategoricalColorProps) {
   return (
     <div
-      className="lt-categorical"
-      style={{ borderLeftColor: typeof props.color === 'string' ? props.color : props.color(props.value) }}
+      className={cslx('lt-categorical', props.className)}
+      style={mergeStyles(props.style, {
+        borderLeftColor: typeof props.color === 'string' ? props.color : props.color(props.value),
+      })}
     >
       {props.value}
     </div>
