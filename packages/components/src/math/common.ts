@@ -12,7 +12,7 @@ export interface ICommonStats {
 }
 
 export interface IHistStats<T> extends ICommonStats {
-  readonly hist: readonly IBin<T>[];
+  readonly hist: readonly Readonly<IBin<T>>[];
   readonly maxBin: number;
 
   color: (v: T) => string;

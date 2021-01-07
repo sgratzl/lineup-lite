@@ -4,7 +4,7 @@ import { INumericStats, IBin } from './common';
 export declare type DateHistGranularity = 'year' | 'month' | 'day' | 'decade';
 
 export interface IDateStats extends INumericStats<Date> {
-  histGranularity: DateHistGranularity;
+  readonly histGranularity: DateHistGranularity;
 }
 
 /**

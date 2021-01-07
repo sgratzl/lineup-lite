@@ -6,7 +6,7 @@ export interface ICategoricalStats extends IHistStats<string> {}
 export interface CategoricalStatsOptions {
   color?: (v: string) => string;
   format?: (v: string) => string;
-  categories?: string[];
+  categories?: readonly string[];
 }
 
 export function categoricalStatsGenerator(options: CategoricalStatsOptions = {}) {
