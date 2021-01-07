@@ -5,7 +5,7 @@ import {
   useRowSelectColumn,
   useStats,
 } from '@lineup-lite/hooks';
-import React, { Ref, useCallback, useMemo, useRef, useLayoutEffect } from 'react';
+import React, { Ref, useMemo, useRef } from 'react';
 import {
   Column,
   TableInstance,
@@ -25,7 +25,7 @@ import {
   UseSortByOptions,
   useTable,
 } from 'react-table';
-import { useVirtual } from 'react-virtual';
+import { LineUpLiteTVirtualBody } from './LineUpLiteTVirtualBody';
 import { FullColumn, ISharedLineUpProps } from './interfaces';
 import { LineUpLiteTHead } from './LineUpLiteTHead';
 import { LineUpLiteTR } from './LineUpLiteTR';
@@ -100,9 +100,10 @@ export const LineUpLite = /*!#__PURE__*/ React.forwardRef(function LineUpLite<D 
           style: props.styles?.tbody,
         })}
       >
-        {rows.map((row) => (
-          <LineUpLiteTR key={row.id} row={row} shared={shared} prepareRow={prepareRow} />
-        ))}
+        {rows.map((row) => {
+          prepareRow(row);
+          return <LineUpLiteTR key={row.id} row={row} shared={shared} />;
+        })}
       </div>
     </div>
   );
@@ -122,41 +123,7 @@ export function LineUpLiteVirtual<D extends object>(props: ILineUpLiteProps<D> &
 
   const shared = useShared(props);
 
-  const ref = useRef<HTMLDivElement>(null);
   const theadRef = useRef<HTMLDivElement>(null);
-
-  const givenEstimate = props.estimatedSize;
-  const estimateSize = useCallback(
-    (index: number) => (typeof givenEstimate === 'function' ? givenEstimate(index) : givenEstimate),
-    [givenEstimate]
-  );
-  const rowVirtualizer = useVirtual({
-    size: props.data.length,
-    overscan: props.overscan ?? 5,
-    parentRef: ref,
-    estimateSize,
-  });
-
-  useLayoutEffect(() => {
-    const elem = ref.current;
-    const thead = theadRef.current;
-
-    if (!elem || !thead) {
-      return;
-    }
-    const scrollListener = (e: Event) => {
-      const scrollLeft = (e.currentTarget as HTMLDivElement).scrollLeft;
-      if (Math.abs(thead.scrollLeft - scrollLeft) > 1) {
-        thead.scrollLeft = scrollLeft;
-      }
-    };
-    elem.addEventListener('scroll', scrollListener, {
-      passive: true,
-    });
-    return () => {
-      elem.removeEventListener('scroll', scrollListener);
-    };
-  }, [ref, theadRef]);
 
   return (
     <div
@@ -166,26 +133,15 @@ export function LineUpLiteVirtual<D extends object>(props: ILineUpLiteProps<D> &
       })}
     >
       <LineUpLiteTHead headerGroups={headerGroups} shared={shared} virtualRef={theadRef} />
-      <div
-        {...getTableBodyProps({
-          className: clsx('lt-tbody', 'lt-tbody-virtual', props.classNames?.tbody),
-          style: props.styles?.tbody,
-        })}
-        ref={ref}
-      >
-        <div
-          style={{
-            height: `${rowVirtualizer.totalSize}px`,
-            width: '100%',
-            position: 'relative',
-          }}
-        >
-          {rowVirtualizer.virtualItems.map((item) => {
-            const row = rows[item.index];
-            return <LineUpLiteTR key={row.id} row={row} shared={shared} prepareRow={prepareRow} virtualItem={item} />;
-          })}
-        </div>
-      </div>
+      <LineUpLiteTVirtualBody
+        getTableBodyProps={getTableBodyProps}
+        theadRef={theadRef}
+        shared={shared}
+        rows={rows}
+        estimatedSize={props.estimatedSize}
+        overscan={props.overscan}
+        prepareRow={prepareRow}
+      />
     </div>
   );
 }

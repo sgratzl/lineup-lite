@@ -4,7 +4,9 @@ export function clsx(...args: (boolean | string | undefined | null)[]) {
   return args.filter(Boolean).join(' ');
 }
 
-export function mergeStyles(...args: (React.CSSProperties | undefined | null)[]): React.CSSProperties | undefined {
+export function mergeStyles(
+  ...args: (boolean | React.CSSProperties | undefined | null)[]
+): React.CSSProperties | undefined {
   const s = args.filter((d): d is React.CSSProperties => d != null);
   if (s.length <= 1) {
     return s[0];

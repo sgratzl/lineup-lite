@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { Row, UseExpandedRowProps, UseGroupByRowProps } from 'react-table';
 import { ISharedLineUpProps } from './interfaces';
 import { LineUpLiteTD } from './LineUpLiteTD';
@@ -7,26 +7,26 @@ import { clsx, mergeStyles } from './utils';
 export function LineUpLiteTR<D extends object>({
   row,
   shared,
-  prepareRow,
-  virtualItem,
+  virtualStart,
+  virtualSize,
 }: {
   row: Row<D>;
   shared: ISharedLineUpProps;
-  prepareRow: (row: Row<D>) => void;
-  virtualItem?: { size: number; start: number };
+  virtualStart?: number;
+  virtualSize?: number;
 }) {
-  prepareRow(row);
   const rowTyped = (row as unknown) as Row<D> & UseExpandedRowProps<D> & UseGroupByRowProps<D>;
   return (
     <div
       {...rowTyped.getRowProps({
-        className: clsx('lt-tr', virtualItem && 'lt-tr-virtual', shared.classNames?.tr),
+        className: clsx('lt-tr', virtualStart != null && 'lt-tr-virtual', shared.classNames?.tr),
         style: mergeStyles(
           shared.styles?.tr,
-          virtualItem && {
-            height: `${virtualItem.size}px`,
-            transform: `translateY(${virtualItem.start}px)`,
-          }
+          virtualStart != null &&
+            virtualSize != null && {
+              height: `${virtualSize}px`,
+              transform: `translateY(${virtualStart}px)`,
+            }
         ),
       })}
     >
@@ -38,3 +38,5 @@ export function LineUpLiteTR<D extends object>({
     </div>
   );
 }
+
+export const LineUpLiteTRMemo = memo(LineUpLiteTR) as typeof LineUpLiteTR;

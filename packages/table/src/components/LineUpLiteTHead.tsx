@@ -2,7 +2,7 @@ import { HeaderGroup } from 'react-table';
 import { ISharedLineUpProps } from './interfaces';
 import React from 'react';
 import { clsx } from './utils';
-import { LineUpLiteTH } from './LineUpLiteTH';
+import { LineUpLiteTHMemo } from './LineUpLiteTH';
 
 export function LineUpLiteTHead<D extends object>({
   headerGroups,
@@ -29,7 +29,7 @@ export function LineUpLiteTHead<D extends object>({
           {headerGroup.headers
             .filter((d) => d.isVisible)
             .map((col) => (
-              <LineUpLiteTH key={col.id} col={col} shared={shared} />
+              <LineUpLiteTHMemo key={col.id} col={col} shared={shared} />
             ))}
         </div>
       ))}

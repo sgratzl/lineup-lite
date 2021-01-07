@@ -45,3 +45,5 @@ export function LineUpLiteTH<D extends object>({ col, shared }: { col: HeaderGro
     </div>
   );
 }
+
+export const LineUpLiteTHMemo = React.memo(LineUpLiteTH) as typeof LineUpLiteTH;
