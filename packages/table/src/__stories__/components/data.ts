@@ -1,4 +1,27 @@
-import { numberStatsGenerator, categoricalStatsGenerator, dateStatsGenerator } from '@lineup-lite/components';
+import {
+  numberStatsGenerator,
+  categoricalStatsGenerator,
+  dateStatsGenerator,
+  textStatsGenerator,
+} from '@lineup-lite/components';
+
+export const text = (() => {
+  const values = Array(30)
+    .fill('')
+    .map((_, i) => `Row ${i}`);
+  const arr = Array(100)
+    .fill(0)
+    .map(() => values[Math.min(Math.floor(Math.random() * (values.length + 1)), values.length - 1)]);
+  const gen = textStatsGenerator();
+
+  const stats = gen(arr);
+  const filtered = gen(arr.slice(0, 50));
+
+  const filter2 = 'Row 1';
+  const filtered2 = gen(arr.filter((d) => d.startsWith(filter2)));
+
+  return { arr, stats, filtered, filter2, filtered2 };
+})();
 
 export const number = (() => {
   const arr = Array(100)
