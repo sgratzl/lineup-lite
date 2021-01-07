@@ -5,7 +5,7 @@ import {
   useRowSelectColumn,
   useStats,
 } from '@lineup-lite/hooks';
-import React, { Ref, useCallback, useMemo, useRef } from 'react';
+import React, { Ref, useCallback, useMemo, useRef, useLayoutEffect } from 'react';
 import {
   Column,
   TableInstance,
@@ -123,6 +123,8 @@ export function LineUpLiteVirtual<D extends object>(props: ILineUpLiteProps<D> &
   const shared = useShared(props);
 
   const ref = useRef<HTMLDivElement>(null);
+  const theadRef = useRef<HTMLDivElement>(null);
+
   const givenEstimate = props.estimatedSize;
   const estimateSize = useCallback(
     (index: number) => (typeof givenEstimate === 'function' ? givenEstimate(index) : givenEstimate),
@@ -135,6 +137,27 @@ export function LineUpLiteVirtual<D extends object>(props: ILineUpLiteProps<D> &
     estimateSize,
   });
 
+  useLayoutEffect(() => {
+    const elem = ref.current;
+    const thead = theadRef.current;
+
+    if (!elem || !thead) {
+      return;
+    }
+    const scrollListener = (e: Event) => {
+      const scrollLeft = (e.currentTarget as HTMLDivElement).scrollLeft;
+      if (Math.abs(thead.scrollLeft - scrollLeft) > 1) {
+        thead.scrollLeft = scrollLeft;
+      }
+    };
+    elem.addEventListener('scroll', scrollListener, {
+      passive: true,
+    });
+    return () => {
+      elem.removeEventListener('scroll', scrollListener);
+    };
+  }, [ref, theadRef]);
+
   return (
     <div
       {...getTableProps({
@@ -142,7 +165,7 @@ export function LineUpLiteVirtual<D extends object>(props: ILineUpLiteProps<D> &
         style: props.style,
       })}
     >
-      <LineUpLiteTHead headerGroups={headerGroups} shared={shared} />
+      <LineUpLiteTHead headerGroups={headerGroups} shared={shared} virtualRef={theadRef} />
       <div
         {...getTableBodyProps({
           className: clsx('lt-tbody', 'lt-tbody-virtual', props.classNames?.tbody),
@@ -159,6 +182,7 @@ export function LineUpLiteVirtual<D extends object>(props: ILineUpLiteProps<D> &
         >
           {rowVirtualizer.virtualItems.map((item) => {
             const row = rows[item.index];
+            console.log(item.index);
             return <LineUpLiteTR key={row.id} row={row} shared={shared} prepareRow={prepareRow} />;
           })}
         </div>

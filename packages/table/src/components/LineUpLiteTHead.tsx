@@ -7,12 +7,18 @@ import { LineUpLiteTH } from './LineUpLiteTH';
 export function LineUpLiteTHead<D extends object>({
   headerGroups,
   shared,
+  virtualRef,
 }: {
   headerGroups: HeaderGroup<D>[];
   shared: ISharedLineUpProps;
+  virtualRef?: React.RefObject<HTMLDivElement>;
 }) {
   return (
-    <div className={clsx('lt-thead', shared.classNames?.thead)} style={shared.styles?.thead}>
+    <div
+      ref={virtualRef}
+      className={clsx('lt-thead', virtualRef != null && 'lt-thead-virtual', shared.classNames?.thead)}
+      style={shared.styles?.thead}
+    >
       {headerGroups.map((headerGroup) => (
         <div
           {...headerGroup.getHeaderGroupProps({

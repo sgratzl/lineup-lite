@@ -10,15 +10,26 @@ import clsx from 'clsx';
 const useStyles = makeStyles(() => ({
   root: {
     flex: '1 1 0',
+    display: 'flex',
+    position: 'relative',
   },
   tr: {
     marginBottom: 2,
   },
-  virtual: {
-    display: 'flex',
+  scrollWrapper: {
+    position: 'absolute',
+    left: 0,
+    top: 0,
+    width: '100%',
+    height: '100%',
+    overflow: 'auto',
   },
-  vtable: {
-    flex: '1 1 0',
+  vTable: {
+    position: 'absolute',
+    left: 0,
+    top: 0,
+    width: '100%',
+    height: '100%',
   },
 }));
 
@@ -27,19 +38,21 @@ export default observer(() => {
   const classes = useStyles();
   const virtual = store.rows.length > 1000;
   return (
-    <div data-id={store} className={clsx(classes.root, virtual && classes.virtual)}>
+    <div className={clsx(classes.root)}>
       {!virtual ? (
-        <LineUpLite<IRow>
-          data={store.rows}
-          columns={store.columns}
-          defaultColumn={store.defaultColumn}
-          classNames={{
-            tr: classes.tr,
-          }}
-        />
+        <div className={classes.scrollWrapper}>
+          <LineUpLite<IRow>
+            data={store.rows}
+            columns={store.columns}
+            defaultColumn={store.defaultColumn}
+            classNames={{
+              tr: classes.tr,
+            }}
+          />
+        </div>
       ) : (
         <LineUpLiteVirtual<IRow>
-          className={classes.vtable}
+          className={classes.vTable}
           data={store.rows}
           columns={store.columns}
           defaultColumn={store.defaultColumn}
