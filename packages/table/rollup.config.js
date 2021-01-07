@@ -5,7 +5,8 @@ import typescript from '@rollup/plugin-typescript';
 import { terser } from 'rollup-plugin-terser';
 import replace from '@rollup/plugin-replace';
 import babel from '@rollup/plugin-babel';
-import scss from 'rollup-plugin-scss';
+import css from 'rollup-plugin-css-only';
+import { resolve as resolvePath, relative, dirname } from 'path';
 import fs from 'fs';
 
 const pkg = JSON.parse(fs.readFileSync('./package.json'));
@@ -26,6 +27,12 @@ const watchOnly = ['esm', 'types'];
 const isDependency = (v) =>
   !v.endsWith('css') && Object.keys(pkg.dependencies || {}).some((e) => e === v || v.startsWith(e + '/'));
 const isPeerDependency = (v) => Object.keys(pkg.peerDependencies || {}).some((e) => e === v || v.startsWith(e + '/'));
+
+const relativeToMain = (path) => {
+  const a = resolvePath(__dirname, path);
+  const b = resolvePath(__dirname, dirname(pkg.main));
+  return relative(b, a);
+};
 
 export default (options) => {
   const buildFormat = (format) => !options.watch || watchOnly.includes(format);
@@ -49,8 +56,8 @@ export default (options) => {
         __VERSION__: JSON.stringify(pkg.version),
       }),
       pkg.style &&
-        scss({
-          output: pkg.style,
+        css({
+          output: relativeToMain(pkg.style),
         }),
     ].filter(Boolean),
   };
@@ -105,7 +112,7 @@ export default (options) => {
           respectExternal: true,
         }),
         pkg.style &&
-          scss({
+          css({
             output: false,
           }),
       ].filter(Boolean),

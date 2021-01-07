@@ -1,3 +1,3 @@
-// import '@lineup-lite/components/dist/components.css';
+import '@lineup-lite/table/dist/table.css';
 
 export * from '.';

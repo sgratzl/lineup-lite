@@ -54,10 +54,11 @@ export default (options) => {
         'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV) || 'production',
         __VERSION__: JSON.stringify(pkg.version),
       }),
-      css({
-        output: relativeToMain(pkg.style),
-      }),
-    ],
+      pkg.style &&
+        css({
+          output: relativeToMain(pkg.style),
+        }),
+    ].filter(Boolean),
   };
   return [
     (buildFormat('esm') || buildFormat('cjs')) && {

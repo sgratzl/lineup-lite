@@ -35,6 +35,7 @@
   "files": [
     "dist",
     "src/**/*.ts",
+    "src/**/*.tsx",
     "src/**/*.css"
   ],
   "scripts": {

@@ -1,6 +1,5 @@
 import LineUpLite, { LineUpLiteVirtual } from '@lineup-lite/table';
 import '@lineup-lite/table/dist/table.css';
-import '@lineup-lite/hooks/dist/hooks.css';
 import { makeStyles } from '@material-ui/core/styles';
 import { observer } from 'mobx-react-lite';
 import React from 'react';

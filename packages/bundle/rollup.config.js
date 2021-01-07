@@ -7,7 +7,7 @@ import replace from '@rollup/plugin-replace';
 import babel from '@rollup/plugin-babel';
 import css from 'rollup-plugin-css-only';
 import alias from '@rollup/plugin-alias';
-
+import { resolve as resolvePath, relative, dirname } from 'path';
 import fs from 'fs';
 
 const pkg = JSON.parse(fs.readFileSync('./package.json'));
@@ -27,6 +27,12 @@ const watchOnly = ['esm', 'types'];
 
 const isDependency = (v) => Object.keys(pkg.dependencies || {}).some((e) => e === v || v.startsWith(e + '/'));
 const isPeerDependency = (v) => Object.keys(pkg.peerDependencies || {}).some((e) => e === v || v.startsWith(e + '/'));
+
+const relativeToMain = (path) => {
+  const a = resolvePath(__dirname, path);
+  const b = resolvePath(__dirname, dirname(pkg.main));
+  return relative(b, a);
+};
 
 export default (options) => {
   const buildFormat = (format) => format !== 'types' && (!options.watch || watchOnly.includes(format));
@@ -95,7 +101,7 @@ export default (options) => {
         plugins: [
           ...base.plugins,
           css({
-            output: pkg.style,
+            output: relativeToMain(pkg.style),
           }),
           babel({ presets: ['@babel/env'], babelHelpers: 'bundled' }),
         ],
