@@ -182,8 +182,7 @@ export function LineUpLiteVirtual<D extends object>(props: ILineUpLiteProps<D> &
         >
           {rowVirtualizer.virtualItems.map((item) => {
             const row = rows[item.index];
-            console.log(item.index);
-            return <LineUpLiteTR key={row.id} row={row} shared={shared} prepareRow={prepareRow} />;
+            return <LineUpLiteTR key={row.id} row={row} shared={shared} prepareRow={prepareRow} virtualItem={item} />;
           })}
         </div>
       </div>
