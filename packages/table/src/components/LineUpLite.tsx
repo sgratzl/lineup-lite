@@ -141,6 +141,7 @@ export type SizeEstimator = number | [number, number] | ((index: number) => numb
 
 export interface ILineUpLiteVirtualProps<D extends object> extends ILineUpLiteProps<D> {
   estimatedSize: SizeEstimator;
+  rowSpacing?: number;
   overscan?: number;
 }
 
@@ -164,6 +165,7 @@ export function LineUpLiteVirtual<D extends object>(props: ILineUpLiteProps<D> &
         theadRef={theadRef}
         shared={shared}
         rows={rows}
+        rowSpacing={props.rowSpacing ?? 0}
         estimatedSize={props.estimatedSize}
         overscan={props.overscan}
         prepareRow={prepareRow}

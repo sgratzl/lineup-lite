@@ -14,6 +14,7 @@ export function LineUpLiteTVirtualBody<D extends object>({
   theadRef,
   estimatedSize,
   overscan,
+  rowSpacing,
 }: {
   getTableBodyProps: TableInstance<D>['getTableBodyProps'];
   rows: Row<D>[];
@@ -21,6 +22,7 @@ export function LineUpLiteTVirtualBody<D extends object>({
   shared: ISharedLineUpProps;
   prepareRow: (row: Row<D>) => void;
   estimatedSize: SizeEstimator;
+  rowSpacing: number;
   overscan?: number;
 }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -28,13 +30,13 @@ export function LineUpLiteTVirtualBody<D extends object>({
   const estimateSize = useCallback(
     (index: number) => {
       if (typeof givenEstimate === 'function') {
-        return givenEstimate(index);
+        return givenEstimate(index) + rowSpacing;
       }
       const row = (rows[index] as unknown) as Row<D> & UseExpandedRowProps<D> & UseGroupByRowProps<D>;
       const vs = typeof givenEstimate === 'number' ? [givenEstimate, givenEstimate * 2] : givenEstimate;
-      return row.isGrouped ? vs[1] : vs[0];
+      return (row.isGrouped ? vs[1] : vs[0]) + rowSpacing;
     },
-    [givenEstimate, rows]
+    [givenEstimate, rows, rowSpacing]
   );
   const rowVirtualizer = useVirtual({
     size: rows.length,
@@ -91,7 +93,7 @@ export function LineUpLiteTVirtualBody<D extends object>({
               row={row}
               shared={shared}
               virtualStart={item.start}
-              virtualSize={item.size}
+              virtualSize={item.size - rowSpacing}
             />
           );
         })}

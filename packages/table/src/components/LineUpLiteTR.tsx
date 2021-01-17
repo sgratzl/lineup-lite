@@ -1,5 +1,5 @@
 import React, { memo } from 'react';
-import { Row, UseExpandedRowProps, UseGroupByRowProps } from 'react-table';
+import { Row, UseExpandedRowProps, UseGroupByRowProps, UseRowSelectRowProps } from 'react-table';
 import { ISharedLineUpProps } from './interfaces';
 import { LineUpLiteTD } from './LineUpLiteTD';
 import { clsx, mergeStyles } from './utils';
@@ -15,11 +15,19 @@ export function LineUpLiteTR<D extends object>({
   virtualStart?: number;
   virtualSize?: number;
 }) {
-  const rowTyped = (row as unknown) as Row<D> & UseExpandedRowProps<D> & UseGroupByRowProps<D>;
+  const rowTyped = (row as unknown) as Row<D> &
+    UseExpandedRowProps<D> &
+    UseGroupByRowProps<D> &
+    UseRowSelectRowProps<D>;
   return (
     <div
       {...rowTyped.getRowProps({
-        className: clsx('lt-tr', virtualStart != null && 'lt-tr-virtual', shared.classNames?.tr),
+        className: clsx(
+          'lt-tr',
+          rowTyped.isSelected && 'lt-tr-selected',
+          virtualStart != null && 'lt-tr-virtual',
+          shared.classNames?.tr
+        ),
         style: mergeStyles(
           shared.styles?.tr,
           virtualStart != null &&

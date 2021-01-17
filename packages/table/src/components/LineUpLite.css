@@ -1,6 +1,7 @@
 .lt-table {
   --current-inverted-color: white;
   --current-color: currentColor;
+  --select-color: #ffa500;
 }
 
 .lt-table-virtual {
@@ -37,6 +38,10 @@
   position: absolute;
   left: 0;
   top: 0;
+}
+
+.lt-tr-selected {
+  box-shadow: 0 0 0 2px var(--select-color, #ffa500);
 }
 
 .lt-th,

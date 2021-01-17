@@ -14,7 +14,7 @@ const useStyles = makeStyles(() => ({
     position: 'relative',
   },
   tr: {
-    paddingBottom: 2,
+    marginBottom: 2,
   },
   scrollWrapper: {
     position: 'absolute',
@@ -59,7 +59,8 @@ export default observer(() => {
           data={store.rows}
           columns={store.columns}
           defaultColumn={store.defaultColumn}
-          estimatedSize={[23, 42 + 2]}
+          estimatedSize={[21, 42]}
+          rowSpacing={2}
           classNames={{
             tr: classes.tr,
           }}
