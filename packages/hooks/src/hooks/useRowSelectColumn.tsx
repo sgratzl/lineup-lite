@@ -1,5 +1,5 @@
 import React from 'react';
-import { ColumnInstance, Hooks } from 'react-table';
+import { ColumnInstance, Hooks, Row, UseRowSelectRowProps } from 'react-table';
 import { FullColumn } from '../interfaces';
 import IndeterminateCheckbox from './IndeterminateCheckbox';
 
@@ -8,10 +8,34 @@ export function useRowSelectColumn<D extends object = {}>(hooks: Hooks<D>) {
 }
 useRowSelectColumn.pluginName = 'useRowSelectColumn';
 
-function Cell({ row }: any) {
+function Cell(props: any) {
+  const typedRow = props.row as Row<any> & UseRowSelectRowProps<any>;
+  const rows = props.rows as (Row<any> & UseRowSelectRowProps<any>)[];
+  const onClick = React.useCallback(
+    (e: React.MouseEvent<HTMLInputElement>) => {
+      if (!e.shiftKey) {
+        return;
+      }
+      const rowIndex = rows.indexOf(typedRow);
+      if (rowIndex <= 0) {
+        return;
+      }
+      const shouldSelect = e.currentTarget.checked;
+      let rangeStart = rowIndex;
+      while (rangeStart > 0 && rows[rangeStart - 1].isSelected !== shouldSelect) {
+        rangeStart--;
+      }
+      // select all others within range
+      for (let i = rangeStart; i < rowIndex; i++) {
+        rows[i].toggleRowSelected(shouldSelect);
+      }
+    },
+    [typedRow, rows]
+  );
+
   return (
     <div className="le-selection">
-      <IndeterminateCheckbox {...row.getToggleRowSelectedProps()} />
+      <IndeterminateCheckbox {...typedRow.getToggleRowSelectedProps()} onClick={onClick} />
     </div>
   );
 }
