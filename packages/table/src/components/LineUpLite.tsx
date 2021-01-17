@@ -4,6 +4,7 @@ import {
   UseRowExpandColumnTableOptions,
   useRowSelectColumn,
   useStats,
+  useRowRankColumn,
 } from '@lineup-lite/hooks';
 import React, { Ref, useMemo, useRef } from 'react';
 import {
@@ -33,6 +34,7 @@ import { LineUpLiteTR } from './LineUpLiteTR';
 import { clsx } from './utils';
 
 export { useSortBy, useResizeColumns, useFilters } from 'react-table';
+export { useRowRankColumn } from '@lineup-lite/hooks';
 
 export type FullTableOptions<D extends object> = TableOptions<D> &
   UseFiltersOptions<D> &
@@ -58,17 +60,18 @@ export function useSortAndGroupBy<D extends object>(): PluginHook<D>[] {
 }
 
 export function useDefaultFeatures<D extends object>(): PluginHook<D>[] {
-  return [useResizeColumns, useFilters, ...useSortAndGroupBy<D>(), ...useRowSelect<D>()];
+  return [useResizeColumns, useFilters, ...useSortAndGroupBy<D>(), ...useRowSelect<D>(), useRowRankColumn];
 }
 
 function sortByPriority<D extends object>(a: [PluginHook<D>, number], b: [PluginHook<D>, number]) {
+  const specialOrders = ['useRowRankColumn', 'useRowExpandColumn'];
   // ensure useRowExpandColumn is after useRowSelectColumn
-  const isARowExpand = a[0].pluginName === 'useRowExpandColumn';
-  const isBRowExpand = b[0].pluginName === 'useRowExpandColumn';
-  if (isARowExpand) {
-    return isBRowExpand ? a[1] - b[1] : 1;
+  const isASpecial = specialOrders.indexOf(a[0].pluginName!);
+  const isBSpecial = specialOrders.indexOf(b[0].pluginName!);
+  if (isASpecial >= 0) {
+    return isBSpecial >= 0 ? isASpecial - isBSpecial : 1;
   }
-  if (isBRowExpand) {
+  if (isBSpecial >= 0) {
     return -1;
   }
   return a[1] - b[1];

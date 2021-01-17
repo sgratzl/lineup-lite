@@ -1,0 +1,10 @@
+.lt-rank {
+  text-align: right;
+}
+
+.lt-rank-agg {
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}

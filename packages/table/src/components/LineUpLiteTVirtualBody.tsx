@@ -1,5 +1,5 @@
 import React, { useRef, useCallback, useLayoutEffect, useMemo } from 'react';
-import { Row, TableInstance } from 'react-table';
+import { Row, TableInstance, UseExpandedRowProps, UseGroupByRowProps } from 'react-table';
 import { ISharedLineUpProps } from './interfaces';
 import { clsx } from './utils';
 import { useVirtual } from 'react-virtual';
@@ -29,9 +29,10 @@ export function LineUpLiteTVirtualBody<D extends object>({
       if (typeof givenEstimate === 'function') {
         return givenEstimate(index);
       }
-      return givenEstimate;
+      const row = (rows[index] as unknown) as Row<D> & UseExpandedRowProps<D> & UseGroupByRowProps<D>;
+      return row.isGrouped ? 2 * givenEstimate : givenEstimate;
     },
-    [givenEstimate]
+    [givenEstimate, rows]
   );
   const rowVirtualizer = useVirtual({
     size: rows.length,
