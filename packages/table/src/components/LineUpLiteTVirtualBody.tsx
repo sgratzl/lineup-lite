@@ -1,4 +1,4 @@
-import React, { useRef, useCallback, useLayoutEffect } from 'react';
+import React, { useRef, useCallback, useLayoutEffect, useMemo } from 'react';
 import { Row, TableInstance } from 'react-table';
 import { ISharedLineUpProps } from './interfaces';
 import { clsx } from './utils';
@@ -39,6 +39,9 @@ export function LineUpLiteTVirtualBody<D extends object>({
     parentRef: ref,
     estimateSize,
   });
+
+  // create a detector when getTableBodyProps changes forcing rows to render
+  const nonce = useMemo(() => Math.random() + (typeof getTableBodyProps === 'function' ? 1 : 0), [getTableBodyProps]);
 
   // sync horizontal scrolling
   useLayoutEffect(() => {
@@ -81,7 +84,7 @@ export function LineUpLiteTVirtualBody<D extends object>({
           prepareRow(row);
           return (
             <LineUpLiteTRMemo
-              key={row.id}
+              key={`${row.id}-${nonce}`}
               row={row}
               shared={shared}
               virtualStart={item.start}
