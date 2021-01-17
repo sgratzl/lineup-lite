@@ -1,5 +1,4 @@
 import { numberStatsGenerator, NumberStatsOptions, INumberStats } from '@lineup-lite/components';
-import { isStatsOptions } from './utils';
 
 function compute(
   gen: ReturnType<typeof numberStatsGenerator>,
@@ -19,15 +18,8 @@ function compute(
 }
 
 export function numberStats(
-  options: NumberStatsOptions
-): (arr: readonly number[], preFilter?: INumberStats) => INumberStats;
-// eslint-disable-next-line no-redeclare
-export function numberStats(arr: readonly number[], preFilter?: INumberStats): INumberStats;
-// eslint-disable-next-line no-redeclare
-export function numberStats(optionsOrArr: NumberStatsOptions | readonly number[], preFilter?: INumberStats) {
-  if (isStatsOptions(optionsOrArr)) {
-    const gen = numberStatsGenerator(optionsOrArr);
-    return compute.bind(undefined, gen, optionsOrArr);
-  }
-  return compute(numberStatsGenerator({}), {}, optionsOrArr, preFilter);
+  options: NumberStatsOptions = {}
+): (arr: readonly number[], preFilter?: INumberStats) => INumberStats {
+  const gen = numberStatsGenerator(options);
+  return compute.bind(undefined, gen, options);
 }

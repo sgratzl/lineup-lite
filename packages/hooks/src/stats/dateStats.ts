@@ -1,5 +1,4 @@
 import { dateStatsGenerator, DateStatsOptions, IDateStats } from '@lineup-lite/components';
-import { isStatsOptions } from './utils';
 
 function compute(
   gen: ReturnType<typeof dateStatsGenerator>,
@@ -19,15 +18,8 @@ function compute(
 }
 
 export function dateStats(
-  options: DateStatsOptions
-): (arr: readonly (Date | null)[], preFilter?: IDateStats) => IDateStats;
-// eslint-disable-next-line no-redeclare
-export function dateStats(arr: readonly (Date | null)[], preFilter?: IDateStats): IDateStats;
-// eslint-disable-next-line no-redeclare
-export function dateStats(optionsOrArr: DateStatsOptions | readonly (Date | null)[], preFilter?: IDateStats) {
-  if (isStatsOptions(optionsOrArr)) {
-    const gen = dateStatsGenerator(optionsOrArr);
-    return compute.bind(undefined, gen, optionsOrArr);
-  }
-  return compute(dateStatsGenerator({}), {}, optionsOrArr, preFilter);
+  options: DateStatsOptions = {}
+): (arr: readonly (Date | null)[], preFilter?: IDateStats) => IDateStats {
+  const gen = dateStatsGenerator(options);
+  return compute.bind(undefined, gen, options);
 }

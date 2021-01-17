@@ -1,5 +1,4 @@
 import { CategoricalStatsOptions, categoricalStatsGenerator, ICategoricalStats } from '@lineup-lite/components';
-import { isStatsOptions } from './utils';
 
 function compute(
   gen: ReturnType<typeof categoricalStatsGenerator>,
@@ -19,18 +18,8 @@ function compute(
 }
 
 export function categoricalStats(
-  options: CategoricalStatsOptions
-): (arr: readonly string[], preFilter?: ICategoricalStats) => ICategoricalStats;
-// eslint-disable-next-line no-redeclare
-export function categoricalStats(arr: readonly string[], preFilter?: ICategoricalStats): ICategoricalStats;
-// eslint-disable-next-line no-redeclare
-export function categoricalStats(
-  optionsOrArr: CategoricalStatsOptions | readonly string[],
-  preFilter?: ICategoricalStats
-) {
-  if (isStatsOptions(optionsOrArr)) {
-    const gen = categoricalStatsGenerator(optionsOrArr);
-    return compute.bind(undefined, gen);
-  }
-  return compute(categoricalStatsGenerator({}), optionsOrArr, preFilter);
+  options: CategoricalStatsOptions = {}
+): (arr: readonly string[], preFilter?: ICategoricalStats) => ICategoricalStats {
+  const gen = categoricalStatsGenerator(options);
+  return compute.bind(undefined, gen);
 }
