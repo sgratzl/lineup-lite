@@ -22,7 +22,7 @@ export function LineUpLiteTH<D extends object>({ col, shared }: { col: HeaderGro
     >
       {column.canResize ? (
         <>
-          {column.canResize && (
+          {column.canResize && typeof column.getResizerProps === 'function' && (
             <div
               {...column.getResizerProps({
                 className: 'lt-column-resize-handle',

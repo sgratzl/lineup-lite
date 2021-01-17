@@ -8,6 +8,7 @@ import {
 import React, { Ref, useMemo, useRef } from 'react';
 import {
   Column,
+  PluginHook,
   TableInstance,
   TableOptions,
   useBlockLayout,
@@ -16,10 +17,10 @@ import {
   useFilters,
   UseFiltersInstanceProps,
   UseFiltersOptions,
-  useGroupBy,
+  useGroupBy as useGroupByImpl,
   UseGroupByOptions,
   useResizeColumns,
-  useRowSelect,
+  useRowSelect as useRowSelectImpl,
   UseRowSelectOptions,
   useSortBy,
   UseSortByOptions,
@@ -30,6 +31,8 @@ import { FullColumn, ISharedLineUpProps } from './interfaces';
 import { LineUpLiteTHead } from './LineUpLiteTHead';
 import { LineUpLiteTR } from './LineUpLiteTR';
 import { clsx } from './utils';
+
+export { useSortBy, useResizeColumns, useFilters } from 'react-table';
 
 export type FullTableOptions<D extends object> = TableOptions<D> &
   UseFiltersOptions<D> &
@@ -43,27 +46,29 @@ export interface ILineUpLiteProps<D extends object> extends FullTableOptions<D>,
   columns: (Column<D> & Partial<FullColumn<D>>)[];
   className?: string;
   style?: React.CSSProperties;
+  plugins: (PluginHook<D> | PluginHook<D>[])[];
 }
 
-export function useFullTable<D extends object>(props: ILineUpLiteProps<D>) {
+export function useRowSelect<D extends object>(): PluginHook<D>[] {
+  return [useRowSelectImpl, useRowSelectColumn];
+}
+
+export function useSortAndGroupBy<D extends object>(): PluginHook<D>[] {
+  return [useGroupByImpl, useSortBy, useExpanded, useRowExpandColumn];
+}
+
+export function useDefaultFeatures<D extends object>(): PluginHook<D>[] {
+  return [useResizeColumns, useFilters, ...useSortAndGroupBy<D>(), ...useRowSelect<D>()];
+}
+
+export function useFullTable<D extends object>({ plugins, icons, ...props }: ILineUpLiteProps<D>) {
   const tableProps: FullTableOptions<D> & UseRowExpandColumnTableOptions = {
     groupByFn: columnSpecificGroupByFn,
-    expandIcon: props.icons?.expandGroup,
+    expandIcon: icons?.expandGroup,
     ...props,
   };
-  return useTable<D>(
-    tableProps,
-    useFilters,
-    useGroupBy,
-    useSortBy,
-    useExpanded, // useGroupBy would be pretty useless without useExpanded ;)
-    useStats,
-    useRowSelect,
-    useRowSelectColumn,
-    useRowExpandColumn,
-    useBlockLayout,
-    useResizeColumns
-  ) as TableInstance<D> & UseFiltersInstanceProps<D>;
+  const allPlugins = [...plugins.flat(), useStats, useBlockLayout];
+  return useTable<D>(tableProps, ...allPlugins) as TableInstance<D> & UseFiltersInstanceProps<D>;
 }
 
 function useShared(props: ISharedLineUpProps): ISharedLineUpProps {

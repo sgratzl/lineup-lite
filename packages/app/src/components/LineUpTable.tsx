@@ -1,4 +1,4 @@
-import LineUpLite, { LineUpLiteVirtual } from '@lineup-lite/table';
+import LineUpLite, { LineUpLiteVirtual, useDefaultFeatures } from '@lineup-lite/table';
 import '@lineup-lite/table/dist/table.css';
 import { makeStyles } from '@material-ui/core/styles';
 import { observer } from 'mobx-react-lite';
@@ -33,6 +33,8 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
+const plugins = useDefaultFeatures<IRow>();
+
 export default observer(() => {
   const store = useStore();
   const classes = useStyles();
@@ -48,6 +50,7 @@ export default observer(() => {
             classNames={{
               tr: classes.tr,
             }}
+            plugins={plugins}
           />
         </div>
       ) : (
@@ -60,6 +63,7 @@ export default observer(() => {
           classNames={{
             tr: classes.tr,
           }}
+          plugins={plugins}
         />
       )}
     </div>
