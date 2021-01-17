@@ -33,9 +33,8 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const plugins = useDefaultFeatures<IRow>();
-
 export default observer(() => {
+  const plugins = React.useMemo(() => useDefaultFeatures<IRow>(), []);
   const store = useStore();
   const classes = useStyles();
   const virtual = store.rows.length > 1000;

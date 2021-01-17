@@ -9,10 +9,11 @@ import { CategoricalColor, DateLabel, NumberBar, NumberColor, NumberSymbol } fro
 import '@lineup-lite/components/dist/components.css';
 import { categorical, number, date } from './data';
 
-export default {
+const Stories = {
   title: 'Components/Primitives',
   component: NumberBar,
 };
+export default Stories;
 
 export const Bar = () => {
   return (

@@ -9,10 +9,11 @@ import { Histogram, FilterRangeHistogram } from '@lineup-lite/components';
 import '@lineup-lite/components/dist/components.css';
 import { number, categorical, date, noop } from './data';
 
-export default {
+const Stories = {
   title: 'Components/Histogram',
   component: Histogram,
 };
+export default Stories;
 
 export const Number = () => {
   return <Histogram s={number.stats} style={{ width: 300, height: 100 }} />;

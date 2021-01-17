@@ -9,10 +9,11 @@ import { FilterTextSummary, TextSummary } from '@lineup-lite/components';
 import '@lineup-lite/components/dist/components.css';
 import { text, noop } from './data';
 
-export default {
+const Stories = {
   title: 'Components/Text',
   component: TextSummary,
 };
+export default Stories;
 
 export const Text = () => {
   return <TextSummary s={text.stats} style={{ width: 300, height: 100, outline: '1px solid black' }} />;

@@ -1,3 +1,4 @@
-export default {
+const Stories = {
   title: 'Introduction',
 };
+export default Stories;

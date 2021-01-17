@@ -9,10 +9,12 @@ import { BoxPlot, FilterRangeBoxPlot } from '@lineup-lite/components';
 import '@lineup-lite/components/dist/components.css';
 import { number, noop } from './data';
 
-export default {
+const Stories = {
   title: 'Components/BoxPlot',
   component: BoxPlot,
 };
+export default Stories;
+
 export const Default = () => {
   return <BoxPlot s={number.stats} style={{ width: 300, height: 100 }} />;
 };
