@@ -33,12 +33,14 @@ function barProps(value: number, color: string | ((v: number) => string)): React
  * renders a numeric value along with a bar
  */
 export function NumberBar(props: NumberBarProps) {
+  const label = typeof props.format === 'string' ? props.format : props.format(props.value);
   return (
     <div
       className={cslx('lt-bar', props.className)}
       style={mergeStyles(props.style, barProps(props.scale ? props.scale(props.value) : props.value, props.color))}
+      title={label}
     >
-      {typeof props.format === 'string' ? props.format : props.format(props.value)}
+      {label}
     </div>
   );
 }

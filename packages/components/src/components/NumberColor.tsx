@@ -7,14 +7,16 @@ import { cslx, mergeStyles } from './utils';
  */
 export function NumberColor(props: NumberBarProps) {
   const v = props.scale ? props.scale(props.value) : props.value;
+  const label = typeof props.format === 'string' ? props.format : props.format(props.value);
   return (
     <div
       className={cslx('lt-color', props.className)}
       style={mergeStyles(props.style, {
         borderLeftColor: typeof props.color === 'string' ? props.color : props.color(v),
       })}
+      title={label}
     >
-      {typeof props.format === 'string' ? props.format : props.format(props.value)}
+      {label}
     </div>
   );
 }

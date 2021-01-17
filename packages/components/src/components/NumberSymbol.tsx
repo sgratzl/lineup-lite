@@ -21,6 +21,7 @@ function proportionalSymbolProps(value: number, color: string | ((v: number) => 
  * renders a numeric value along with a circle whose area is proportional to the value
  */
 export function NumberSymbol(props: NumberBarProps) {
+  const label = typeof props.format === 'string' ? props.format : props.format(props.value);
   return (
     <div
       className={cslx('lt-proportional-symbol', props.className)}
@@ -28,8 +29,9 @@ export function NumberSymbol(props: NumberBarProps) {
         props.style,
         proportionalSymbolProps(props.scale ? props.scale(props.value) : props.value, props.color)
       )}
+      title={label}
     >
-      {typeof props.format === 'string' ? props.format : props.format(props.value)}
+      {label}
     </div>
   );
 }

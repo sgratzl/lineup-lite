@@ -14,6 +14,7 @@ export function CategoricalColor(props: CategoricalColorProps) {
       style={mergeStyles(props.style, {
         borderLeftColor: typeof props.color === 'string' ? props.color : props.color(props.value),
       })}
+      title={props.value}
     >
       {props.value}
     </div>

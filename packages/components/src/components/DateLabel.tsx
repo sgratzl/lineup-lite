@@ -17,9 +17,10 @@ export interface DateLabelProps extends CommonProps {
  * renders a date
  */
 export function DateLabel(props: DateLabelProps) {
+  const label = typeof props.format === 'string' ? props.format : props.format(props.value);
   return (
-    <div className={cslx('lt-date', props.className)} style={props.style}>
-      {typeof props.format === 'string' ? props.format : props.format(props.value)}
+    <div className={cslx('lt-date', props.className)} style={props.style} title={label}>
+      {label}
     </div>
   );
 }
