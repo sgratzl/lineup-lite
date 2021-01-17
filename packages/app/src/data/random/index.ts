@@ -7,6 +7,12 @@ import {
   ColorRenderer,
   ProportionalSymbolRenderer,
 } from '@lineup-lite/hooks';
+import {
+  defaultDarkColorScale,
+  defaultConstantDarkColorScale,
+  defaultColorScale,
+  defaultConstantColorScale,
+} from '@lineup-lite/components';
 import { generateData } from './genData';
 import { IDataSet, IRow, IColumn } from '../interfaces';
 
@@ -18,52 +24,6 @@ export interface IRandomRow extends IRow {
   date: Date;
   cat: 'c1' | 'c2' | 'c3';
 }
-
-const columns: IColumn<IRandomRow>[] = [
-  asStringColumn({
-    Header: 'ID',
-    accessor: 'id',
-    minWidth: 100,
-  }),
-  asCategoricalColumn({
-    Header: 'Cat',
-    accessor: 'cat',
-    minWidth: 100,
-  }),
-  asNumberColumn(
-    {
-      Header: 'Number',
-      accessor: 'number',
-      minWidth: 100,
-    },
-    { min: 0, max: 10 }
-  ),
-  asNumberColumn(
-    {
-      Header: 'Number',
-      accessor: 'number1',
-      minWidth: 100,
-      Cell: ColorRenderer,
-      Summary: BoxPlotRenderer,
-      Aggregated: BoxPlotRenderer,
-    },
-    { min: 0, max: 10 }
-  ),
-  asNumberColumn(
-    {
-      Header: 'Number',
-      accessor: 'number2',
-      minWidth: 100,
-      Cell: ProportionalSymbolRenderer,
-    },
-    { min: 0, max: 10 }
-  ),
-  asDateColumn({
-    Header: 'Date',
-    accessor: 'date',
-    minWidth: 100,
-  }),
-];
 
 const defaultColumn: Partial<IColumn<IRandomRow>> = {
   minWidth: 30,
@@ -86,12 +46,63 @@ const random: IDataSet = {
   description: 'Randomly generated dataset',
   name: 'Random',
   creationDate: new Date(),
-  load: () =>
-    Promise.resolve({
+  load: ({ darkTheme }) => {
+    const columns: IColumn<IRandomRow>[] = [
+      asStringColumn({
+        Header: 'ID',
+        accessor: 'id',
+        minWidth: 100,
+      }),
+      asCategoricalColumn({
+        Header: 'Cat',
+        accessor: 'cat',
+        minWidth: 100,
+      }),
+      asNumberColumn(
+        {
+          Header: 'Number',
+          accessor: 'number',
+          minWidth: 100,
+        },
+        { min: 0, max: 10, color: darkTheme ? defaultDarkColorScale : defaultColorScale }
+      ),
+      asNumberColumn(
+        {
+          Header: 'Number',
+          accessor: 'number1',
+          minWidth: 100,
+          Cell: ColorRenderer,
+          Summary: BoxPlotRenderer,
+          Aggregated: BoxPlotRenderer,
+        },
+        { min: 0, max: 10, color: darkTheme ? defaultDarkColorScale : defaultColorScale }
+      ),
+      asNumberColumn(
+        {
+          Header: 'Number',
+          accessor: 'number2',
+          minWidth: 100,
+          Cell: ProportionalSymbolRenderer,
+        },
+        { min: 0, max: 10, color: darkTheme ? defaultDarkColorScale : defaultColorScale }
+      ),
+      asDateColumn(
+        {
+          Header: 'Date',
+          accessor: 'date',
+          minWidth: 100,
+        },
+        {
+          color: darkTheme ? defaultConstantDarkColorScale : defaultConstantColorScale,
+        }
+      ),
+    ];
+    return Promise.resolve({
       rows,
       defaultColumn: defaultColumn as Partial<IColumn>,
       columns: columns as IColumn[],
-    }),
+    });
+  },
 };
 
 export default random;

@@ -23,6 +23,10 @@ export interface ILoadedDataSet {
   defaultColumn: Partial<IColumn>;
 }
 
+export interface ILoadOptions {
+  darkTheme: boolean;
+}
+
 export interface IDataSet {
   uid?: string;
   id: string;
@@ -31,7 +35,7 @@ export interface IDataSet {
   description: string;
   author: string;
   creationDate?: Date;
-  load(): Promise<ILoadedDataSet>;
+  load(options: ILoadOptions): Promise<ILoadedDataSet>;
 }
 
 export interface IDumpInfo {

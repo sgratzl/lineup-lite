@@ -8,6 +8,10 @@ export function defaultConstantColorScale() {
   return 'rgba(0,0,0,0.25)';
 }
 
+export function defaultConstantDarkColorScale() {
+  return 'rgba(255,255,255,0.25)';
+}
+
 export function invertColorScale(scale: (v: number) => string) {
   return (v: number) => scale(1 - v);
 }
@@ -17,6 +21,8 @@ export function defaultColorScale(v: number) {
   const minL = 0.23;
   return `hsl(206, 64%, ${Math.round(100 * (v * (maxL - minL) + minL))}%)`;
 }
+
+export const defaultDarkColorScale = invertColorScale(defaultColorScale);
 
 export function autoAssignColors(colors: readonly string[], start = 0) {
   let i = start;

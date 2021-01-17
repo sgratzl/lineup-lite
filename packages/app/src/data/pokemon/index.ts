@@ -106,7 +106,7 @@ const random: IDataSet = {
     'Pokemon Gen 8 updated 2020 generated dataset, based on Kaggle: https://www.kaggle.com/takamasakato/ pokemon-all-status-data',
   name: 'Pokemon',
   creationDate: new Date(2020, 8, 8),
-  load: () =>
+  load: ({ darkTheme }) =>
     import('!raw-loader!./pokemon.csv').then((r) => {
       const parsed = parse(r.default, {
         dynamicTyping: true,
@@ -172,7 +172,7 @@ const random: IDataSet = {
           {
             min: 0,
             max: 200,
-            color: invertScale(interpolateBlues),
+            color: darkTheme ? interpolateBlues : invertScale(interpolateBlues),
           }
         ),
         asNumberColumn(
@@ -186,7 +186,7 @@ const random: IDataSet = {
           {
             min: 0,
             max: 200,
-            color: invertScale(interpolatePurples),
+            color: darkTheme ? interpolatePurples : invertScale(interpolatePurples),
           }
         ),
         asNumberColumn(
@@ -200,7 +200,7 @@ const random: IDataSet = {
           {
             min: 0,
             max: 200,
-            color: invertScale(interpolateReds),
+            color: darkTheme ? interpolateReds : invertScale(interpolateReds),
           }
         ),
         asNumberColumn(
@@ -214,7 +214,7 @@ const random: IDataSet = {
           {
             min: 0,
             max: 200,
-            color: invertScale(interpolateBuPu),
+            color: darkTheme ? interpolateBuPu : invertScale(interpolateBuPu),
           }
         ),
         asNumberColumn(
@@ -228,7 +228,7 @@ const random: IDataSet = {
           {
             min: 0,
             max: 200,
-            color: invertScale(interpolateOrRd),
+            color: darkTheme ? interpolateOrRd : invertScale(interpolateOrRd),
           }
         ),
         asNumberColumn(
@@ -241,7 +241,7 @@ const random: IDataSet = {
           {
             min: 0,
             max: 200,
-            color: invertScale(interpolateGreens),
+            color: darkTheme ? interpolateGreens : invertScale(interpolateGreens),
           }
         ),
       ];

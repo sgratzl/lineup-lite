@@ -5,7 +5,7 @@
  * Copyright (c) 2021 Samuel Gratzl <sam@sgratzl.com>
  */
 
-import { action, observable, autorun, computed, makeObservable } from 'mobx';
+import { action, observable, autorun, makeObservable } from 'mobx';
 import { createRef } from 'react';
 
 export interface IToastLink {
@@ -30,9 +30,6 @@ export default class UIStore {
   zen = localStorage.getItem('zen') === 'T';
 
   @observable
-  defaultTheme: 'dark' | 'light' | null = null;
-
-  @observable
   speedDial = false;
 
   @observable
@@ -42,6 +39,8 @@ export default class UIStore {
   toast: IToast | null = null;
 
   constructor() {
+    const matcher = window.matchMedia('(prefers-color-scheme: dark)');
+    this.theme = matcher.matches ? 'dark' : 'light';
     makeObservable(this);
     autorun(() => {
       localStorage.setItem('zen', this.zen ? 'T' : 'F');
@@ -51,15 +50,8 @@ export default class UIStore {
     });
   }
 
-  @action
-  setDefaultTheme(theme: 'dark' | 'light' | null) {
-    this.defaultTheme = theme;
-  }
-
-  @computed
-  get theme() {
-    return this.defaultTheme ?? 'light';
-  }
+  @observable
+  theme: 'light' | 'dark' = 'light';
 
   @action
   setSpeedDial(value: boolean) {
@@ -92,7 +84,7 @@ export default class UIStore {
 
   @action.bound
   toggleTheme() {
-    this.defaultTheme = this.defaultTheme === 'dark' ? 'light' : 'dark';
+    this.theme = this.theme === 'dark' ? 'light' : 'dark';
   }
 
   @action.bound

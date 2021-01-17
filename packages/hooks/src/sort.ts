@@ -15,7 +15,7 @@ export function sortCompare(a: Row<any>, b: Row<any>, columnId: string) {
   return va < vb ? -1 : 1;
 }
 
-export function sortCategories(categories: string[]) {
+export function sortCategories(categories: readonly string[]) {
   const lookup = new Map(categories.map((cat, i) => [cat, i]));
   return (a: Row<any>, b: Row<any>, columnId: string) => {
     const va = a.values[columnId];

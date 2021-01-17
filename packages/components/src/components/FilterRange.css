@@ -32,13 +32,13 @@
 }
 
 .lt-filter-range-min > .lt-filter-range-drag {
-  border-right: 0px solid black;
+  border-right: 0px solid var(--current-color, black);
   transition: border-right-width 0.5s ease;
   left: 100%;
 }
 
 .lt-filter-range-max > .lt-filter-range-drag {
-  border-left: 0px solid black;
+  border-left: 0px solid var(--current-color, black);
   transition: border-left-width 0.5s ease;
   right: 100%;
 }

@@ -21,5 +21,3 @@ export function LineUpLiteTD<D extends object>({ cell, shared }: { cell: Cell<D,
     </div>
   );
 }
-
-export const LineUpLiteTDMemo = React.memo(LineUpLiteTD) as typeof LineUpLiteTD;

@@ -25,7 +25,12 @@ export function LineUpLiteTVirtualBody<D extends object>({
   const ref = useRef<HTMLDivElement>(null);
   const givenEstimate = estimatedSize;
   const estimateSize = useCallback(
-    (index: number) => (typeof givenEstimate === 'function' ? givenEstimate(index) : givenEstimate),
+    (index: number) => {
+      if (typeof givenEstimate === 'function') {
+        return givenEstimate(index);
+      }
+      return givenEstimate;
+    },
     [givenEstimate]
   );
   const rowVirtualizer = useVirtual({
@@ -35,6 +40,7 @@ export function LineUpLiteTVirtualBody<D extends object>({
     estimateSize,
   });
 
+  // sync horizontal scrolling
   useLayoutEffect(() => {
     const elem = ref.current;
     const thead = theadRef.current;

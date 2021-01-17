@@ -9,6 +9,7 @@
   transition: opacity 0.25s ease;
   font-size: inherit;
   box-sizing: border-box;
+  fill: var(--current-color, currentColor);
 }
 
 .lt-action:hover,

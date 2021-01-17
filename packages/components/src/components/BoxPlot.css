@@ -1,14 +1,14 @@
 .lt-boxplot-box {
-  stroke: black;
+  stroke: var(--current-color, black);
 }
 
 .lt-boxplot-frame {
   fill: none;
-  stroke: black;
+  stroke: var(--current-color, black);
 }
 
 .lt-boxplot-outlier {
-  fill: black;
+  fill: var(--current-color, black);
 }
 
 .lt-boxplot-pre {

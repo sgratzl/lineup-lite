@@ -164,16 +164,20 @@ export default class Store {
     if (!this.dataset) {
       return;
     }
-    this.dataset.load().then((d) =>
-      runInAction(() => {
-        this.rows = d.rows;
-        this.columns = d.columns;
-        this.defaultColumn = d.defaultColumn;
-        if (done) {
-          done();
-        }
+    this.dataset
+      .load({
+        darkTheme: this.ui.theme === 'dark',
       })
-    );
+      .then((d) =>
+        runInAction(() => {
+          this.rows = d.rows;
+          this.columns = d.columns;
+          this.defaultColumn = d.defaultColumn;
+          if (done) {
+            done();
+          }
+        })
+      );
   }
 
   @action.bound

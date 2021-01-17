@@ -1,4 +1,6 @@
 .lt-table {
+  --current-inverted-color: white;
+  --current-color: currentColor;
 }
 
 .lt-table-virtual {
@@ -60,7 +62,7 @@
   right: -0.25em;
   width: 0.5em;
   height: 100%;
-  background-color: white;
+  background-color: var(--current-inverted-color, white);
   cursor: col-resize;
   transform: translateX(50%);
   /* prevents from scrolling while dragging on touch devices */
