@@ -85,7 +85,12 @@ export function BoxPlotChart(props: BoxPlotChartProps) {
 
   const offset = pre != null ? height * 0.1 : 0;
   return (
-    <svg viewBox={`0 0 100 ${height + offset}`} className={props.className} style={props.style}>
+    <svg
+      viewBox={`0 0 100 ${height + offset}`}
+      className={props.className}
+      style={props.style}
+      preserveAspectRatio="none"
+    >
       <title>{generateTitle(s, pre)}</title>
       {pre != null && pre.count > s.count && (
         <g className="lt-boxplot-pre" transform={`translate(0,${offset})`}>
