@@ -61,13 +61,29 @@ export function useDefaultFeatures<D extends object>(): PluginHook<D>[] {
   return [useResizeColumns, useFilters, ...useSortAndGroupBy<D>(), ...useRowSelect<D>()];
 }
 
+function sortByPriority<D extends object>(a: [PluginHook<D>, number], b: [PluginHook<D>, number]) {
+  // ensure useRowExpandColumn is after useRowSelectColumn
+  const isARowExpand = a[0].pluginName === 'useRowExpandColumn';
+  const isBRowExpand = b[0].pluginName === 'useRowExpandColumn';
+  if (isARowExpand) {
+    return isBRowExpand ? a[1] - b[1] : 1;
+  }
+  if (isBRowExpand) {
+    return -1;
+  }
+  return a[1] - b[1];
+}
+
 export function useFullTable<D extends object>({ plugins, icons, ...props }: ILineUpLiteProps<D>) {
   const tableProps: FullTableOptions<D> & UseRowExpandColumnTableOptions = {
     groupByFn: columnSpecificGroupByFn,
     expandIcon: icons?.expandGroup,
     ...props,
   };
-  const allPlugins = [...plugins.flat(), useStats, useBlockLayout];
+  const allPlugins = [...plugins.flat(), useStats, useBlockLayout]
+    .map((d, i) => [d, i] as [PluginHook<D>, number])
+    .sort(sortByPriority)
+    .map((r) => r[0]);
   return useTable<D>(tableProps, ...allPlugins) as TableInstance<D> & UseFiltersInstanceProps<D>;
 }
 
