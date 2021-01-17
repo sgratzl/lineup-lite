@@ -24,7 +24,10 @@ export function LineUpLiteTR<D extends object>({
       {...rowTyped.getRowProps({
         className: clsx(
           'lt-tr',
+          rowTyped.isGrouped && 'lt-tr-group',
+          rowTyped.isExpanded && 'lt-tr-group-expanded',
           rowTyped.isSelected && 'lt-tr-selected',
+          rowTyped.isSomeSelected && 'lt-tr-some-selected',
           virtualStart != null && 'lt-tr-virtual',
           shared.classNames?.tr
         ),

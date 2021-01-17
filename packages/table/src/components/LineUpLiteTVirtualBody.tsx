@@ -38,7 +38,7 @@ export function LineUpLiteTVirtualBody<D extends object>({
     },
     [givenEstimate, rows, rowSpacing]
   );
-  const rowVirtualizer = useVirtual({
+  const { totalSize, virtualItems } = useVirtual({
     size: rows.length,
     overscan: overscan ?? 5,
     parentRef: ref,
@@ -79,12 +79,12 @@ export function LineUpLiteTVirtualBody<D extends object>({
     >
       <div
         style={{
-          height: `${rowVirtualizer.totalSize}px`,
+          height: `${totalSize}px`,
           width: '100%',
           position: 'relative',
         }}
       >
-        {rowVirtualizer.virtualItems.map((item) => {
+        {virtualItems.map((item) => {
           const row = rows[item.index];
           prepareRow(row);
           return (
