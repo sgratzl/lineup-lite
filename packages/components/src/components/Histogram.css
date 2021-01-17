@@ -2,6 +2,9 @@
   display: flex;
   justify-content: space-evenly;
 }
+.lt-histogram.lt-group {
+  flex-grow: 1;
+}
 
 .lt-histogram-bin {
   position: relative;

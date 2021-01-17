@@ -4,6 +4,7 @@ import { ISharedLineUpProps } from './interfaces';
 import { clsx } from './utils';
 import { useVirtual } from 'react-virtual';
 import { LineUpLiteTRMemo } from './LineUpLiteTR';
+import { SizeEstimator } from './LineUpLite';
 
 export function LineUpLiteTVirtualBody<D extends object>({
   rows,
@@ -19,7 +20,7 @@ export function LineUpLiteTVirtualBody<D extends object>({
   theadRef: React.RefObject<HTMLDivElement>;
   shared: ISharedLineUpProps;
   prepareRow: (row: Row<D>) => void;
-  estimatedSize: number | ((index: number) => number);
+  estimatedSize: SizeEstimator;
   overscan?: number;
 }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -30,7 +31,8 @@ export function LineUpLiteTVirtualBody<D extends object>({
         return givenEstimate(index);
       }
       const row = (rows[index] as unknown) as Row<D> & UseExpandedRowProps<D> & UseGroupByRowProps<D>;
-      return row.isGrouped ? 2 * givenEstimate : givenEstimate;
+      const vs = typeof givenEstimate === 'number' ? [givenEstimate, givenEstimate * 2] : givenEstimate;
+      return row.isGrouped ? vs[1] : vs[0];
     },
     [givenEstimate, rows]
   );

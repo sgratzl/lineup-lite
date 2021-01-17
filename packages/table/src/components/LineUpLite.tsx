@@ -137,8 +137,10 @@ export default LineUpLite as <D extends object>(
   p: ILineUpLiteProps<D> & React.RefAttributes<HTMLDivElement>
 ) => React.ReactElement;
 
+export type SizeEstimator = number | [number, number] | ((index: number) => number);
+
 export interface ILineUpLiteVirtualProps<D extends object> extends ILineUpLiteProps<D> {
-  estimatedSize: number | ((index: number) => number);
+  estimatedSize: SizeEstimator;
   overscan?: number;
 }
 

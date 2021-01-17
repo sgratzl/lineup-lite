@@ -39,12 +39,15 @@
   top: 0;
 }
 
-.lt-td {
-}
-
 .lt-th,
 .lt-td {
   margin: 0 0.25em;
+}
+
+.lt-td {
+  display: inline-flex !important;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .lt-th-support,
