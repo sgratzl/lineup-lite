@@ -1,5 +1,6 @@
 import React from 'react';
 
+// TODO check licence
 // from https://remixicon.com/
 
 function SortAsc() {
@@ -47,7 +48,39 @@ function BarChartHorizontalLine() {
   );
 }
 
-export interface IIcons {
+function FirstPage() {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1.2em">
+      <path d="M8 11.333l10.223-6.815a.5.5 0 0 1 .777.416v14.132a.5.5 0 0 1-.777.416L8 12.667V19a1 1 0 0 1-2 0V5a1 1 0 1 1 2 0v6.333zm9 4.93V7.737L10.606 12L17 16.263z" />
+    </svg>
+  );
+}
+
+function LastPage() {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1.2em">
+      <path d="M16 12.667L5.777 19.482A.5.5 0 0 1 5 19.066V4.934a.5.5 0 0 1 .777-.416L16 11.333V5a1 1 0 0 1 2 0v14a1 1 0 0 1-2 0v-6.333zm-9-4.93v8.526L13.394 12L7 7.737z" />
+    </svg>
+  );
+}
+
+function NextPage() {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1.2em">
+      <path d="M13.172 12l-4.95-4.95l1.414-1.414L16 12l-6.364 6.364l-1.414-1.414z" />
+    </svg>
+  );
+}
+
+function PreviousPage() {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1.2em">
+      <path d="M10.828 12l4.95 4.95l-1.414 1.414L8 12l6.364-6.364l1.414 1.414z" />
+    </svg>
+  );
+}
+
+export interface IActionIcons {
   groupBy: React.ComponentType;
   sortAsc: React.ComponentType;
   sortDesc: React.ComponentType;
@@ -55,10 +88,29 @@ export interface IIcons {
   expandGroup: React.ComponentType;
 }
 
-export const DEFAULT_ICONS: IIcons = {
-  groupBy: BarChartHorizontalLine,
-  expandGroup: ArrowDropRightLine,
-  sortAsc: SortAsc,
-  sortDesc: SortDesc,
-  hideColumn: DeleteBinLine,
-};
+export interface IPaginationIcons {
+  firstPage: React.ComponentType;
+  previousPage: React.ComponentType;
+  nextPage: React.ComponentType;
+  lastPage: React.ComponentType;
+}
+
+export function actionIcons(): IActionIcons {
+  return {
+    groupBy: BarChartHorizontalLine,
+    expandGroup: ArrowDropRightLine,
+    sortAsc: SortAsc,
+    sortDesc: SortDesc,
+    hideColumn: DeleteBinLine,
+  };
+}
+
+export function paginationIcons(): IPaginationIcons & IActionIcons {
+  return {
+    ...actionIcons(),
+    firstPage: FirstPage,
+    previousPage: PreviousPage,
+    nextPage: NextPage,
+    lastPage: LastPage,
+  };
+}

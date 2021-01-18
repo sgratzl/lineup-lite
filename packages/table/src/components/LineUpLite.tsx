@@ -1,14 +1,19 @@
+import type { IActionIcons } from 'icons';
 import React, { Ref } from 'react';
-import { useShared } from './hooks';
-import type { ISharedLineUpProps } from './interfaces';
+import { useCustomize } from './hooks';
+import type { IActionLineUpProps, ICustomizeLineUpProps } from './interfaces';
 import { LineUpLiteTHead } from './LineUpLiteTHead';
 import { LineUpLiteTR } from './LineUpLiteTR';
 import { IFullTableProps, useFullTable } from './useFullTable';
 import { clsx } from './utils';
 
-export interface ILineUpLiteProps<D extends object> extends IFullTableProps<D>, ISharedLineUpProps<D> {
+export interface ILineUpLiteProps<D extends object>
+  extends IFullTableProps<D>,
+    IActionLineUpProps<D>,
+    ICustomizeLineUpProps {
   className?: string;
   style?: React.CSSProperties;
+  icons: IActionIcons;
 }
 
 export const LineUpLite = /*!#__PURE__*/ React.forwardRef(function LineUpLite<D extends object>(
@@ -17,7 +22,7 @@ export const LineUpLite = /*!#__PURE__*/ React.forwardRef(function LineUpLite<D 
 ) {
   const { getTableProps, getTableBodyProps, headerGroups, prepareRow, rows } = useFullTable<D>(props);
 
-  const shared = useShared(props);
+  const shared = useCustomize(props);
 
   return (
     <div
@@ -27,7 +32,7 @@ export const LineUpLite = /*!#__PURE__*/ React.forwardRef(function LineUpLite<D 
       })}
       ref={ref}
     >
-      <LineUpLiteTHead headerGroups={headerGroups} shared={shared} />
+      <LineUpLiteTHead headerGroups={headerGroups} c={shared} actions={props.actions} icons={props.icons} />
       <div
         {...getTableBodyProps({
           className: clsx('lt-tbody', props.classNames?.tbody),
@@ -36,7 +41,7 @@ export const LineUpLite = /*!#__PURE__*/ React.forwardRef(function LineUpLite<D 
       >
         {rows.map((row) => {
           prepareRow(row);
-          return <LineUpLiteTR key={row.id} row={row} shared={shared} />;
+          return <LineUpLiteTR key={row.id} row={row} c={shared} />;
         })}
       </div>
     </div>

@@ -1,17 +1,17 @@
 import React, { memo } from 'react';
 import type { Row, UseExpandedRowProps, UseGroupByRowProps, UseRowSelectRowProps } from 'react-table';
-import type { ISharedLineUpProps } from './interfaces';
+import type { ICustomizeLineUpProps } from './interfaces';
 import { LineUpLiteTD } from './LineUpLiteTD';
 import { clsx, mergeStyles } from './utils';
 
 export function LineUpLiteTR<D extends object>({
   row,
-  shared,
+  c,
   virtualStart,
   virtualSize,
 }: {
   row: Row<D>;
-  shared: ISharedLineUpProps<D>;
+  c: ICustomizeLineUpProps;
   virtualStart?: number;
   virtualSize?: number;
 }) {
@@ -29,10 +29,10 @@ export function LineUpLiteTR<D extends object>({
           rowTyped.isSelected && 'lt-tr-selected',
           rowTyped.isSomeSelected && 'lt-tr-some-selected',
           virtualStart != null && 'lt-tr-virtual',
-          shared.classNames?.tr
+          c.classNames?.tr
         ),
         style: mergeStyles(
-          shared.styles?.tr,
+          c.styles?.tr,
           virtualStart != null &&
             virtualSize != null && {
               height: `${virtualSize}px`,
@@ -44,7 +44,7 @@ export function LineUpLiteTR<D extends object>({
       {rowTyped.cells
         .filter((d) => d.column.isVisible)
         .map((cell) => (
-          <LineUpLiteTD key={cell.column.id} cell={cell} shared={shared} />
+          <LineUpLiteTD key={cell.column.id} cell={cell} c={c} />
         ))}
     </div>
   );

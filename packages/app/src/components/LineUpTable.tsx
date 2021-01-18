@@ -1,4 +1,4 @@
-import LineUpLite, { LineUpLiteVirtual, useDefaultFeatures } from '@lineup-lite/table';
+import { LineUpLiteVirtual, LineUpLitePaginated, useDefaultFeatures, paginationIcons } from '@lineup-lite/table';
 import '@lineup-lite/table/dist/table.css';
 import { makeStyles } from '@material-ui/core/styles';
 import { observer } from 'mobx-react-lite';
@@ -33,6 +33,8 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
+const icons = paginationIcons();
+
 export default observer(() => {
   const plugins = React.useMemo(() => useDefaultFeatures<IRow>(), []);
   const store = useStore();
@@ -42,7 +44,7 @@ export default observer(() => {
     <div className={clsx(classes.root)}>
       {!virtual ? (
         <div className={classes.scrollWrapper}>
-          <LineUpLite<IRow>
+          <LineUpLitePaginated<IRow>
             data={store.rows}
             columns={store.columns}
             defaultColumn={store.defaultColumn}
@@ -50,6 +52,7 @@ export default observer(() => {
               tr: classes.tr,
             }}
             plugins={plugins}
+            icons={icons}
           />
         </div>
       ) : (
@@ -64,6 +67,7 @@ export default observer(() => {
             tr: classes.tr,
           }}
           plugins={plugins}
+          icons={icons}
         />
       )}
     </div>

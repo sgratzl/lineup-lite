@@ -2,15 +2,14 @@ import React from 'react';
 import type { HeaderGroup, UseGroupByColumnProps, UseResizeColumnsColumnProps } from 'react-table';
 import { clsx } from './utils';
 import Toolbar from './Toolbar';
-import type { ISharedLineUpProps } from './interfaces';
+import type { IActionLineUpProps, ICustomizeLineUpProps } from './interfaces';
 
 export function LineUpLiteTH<D extends object>({
   col,
-  shared,
-}: {
-  col: HeaderGroup<D>;
-  shared: ISharedLineUpProps<D>;
-}) {
+  c,
+  actions,
+  icons,
+}: { col: HeaderGroup<D>; c: ICustomizeLineUpProps } & IActionLineUpProps<D>) {
   const column = (col as unknown) as HeaderGroup<D> &
     UseGroupByColumnProps<D> &
     UseResizeColumnsColumnProps<D> & { tooltip?: string };
@@ -20,10 +19,10 @@ export function LineUpLiteTH<D extends object>({
         className: clsx(
           'lt-th',
           !column.canResize && 'lt-th-support',
-          shared.classNames?.th,
+          c.classNames?.th,
           clsx(column.isResizing && 'lt-column-resizing')
         ),
-        style: shared.styles?.th,
+        style: c.styles?.th,
       })}
     >
       {column.canResize ? (
@@ -35,15 +34,11 @@ export function LineUpLiteTH<D extends object>({
               })}
             />
           )}
-          <div
-            className={clsx('lt-header', shared.classNames?.header)}
-            style={shared.styles?.header}
-            title={column.tooltip}
-          >
+          <div className={clsx('lt-header', c.classNames?.header)} style={c.styles?.header} title={column.tooltip}>
             {column.render('Header')}
           </div>
-          <Toolbar {...col} icons={shared.icons}>
-            {shared.actions && shared.actions(column)}
+          <Toolbar {...col} icons={icons}>
+            {actions && actions(column)}
           </Toolbar>
           {column.render('Summary')}
         </>

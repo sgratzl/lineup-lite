@@ -1,6 +1,6 @@
 import React, { useRef, useCallback, useLayoutEffect, useMemo } from 'react';
 import type { Row, TableInstance, UseExpandedRowProps, UseGroupByRowProps } from 'react-table';
-import type { ISharedLineUpProps } from './interfaces';
+import type { ICustomizeLineUpProps } from './interfaces';
 import { clsx } from './utils';
 import { useVirtual } from 'react-virtual';
 import { LineUpLiteTRMemo } from './LineUpLiteTR';
@@ -8,7 +8,7 @@ import type { SizeEstimator } from './LineUpLiteVirtual';
 
 export function LineUpLiteTVirtualBody<D extends object>({
   rows,
-  shared,
+  c,
   prepareRow,
   getTableBodyProps,
   theadRef,
@@ -19,7 +19,7 @@ export function LineUpLiteTVirtualBody<D extends object>({
   getTableBodyProps: TableInstance<D>['getTableBodyProps'];
   rows: Row<D>[];
   theadRef: React.RefObject<HTMLDivElement>;
-  shared: ISharedLineUpProps<D>;
+  c: ICustomizeLineUpProps;
   prepareRow: (row: Row<D>) => void;
   estimatedSize: SizeEstimator;
   rowSpacing: number;
@@ -72,8 +72,8 @@ export function LineUpLiteTVirtualBody<D extends object>({
   return (
     <div
       {...getTableBodyProps({
-        className: clsx('lt-tbody', 'lt-tbody-virtual', shared.classNames?.tbody),
-        style: shared.styles?.tbody,
+        className: clsx('lt-tbody', 'lt-tbody-virtual', c.classNames?.tbody),
+        style: c.styles?.tbody,
       })}
       ref={ref}
     >
@@ -91,7 +91,7 @@ export function LineUpLiteTVirtualBody<D extends object>({
             <LineUpLiteTRMemo
               key={`${row.id}-${nonce}`}
               row={row}
-              shared={shared}
+              c={c}
               virtualStart={item.start}
               virtualSize={item.size - rowSpacing}
             />

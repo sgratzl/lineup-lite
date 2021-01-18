@@ -57,6 +57,9 @@
   "dependenciesMeta": {
     "lineupjs@4.1.1": {
       "unplugged": true
+    },
+    "remixicon@2.5.0": {
+      "unplugged": true
     }
   }
 }

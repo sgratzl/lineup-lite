@@ -27,7 +27,8 @@
     "@types/react-table": "^7.0.26",
     "lz-string": "^1.4.4",
     "react-table": "^7.6.3",
-    "react-virtual": "^2.3.2"
+    "react-virtual": "^2.3.2",
+    "remixicon": "^2.5.0"
   },
   "main": "dist/index.js",
   "module": "dist/table.esm.js",
