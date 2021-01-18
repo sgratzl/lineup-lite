@@ -4,7 +4,13 @@ import { clsx } from './utils';
 import Toolbar from './Toolbar';
 import { ISharedLineUpProps } from './interfaces';
 
-export function LineUpLiteTH<D extends object>({ col, shared }: { col: HeaderGroup<D>; shared: ISharedLineUpProps }) {
+export function LineUpLiteTH<D extends object>({
+  col,
+  shared,
+}: {
+  col: HeaderGroup<D>;
+  shared: ISharedLineUpProps<D>;
+}) {
   const column = (col as unknown) as HeaderGroup<D> &
     UseGroupByColumnProps<D> &
     UseResizeColumnsColumnProps<D> & { tooltip?: string };
@@ -36,7 +42,9 @@ export function LineUpLiteTH<D extends object>({ col, shared }: { col: HeaderGro
           >
             {column.render('Header')}
           </div>
-          <Toolbar {...col} icons={shared.icons} />
+          <Toolbar {...col} icons={shared.icons}>
+            {shared.actions && shared.actions(column)}
+          </Toolbar>
           {column.render('Summary')}
         </>
       ) : (

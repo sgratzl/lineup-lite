@@ -11,7 +11,7 @@ export function LineUpLiteTR<D extends object>({
   virtualSize,
 }: {
   row: Row<D>;
-  shared: ISharedLineUpProps;
+  shared: ISharedLineUpProps<D>;
   virtualStart?: number;
   virtualSize?: number;
 }) {

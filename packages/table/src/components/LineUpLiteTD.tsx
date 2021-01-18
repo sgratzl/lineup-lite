@@ -3,7 +3,13 @@ import { Cell, ColumnInstance, UseGroupByCellProps, UseResizeColumnsColumnProps 
 import { FullColumn, ISharedLineUpProps } from './interfaces';
 import { clsx } from './utils';
 
-export function LineUpLiteTD<D extends object>({ cell, shared }: { cell: Cell<D, any>; shared: ISharedLineUpProps }) {
+export function LineUpLiteTD<D extends object>({
+  cell,
+  shared,
+}: {
+  cell: Cell<D, any>;
+  shared: ISharedLineUpProps<D>;
+}) {
   const cellTyped = (cell as unknown) as Cell<D> & UseGroupByCellProps<D>;
   const column = cellTyped.column as FullColumn<D> & ColumnInstance<D> & UseResizeColumnsColumnProps<D>;
   return (

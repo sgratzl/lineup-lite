@@ -15,7 +15,7 @@ export interface IToolbarProps<D extends object> extends HeaderGroup<D> {
   icons?: IIcons;
 }
 
-export default /*!#__PURE__*/ React.memo(function Toolbar(props: React.PropsWithChildren<IToolbarProps<any>>) {
+export default function Toolbar(props: React.PropsWithChildren<IToolbarProps<any>>) {
   const column = (props as unknown) as HeaderGroup<any> &
     UseGroupByColumnProps<any> &
     UseResizeColumnsColumnProps<any> &
@@ -74,4 +74,4 @@ export default /*!#__PURE__*/ React.memo(function Toolbar(props: React.PropsWith
       )}
     </div>
   );
-});
+}

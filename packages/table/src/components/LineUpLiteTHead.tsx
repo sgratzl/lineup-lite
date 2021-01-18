@@ -10,7 +10,7 @@ export function LineUpLiteTHead<D extends object>({
   virtualRef,
 }: {
   headerGroups: HeaderGroup<D>[];
-  shared: ISharedLineUpProps;
+  shared: ISharedLineUpProps<D>;
   virtualRef?: React.RefObject<HTMLDivElement>;
 }) {
   return (

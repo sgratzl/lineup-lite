@@ -43,7 +43,7 @@ export type FullTableOptions<D extends object> = TableOptions<D> &
   UseRowSelectOptions<D> &
   UseSortByOptions<D>;
 
-export interface ILineUpLiteProps<D extends object> extends FullTableOptions<D>, ISharedLineUpProps {
+export interface ILineUpLiteProps<D extends object> extends FullTableOptions<D>, ISharedLineUpProps<D> {
   defaultColumn: Partial<FullColumn<D>>;
   columns: (Column<D> & Partial<FullColumn<D>>)[];
   className?: string;
@@ -90,7 +90,7 @@ export function useFullTable<D extends object>({ plugins, icons, ...props }: ILi
   return useTable<D>(tableProps, ...allPlugins) as TableInstance<D> & UseFiltersInstanceProps<D>;
 }
 
-function useShared(props: ISharedLineUpProps): ISharedLineUpProps {
+function useShared<D extends object>(props: ISharedLineUpProps<D>): ISharedLineUpProps<D> {
   return useMemo(
     () => ({
       styles: props.styles,

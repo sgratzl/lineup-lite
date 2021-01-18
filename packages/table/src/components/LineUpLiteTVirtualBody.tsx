@@ -19,7 +19,7 @@ export function LineUpLiteTVirtualBody<D extends object>({
   getTableBodyProps: TableInstance<D>['getTableBodyProps'];
   rows: Row<D>[];
   theadRef: React.RefObject<HTMLDivElement>;
-  shared: ISharedLineUpProps;
+  shared: ISharedLineUpProps<D>;
   prepareRow: (row: Row<D>) => void;
   estimatedSize: SizeEstimator;
   rowSpacing: number;
