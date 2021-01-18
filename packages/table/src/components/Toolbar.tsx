@@ -32,7 +32,7 @@ export default /*!#__PURE__*/ React.memo(function Toolbar(props: React.PropsWith
   return (
     <div className={clsx('lt-toolbar', props.className)} style={props.style}>
       {column.canSort && (
-        <div
+        <button
           {...column.getSortByToggleProps({
             className: clsx(
               'lt-action',
@@ -41,33 +41,36 @@ export default /*!#__PURE__*/ React.memo(function Toolbar(props: React.PropsWith
               column.isSortedDesc && 'lt-action-desc'
             ),
           })}
+          title="Click to toggle sorting"
         >
           {column.isSortedDesc || (!column.isSorted && (column as any).sortDescFirst) ? (
             <icons.sortDesc />
           ) : (
             <icons.sortAsc />
           )}
-        </div>
+        </button>
       )}
       {column.canGroupBy && (
-        <div
+        <button
           {...column.getGroupByToggleProps({
             className: clsx('lt-action', 'lt-action-group', column.isGrouped && 'lt-action-active'),
           })}
+          title={column.isGrouped ? 'Click to group by this column' : 'Click remove grouping'}
         >
           {<icons.groupBy />}
-        </div>
+        </button>
       )}
       {props.children}
       {column.canResize && column.canHide !== false && (
-        <div
+        <button
           {...column.getToggleHiddenProps({
             className: clsx('lt-action', 'lt-action-hide', !column.isVisible && 'lt-action-active'),
           })}
           onClick={hide}
+          title="Click to hide this column"
         >
           {<icons.hideColumn />}
-        </div>
+        </button>
       )}
     </div>
   );

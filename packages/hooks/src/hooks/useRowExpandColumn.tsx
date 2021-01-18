@@ -46,26 +46,28 @@ function Aggregated(
     return null;
   }
   return (
-    <div
+    <button
       {...row.getToggleRowExpandedProps({
         className: cslx('lt-expand-agg', `lt-expand-${row.depth}`, row.isExpanded && 'lt-expanded'),
       })}
+      title="Expand/Collapse this group"
     >
       {props.expandIcon ? <props.expandIcon /> : <ArrowDropRightLine />}
-    </div>
+    </button>
   );
 }
 
 function Summary(props: any) {
   if (props.allColumns.some((d: any) => d.isGrouped)) {
     return (
-      <div
+      <button
         {...props.getToggleAllRowsExpandedProps({
           className: cslx('lt-expand-agg', props.isAllRowsExpanded && 'lt-expanded'),
         })}
+        title="Expand/Collapse all groups"
       >
         {props.expandIcon ? <props.expandIcon /> : <ArrowDropRightLine />}
-      </div>
+      </button>
     );
   }
   return null;

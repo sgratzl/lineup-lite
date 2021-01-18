@@ -9,10 +9,25 @@
   transition: opacity 0.25s ease;
   font-size: inherit;
   box-sizing: border-box;
+  border: none;
+  background: none;
+  padding: 0;
+  color: var(--current-color, currentColor);
+}
+
+.lt-action > svg {
   fill: var(--current-color, currentColor);
 }
 
 .lt-action:hover,
+.lt-action:active,
+.lt-action:focus {
+  background: none;
+}
+
+.lt-action:hover,
+.lt-action:active,
+.lt-action:focus,
 .lt-action-active {
   opacity: 1;
 }

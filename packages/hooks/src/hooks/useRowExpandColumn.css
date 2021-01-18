@@ -5,8 +5,29 @@
   justify-content: center;
   text-align: center;
   transition: transform 0.25s ease;
-  fill: var(--current-color, black);
+  opacity: 0.25;
+  color: var(--current-color, currentColor);
+  border: none;
+  background: none;
+  padding: 0;
 }
+
+.lt-expand-agg > svg {
+  fill: var(--current-color, currentColor);
+}
+
+.lt-expand-agg:hover,
+.lt-expand-agg:active,
+.lt-expand-agg:focus {
+  background: none;
+}
+
+.lt-expand-agg:hover,
+.lt-expand-agg:active,
+.lt-expand-agg:focus {
+  opacity: 1;
+}
+
 
 .lt-expanded {
   transform: rotate(90deg);
