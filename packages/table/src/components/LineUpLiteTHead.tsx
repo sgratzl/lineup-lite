@@ -1,5 +1,5 @@
-import { HeaderGroup } from 'react-table';
-import { ISharedLineUpProps } from './interfaces';
+import type { HeaderGroup } from 'react-table';
+import type { ISharedLineUpProps } from './interfaces';
 import React from 'react';
 import { clsx } from './utils';
 import { LineUpLiteTH } from './LineUpLiteTH';

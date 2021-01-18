@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
-import { Row, UseExpandedRowProps, UseGroupByRowProps, UseRowSelectRowProps } from 'react-table';
-import { ISharedLineUpProps } from './interfaces';
+import type { Row, UseExpandedRowProps, UseGroupByRowProps, UseRowSelectRowProps } from 'react-table';
+import type { ISharedLineUpProps } from './interfaces';
 import { LineUpLiteTD } from './LineUpLiteTD';
 import { clsx, mergeStyles } from './utils';
 

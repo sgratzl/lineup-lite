@@ -1,6 +1,6 @@
 import React from 'react';
-import { Cell, ColumnInstance, UseGroupByCellProps, UseResizeColumnsColumnProps } from 'react-table';
-import { FullColumn, ISharedLineUpProps } from './interfaces';
+import type { Cell, ColumnInstance, UseGroupByCellProps, UseResizeColumnsColumnProps } from 'react-table';
+import type { FullColumn, ISharedLineUpProps } from './interfaces';
 import { clsx } from './utils';
 
 export function LineUpLiteTD<D extends object>({

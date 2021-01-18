@@ -1,4 +1,4 @@
-import React from 'react';
+import type React from 'react';
 
 export function clsx(...args: (boolean | string | undefined | null)[]) {
   return args.filter(Boolean).join(' ');

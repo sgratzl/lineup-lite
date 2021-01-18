@@ -1,5 +1,5 @@
 import { asCategoricalColumn, asDateColumn, asNumberColumn, asStringColumn } from '@lineup-lite/hooks';
-import { Column } from 'react-table';
+import type { Column } from 'react-table';
 
 export function cleanCategories(categories: Set<string>) {
   // remove missing values

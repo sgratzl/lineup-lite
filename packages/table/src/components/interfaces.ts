@@ -1,6 +1,6 @@
-import { IIcons } from '../icons';
-import { FullColumn as FullHookColumn } from '@lineup-lite/hooks';
-import { HeaderGroup } from 'react-table';
+import type { FullColumn as FullHookColumn } from '@lineup-lite/hooks';
+import type { HeaderGroup } from 'react-table';
+import type { IIcons } from '../icons';
 
 export type MultiCustomizeKeys = 'tbody' | 'tr' | 'thead' | 'th' | 'thGroup' | 'td' | 'header';
 

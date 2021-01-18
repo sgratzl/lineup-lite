@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import { clsx } from './utils';
-import {
+import type {
   HeaderGroup,
   UseFiltersColumnProps,
   UseGroupByColumnProps,

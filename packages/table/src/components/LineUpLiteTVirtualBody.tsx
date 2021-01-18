@@ -1,10 +1,10 @@
 import React, { useRef, useCallback, useLayoutEffect, useMemo } from 'react';
-import { Row, TableInstance, UseExpandedRowProps, UseGroupByRowProps } from 'react-table';
-import { ISharedLineUpProps } from './interfaces';
+import type { Row, TableInstance, UseExpandedRowProps, UseGroupByRowProps } from 'react-table';
+import type { ISharedLineUpProps } from './interfaces';
 import { clsx } from './utils';
 import { useVirtual } from 'react-virtual';
 import { LineUpLiteTRMemo } from './LineUpLiteTR';
-import { SizeEstimator } from './LineUpLite';
+import type { SizeEstimator } from './LineUpLiteVirtual';
 
 export function LineUpLiteTVirtualBody<D extends object>({
   rows,

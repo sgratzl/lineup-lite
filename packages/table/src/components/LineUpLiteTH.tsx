@@ -1,8 +1,8 @@
 import React from 'react';
-import { HeaderGroup, UseGroupByColumnProps, UseResizeColumnsColumnProps } from 'react-table';
+import type { HeaderGroup, UseGroupByColumnProps, UseResizeColumnsColumnProps } from 'react-table';
 import { clsx } from './utils';
 import Toolbar from './Toolbar';
-import { ISharedLineUpProps } from './interfaces';
+import type { ISharedLineUpProps } from './interfaces';
 
 export function LineUpLiteTH<D extends object>({
   col,
