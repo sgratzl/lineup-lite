@@ -4,7 +4,7 @@
  *
  * Copyright (c) 2021 Samuel Gratzl <sam@sgratzl.com>
  */
-import { FullColumn } from '@lineup-lite/table';
+import type { FullColumn } from '@lineup-lite/table';
 
 export interface IRow {
   id: string;
