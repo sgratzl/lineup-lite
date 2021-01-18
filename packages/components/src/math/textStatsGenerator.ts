@@ -1,4 +1,4 @@
-import { ICommonStats } from './common';
+import type { ICommonStats } from './common';
 
 export interface ITextStats extends ICommonStats {
   readonly unique: number;

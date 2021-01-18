@@ -1,5 +1,5 @@
 import React from 'react';
-import {
+import type {
   ColumnInstance,
   Hooks,
   Row,
@@ -8,7 +8,7 @@ import {
   UseGroupByCellProps,
   UseTableCellProps,
 } from 'react-table';
-import { FullColumn } from '../interfaces';
+import type { FullColumn } from '../interfaces';
 import { cslx } from '../renderers/utils';
 
 export interface UseRowExpandColumnTableOptions {

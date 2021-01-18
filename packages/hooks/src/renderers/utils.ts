@@ -1,6 +1,6 @@
-import { StatsProps, StatsCellProps } from '../hooks';
-import { UseFiltersColumnProps, UseGroupByInstanceProps, Cell, CellProps, UseGroupByCellProps } from 'react-table';
-import { ICommonStats, IHistStats } from '@lineup-lite/components';
+import type { StatsProps, StatsCellProps } from '../hooks';
+import type { UseFiltersColumnProps, UseGroupByInstanceProps, Cell, CellProps, UseGroupByCellProps } from 'react-table';
+import type { ICommonStats, IHistStats } from '@lineup-lite/components';
 import { createContext } from 'react';
 
 export const optionContext = createContext<{ [key: string]: any }>({});

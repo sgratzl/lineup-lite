@@ -1,7 +1,7 @@
 import { CategoricalColor, defaultCategoricalColorScale, ICategoricalStats } from '@lineup-lite/components';
 import React, { useContext } from 'react';
-import { CellProps, Renderer } from 'react-table';
-import { UseStatsColumnProps } from '../hooks';
+import type { CellProps, Renderer } from 'react-table';
+import type { UseStatsColumnProps } from '../hooks';
 import { optionContext, resolve } from './utils';
 
 export interface CategoricalRendererOptions {

@@ -1,6 +1,6 @@
 import React from 'react';
-import { ColumnInstance, Hooks, Row, UseRowSelectRowProps } from 'react-table';
-import { FullColumn } from '../interfaces';
+import type { ColumnInstance, Hooks, Row, UseRowSelectRowProps } from 'react-table';
+import type { FullColumn } from '../interfaces';
 import IndeterminateCheckbox from './IndeterminateCheckbox';
 
 export function useRowSelectColumn<D extends object = {}>(hooks: Hooks<D>) {

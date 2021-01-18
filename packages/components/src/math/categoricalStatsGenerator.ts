@@ -1,5 +1,5 @@
 import { defaultCategoricalColorScale } from './defaults';
-import { IHistStats } from './common';
+import type { IHistStats } from './common';
 
 export interface ICategoricalStats extends IHistStats<string> {}
 

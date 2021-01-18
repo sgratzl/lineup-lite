@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
-import { CellProps, Renderer } from 'react-table';
-import { BarRendererOptions } from './BarRenderer';
+import type { CellProps, Renderer } from 'react-table';
+import type { BarRendererOptions } from './BarRenderer';
 import { deriveNumberOptions } from './barStats';
 import { optionContext } from './utils';
 import { NumberColor } from '@lineup-lite/components';

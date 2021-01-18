@@ -1,6 +1,6 @@
 import { NumberBar, NumberFormatter } from '@lineup-lite/components';
 import React, { useContext } from 'react';
-import { CellProps, Renderer } from 'react-table';
+import type { CellProps, Renderer } from 'react-table';
 import { deriveNumberOptions } from './barStats';
 import { optionContext } from './utils';
 

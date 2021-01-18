@@ -1,4 +1,4 @@
-import { IdType, Row } from 'react-table';
+import type { IdType, Row } from 'react-table';
 
 export function categoricalFilter<D extends object>(rows: Row<D>[], ids: IdType<D>[], filterValue: string[]) {
   if (filterValue == null) {

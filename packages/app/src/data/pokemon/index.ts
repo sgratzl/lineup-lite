@@ -1,7 +1,7 @@
 import { asCategoricalColumn, asNumberColumn, asStringColumn } from '@lineup-lite/hooks';
 import { autoAssignColors } from '@lineup-lite/components';
 import { parse } from 'papaparse';
-import { IDataSet, IRow, IColumn } from '../interfaces';
+import type { IDataSet, IRow, IColumn } from '../interfaces';
 import {
   interpolateBlues,
   interpolateGreens,

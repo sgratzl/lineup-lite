@@ -1,4 +1,4 @@
-import {
+import type {
   Column,
   Renderer,
   UseFiltersColumnOptions,
@@ -6,7 +6,7 @@ import {
   UseResizeColumnsColumnOptions,
   UseSortByColumnOptions,
 } from 'react-table';
-import { UseStatsColumnOptions } from './hooks/useStats';
+import type { UseStatsColumnOptions } from './hooks/useStats';
 
 export type FullColumn<D extends object> = Column<D> &
   UseFiltersColumnOptions<D> &

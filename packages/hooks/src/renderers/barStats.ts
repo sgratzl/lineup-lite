@@ -1,6 +1,6 @@
-import { BarRendererOptions } from './BarRenderer';
-import { CellProps } from 'react-table';
-import { UseStatsColumnProps } from '../hooks';
+import type { BarRendererOptions } from './BarRenderer';
+import type { CellProps } from 'react-table';
+import type { UseStatsColumnProps } from '../hooks';
 import { INumberStats, defaultScale, defaultConstantColorScale, resolveNumberFormatter } from '@lineup-lite/components';
 import { resolve } from './utils';
 

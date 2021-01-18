@@ -1,6 +1,6 @@
 import boxplot, { BoxplotStatsOptions, IBoxPlot } from '@sgratzl/boxplots';
 import { defaultColorScale } from './defaults';
-import { INumericStats, IBin } from './common';
+import type { INumericStats, IBin } from './common';
 import { normalize, deNormalize } from './scale';
 
 /**

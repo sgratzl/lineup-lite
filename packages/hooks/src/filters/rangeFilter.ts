@@ -1,4 +1,4 @@
-import { Row } from 'react-table';
+import type { Row } from 'react-table';
 
 export function rangeFilter<D extends object, T>(rows: Row<D>[], ids: string[], filterValue: [T, T]) {
   if (filterValue == null) {

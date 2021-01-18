@@ -1,9 +1,9 @@
 import React from 'react';
-import { INumberStats } from '../math/numberStatsGenerator';
-import { IBoxPlot } from '@sgratzl/boxplots';
+import type { INumberStats } from '../math/numberStatsGenerator';
+import type { IBoxPlot } from '@sgratzl/boxplots';
 import { NumberStatsWrapper } from './NumberStatsWrapper';
 import { FilterRangeWrapper, FilterRangeSliderProps } from './FilterRange';
-import { CommonProps } from './common';
+import type { CommonProps } from './common';
 import { cslx } from './utils';
 
 export interface BoxPlotChartProps extends CommonProps {

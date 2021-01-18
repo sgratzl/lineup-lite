@@ -1,8 +1,8 @@
 import { Histogram, FilterBinHistogram, ICategoricalStats } from '@lineup-lite/components';
 import React, { useContext } from 'react';
-import { Renderer } from 'react-table';
+import type { Renderer } from 'react-table';
 import { categoricalStats } from '../stats';
-import { CategoricalRendererOptions } from './CategoricalRenderer';
+import type { CategoricalRendererOptions } from './CategoricalRenderer';
 import { extractStats, groupMaxBin, isFilterAble, optionContext, statsGeneratorContext, StatsPropsLike } from './utils';
 
 export interface CategoricalHistogramRendererOptions extends CategoricalRendererOptions {

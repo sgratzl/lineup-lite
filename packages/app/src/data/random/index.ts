@@ -14,7 +14,7 @@ import {
   defaultConstantColorScale,
 } from '@lineup-lite/components';
 import { generateData } from './genData';
-import { IDataSet, IRow, IColumn } from '../interfaces';
+import type { IDataSet, IRow, IColumn } from '../interfaces';
 
 export interface IRandomRow extends IRow {
   string: string;

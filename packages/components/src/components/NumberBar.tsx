@@ -1,5 +1,5 @@
 import React from 'react';
-import { CommonProps } from './common';
+import type { CommonProps } from './common';
 import { cslx, mergeStyles, toPercent } from './utils';
 
 export interface NumberBarProps extends CommonProps {

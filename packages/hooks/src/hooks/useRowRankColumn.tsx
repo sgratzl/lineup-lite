@@ -9,7 +9,7 @@ import {
   UseGroupByInstanceProps,
   UseTableCellProps,
 } from 'react-table';
-import { FullColumn } from '../interfaces';
+import type { FullColumn } from '../interfaces';
 
 export interface UseRankRowProps {
   rank: number;

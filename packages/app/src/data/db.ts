@@ -5,9 +5,9 @@
  * Copyright (c) 2021 Samuel Gratzl <sam@sgratzl.com>
  */
 
-import Dexie from 'dexie';
-import { IDataSet } from './interfaces';
-import Store from '../store/Store';
+import type Dexie from 'dexie';
+import type { IDataSet } from './interfaces';
+import type Store from '../store/Store';
 
 const SCHEMA_VERSION = 1;
 

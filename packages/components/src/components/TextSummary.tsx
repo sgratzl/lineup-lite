@@ -1,6 +1,6 @@
 import React from 'react';
-import { ITextStats } from '../math';
-import { CommonProps } from './common';
+import type { ITextStats } from '../math';
+import type { CommonProps } from './common';
 import { cslx } from './utils';
 
 export interface TextSummaryProps extends CommonProps {

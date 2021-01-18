@@ -1,4 +1,4 @@
-import React from 'react';
+import type React from 'react';
 
 export function toPercent(v: number) {
   return `${Math.round(v * 1000) / 10}%`;

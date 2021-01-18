@@ -7,8 +7,8 @@
 import { asStringColumn } from '@lineup-lite/hooks';
 import { toJS } from 'mobx';
 import { loadFile } from '../dump';
-import Store from '../store/Store';
-import { IDataSet } from './interfaces';
+import type Store from '../store/Store';
+import type { IDataSet } from './interfaces';
 import { loadJSON } from '../dump';
 import { deriveDataSetName } from './utils';
 

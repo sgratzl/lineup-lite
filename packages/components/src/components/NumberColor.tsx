@@ -1,5 +1,5 @@
 import React from 'react';
-import { NumberBarProps } from './NumberBar';
+import type { NumberBarProps } from './NumberBar';
 import { cslx, mergeStyles } from './utils';
 
 /**

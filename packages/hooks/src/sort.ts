@@ -1,4 +1,4 @@
-import { Row } from 'react-table';
+import type { Row } from 'react-table';
 
 export function sortCompare(a: Row<any>, b: Row<any>, columnId: string) {
   const va = a.values[columnId];

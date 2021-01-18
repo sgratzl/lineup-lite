@@ -1,6 +1,6 @@
-import { INumericStats } from '@lineup-lite/components';
+import type { INumericStats } from '@lineup-lite/components';
 import { ColumnInstance, defaultGroupByFn, Row } from 'react-table';
-import { UseStatsColumnProps } from '../hooks';
+import type { UseStatsColumnProps } from '../hooks';
 
 export function histGroupBy<D extends object, T extends number | Date>(
   rows: Row<D>[],

@@ -6,8 +6,8 @@
  */
 
 import { unparse, parse } from 'papaparse';
-import Store from '../store/Store';
-import { IDataSet } from './interfaces';
+import type Store from '../store/Store';
+import type { IDataSet } from './interfaces';
 import { fromJSON } from './exportJSON';
 import { deriveDataSetName } from './utils';
 

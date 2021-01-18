@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
-import { Renderer, CellProps } from 'react-table';
+import type { Renderer, CellProps } from 'react-table';
 import { IDateStats, DateFormatter, resolveDateFormatter } from '@lineup-lite/components';
-import { UseStatsColumnProps } from '../hooks';
+import type { UseStatsColumnProps } from '../hooks';
 import { optionContext, resolve } from './utils';
 import { DateLabel } from '@lineup-lite/components';
 

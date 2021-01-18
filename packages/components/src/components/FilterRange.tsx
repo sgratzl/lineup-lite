@@ -1,6 +1,6 @@
 import React, { MutableRefObject, useCallback, useLayoutEffect, useRef } from 'react';
-import { INumericStats } from '../math/common';
-import { CommonProps } from './common';
+import type { INumericStats } from '../math/common';
+import type { CommonProps } from './common';
 import { cslx, toPercent } from './utils';
 
 export interface FilterRangeSliderProps<T> {

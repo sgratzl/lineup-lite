@@ -1,5 +1,5 @@
 import React from 'react';
-import { IHistStats } from '../math/common';
+import type { IHistStats } from '../math/common';
 import { cslx } from './utils';
 
 export function NumberStatsWrapper<T>(

@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { useStore } from '../store';
-import { IRow } from 'data';
+import type { IRow } from 'data';
 import clsx from 'clsx';
 
 const useStyles = makeStyles(() => ({

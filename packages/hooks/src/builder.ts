@@ -1,10 +1,10 @@
-import {
+import type {
   CategoricalStatsOptions,
   DateStatsOptions,
   NumberStatsOptions,
   TextStatsOptions,
 } from '@lineup-lite/components';
-import { Column } from 'react-table';
+import type { Column } from 'react-table';
 import {
   BarRenderer,
   BoxPlotRenderer,
@@ -18,7 +18,7 @@ import {
 } from './renderers';
 import { textStats, categoricalStats, dateStats, numberStats } from './stats';
 import { rangeFilter, categoricalFilter } from './filters';
-import { FullColumn } from './interfaces';
+import type { FullColumn } from './interfaces';
 import { sortCompare, sortCategories } from './sort';
 import { categoricalGroupBy, dateGroupBy, numberGroupBy, stringGroupBy } from './grouping';
 

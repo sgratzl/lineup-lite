@@ -1,10 +1,10 @@
 import React from 'react';
-import { IHistStats, IBin } from '../math/common';
+import type { IHistStats, IBin } from '../math/common';
 import { toPercent, cslx } from './utils';
 import { color } from 'd3-color';
 import { FilterRangeSliderProps, FilterRangeWrapper } from './FilterRange';
 import { NumberStatsWrapper } from './NumberStatsWrapper';
-import { CommonProps } from './common';
+import type { CommonProps } from './common';
 
 export interface HistogramProps<T> extends CommonProps {
   /**
