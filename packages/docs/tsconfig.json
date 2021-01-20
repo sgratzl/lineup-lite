@@ -1,4 +1,7 @@
 {
   "extends": "@tsconfig/docusaurus/tsconfig.json",
+  "compilerOptions": {
+    "lib": ["DOM", "ES2019"]
+  },
   "include": ["src/"]
 }

@@ -1,0 +1,13 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "dist",
+    "declaration": true,
+    "declarationMap": true,
+    "noEmit": false,
+    "composite": true,
+  },
+  "references": [
+    { "path": "../components/tsconfig.c.json" }
+  ]
+}

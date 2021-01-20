@@ -30,10 +30,10 @@
     "react-virtual": "^2.3.2",
     "remixicon": "^2.5.0"
   },
-  "main": "dist/index.js",
-  "module": "dist/table.esm.js",
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.js",
   "style": "dist/table.css",
-  "types": "dist/table.d.ts",
+  "types": "dist/index.d.ts",
   "sideEffects": false,
   "files": [
     "dist",
@@ -42,8 +42,8 @@
     "src/**/*.css"
   ],
   "scripts": {
-    "clean": "rimraf dist node_modules \"*.tgz\"",
-    "compile": "tsc -p tsconfig.json --noEmit",
+    "clear": "rimraf build dist node_modules \"*.tgz\" \"*.tsbuildinfo\"",
+    "compile": "tsc -b tsconfig.c.json ",
     "start": "npm run watch",
     "watch": "rollup -c -w",
     "build": "rollup -c",
@@ -56,7 +56,8 @@
     "prettier": "prettier */** --check",
     "eslint": "eslint src --ext .ts,.tsx",
     "eslint:fix": "npm run eslint -- --fix",
-    "prepare": "npm run build"
+    "prepare": "npm run build",
+    "docs": "typedoc src/index.ts"
   },
   "peerDependencies": {
     "@types/react": "^17.0.0",

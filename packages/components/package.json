@@ -28,9 +28,9 @@
     "d3-scale-chromatic": "^2.0.0"
   },
   "main": "dist/components.js",
-  "module": "dist/components.esm.js",
+  "module": "dist/index.js",
   "style": "dist/components.css",
-  "types": "dist/components.d.ts",
+  "types": "dist/index.d.ts",
   "sideEffects": false,
   "files": [
     "dist",
@@ -39,8 +39,8 @@
     "src/**/*.css"
   ],
   "scripts": {
-    "clean": "rimraf dist node_modules \"*.tgz\"",
-    "compile": "tsc -p tsconfig.json --noEmit",
+    "clear": "rimraf build dist node_modules \"*.tgz\" \"*.tsbuildinfo\"",
+    "compile": "tsc -b tsconfig.c.json",
     "start": "npm run watch",
     "watch": "rollup -c -w",
     "build": "rollup -c",

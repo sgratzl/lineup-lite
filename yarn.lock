@@ -2617,6 +2617,7 @@ __metadata:
     "@lineup-lite/table": ~1.0.0
     "@mdx-js/react": ^1.6.22
     "@tsconfig/docusaurus": ^1.0.2
+    "@types/node": ^14.14.22
     "@types/react": ^17.0.0
     "@types/react-helmet": ^6.1.0
     "@types/react-router-dom": ^5.1.7
@@ -3519,6 +3520,13 @@ __metadata:
   version: 13.13.15
   resolution: "@types/node@npm:13.13.15"
   checksum: 767eefa7024d560b663b2c9ccd0ce0408ba45e7ce75f8010e8f7954ed14eb9fdf97f7ee4392183a4177dcca99fce088706c43b9bbc5d3adac194fa52a9c3f73f
+  languageName: node
+  linkType: hard
+
+"@types/node@npm:^14.14.22":
+  version: 14.14.22
+  resolution: "@types/node@npm:14.14.22"
+  checksum: e46e32685b4d0261779c13c10ba3ff220cfa714b5c12f8f571fd52cc309546bdbc8ffc86cbad20559ad88e7b17e66fc51c98b067d8c3766597092c05df157b9b
   languageName: node
   linkType: hard
 

@@ -24,8 +24,8 @@
     "@lineup-lite/components": "~1.0.0"
   },
   "main": "dist/hooks.js",
-  "module": "dist/hooks.esm.js",
-  "types": "dist/hooks.d.ts",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
   "style": "dist/hooks.css",
   "sideEffects": false,
   "files": [
@@ -35,8 +35,8 @@
     "src/**/*.css"
   ],
   "scripts": {
-    "clean": "rimraf dist node_modules \"*.tgz\"",
-    "compile": "tsc -p tsconfig.json --noEmit",
+    "clear": "rimraf build dist node_modules \"*.tgz\" \"*.tsbuildinfo\"",
+    "compile": "tsc -b tsconfig.c.json",
     "start": "npm run watch",
     "watch": "rollup -c -w",
     "build": "rollup -c",
@@ -49,7 +49,8 @@
     "prettier": "prettier */** --check",
     "eslint": "eslint src --ext .ts,.tsx",
     "eslint:fix": "npm run eslint -- --fix",
-    "prepare": "npm run build"
+    "prepare": "npm run build",
+    "docs": "typedoc src/index.ts"
   },
   "peerDependencies": {
     "@types/react": "^17.0.0",
