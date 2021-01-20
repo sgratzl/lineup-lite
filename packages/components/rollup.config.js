@@ -33,7 +33,7 @@ const relativeToMain = (path) => {
   return relative(b, a);
 };
 
-export default (options) => {
+export default function Config(options) {
   const buildFormat = (format) => !options.watch || watchOnly.includes(format);
 
   const base = {
@@ -115,4 +115,4 @@ export default (options) => {
       ],
     },
   ].filter(Boolean);
-};
+}

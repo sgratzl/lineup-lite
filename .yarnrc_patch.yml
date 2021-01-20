@@ -1,7 +1,0 @@
-packageExtensions:
-  '@storybook/preset-typescript@*':
-    dependencies:
-      '@babel/core': ^7.9.6
-  jss-plugin-rule-value-function@*:
-    dependencies:
-      tiny-warning: '*'
