@@ -61,7 +61,7 @@ export function LineUpLitePagination({
       </span>
       <span>
         | Go to page:
-        <input type="number" className="lt-pagination-select" defaultValue={pageIndex + 1} onChange={gotoPageHandler} />
+        <input type="number" className="lt-pagination-select" value={pageIndex + 1} onChange={gotoPageHandler} />
       </span>
       <select value={pageSize} onChange={setPageSizeHandler} className="lt-pagination-page-size">
         {[10, 20, 30, 40, 50].map((pageSize) => (
