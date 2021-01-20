@@ -8,5 +8,14 @@
       "@": ["./"],
       "*": ["src/*", "node_modules/*"]
     }
+  },
+  "typedoc": {
+    "name": "LineUp-Lite Table",
+    "out": "./docs",
+    "theme": "minimal",
+    "excludeExternals": true,
+    "excludePrivate": true,
+    "includeVersion": true,
+    "hideGenerator": true,
   }
 }
