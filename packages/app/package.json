@@ -75,7 +75,6 @@
     "workbox-webpack-plugin": "^5.1.4"
   },
   "dependencies": {
-    "@lineup-lite/bundle": "~1.0.0",
     "@lineup-lite/components": "~1.0.0",
     "@lineup-lite/hooks": "~1.0.0",
     "@lineup-lite/table": "~1.0.0",
