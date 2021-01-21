@@ -1,13 +1,4 @@
-export function rnd(seed = 0) {
-  // Adapted from http://indiegamr.com/generate-repeatable-random-numbers-in-js/
-  if (seed === undefined) {
-    seed = Date.now();
-  }
-  return () => {
-    seed = (seed * 9301 + 49297) % 233280;
-    return seed / 233280;
-  };
-}
+import rnd from 'seedrandom';
 
 export interface IGenerateDataOptions {
   /**
@@ -94,7 +85,7 @@ export function generateData(options: IGenerateDataOptions = {}) {
     options
   );
   const arr = [];
-  const s = rnd(o.seed);
+  const s = rnd(o.seed.toString());
   const isMissing = (v: number) => v > 0 && s() <= v;
   for (let i = 0; i < o.count; ++i) {
     let r: any = {};

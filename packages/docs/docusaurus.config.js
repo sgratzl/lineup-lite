@@ -9,6 +9,14 @@ module.exports = {
   organizationName: 'sgratzl', // Usually your GitHub org/user name.
   projectName: 'lineup-lite', // Usually your repo name.
   themeConfig: {
+    colorMode: {
+      respectPrefersColorScheme: true,
+    },
+    announcementBar: {
+      id: 'star_me', // Any value that will identify this message.
+      content:
+        '⭐️ If you like and use <a target="_blank" rel="noopener noreferrer" href="https://github.com/sgratzl/lineup-lite">@lineup-lite</a>, give it a star on <a target="_blank" rel="noopener noreferrer" href="https://github.com/sgratzl/lineup-lite">GitHub</a>! ⭐️!',
+    },
     navbar: {
       title: 'LineUp Lite',
       logo: {

@@ -1,7 +1,5 @@
-import { asCategoricalColumn, asNumberColumn, asStringColumn } from '@lineup-lite/hooks';
+import { asCategoricalColumn, asNumberColumn, asStringColumn, FullColumn } from '@lineup-lite/hooks';
 import { autoAssignColors } from '@lineup-lite/components';
-import { parse } from 'papaparse';
-import type { IDataSet, IRow, IColumn } from '../interfaces';
 import {
   interpolateBlues,
   interpolateGreens,
@@ -13,7 +11,7 @@ import {
   schemeSet3,
 } from 'd3-scale-chromatic';
 
-export interface IPokemonRow extends IRow {
+export interface IPokemonRow {
   name: string;
   type1: string;
   type2: string;
@@ -40,11 +38,11 @@ function invertScale(s: (v: number) => string) {
   return (v: number) => s(1 - v);
 }
 
-const defaultColumn: Partial<IColumn<IPokemonRow>> = {
+const defaultColumn: Partial<FullColumn<IPokemonRow>> = {
   minWidth: 30,
   width: 150,
   maxWidth: 400,
-  canHide: false,
+  // canHide: false,
 };
 
 // NUMBER
@@ -99,159 +97,149 @@ const defaultColumn: Partial<IColumn<IPokemonRow>> = {
 // ・Summed up each base stats.
 
 // https://gist.github.com/simsketch/1a029a8d7fca1e4c142cbfd043a68f19
-const random: IDataSet = {
-  id: 'pokemon',
-  author: 'Takamasa Kato',
-  description:
-    'Pokemon Gen 8 updated 2020 generated dataset, based on Kaggle: https://www.kaggle.com/takamasakato/ pokemon-all-status-data',
-  name: 'Pokemon',
-  creationDate: new Date(2020, 8, 8),
-  load: ({ darkTheme }) =>
-    import('!raw-loader!./pokemon.csv').then((r) => {
-      const parsed = parse(r.default, {
-        dynamicTyping: true,
-        header: true,
-        skipEmptyLines: true,
-      });
-      const types = new Set<string>();
-      const rows = parsed.data.map((row: any) => {
-        row.id = row.serial.toString();
-        row.generation = String(row.generation);
-        row.legendary = row.legendary === 1;
-        row.mega_evolution = row.mega_evolution === 1;
-        types.add(row.type1);
-        types.add(row.type2);
-        return row as IPokemonRow;
-      });
-      const typeCat = Array.from(types).sort().filter(Boolean);
-      const colors = autoAssignColors([schemeSet3, schemeSet1].flat());
-      const columns: IColumn<IPokemonRow>[] = [
-        asStringColumn({
-          Header: 'Name',
-          tooltip: 'Name for each Pokemon',
-          accessor: 'name',
+
+export default function create(darkTheme: boolean) {
+  return import('./pokemon.json').then((parsed) => {
+    const types = new Set<string>();
+    const rows = parsed.map((row: any) => {
+      row.id = row.serial.toString();
+      row.generation = String(row.generation);
+      row.legendary = row.legendary === 1;
+      row.mega_evolution = row.mega_evolution === 1;
+      types.add(row.type1);
+      types.add(row.type2);
+      return row as IPokemonRow;
+    });
+    const typeCat = Array.from(types).sort().filter(Boolean);
+    const colors = autoAssignColors([schemeSet3, schemeSet1].flat());
+    const columns: FullColumn<IPokemonRow>[] = [
+      asStringColumn({
+        Header: 'Name',
+        tooltip: 'Name for each Pokemon',
+        accessor: 'name',
+        minWidth: 100,
+      }),
+      asCategoricalColumn(
+        {
+          Header: 'Type1',
+          tooltip: 'Each Pokemon has a type. The type is listed in this column',
+          accessor: 'type1',
           minWidth: 100,
-        }),
-        asCategoricalColumn(
-          {
-            Header: 'Type1',
-            tooltip: 'Each Pokemon has a type. The type is listed in this column',
-            accessor: 'type1',
-            minWidth: 100,
-          },
-          {
-            categories: typeCat,
-            color: colors,
-          }
-        ),
-        asCategoricalColumn(
-          {
-            Header: 'Type2',
-            tooltip:
-              'Some Pokemon has two types(dual type). If the Pokemon is dual type, the second type is listed in this column',
-            accessor: 'type2',
-            minWidth: 100,
-          },
-          {
-            categories: typeCat,
-            color: colors,
-          }
-        ),
-        asCategoricalColumn({
-          Header: 'Generation',
-          accessor: 'generation',
-          minWidth: 80,
-        }),
-        asNumberColumn(
-          {
-            Header: 'Hit Point',
-            tooltip: "One of Pokemon's base stats. It determines how much damage a Pokemon can receive before fainting",
-            accessor: 'hp',
-            minWidth: 50,
-          },
-          {
-            min: 0,
-            max: 200,
-            color: darkTheme ? interpolateBlues : invertScale(interpolateBlues),
-          }
-        ),
-        asNumberColumn(
-          {
-            Header: 'Physical Attack',
-            tooltip:
-              "One of Pokemon's base stats. It determines how much damage the Pokemon deals when using a Physical Move",
-            accessor: 'atk',
-            minWidth: 50,
-          },
-          {
-            min: 0,
-            max: 200,
-            color: darkTheme ? interpolatePurples : invertScale(interpolatePurples),
-          }
-        ),
-        asNumberColumn(
-          {
-            Header: 'Physical Defense',
-            tooltip:
-              "One of Pokemon's base stats. It determines how much damage the Pokemon deals when using a Physical Move",
-            accessor: 'def',
-            minWidth: 50,
-          },
-          {
-            min: 0,
-            max: 200,
-            color: darkTheme ? interpolateReds : invertScale(interpolateReds),
-          }
-        ),
-        asNumberColumn(
-          {
-            Header: 'Special Attack',
-            tooltip:
-              "One of Pokemon's base stats. It determines how much damage the Pokemon deals when using a Special Move",
-            accessor: 'sp_atk',
-            minWidth: 50,
-          },
-          {
-            min: 0,
-            max: 200,
-            color: darkTheme ? interpolateBuPu : invertScale(interpolateBuPu),
-          }
-        ),
-        asNumberColumn(
-          {
-            Header: 'Special Defense',
-            tooltip:
-              "One of Pokemon's base stats. It determines how much damage the Pokemon receives when it's hit with a Special Move",
-            accessor: 'sp_def',
-            minWidth: 50,
-          },
-          {
-            min: 0,
-            max: 200,
-            color: darkTheme ? interpolateOrRd : invertScale(interpolateOrRd),
-          }
-        ),
-        asNumberColumn(
-          {
-            Header: 'Speed',
-            tooltip: "One of Pokemon's base stats. It determines the order of Pokemon that can act in battle",
-            accessor: 'spd',
-            minWidth: 50,
-          },
-          {
-            min: 0,
-            max: 200,
-            color: darkTheme ? interpolateGreens : invertScale(interpolateGreens),
-          }
-        ),
-      ];
+        },
+        {
+          categories: typeCat,
+          color: colors,
+        }
+      ),
+      asCategoricalColumn(
+        {
+          Header: 'Type2',
+          tooltip:
+            'Some Pokemon has two types(dual type). If the Pokemon is dual type, the second type is listed in this column',
+          accessor: 'type2',
+          minWidth: 100,
+        },
+        {
+          categories: typeCat,
+          color: colors,
+        }
+      ),
+      asCategoricalColumn({
+        Header: 'Generation',
+        accessor: 'generation',
+        minWidth: 80,
+      }),
+      asNumberColumn(
+        {
+          Header: 'Hit Point',
+          tooltip: "One of Pokemon's base stats. It determines how much damage a Pokemon can receive before fainting",
+          accessor: 'hp',
+          minWidth: 50,
+        },
+        {
+          min: 0,
+          max: 200,
+          color: darkTheme ? interpolateBlues : invertScale(interpolateBlues),
+        }
+      ),
+      asNumberColumn(
+        {
+          Header: 'Physical Attack',
+          tooltip:
+            "One of Pokemon's base stats. It determines how much damage the Pokemon deals when using a Physical Move",
+          accessor: 'atk',
+          minWidth: 50,
+        },
+        {
+          min: 0,
+          max: 200,
+          color: darkTheme ? interpolatePurples : invertScale(interpolatePurples),
+        }
+      ),
+      asNumberColumn(
+        {
+          Header: 'Physical Defense',
+          tooltip:
+            "One of Pokemon's base stats. It determines how much damage the Pokemon deals when using a Physical Move",
+          accessor: 'def',
+          minWidth: 50,
+        },
+        {
+          min: 0,
+          max: 200,
+          color: darkTheme ? interpolateReds : invertScale(interpolateReds),
+        }
+      ),
+      asNumberColumn(
+        {
+          Header: 'Special Attack',
+          tooltip:
+            "One of Pokemon's base stats. It determines how much damage the Pokemon deals when using a Special Move",
+          accessor: 'sp_atk',
+          minWidth: 50,
+        },
+        {
+          min: 0,
+          max: 200,
+          color: darkTheme ? interpolateBuPu : invertScale(interpolateBuPu),
+        } 
+      ),
+      asNumberColumn(
+        {
+          Header: 'Special Defense',
+          tooltip:
+            "One of Pokemon's base stats. It determines how much damage the Pokemon receives when it's hit with a Special Move",
+          accessor: 'sp_def',
+          minWidth: 50,
+        },
+        { 
+          min: 0,
+          max: 200,
+          color: darkTheme ? interpolateOrRd : invertScale(interpolateOrRd),
+        }
+      ),
+      asNumberColumn(
+        {
+          Header: 'Speed',
+          tooltip: "One of Pokemon's base stats. It determines the order of Pokemon that can act in battle",
+          accessor: 'spd',
+          minWidth: 50,
+        },
+        {
+          min: 0,
+          max: 200,
+          color: darkTheme ? interpolateGreens : invertScale(interpolateGreens),
+        }
+      ),
+    ];
 
-      return {
-        rows,
-        defaultColumn: defaultColumn as Partial<IColumn>,
-        columns: columns as IColumn[],
-      };
-    }),
-};
-
-export default random;
+    return {
+      author: 'Takamasa Kato',
+    description: 'Pokemon Gen 8 updated 2020 generated dataset, based on Kaggle: https://www.kaggle.com/takamasakato/ pokemon-all-status-data',
+  
+      rows,
+      defaultColumn,
+      columns: columns
+    };
+  })
+}

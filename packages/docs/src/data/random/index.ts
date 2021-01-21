@@ -1,22 +1,19 @@
 import {
+  defaultColorScale,
+  defaultConstantColorScale, defaultConstantDarkColorScale, defaultDarkColorScale
+} from '@lineup-lite/components';
+import {
   asCategoricalColumn,
   asDateColumn,
   asNumberColumn,
   asStringColumn,
   BoxPlotRenderer,
   ColorRenderer,
-  ProportionalSymbolRenderer,
+  FullColumn, ProportionalSymbolRenderer
 } from '@lineup-lite/hooks';
-import {
-  defaultDarkColorScale,
-  defaultConstantDarkColorScale,
-  defaultColorScale,
-  defaultConstantColorScale,
-} from '@lineup-lite/components';
 import { generateData } from './genData';
-import type { IDataSet, IRow, IColumn } from '../interfaces';
 
-export interface IRandomRow extends IRow {
+export interface IRandomRow {
   string: string;
   number: number;
   number1: number;
@@ -25,32 +22,19 @@ export interface IRandomRow extends IRow {
   cat: 'c1' | 'c2' | 'c3';
 }
 
-const defaultColumn: Partial<IColumn<IRandomRow>> = {
+const defaultColumn: Partial<FullColumn<IRandomRow>> = {
   minWidth: 30,
   width: 150,
   maxWidth: 400,
-  canHide: false,
+  // canHide: false, // TODO
 };
 
-const rows = (generateData({
-  number: 3,
-  date: 1,
-}) as IRandomRow[]).map((row) => {
-  row.id = row.string;
-  return row;
-});
 
-const random: IDataSet = {
-  id: 'random',
-  author: 'Samuel Gratzl',
-  description: 'Randomly generated dataset',
-  name: 'Random',
-  creationDate: new Date(),
-  load: ({ darkTheme }) => {
-    const columns: IColumn<IRandomRow>[] = [
+export default function create(darkTheme: boolean) {
+    const columns: FullColumn<IRandomRow>[] = [
       asStringColumn({
-        Header: 'ID',
-        accessor: 'id',
+        Header: 'String',
+        accessor: 'string',
         minWidth: 100,
       }),
       asCategoricalColumn({
@@ -97,12 +81,15 @@ const random: IDataSet = {
         }
       ),
     ];
+  
+  const rows = (generateData({
+    number: 3,
+    date: 1,
+  }) as IRandomRow[]);
+
     return Promise.resolve({
       rows,
-      defaultColumn: defaultColumn as Partial<IColumn>,
-      columns: columns as IColumn[],
+      defaultColumn: defaultColumn,
+      columns
     });
-  },
-};
-
-export default random;
+}; 
