@@ -2,31 +2,41 @@ module.exports = {
   someSidebar: [
     {
       type: 'category',
-      label: 'LineUp-Lite',
+      label: 'LineUp-lite',
       items: [
-        'index',
-        'getting-started'
+        '_index',
+        'architecture'
       ]
     },
     {
       type: 'category',
-      label: 'LineUp-Lite Components',
+      label: 'Getting started',
+      collapsed: false,
       items: [
-        'components/components-index'
+        'getting-started/_index',
+        'getting-started/hooks',
+        'getting-started/components'
       ]
     },
     {
       type: 'category',
-      label: 'LineUp-Lite Hooks',
+      label: 'LineUp-lite Components',
       items: [
-        'hooks/hooks-index'
+        'components/_index'
       ]
     },
     {
       type: 'category',
-      label: 'LineUp-Lite Table',
+      label: 'LineUp-lite Hooks',
       items: [
-        'table/table-index'
+        'hooks/_index'
+      ]
+    },
+    {
+      type: 'category',
+      label: 'LineUp-lite Table',
+      items: [
+        'table/_index'
       ]
     }
   ]

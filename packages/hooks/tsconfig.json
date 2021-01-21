@@ -10,7 +10,7 @@
     }
   },
   "typedoc": {
-    "name": "LineUp-Lite Hooks",
+    "name": "LineUp-lite Hooks",
     "out": "./docs",
     "theme": "minimal",
     "excludeExternals": true,

@@ -10,7 +10,7 @@
     }
   },
   "typedoc": {
-    "name": "LineUp-Lite Table",
+    "name": "LineUp-lite Table",
     "out": "./docs",
     "theme": "minimal",
     "excludeExternals": true,

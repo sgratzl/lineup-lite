@@ -10,7 +10,7 @@
     }
   },
   "typedoc": {
-    "name": "LineUp-Lite Components",
+    "name": "LineUp-lite Components",
     "out": "./docs",
     "theme": "minimal",
     "excludeExternals": true,
