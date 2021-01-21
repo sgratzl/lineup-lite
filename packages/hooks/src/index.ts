@@ -6,3 +6,4 @@ export * from './builder';
 export * from './interfaces';
 export * from './sort';
 export * from './grouping';
+export * from './derive';

@@ -20,14 +20,32 @@ import { textStats, categoricalStats, dateStats, numberStats } from './stats';
 import { rangeFilter, categoricalFilter } from './filters';
 import type { FullColumn } from './interfaces';
 import { sortCompare, sortCategories } from './sort';
-import { categoricalGroupBy, dateGroupBy, numberGroupBy, stringGroupBy } from './grouping';
+import { categoricalGroupBy, dateGroupBy, numberGroupBy, textGroupBy } from './grouping';
 
 export function statsAggregate<T>(v: T) {
   return v;
 }
 
-export function asStringColumn<D extends object, C extends Column<D>>(
-  col: C,
+function guessName(acc: string) {
+  acc
+    .replace(/[-_ ]+/gm, ' ')
+    .split(' ')
+    .map((d) => (d.length <= 1 ? d : `${d[0]}${d.slice(1)}`))
+    .join(' ');
+}
+
+function asColumn<D extends object, C extends Column<D>>(col: C | keyof D): C {
+  if (typeof col === 'string') {
+    return {
+      Header: guessName(col),
+      accessor: col,
+    } as C;
+  }
+  return col as C;
+}
+
+export function asTextColumn<D extends object, C extends Column<D>>(
+  col: C | keyof D,
   options?: TextStatsOptions
 ): C & Partial<FullColumn<D>> {
   return {
@@ -39,13 +57,13 @@ export function asStringColumn<D extends object, C extends Column<D>>(
     stats: textStats(options),
     sortType: sortCompare,
     defaultCanSort: true,
-    groupBy: stringGroupBy,
-    ...col,
+    groupBy: textGroupBy,
+    ...asColumn<D, C>(col),
   };
 }
 
 export function asNumberColumn<D extends object, C extends Column<D>>(
-  col: C,
+  col: C | keyof D,
   options?: NumberStatsOptions
 ): C & Partial<FullColumn<D>> {
   return {
@@ -60,12 +78,12 @@ export function asNumberColumn<D extends object, C extends Column<D>>(
     sortDescFirst: true,
     defaultCanGroupBy: false,
     groupBy: numberGroupBy,
-    ...col,
+    ...asColumn<D, C>(col),
   };
 }
 
 export function asNumberBoxPlotColumn<D extends object, C extends Column<D>>(
-  col: C,
+  col: C | keyof D,
   options?: NumberStatsOptions
 ): C & Partial<FullColumn<D>> {
   return {
@@ -80,12 +98,12 @@ export function asNumberBoxPlotColumn<D extends object, C extends Column<D>>(
     sortDescFirst: true,
     defaultCanGroupBy: false,
     groupBy: numberGroupBy,
-    ...col,
+    ...asColumn<D, C>(col),
   };
 }
 
 export function asCategoricalColumn<D extends object, C extends Column<D>>(
-  col: C,
+  col: C | keyof D,
   options?: CategoricalStatsOptions
 ): C & Partial<FullColumn<D>> {
   return {
@@ -99,12 +117,12 @@ export function asCategoricalColumn<D extends object, C extends Column<D>>(
     sortType: options && options.categories ? sortCategories(options.categories) : sortCompare,
     defaultCanSort: true,
     groupBy: categoricalGroupBy,
-    ...col,
+    ...asColumn<D, C>(col),
   };
 }
 
 export function asDateColumn<D extends object, C extends Column<D>>(
-  col: C,
+  col: C | keyof D,
   options?: DateStatsOptions
 ): C & Partial<FullColumn<D>> {
   return {
@@ -118,6 +136,6 @@ export function asDateColumn<D extends object, C extends Column<D>>(
     sortType: sortCompare,
     sortDescFirst: true,
     groupBy: dateGroupBy,
-    ...col,
+    ...asColumn<D, C>(col),
   };
 }
