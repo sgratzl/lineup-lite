@@ -34,7 +34,7 @@
   "module": "dist/index.js",
   "style": "dist/table.css",
   "types": "dist/index.d.ts",
-  "sideEffects": false,
+  "sideEffects": "dist/table.css",
   "files": [
     "dist",
     "src/**/*.ts",

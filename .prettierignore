@@ -3,7 +3,7 @@
 /.yarn
 build/
 dist/
-docs
+/docs
 coverage
 /.gitattributes
 /.gitignore

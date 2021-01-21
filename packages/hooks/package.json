@@ -27,7 +27,7 @@
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
   "style": "dist/hooks.css",
-  "sideEffects": false,
+  "sideEffects": "dist/hooks.css",
   "files": [
     "dist",
     "src/**/*.ts",

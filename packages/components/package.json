@@ -31,7 +31,7 @@
   "module": "dist/index.js",
   "style": "dist/components.css",
   "types": "dist/index.d.ts",
-  "sideEffects": false,
+  "sideEffects": "dist/components.css",
   "files": [
     "dist",
     "src/**/*.ts",

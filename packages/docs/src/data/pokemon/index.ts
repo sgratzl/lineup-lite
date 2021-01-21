@@ -202,7 +202,7 @@ export default function create(darkTheme: boolean) {
           min: 0,
           max: 200,
           color: darkTheme ? interpolateBuPu : invertScale(interpolateBuPu),
-        } 
+        }
       ),
       asNumberColumn(
         {
@@ -212,7 +212,7 @@ export default function create(darkTheme: boolean) {
           accessor: 'sp_def',
           minWidth: 50,
         },
-        { 
+        {
           min: 0,
           max: 200,
           color: darkTheme ? interpolateOrRd : invertScale(interpolateOrRd),
@@ -235,11 +235,12 @@ export default function create(darkTheme: boolean) {
 
     return {
       author: 'Takamasa Kato',
-    description: 'Pokemon Gen 8 updated 2020 generated dataset, based on Kaggle: https://www.kaggle.com/takamasakato/ pokemon-all-status-data',
-  
+      description:
+        'Pokemon Gen 8 updated 2020 generated dataset, based on Kaggle: https://www.kaggle.com/takamasakato/ pokemon-all-status-data',
+
       rows,
       defaultColumn,
-      columns: columns
+      columns: columns,
     };
-  })
+  });
 }

@@ -1,6 +1,8 @@
 import {
   defaultColorScale,
-  defaultConstantColorScale, defaultConstantDarkColorScale, defaultDarkColorScale
+  defaultConstantColorScale,
+  defaultConstantDarkColorScale,
+  defaultDarkColorScale,
 } from '@lineup-lite/components';
 import {
   asCategoricalColumn,
@@ -9,7 +11,8 @@ import {
   asStringColumn,
   BoxPlotRenderer,
   ColorRenderer,
-  FullColumn, ProportionalSymbolRenderer
+  FullColumn,
+  ProportionalSymbolRenderer,
 } from '@lineup-lite/hooks';
 import { generateData } from './genData';
 
@@ -29,67 +32,66 @@ const defaultColumn: Partial<FullColumn<IRandomRow>> = {
   // canHide: false, // TODO
 };
 
-
 export default function create(darkTheme: boolean) {
-    const columns: FullColumn<IRandomRow>[] = [
-      asStringColumn({
-        Header: 'String',
-        accessor: 'string',
+  const columns: FullColumn<IRandomRow>[] = [
+    asStringColumn({
+      Header: 'String',
+      accessor: 'string',
+      minWidth: 100,
+    }),
+    asCategoricalColumn({
+      Header: 'Cat',
+      accessor: 'cat',
+      minWidth: 100,
+    }),
+    asNumberColumn(
+      {
+        Header: 'Number',
+        accessor: 'number',
         minWidth: 100,
-      }),
-      asCategoricalColumn({
-        Header: 'Cat',
-        accessor: 'cat',
+      },
+      { min: 0, max: 10, color: darkTheme ? defaultDarkColorScale : defaultColorScale }
+    ),
+    asNumberColumn(
+      {
+        Header: 'Number',
+        accessor: 'number1',
         minWidth: 100,
-      }),
-      asNumberColumn(
-        {
-          Header: 'Number',
-          accessor: 'number',
-          minWidth: 100,
-        },
-        { min: 0, max: 10, color: darkTheme ? defaultDarkColorScale : defaultColorScale }
-      ),
-      asNumberColumn(
-        {
-          Header: 'Number',
-          accessor: 'number1',
-          minWidth: 100,
-          Cell: ColorRenderer,
-          Summary: BoxPlotRenderer,
-          Aggregated: BoxPlotRenderer,
-        },
-        { min: 0, max: 10, color: darkTheme ? defaultDarkColorScale : defaultColorScale }
-      ),
-      asNumberColumn(
-        {
-          Header: 'Number',
-          accessor: 'number2',
-          minWidth: 100,
-          Cell: ProportionalSymbolRenderer,
-        },
-        { min: 0, max: 10, color: darkTheme ? defaultDarkColorScale : defaultColorScale }
-      ),
-      asDateColumn(
-        {
-          Header: 'Date',
-          accessor: 'date',
-          minWidth: 100,
-        },
-        {
-          color: darkTheme ? defaultConstantDarkColorScale : defaultConstantColorScale,
-        }
-      ),
-    ];
-  
-  const rows = (generateData({
+        Cell: ColorRenderer,
+        Summary: BoxPlotRenderer,
+        Aggregated: BoxPlotRenderer,
+      },
+      { min: 0, max: 10, color: darkTheme ? defaultDarkColorScale : defaultColorScale }
+    ),
+    asNumberColumn(
+      {
+        Header: 'Number',
+        accessor: 'number2',
+        minWidth: 100,
+        Cell: ProportionalSymbolRenderer,
+      },
+      { min: 0, max: 10, color: darkTheme ? defaultDarkColorScale : defaultColorScale }
+    ),
+    asDateColumn(
+      {
+        Header: 'Date',
+        accessor: 'date',
+        minWidth: 100,
+      },
+      {
+        color: darkTheme ? defaultConstantDarkColorScale : defaultConstantColorScale,
+      }
+    ),
+  ];
+
+  const rows = generateData({
     number: 3,
     date: 1,
-  }) as IRandomRow[]);
+  }) as IRandomRow[];
 
-    return Promise.resolve({
-      rows,
-      defaultColumn: defaultColumn,
-      columns
-    });
-}; 
+  return Promise.resolve({
+    rows,
+    defaultColumn: defaultColumn,
+    columns,
+  });
+}
