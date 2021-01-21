@@ -35,7 +35,7 @@
     "src/**/*.css"
   ],
   "scripts": {
-    "clear": "rimraf build dist node_modules \"*.tgz\" \"*.tsbuildinfo\"",
+    "clear": "shx rm -rf build dist node_modules \"*.tgz\" \"*.tsbuildinfo\"",
     "compile": "tsc -b tsconfig.c.json",
     "start": "npm run watch",
     "watch": "rollup -c -w",
@@ -88,13 +88,14 @@
     "prettier": "^2.2.1",
     "react": "^17.0.1",
     "react-table": "^7.6.3",
-    "rimraf": "^3.0.2",
     "rollup": "^2.36.2",
     "rollup-plugin-css-only": "^3.1.0",
     "rollup-plugin-dts": "^2.0.1",
     "rollup-plugin-terser": "^7.0.2",
+    "shx": "^0.3.3",
     "ts-jest": "^26.4.4",
     "tslib": "^2.1.0",
+    "typedoc": "^0.20.16",
     "typescript": "^4.1.3"
   }
 }

@@ -25,7 +25,7 @@ module.exports = {
       },
       items: [
         {
-          to: 'docs/',
+          to: 'docs',
           activeBasePath: 'docs',
           label: 'Docs',
           position: 'left',
@@ -45,39 +45,14 @@ module.exports = {
           title: 'Docs',
           items: [
             {
-              label: 'Style Guide',
-              to: 'docs/',
-            },
-            {
-              label: 'Second Doc',
-              to: 'docs/doc2/',
+              label: 'Getting Started',
+              to: 'docs/getting-started',
             },
           ],
         },
-        // {
-        //   title: 'Community',
-        //   items: [
-        //     {
-        //       label: 'Stack Overflow',
-        //       href: 'https://stackoverflow.com/questions/tagged/docusaurus',
-        //     },
-        //     {
-        //       label: 'Discord',
-        //       href: 'https://discordapp.com/invite/docusaurus',
-        //     },
-        //     {
-        //       label: 'Twitter',
-        //       href: 'https://twitter.com/docusaurus',
-        //     },
-        //   ],
-        // },
         {
           title: 'More',
           items: [
-            {
-              label: 'Blog',
-              to: 'blog',
-            },
             {
               label: 'GitHub',
               href: 'https://github.com/sgratzl/lineup-lite',

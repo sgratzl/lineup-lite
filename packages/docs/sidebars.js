@@ -2,8 +2,9 @@ module.exports = {
   someSidebar: [
     {
       type: 'category',
-      label: 'Introduction',
+      label: 'LineUp-Lite',
       items: [
+        'index',
         'getting-started'
       ]
     },
