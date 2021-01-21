@@ -1,6 +1,6 @@
 ---
 id: _index
-title: Getting started
+title: Quick Start
 slug: /getting-started
 ---
 
@@ -10,20 +10,114 @@ slug: /getting-started
 npm install @lineup-lite/table
 ```
 
-## Define LineUp-lite data structure
+or
+
+```sh
+yarn add @lineup-lite/table
+```
+
+:::important
+
+Is important to understand the principles of the underlying [react-table](https://react-table.tanstack.com/) library, such as following its own [Quick Start](https://react-table.tanstack.com/docs/quick-start).
+
+:::
+
+## Defining your rows
 
 ```js
-const rows = Array(100).fill(0).map((, i) => ({
-  name: `Person ${i}`,
-  age: Math.floor(Math.random() * 80),
-  status: ['single', 'married', 'separated'][Math.floor(Math.random() * 3) % 3],
-}));
+const rows = React.useMemo(
+   () => [
+      {
+        name: "Panchito Grenshields",
+        age: 10,
+        shirtSize: "S"
+      },
+      { 
+        name: "Rubia Robker",
+        age: 25,
+        shirtSize: "M"
+      },
+      { 
+        name: "Micheil Sappell",
+        age: 50,
+        shirtSize: "L"
+      },
+      { 
+        name: "Geoffrey Sprason",
+        age: 30,
+        shirtSize: "M"
+      },
+      { 
+        name: "Grissel Rounsefull",
+        age: 21,
+        shirtSize: "S"
+      }
+    ],
+    []
+);
+```
+
+## Defining your columns
+
+
+```js
+import {asTextColumn, asNumberColumn, asCategoricalColumn} from '@lineup-lite/table';
+
+const rows = React.useMemo(
+   () => [
+      asTextColumn('name'),
+      asNumberColumn('age'),
+      asCategoricalColumn('shirtSize')
+    ],
+    []
+);
 ```
 
 ## Render
 
 ```jsx
 import LineUpLite from '@lineup-lite/table';
+import '@lineup-lite/table/dist/table.css';
 
 TODO;
 ```
+
+import LineUpLite, {asTextColumn, asNumberColumn, asCategoricalColumn} from '@lineup-lite/table';
+import '@lineup-lite/table/dist/table.css';
+
+<!-- function GettingStarted() {
+  const rows = React.useMemo(
+    () => [
+        {
+          name: "Panchito Grenshields",
+          age: 10,
+          shirtSize: "S"
+        },
+        { 
+          name: "Rubia Robker",
+          age: 25,
+          shirtSize: "M"
+        },
+        { 
+          name: "Micheil Sappell",
+          age: 50,
+          shirtSize: "L"
+        },
+        { 
+          name: "Geoffrey Sprason",
+          age: 30,
+          shirtSize: "M"
+        },
+        { 
+          name: "Grissel Rounsefull",
+          age: 21,
+          shirtSize: "S"
+        }
+      ],
+      []
+  );
+
+  return <LineUpLite rows={rows} />;
+}
+
+<GettingStarted /> -->

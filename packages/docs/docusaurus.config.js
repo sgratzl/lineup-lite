@@ -1,5 +1,5 @@
 module.exports = {
-  title: 'LineUp Lite',
+  title: 'LineUp-lite',
   tagline: 'a LineUp implementation based on react-table',
   url: 'https://lineup-lite.netlify.app',
   baseUrl: '/',
@@ -57,10 +57,14 @@ module.exports = {
               label: 'GitHub',
               href: 'https://github.com/sgratzl/lineup-lite',
             },
+            {
+              label: 'Samuel Gratzl',
+              href: 'https://www.sgratzl.com',
+            },
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} Samuel Gratzl Built with Docusaurus.`,
+      copyright: `Copyright © ${new Date().getFullYear()} <a href="https://www.sgratzl.com">Samuel Gratzl</a>. Built with Docusaurus.`,
     },
   },
   presets: [
@@ -70,8 +74,7 @@ module.exports = {
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
           // Please change this to your repo.
-          editUrl:
-            'https://github.com/sgratzl/lineup-lite/edit/main/packages/docs',
+          editUrl: 'https://github.com/sgratzl/lineup-lite/edit/main/packages/docs',
         },
         // blog: {
         //   showReadingTime: true,

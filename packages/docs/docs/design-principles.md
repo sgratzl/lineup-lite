@@ -23,6 +23,6 @@ LineUp-lite is build based on the following design principles:
 - **Good defaults** -
   LineUp-lite fosters good visualization practices, such as proper use of color, through good defaults that work in most cases without any customizations.
 
---
+---
 
-Samuel Gratzl, main developer behind [LineUp-lite](https://lineup-lite.netlify.app), [LineUp.js](https://lineup.js.org), and [UpSet.js](https://upset.js.org).
+About the author: [Samuel Gratzl](https://www.sgratzl.com) is main developer behind [LineUp-lite](https://lineup-lite.netlify.app). He also developed several other libraries [LineUp.js](https://lineup.js.org), [UpSet.js](https://upset.js.org), and numerous [chart.js plugins](https://github.com/sgratzl?tab=repositories&q=chartjs-&type=&language=). In addition, he is the active maintainer of [slack-cleaner](https://github.com/sgratzl/slack-cleaner). Find more about him at his [website](https://wwww.sgratzl.com) or visit his [GitHub profile](https://github.com/sgratzl).
