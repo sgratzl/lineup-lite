@@ -1,13 +1,13 @@
-import type { IPaginationIcons } from '../icons';
+import type { PaginationIcons } from '../icons';
 import React, { useCallback } from 'react';
 
-export interface ILineUpLitePagination {
+export interface LineUpLitePaginationProps {
   pageIndex: number;
   pageSize: number;
   pageCount: number;
   gotoPage: (updater: ((pageIndex: number) => number) | number) => void;
   setPageSize: (pageSize: number) => void;
-  icons: IPaginationIcons;
+  icons: PaginationIcons;
 }
 
 export function LineUpLitePagination({
@@ -17,7 +17,7 @@ export function LineUpLitePagination({
   pageSize,
   setPageSize,
   icons,
-}: ILineUpLitePagination) {
+}: LineUpLitePaginationProps) {
   const changePage = useCallback(
     (e: React.MouseEvent<HTMLElement>) => {
       const page = Number.parseInt(e.currentTarget.dataset.page!, 10);

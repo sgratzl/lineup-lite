@@ -1,4 +1,4 @@
-import { asCategoricalColumn, asNumberColumn, asStringColumn, FullColumn } from '@lineup-lite/hooks';
+import { asCategoricalColumn, asNumberColumn, asTextColumn, LineUpLiteColumn } from '@lineup-lite/hooks';
 import { autoAssignColors } from '@lineup-lite/components';
 import {
   interpolateBlues,
@@ -38,7 +38,7 @@ function invertScale(s: (v: number) => string) {
   return (v: number) => s(1 - v);
 }
 
-const defaultColumn: Partial<FullColumn<IPokemonRow>> = {
+const defaultColumn: Partial<LineUpLiteColumn<IPokemonRow>> = {
   minWidth: 30,
   width: 150,
   maxWidth: 400,
@@ -99,9 +99,9 @@ const defaultColumn: Partial<FullColumn<IPokemonRow>> = {
 // https://gist.github.com/simsketch/1a029a8d7fca1e4c142cbfd043a68f19
 
 export default function create(darkTheme: boolean) {
-  return import('./pokemon.json').then((parsed) => {
+  return import('./pokemon').then((parsed) => {
     const types = new Set<string>();
-    const rows = parsed.map((row: any) => {
+    const rows = parsed.default.map((row: any) => {
       row.id = row.serial.toString();
       row.generation = String(row.generation);
       row.legendary = row.legendary === 1;
@@ -112,8 +112,8 @@ export default function create(darkTheme: boolean) {
     });
     const typeCat = Array.from(types).sort().filter(Boolean);
     const colors = autoAssignColors([schemeSet3, schemeSet1].flat());
-    const columns: FullColumn<IPokemonRow>[] = [
-      asStringColumn({
+    const columns: LineUpLiteColumn<IPokemonRow>[] = [
+      asTextColumn({
         Header: 'Name',
         tooltip: 'Name for each Pokemon',
         accessor: 'name',

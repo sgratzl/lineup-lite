@@ -18,7 +18,7 @@ import {
 } from './renderers';
 import { textStats, categoricalStats, dateStats, numberStats } from './stats';
 import { rangeFilter, categoricalFilter } from './filters';
-import type { FullColumn } from './interfaces';
+import type { LineUpLiteColumn } from './interfaces';
 import { sortCompare, sortCategories } from './sort';
 import { categoricalGroupBy, dateGroupBy, numberGroupBy, textGroupBy } from './grouping';
 
@@ -27,30 +27,28 @@ export function statsAggregate<T>(v: T) {
 }
 
 function guessName(acc: string) {
-  acc
+  return acc
     .replace(/[-_ ]+/gm, ' ')
-    .split(' ')
+    .split(/(?=[A-Z ])/)
     .map((d) => (d.length <= 1 ? d : `${d[0]}${d.slice(1)}`))
     .join(' ');
 }
 
-function asColumn<D extends object, C extends Column<D>>(col: C | keyof D): C {
+function asColumn<D extends object, C extends Column<D> = Column<D>>(col: C | keyof D): C {
   if (typeof col === 'string') {
     return {
       Header: guessName(col),
-      accessor: col,
+      accessor: col as string,
     } as C;
   }
   return col as C;
 }
 
-export type LineUpLiteColumn<D extends object> = Column<D> & Partial<FullColumn<D>>;
-
-export function asTextColumn<D extends object, C extends Column<D>>(
+export function asTextColumn<D extends object, C extends Column<D> = Column<D>>(
   col: C | keyof D,
   options?: TextStatsOptions
-): C & LineUpLiteColumn<D> {
-  return {
+): LineUpLiteColumn<D> {
+  return ({
     Summary: TextSummaryRenderer,
     Aggregated: TextSummaryRenderer,
     Group: GroupValueRenderer,
@@ -61,14 +59,14 @@ export function asTextColumn<D extends object, C extends Column<D>>(
     defaultCanSort: true,
     groupBy: textGroupBy,
     ...asColumn<D, C>(col),
-  };
+  } as unknown) as LineUpLiteColumn<D>;
 }
 
-export function asNumberColumn<D extends object, C extends Column<D>>(
+export function asNumberColumn<D extends object, C extends Column<D> = Column<D>>(
   col: C | keyof D,
   options?: NumberStatsOptions
-): C & LineUpLiteColumn<D> {
-  return {
+): LineUpLiteColumn<D> {
+  return ({
     Cell: BarRenderer,
     Summary: NumberHistogramRenderer,
     Group: GroupValueRenderer,
@@ -81,14 +79,14 @@ export function asNumberColumn<D extends object, C extends Column<D>>(
     defaultCanGroupBy: false,
     groupBy: numberGroupBy,
     ...asColumn<D, C>(col),
-  };
+  } as unknown) as LineUpLiteColumn<D>;
 }
 
-export function asNumberBoxPlotColumn<D extends object, C extends Column<D>>(
+export function asNumberBoxPlotColumn<D extends object, C extends Column<D> = Column<D>>(
   col: C | keyof D,
   options?: NumberStatsOptions
-): C & LineUpLiteColumn<D> {
-  return {
+): LineUpLiteColumn<D> {
+  return ({
     Cell: BarRenderer,
     Summary: BoxPlotRenderer,
     Group: GroupValueRenderer,
@@ -101,14 +99,14 @@ export function asNumberBoxPlotColumn<D extends object, C extends Column<D>>(
     defaultCanGroupBy: false,
     groupBy: numberGroupBy,
     ...asColumn<D, C>(col),
-  };
+  } as unknown) as LineUpLiteColumn<D>;
 }
 
-export function asCategoricalColumn<D extends object, C extends Column<D>>(
+export function asCategoricalColumn<D extends object, C extends Column<D> = Column<D>>(
   col: C | keyof D,
   options?: CategoricalStatsOptions
-): C & LineUpLiteColumn<D> {
-  return {
+): LineUpLiteColumn<D> {
+  return ({
     Cell: CategoricalRenderer,
     Summary: CategoricalHistogramRenderer,
     Group: CategoricalRenderer,
@@ -120,14 +118,14 @@ export function asCategoricalColumn<D extends object, C extends Column<D>>(
     defaultCanSort: true,
     groupBy: categoricalGroupBy,
     ...asColumn<D, C>(col),
-  };
+  } as unknown) as LineUpLiteColumn<D>;
 }
 
-export function asDateColumn<D extends object, C extends Column<D>>(
+export function asDateColumn<D extends object, C extends Column<D> = Column<D>>(
   col: C | keyof D,
   options?: DateStatsOptions
-): C & LineUpLiteColumn<D> {
-  return {
+): LineUpLiteColumn<D> {
+  return ({
     Cell: DateRenderer,
     Summary: DateHistogramRenderer,
     Group: GroupValueRenderer,
@@ -139,5 +137,5 @@ export function asDateColumn<D extends object, C extends Column<D>>(
     sortDescFirst: true,
     groupBy: dateGroupBy,
     ...asColumn<D, C>(col),
-  };
+  } as unknown) as LineUpLiteColumn<D>;
 }

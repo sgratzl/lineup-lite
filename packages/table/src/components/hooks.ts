@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
-import type { ICustomizeLineUpProps } from './interfaces';
+import type { CustomizeLineUpProps } from './interfaces';
 
-export function useCustomize(props: ICustomizeLineUpProps): ICustomizeLineUpProps {
+export function useCustomize(props: CustomizeLineUpProps): CustomizeLineUpProps {
   return useMemo(
     () => ({
       styles: props.styles,

@@ -27,10 +27,13 @@ import {
   UseSortByOptions,
   useTable,
 } from 'react-table';
-import type { FullColumn } from './interfaces';
 
-export { useSortBy, useResizeColumns, useFilters } from 'react-table';
-export { useRowRankColumn } from '@lineup-lite/hooks';
+export {
+  useSortBy as featureSortBy,
+  useResizeColumns as featureResizeColumns,
+  useFilters as featureFilterColumns,
+} from 'react-table';
+export { useRowRankColumn as featureRowRank } from '@lineup-lite/hooks';
 
 export type FullTableOptions<D extends object> = TableOptions<D> &
   UseFiltersOptions<D> &
@@ -39,10 +42,10 @@ export type FullTableOptions<D extends object> = TableOptions<D> &
   UseRowSelectOptions<D> &
   UseSortByOptions<D>;
 
-export interface IFullTableProps<D extends object> extends FullTableOptions<D> {
-  defaultColumn?: Partial<FullColumn<D>>;
+export interface FullTableProps<D extends object> extends FullTableOptions<D> {
+  defaultColumn?: Partial<LineUpLiteColumn<D>>;
   columns: LineUpLiteColumn<D>[];
-  plugins: (PluginHook<D> | PluginHook<D>[])[];
+  features: readonly (PluginHook<D> | PluginHook<D>[])[];
   /**
    * customize the icons to use
    */
@@ -51,16 +54,16 @@ export interface IFullTableProps<D extends object> extends FullTableOptions<D> {
   };
 }
 
-export function useRowSelect<D extends object>(): PluginHook<D>[] {
+export function featureRowSelect<D extends object>(): PluginHook<D>[] {
   return [useRowSelectImpl, useRowSelectColumn];
 }
 
-export function useSortAndGroupBy<D extends object>(): PluginHook<D>[] {
+export function featureSortAndGroupBy<D extends object>(): PluginHook<D>[] {
   return [useGroupByImpl, useSortBy, useExpanded, useRowExpandColumn];
 }
 
-export function useDefaultFeatures<D extends object>(): PluginHook<D>[] {
-  return [useResizeColumns, useFilters, ...useSortAndGroupBy<D>(), ...useRowSelect<D>(), useRowRankColumn];
+export function featureDefault<D extends object>(): PluginHook<D>[] {
+  return [useResizeColumns, useFilters, ...featureSortAndGroupBy<D>(), ...featureRowSelect<D>(), useRowRankColumn];
 }
 
 function sortByPriority<D extends object>(a: [PluginHook<D>, number], b: [PluginHook<D>, number]) {
@@ -78,7 +81,7 @@ function sortByPriority<D extends object>(a: [PluginHook<D>, number], b: [Plugin
 }
 
 export function useFullTable<D extends object>(
-  { plugins, icons, ...props }: IFullTableProps<D>,
+  { features, icons, ...props }: FullTableProps<D>,
   ...extraPlugins: PluginHook<D>[]
 ) {
   const tableProps: FullTableOptions<D> & UseRowExpandColumnTableOptions = {
@@ -86,7 +89,7 @@ export function useFullTable<D extends object>(
     expandIcon: icons?.expandGroup ?? actionIconsText().expandGroup,
     ...props,
   };
-  const allPlugins = [...plugins.flat(), useStats, useBlockLayout, ...extraPlugins]
+  const allPlugins = [...features.flat(), useStats, useBlockLayout, ...extraPlugins]
     .map((d, i) => [d, i] as [PluginHook<D>, number])
     .sort(sortByPriority)
     .map((r) => r[0]);

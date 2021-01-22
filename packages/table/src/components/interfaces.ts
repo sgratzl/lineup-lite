@@ -1,10 +1,9 @@
-import type { FullColumn as FullHookColumn } from '@lineup-lite/hooks';
 import type { HeaderGroup } from 'react-table';
-import type { IActionIcons } from '../icons';
+import type { ActionIcons } from '../icons';
 
 export type MultiCustomizeKeys = 'tbody' | 'tr' | 'thead' | 'th' | 'thGroup' | 'td' | 'header';
 
-export interface ICustomizeLineUpProps {
+export interface CustomizeLineUpProps {
   /**
    * hook for adding extra CSS classnames
    */
@@ -15,19 +14,14 @@ export interface ICustomizeLineUpProps {
   styles?: Partial<Record<MultiCustomizeKeys, React.CSSProperties>>;
 }
 
-export interface IActionLineUpProps<D extends object> {
+export interface ActionLineUpProps<D extends object> {
   /**
    * customize the icons to use
    */
-  icons?: Partial<IActionIcons>;
+  icons?: Partial<ActionIcons>;
 
   /**
    * callback for generating extra toolbar actions for a column
    */
   actions?: (column: HeaderGroup<D>) => React.ReactNode;
 }
-
-export type FullColumn<D extends object> = FullHookColumn<D> & {
-  canHide?: boolean;
-  tooltip?: string;
-};

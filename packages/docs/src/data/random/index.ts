@@ -8,10 +8,10 @@ import {
   asCategoricalColumn,
   asDateColumn,
   asNumberColumn,
-  asStringColumn,
+  asTextColumn,
   BoxPlotRenderer,
   ColorRenderer,
-  FullColumn,
+  LineUpLiteColumn,
   ProportionalSymbolRenderer,
 } from '@lineup-lite/hooks';
 import { generateData } from './genData';
@@ -25,7 +25,7 @@ export interface IRandomRow {
   cat: 'c1' | 'c2' | 'c3';
 }
 
-const defaultColumn: Partial<FullColumn<IRandomRow>> = {
+const defaultColumn: Partial<LineUpLiteColumn<IRandomRow>> = {
   minWidth: 30,
   width: 150,
   maxWidth: 400,
@@ -33,8 +33,8 @@ const defaultColumn: Partial<FullColumn<IRandomRow>> = {
 };
 
 export default function create(darkTheme: boolean) {
-  const columns: FullColumn<IRandomRow>[] = [
-    asStringColumn({
+  const columns: LineUpLiteColumn<IRandomRow>[] = [
+    asTextColumn({
       Header: 'String',
       accessor: 'string',
       minWidth: 100,

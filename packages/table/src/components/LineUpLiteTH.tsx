@@ -2,14 +2,14 @@ import React from 'react';
 import type { HeaderGroup, UseGroupByColumnProps, UseResizeColumnsColumnProps } from 'react-table';
 import { clsx } from './utils';
 import Toolbar from './Toolbar';
-import type { IActionLineUpProps, ICustomizeLineUpProps } from './interfaces';
+import type { ActionLineUpProps, CustomizeLineUpProps } from './interfaces';
 
 export function LineUpLiteTH<D extends object>({
   col,
   c,
   actions,
   icons,
-}: { col: HeaderGroup<D>; c: ICustomizeLineUpProps } & IActionLineUpProps<D>) {
+}: { col: HeaderGroup<D>; c: CustomizeLineUpProps } & ActionLineUpProps<D>) {
   const column = (col as unknown) as HeaderGroup<D> &
     UseGroupByColumnProps<D> &
     UseResizeColumnsColumnProps<D> & { tooltip?: string };

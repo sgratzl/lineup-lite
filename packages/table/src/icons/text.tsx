@@ -1,5 +1,5 @@
 import React from 'react';
-import type { IActionIcons, IPaginationIcons } from './interfaces';
+import type { ActionIcons, PaginationIcons } from './interfaces';
 
 function SortAsc() {
   return <>↑</>;
@@ -37,7 +37,7 @@ function PreviousPage() {
   return <>‹</>;
 }
 
-export function actionIconsText(): IActionIcons {
+export function actionIconsText(): ActionIcons {
   return {
     groupBy: GroupBy,
     expandGroup: ArrowDropRightLine,
@@ -47,7 +47,7 @@ export function actionIconsText(): IActionIcons {
   };
 }
 
-export function paginationIconsText(): IPaginationIcons & IActionIcons {
+export function paginationIconsText(): PaginationIcons & ActionIcons {
   return {
     ...actionIconsText(),
     firstPage: FirstPage,

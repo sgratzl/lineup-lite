@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
 import type { Row, UseExpandedRowProps, UseGroupByRowProps, UseRowSelectRowProps } from 'react-table';
-import type { ICustomizeLineUpProps } from './interfaces';
+import type { CustomizeLineUpProps } from './interfaces';
 import { LineUpLiteTD } from './LineUpLiteTD';
 import { clsx, mergeStyles } from './utils';
 
@@ -11,7 +11,7 @@ export function LineUpLiteTR<D extends object>({
   virtualSize,
 }: {
   row: Row<D>;
-  c: ICustomizeLineUpProps;
+  c: CustomizeLineUpProps;
   virtualStart?: number;
   virtualSize?: number;
 }) {

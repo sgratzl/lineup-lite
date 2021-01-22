@@ -1,8 +1,8 @@
 import React from 'react';
 import { useCustomize } from './hooks';
-import type { ICustomizeLineUpProps, IActionLineUpProps } from './interfaces';
+import type { CustomizeLineUpProps, ActionLineUpProps } from './interfaces';
 import { LineUpLiteTHead } from './LineUpLiteTHead';
-import { IFullTableProps, useFullTable } from './useFullTable';
+import { FullTableProps, useFullTable } from './useFullTable';
 import { LineUpLiteTR } from './LineUpLiteTR';
 import { clsx } from './utils';
 import {
@@ -13,19 +13,19 @@ import {
   TableInstance,
 } from 'react-table';
 import { LineUpLitePagination } from './LineUpLitePagination';
-import type { IActionIcons, IPaginationIcons } from '../icons';
+import type { ActionIcons, PaginationIcons } from '../icons';
 
-export interface ILineUpLitePaginatedProps<D extends object>
-  extends IFullTableProps<D>,
-    ICustomizeLineUpProps,
-    IActionLineUpProps<D>,
+export interface LineUpLitePaginatedProps<D extends object>
+  extends FullTableProps<D>,
+    CustomizeLineUpProps,
+    ActionLineUpProps<D>,
     UsePaginationOptions<D> {
   className?: string;
   style?: React.CSSProperties;
-  icons: IPaginationIcons & IActionIcons;
+  icons: PaginationIcons & ActionIcons;
 }
 
-export function LineUpLitePaginated<D extends object>(props: ILineUpLitePaginatedProps<D>) {
+export function LineUpLitePaginated<D extends object>(props: LineUpLitePaginatedProps<D>) {
   const fullTable = useFullTable<D>(props, usePagination);
   const {
     getTableProps,

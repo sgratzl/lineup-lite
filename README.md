@@ -13,10 +13,7 @@ This monorepo contains following packages:
 - [@lineup-lite/table](https://github.com/sgratzl/lineup-lite/tree/main/packages/react) higher level table component based on react-table and hooks
   [![Open Docs][docs]](https://lineup-lite.js.org/api/react)
 
-- [@lineup-lite/bundle](https://github.com/sgratzl/lineup-lite/tree/main/packages/bundle) zero dependency bundle of the table component using Preact
-  [![Open Docs][docs]](https://lineup-lite.js.org/api/bundle)
-
-- [@lineup-lite/app](https://github.com/sgratzl/lineup-lite/tree/main/packages/app) example application to explore datasets using LineUp-lite with import and export features
+- [@lineup-lite/docs](https://github.com/sgratzl/lineup-lite/tree/main/packages/docs) Docusaurus 
   [![Open Example][example]](https://lineup-lite.js.org/app)
 
 ## Usage and Installation
@@ -32,21 +29,6 @@ import React from 'react';
 
 TODO;
 ```
-
-### Bundled version
-
-```sh
-npm install @lineup-lite/bundle
-```
-
-```js
-TODO;
-```
-
-## LineUp-lite App
-
-The LineUp-lite App is an web application TODO. The app is deployed at [https://lineup-lite.js.org/app](https://lineup-lite.js.org/app).
-
 ## Dev Environment
 
 ```sh
@@ -61,13 +43,6 @@ yarn pnpify --sdk vscode
 
 ### Commands
 
-### Storybook
-
-Run inside another terminal:
-
-```sh
-yarn workspace @lineup-lite/table storybook
-```
 
 ### Testing
 
@@ -79,6 +54,12 @@ yarn test
 
 ```sh
 yarn lint
+```
+
+### Fix Linting
+
+```sh
+yarn fix
 ```
 
 ### Building
@@ -117,8 +98,6 @@ e.g.,
 ## Privacy Policy
 
 LineUp-lite is a client only library. The library or any of its integrations doesn't track you or transfers your data to any server.
-The uploaded data in the app are stored in your browser only using IndexedDB.
-However, as soon as you export your session within the app to an external service (e.g., Codepen.io) your data will be transferred.
 
 ## License / Terms of Service
 

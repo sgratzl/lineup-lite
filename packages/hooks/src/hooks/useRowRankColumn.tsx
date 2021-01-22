@@ -9,7 +9,7 @@ import {
   UseGroupByInstanceProps,
   UseTableCellProps,
 } from 'react-table';
-import type { FullColumn } from '../interfaces';
+import type { LineUpLiteColumn } from '../interfaces';
 
 export interface UseRankRowProps {
   rank: number;
@@ -49,7 +49,7 @@ function Header() {
 }
 
 function generateColumn<D extends object = {}>(columns: ColumnInstance<D>[]) {
-  const rankColumn: FullColumn<D> = {
+  const rankColumn: LineUpLiteColumn<D> = {
     id: 'rank',
     Header,
     Summary,

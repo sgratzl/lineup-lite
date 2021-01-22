@@ -1,27 +1,27 @@
-import type { IActionIcons } from '../icons';
+import type { ActionIcons } from '../icons';
 import React, { useRef } from 'react';
 import { useCustomize } from './hooks';
-import type { IActionLineUpProps, ICustomizeLineUpProps } from './interfaces';
+import type { ActionLineUpProps, CustomizeLineUpProps } from './interfaces';
 import { LineUpLiteTHead } from './LineUpLiteTHead';
 import { LineUpLiteTVirtualBody } from './LineUpLiteTVirtualBody';
-import { IFullTableProps, useFullTable } from './useFullTable';
+import { FullTableProps, useFullTable } from './useFullTable';
 import { clsx } from './utils';
 
 export type SizeEstimator = number | [number, number] | ((index: number) => number);
 
-export interface ILineUpLiteVirtualProps<D extends object>
-  extends IFullTableProps<D>,
-    IActionLineUpProps<D>,
-    ICustomizeLineUpProps {
+export interface LineUpLiteVirtualProps<D extends object>
+  extends FullTableProps<D>,
+    ActionLineUpProps<D>,
+    CustomizeLineUpProps {
   className?: string;
   style?: React.CSSProperties;
   estimatedSize: SizeEstimator;
   rowSpacing?: number;
   overscan?: number;
-  icons: IActionIcons;
+  icons?: Partial<ActionIcons>;
 }
 
-export function LineUpLiteVirtual<D extends object>(props: ILineUpLiteVirtualProps<D>) {
+export function LineUpLiteVirtual<D extends object>(props: LineUpLiteVirtualProps<D>) {
   const { getTableProps, getTableBodyProps, headerGroups, prepareRow, rows } = useFullTable<D>(props);
 
   const shared = useCustomize(props);

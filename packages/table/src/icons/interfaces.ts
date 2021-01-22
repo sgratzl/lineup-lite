@@ -1,6 +1,6 @@
 import type React from 'react';
 
-export interface IActionIcons {
+export interface ActionIcons {
   groupBy: React.ComponentType;
   sortAsc: React.ComponentType;
   sortDesc: React.ComponentType;
@@ -8,7 +8,7 @@ export interface IActionIcons {
   expandGroup: React.ComponentType;
 }
 
-export interface IPaginationIcons {
+export interface PaginationIcons {
   firstPage: React.ComponentType;
   previousPage: React.ComponentType;
   nextPage: React.ComponentType;

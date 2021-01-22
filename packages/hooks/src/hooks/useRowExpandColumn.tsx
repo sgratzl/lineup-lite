@@ -8,7 +8,7 @@ import type {
   UseGroupByCellProps,
   UseTableCellProps,
 } from 'react-table';
-import type { FullColumn } from '../interfaces';
+import type { LineUpLiteColumn } from '../interfaces';
 import { cslx } from '../renderers/utils';
 
 export interface UseRowExpandColumnTableOptions {
@@ -78,7 +78,7 @@ function Header() {
 }
 
 function generateColumn<D extends object = {}>(columns: ColumnInstance<D>[]) {
-  const expandColumn: FullColumn<D> = {
+  const expandColumn: LineUpLiteColumn<D> = {
     id: 'expand',
     Header,
     Summary,

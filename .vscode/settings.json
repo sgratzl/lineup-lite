@@ -34,5 +34,6 @@
     "**/.yarn": true,
     "**/.pnp.*": true
   },
-  "prettier.packageManager": "yarn"
+  "prettier.packageManager": "yarn",
+  "typescript.preferences.importModuleSpecifier": "relative"
 }

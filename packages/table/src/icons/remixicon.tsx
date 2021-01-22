@@ -1,5 +1,5 @@
 import React from 'react';
-import type { IActionIcons, IPaginationIcons } from './interfaces';
+import type { ActionIcons, PaginationIcons } from './interfaces';
 
 // TODO check licence
 // from https://remixicon.com/
@@ -81,7 +81,7 @@ function PreviousPage() {
   );
 }
 
-export function actionIconsRemixicon(): IActionIcons {
+export function actionIconsRemixicon(): ActionIcons {
   return {
     groupBy: BarChartHorizontalLine,
     expandGroup: ArrowDropRightLine,
@@ -91,7 +91,7 @@ export function actionIconsRemixicon(): IActionIcons {
   };
 }
 
-export function PaginationIconsRemixicon(): IPaginationIcons & IActionIcons {
+export function PaginationIconsRemixicon(): PaginationIcons & ActionIcons {
   return {
     ...actionIconsRemixicon(),
     firstPage: FirstPage,

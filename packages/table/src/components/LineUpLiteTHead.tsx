@@ -1,5 +1,5 @@
 import type { HeaderGroup } from 'react-table';
-import type { ICustomizeLineUpProps, IActionLineUpProps } from './interfaces';
+import type { CustomizeLineUpProps, ActionLineUpProps } from './interfaces';
 import React from 'react';
 import { clsx } from './utils';
 import { LineUpLiteTH } from './LineUpLiteTH';
@@ -12,9 +12,9 @@ export function LineUpLiteTHead<D extends object>({
   actions,
 }: {
   headerGroups: HeaderGroup<D>[];
-  c: ICustomizeLineUpProps;
+  c: CustomizeLineUpProps;
   virtualRef?: React.RefObject<HTMLDivElement>;
-} & IActionLineUpProps<D>) {
+} & ActionLineUpProps<D>) {
   return (
     <div
       ref={virtualRef}

@@ -5,7 +5,8 @@
     "declaration": true,
     "declarationMap": false,
     "noEmit": false,
-    "composite": true
+    "composite": true,
+    "skipLibCheck": true
   },
   "references": [
     { "path": "../components/tsconfig.c.json" },

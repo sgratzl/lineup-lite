@@ -1,6 +1,6 @@
 import React, { useRef, useCallback, useLayoutEffect, useMemo } from 'react';
 import type { Row, TableInstance, UseExpandedRowProps, UseGroupByRowProps } from 'react-table';
-import type { ICustomizeLineUpProps } from './interfaces';
+import type { CustomizeLineUpProps } from './interfaces';
 import { clsx } from './utils';
 import { useVirtual } from 'react-virtual';
 import { LineUpLiteTRMemo } from './LineUpLiteTR';
@@ -19,7 +19,7 @@ export function LineUpLiteTVirtualBody<D extends object>({
   getTableBodyProps: TableInstance<D>['getTableBodyProps'];
   rows: Row<D>[];
   theadRef: React.RefObject<HTMLDivElement>;
-  c: ICustomizeLineUpProps;
+  c: CustomizeLineUpProps;
   prepareRow: (row: Row<D>) => void;
   estimatedSize: SizeEstimator;
   rowSpacing: number;

@@ -1,4 +1,4 @@
-export { default as LineUpLite, default, ILineUpLiteProps } from './LineUpLite';
+export { default as LineUpLite, default, LineUpLiteProps as ILineUpLiteProps } from './LineUpLite';
 export * from './useFullTable';
 export * from './LineUpLiteVirtual';
 export * from './interfaces';

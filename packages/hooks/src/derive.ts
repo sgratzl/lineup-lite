@@ -4,8 +4,9 @@ import type {
   DateStatsOptions,
   TextStatsOptions,
 } from '@lineup-lite/components';
+import type { LineUpLiteColumn } from './interfaces';
 import type { Column } from 'react-table';
-import { asCategoricalColumn, asDateColumn, asNumberColumn, asTextColumn, LineUpLiteColumn } from './builder';
+import { asCategoricalColumn, asDateColumn, asNumberColumn, asTextColumn } from './builder';
 
 export function cleanCategories(categories: Set<string>) {
   // remove missing values
@@ -102,7 +103,10 @@ export function deriveColumn<D extends object>(data: D[], accessor: keyof D): De
   return { type: 'text', column };
 }
 
-export function deriveColumns<D extends object>(data: D[], columns?: (keyof D)[]): LineUpLiteColumn<D>[] {
+export function deriveColumns<D extends object>(
+  data: D[],
+  columns?: (keyof D)[]
+): (Column<D> & Partial<LineUpLiteColumn<D>>)[] {
   if (data.length === 0) {
     if (columns) {
       return columns.map((col) => asTextColumn(col));

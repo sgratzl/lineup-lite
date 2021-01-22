@@ -1,23 +1,23 @@
-import type { IActionIcons } from '../icons';
+import type { ActionIcons } from '../icons';
 import React, { Ref } from 'react';
 import { useCustomize } from './hooks';
-import type { IActionLineUpProps, ICustomizeLineUpProps } from './interfaces';
+import type { ActionLineUpProps, CustomizeLineUpProps } from './interfaces';
 import { LineUpLiteTHead } from './LineUpLiteTHead';
 import { LineUpLiteTR } from './LineUpLiteTR';
-import { IFullTableProps, useFullTable } from './useFullTable';
+import { FullTableProps, useFullTable } from './useFullTable';
 import { clsx } from './utils';
 
-export interface ILineUpLiteProps<D extends object>
-  extends IFullTableProps<D>,
-    IActionLineUpProps<D>,
-    ICustomizeLineUpProps {
+export interface LineUpLiteProps<D extends object>
+  extends FullTableProps<D>,
+    ActionLineUpProps<D>,
+    CustomizeLineUpProps {
   className?: string;
   style?: React.CSSProperties;
-  icons?: Partial<IActionIcons>;
+  icons?: Partial<ActionIcons>;
 }
 
 export const LineUpLite = /*!#__PURE__*/ React.forwardRef(function LineUpLite<D extends object>(
-  props: ILineUpLiteProps<D>,
+  props: LineUpLiteProps<D>,
   ref: Ref<HTMLDivElement>
 ) {
   const { getTableProps, getTableBodyProps, headerGroups, prepareRow, rows } = useFullTable<D>(props);
@@ -49,5 +49,5 @@ export const LineUpLite = /*!#__PURE__*/ React.forwardRef(function LineUpLite<D 
 });
 
 export default LineUpLite as <D extends object>(
-  p: ILineUpLiteProps<D> & React.RefAttributes<HTMLDivElement>
+  p: LineUpLiteProps<D> & React.RefAttributes<HTMLDivElement>
 ) => React.ReactElement;

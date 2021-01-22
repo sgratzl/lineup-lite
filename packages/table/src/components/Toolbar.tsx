@@ -7,15 +7,15 @@ import type {
   UseResizeColumnsColumnProps,
   UseSortByColumnProps,
 } from 'react-table';
-import { IActionIcons, actionIconsText } from '../icons';
+import { ActionIcons, actionIconsText } from '../icons';
 
-export interface IToolbarProps<D extends object> extends HeaderGroup<D> {
+export interface ToolbarProps<D extends object> extends HeaderGroup<D> {
   className?: string;
   style?: React.CSSProperties;
-  icons?: Partial<IActionIcons>;
+  icons?: Partial<ActionIcons>;
 }
 
-export default function Toolbar(props: React.PropsWithChildren<IToolbarProps<any>>) {
+export default function Toolbar(props: React.PropsWithChildren<ToolbarProps<any>>) {
   const column = (props as unknown) as HeaderGroup<any> &
     UseGroupByColumnProps<any> &
     UseResizeColumnsColumnProps<any> &
