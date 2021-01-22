@@ -1,4 +1,4 @@
-export default [
+const data = [
   {
     number: 1,
     code: 1,
@@ -24984,3 +24984,5 @@ export default [
     total: 600,
   },
 ];
+
+export default data;
