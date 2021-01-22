@@ -6,7 +6,9 @@ import LineUpLite, {
   LineUpLiteColumn,
   featureDefault,
 } from '@lineup-lite/table';
+import { defaultDarkColorScale, defaultColorScale } from '@lineup-lite/components';
 import '@lineup-lite/table/dist/table.css';
+import useThemeContext from '@theme/hooks/useThemeContext';
 
 interface IRow {
   name: string;
@@ -15,6 +17,8 @@ interface IRow {
 }
 
 export default function GettingStarted() {
+  const { isDarkTheme } = useThemeContext();
+
   const data: IRow[] = React.useMemo(
     () => [
       {
@@ -47,8 +51,14 @@ export default function GettingStarted() {
   );
 
   const columns: LineUpLiteColumn<IRow>[] = React.useMemo(
-    () => [asTextColumn<IRow>('name'), asNumberColumn<IRow>('age'), asCategoricalColumn<IRow>('shirtSize')],
-    []
+    () => [
+      asTextColumn<IRow>('name'),
+      asNumberColumn<IRow>('age', {
+        color: isDarkTheme ? defaultDarkColorScale : defaultColorScale,
+      }),
+      asCategoricalColumn<IRow>('shirtSize'),
+    ],
+    [isDarkTheme]
   );
 
   const features = React.useMemo(() => featureDefault<IRow>(), []);
