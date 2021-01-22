@@ -8,6 +8,7 @@ import {
   UseFiltersInstanceProps,
   UseGroupByInstanceProps,
   UseTableCellProps,
+  UseGroupByRowProps,
 } from 'react-table';
 import type { LineUpLiteColumn } from '../interfaces';
 
@@ -69,12 +70,15 @@ function generateColumn<D extends object = {}>(columns: ColumnInstance<D>[]) {
 function useInstance<D extends object>(instance: TableInstance<D>) {
   ensurePluginOrder(instance.plugins, ['useFilters', 'useGroupBy', 'useSortBy'], 'useStats');
 
-  debugger;
   const extendedInstance = (instance as unknown) as TableInstance<D> &
     UseFiltersInstanceProps<D> &
     UseGroupByInstanceProps<D>;
 
-  (extendedInstance.nonGroupedFlatRows ?? extendedInstance.flatRows).forEach((row, i) => {
-    ((row as unknown) as UseRankRowProps).rank = i + 1;
+  let rank = 1;
+  extendedInstance.flatRows.forEach((row) => {
+    if (((row as unknown) as UseGroupByRowProps<D>).isGrouped) {
+      return;
+    }
+    ((row as unknown) as UseRankRowProps).rank = rank++;
   });
 }

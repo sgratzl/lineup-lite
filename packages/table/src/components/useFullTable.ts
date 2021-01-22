@@ -93,6 +93,6 @@ export function useFullTable<D extends object>(
     .map((d, i) => [d, i] as [PluginHook<D>, number])
     .sort(sortByPriority)
     .map((r) => r[0]);
-  console.log(allPlugins.map((d) => d.pluginName));
+
   return useTable<D>(tableProps, ...allPlugins) as TableInstance<D> & UseFiltersInstanceProps<D>;
 }
