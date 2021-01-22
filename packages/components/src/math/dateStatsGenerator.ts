@@ -1,9 +1,15 @@
 import { defaultConstantColorScale } from './defaults';
 import type { INumericStats, IBin } from './common';
 
+/**
+ * on which granularity level is the histogram computed
+ */
 export declare type DateHistGranularity = 'year' | 'month' | 'day' | 'decade';
 
 export interface IDateStats extends INumericStats<Date> {
+  /**
+   * the granularity in which the histogram is computed
+   */
   readonly histGranularity: DateHistGranularity;
 }
 
@@ -128,6 +134,9 @@ export type DateFormatter =
       options?: Intl.DateTimeFormatOptions;
     };
 
+/**
+ * helper function to resolve a date formatter
+ */
 export function resolveDateFormatter(format?: DateFormatter): (v: Date) => string {
   if (typeof format === 'function') {
     return format;
@@ -160,11 +169,25 @@ function monthFormatter(format?: DateFormatter): (v: Date) => string {
 }
 
 export interface DateStatsOptions {
+  /**
+   * converts a date to a string
+   */
   color?: (v: Date) => string;
-  locales?: string | string[];
+  /**
+   * how to format the date
+   */
   format?: DateFormatter;
+  /**
+   * defines the minimal date for the histogram
+   */
   min?: Date;
+  /**
+   * defines the maximum date for the histogram
+   */
   max?: Date;
+  /**
+   * defines the histogram granularity to uuse
+   */
   histGranularity?: DateHistGranularity;
 }
 
@@ -180,7 +203,7 @@ function normalizeDate(min: Date, max: Date) {
   };
 }
 
-export function dateStatsGenerator(options: DateStatsOptions = {}) {
+export function dateStatsGenerator(options: DateStatsOptions = {}): (arr: readonly (Date | null)[]) => IDateStats {
   const format = resolveDateFormatter(options.format);
   const color = options.color ?? defaultConstantColorScale;
 

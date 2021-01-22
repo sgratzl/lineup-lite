@@ -5,10 +5,9 @@ import { normalize, deNormalize } from './scale';
 
 /**
  * computes the optimal number of bins for a given array length
- * @param {number} length
- * @returns {number}
+ * @param length
  */
-export function getNumberOfBins(length: number) {
+export function getNumberOfBins(length: number): number {
   if (length === 0) {
     return 1;
   }
@@ -16,6 +15,9 @@ export function getNumberOfBins(length: number) {
   return Math.ceil(Math.log(length) / Math.LN2) + 1;
 }
 
+/**
+ * number statistics object
+ */
 export interface INumberStats extends IBoxPlot, INumericStats<number> {}
 
 export type NumberFormatter =
@@ -25,6 +27,9 @@ export type NumberFormatter =
       options?: Intl.NumberFormatOptions;
     };
 
+/**
+ * helper function to resolve the number formatter
+ */
 export function resolveNumberFormatter(format?: NumberFormatter): (v: number) => string {
   if (typeof format === 'function') {
     return format;
@@ -34,10 +39,22 @@ export function resolveNumberFormatter(format?: NumberFormatter): (v: number) =>
 }
 
 export interface NumberStatsOptions extends BoxplotStatsOptions {
+  /**
+   * defines the minimum, otherwise derives it
+   */
   min?: number;
+  /**
+   * defines the maximum, otherwise derives it
+   */
   max?: number;
+  /**
+   * fixes the number of bins
+   */
   numberOfBins?: number;
 
+  /**
+   * color function to convert a number between 0...1 to a color
+   */
   color?: (v: number) => string;
   format?: NumberFormatter;
 }
@@ -79,7 +96,9 @@ function createHist(
   return hist;
 }
 
-export function numberStatsGenerator(options: NumberStatsOptions = {}) {
+export function numberStatsGenerator(
+  options: NumberStatsOptions = {}
+): (arr: readonly number[] | Float32Array | Float64Array) => INumberStats {
   const color = options.color ?? defaultColorScale;
   const format = resolveNumberFormatter(options.format);
 

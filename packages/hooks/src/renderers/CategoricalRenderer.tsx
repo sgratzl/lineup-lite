@@ -6,6 +6,19 @@ import { optionContext, resolve } from './utils';
 
 export interface CategoricalRendererOptions {
   color?: (v: string) => string;
+  format?: (v: string) => string;
+}
+
+function identity(v: string) {
+  return v;
+}
+
+function generateIdentity() {
+  return identity;
+}
+
+function generateColor() {
+  return defaultCategoricalColorScale();
 }
 
 function deriveCategoricalOptions<D extends object, P extends CellProps<D, string>>(
@@ -15,7 +28,8 @@ function deriveCategoricalOptions<D extends object, P extends CellProps<D, strin
   const col = props.column as Partial<UseStatsColumnProps>;
   const stats = col.statsValue as ICategoricalStats | undefined;
   return {
-    color: resolve(options.color, stats?.color, () => defaultCategoricalColorScale()),
+    format: resolve(options.format, stats?.format, generateIdentity),
+    color: resolve(options.color, stats?.color, generateColor),
   };
 }
 

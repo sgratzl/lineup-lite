@@ -97,7 +97,13 @@ function Bin<T>({
 }
 
 export interface FilterBinHistogramProps<T> extends HistogramProps<T> {
+  /**
+   * sets the current filter
+   */
   setFilter: (value: T[]) => void;
+  /**
+   * current filter value
+   */
   filterValue: T[];
 }
 

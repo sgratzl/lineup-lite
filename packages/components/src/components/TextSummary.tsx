@@ -4,8 +4,18 @@ import type { CommonProps } from './common';
 import { cslx } from './utils';
 
 export interface TextSummaryProps extends CommonProps {
+  /**
+   * the stats to render
+   */
   s: ITextStats;
+  /**
+   * the optional stats containing the unfiltered stats in case of filtering operation applied
+   * to the regular one
+   */
   preFilter?: ITextStats;
+  /**
+   * whether to render it as a summary including labels
+   */
   summary?: boolean;
 }
 
@@ -20,10 +30,19 @@ export function TextSummary(props: TextSummaryProps) {
 }
 
 export interface FilterTextSummaryProps extends TextSummaryProps {
+  /**
+   * placeholder text in the input
+   */
   placeholder?: (s: ITextStats) => string;
 
+  /**
+   * set the filter or null to reset it
+   */
   setFilter: (value?: string) => void;
-  filterValue: string;
+  /**
+   * the current filter value
+   */
+  filterValue?: string;
 }
 
 export function FilterTextSummary(props: FilterTextSummaryProps) {

@@ -1,18 +1,40 @@
 import type { ICommonStats } from './common';
 
+/**
+ * text statistics object
+ */
 export interface ITextStats extends ICommonStats {
+  /**
+   * number of unique text items
+   */
   readonly unique: number;
+  /**
+   * top 10 most frequent text items sorted descending by count
+   */
   readonly mostFrequent: readonly { value: string; count: number }[];
-
+  /**
+   * converts a given string to a label
+   */
   format: (v: string) => string;
 }
 
 export interface TextStatsOptions {
+  /**
+   * number of most frequent items to include in the stats
+   * @default 10
+   */
   mostFrequentCount?: number;
+  /**
+   * defines the label function to use
+   * @default (v) => v
+   */
   format?: (v: string) => string;
 }
 
-export function textStatsGenerator(options: TextStatsOptions = {}) {
+/**
+ * text statistics generator
+ */
+export function textStatsGenerator(options: TextStatsOptions = {}): (arr: readonly string[]) => ITextStats {
   const mostFrequentCount = options.mostFrequentCount ?? 10;
   const format = options.format ?? ((v: string) => (v ? v.toString() : v));
 

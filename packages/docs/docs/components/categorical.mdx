@@ -1,0 +1,48 @@
+---
+title: Categorical
+---
+
+## Visualization
+
+`CategoricalColor` React component
+
+`Histogram` React component
+
+`FilterBinHistogram` React component
+
+## Statistics
+
+```ts
+export interface IBin<T> {
+  count: number;
+  color: string;
+  label: string;
+  x0: T;
+  x1: T;
+}
+
+export interface ICommonStats {
+  readonly missing: number;
+  readonly count: number;
+}
+
+export interface IHistStats<T> extends ICommonStats {
+  readonly hist: readonly Readonly<IBin<T>>[];
+  readonly maxBin: number;
+
+  color: (v: T) => string;
+  format: (v: T) => string;
+}
+
+export interface ICategoricalStats extends IHistStats<string> {}
+```
+
+```ts
+export interface CategoricalStatsOptions {
+  color?: (v: string) => string;
+  format?: (v: string) => string;
+  categories?: readonly string[];
+}
+
+export function categoricalStatsGenerator(options: CategoricalStatsOptions = {}): (arr: readonly string[]): ICategoricalStats;
+``

@@ -1,15 +1,30 @@
 import { defaultCategoricalColorScale } from './defaults';
 import type { IHistStats } from './common';
 
+/**
+ * categorical statistics object
+ */
 export interface ICategoricalStats extends IHistStats<string> {}
 
 export interface CategoricalStatsOptions {
+  /**
+   * defines the color function to convert a value to a color. By default colors are automatically assigned
+   * @default defaultCategoricalColorScale
+   */
   color?: (v: string) => string;
+  /**
+   * defines the label function
+   */
   format?: (v: string) => string;
+  /**
+   * defines the list of categories
+   */
   categories?: readonly string[];
 }
 
-export function categoricalStatsGenerator(options: CategoricalStatsOptions = {}) {
+export function categoricalStatsGenerator(
+  options: CategoricalStatsOptions = {}
+): (arr: readonly string[]) => ICategoricalStats {
   const color = options.color ?? defaultCategoricalColorScale();
   const format = options.format ?? ((v: string) => v);
 
@@ -26,15 +41,20 @@ export function categoricalStatsGenerator(options: CategoricalStatsOptions = {})
       }
       map.set(v, 1 + (map.get(v) ?? 0));
     });
-    const hist = Array.from(map.entries())
-      .sort((a, b) => a[0].localeCompare(b[0]))
-      .map(([value, count]) => ({
-        x0: value,
-        x1: value,
-        label: value,
-        count,
-        color: color(value),
-      }));
+
+    // if categories are given, keep the order
+    const entries = options.categories
+      ? options.categories.map((c) => [c, map.get(c)!] as [string, number])
+      : Array.from(map.entries()).sort((a, b) => a[0].localeCompare(b[0]));
+
+    const hist = entries.map(([value, count]) => ({
+      x0: value,
+      x1: value,
+      label: value,
+      count,
+      color: color(value),
+    }));
+
     return {
       hist,
       maxBin: hist.reduce((acc, b) => Math.max(acc, b.count), 0),

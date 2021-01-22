@@ -60,7 +60,7 @@ const data = React.useMemo(
 ## Defining your columns
 
 LineUp-lite provides four basic column types with automatic summary and filtering capabilities:
-`text`, `number`, `categorial`, and `date`. Each types comes with a `asTYPEColumn` builder function,
+`text`, `number`, `categorial`, and `date`. Each type comes with a `as<type>Column` builder function,
 defining the basic attributes of a column, such as which renderer to use and how the summary should be computed.
 
 ```js
@@ -118,7 +118,7 @@ export default function GettingStarted() {
   const data = React.useMemo(
     () => [
       {
-        name: 'Panchito Grenshields',
+        name: 'Panchito Green',
         age: 10,
         shirtSize: 'S',
       },
