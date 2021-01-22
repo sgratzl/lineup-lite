@@ -23,7 +23,7 @@ export default function GettingStarted() {
   const data: IRow[] = React.useMemo(
     () => [
       {
-        name: 'Panchito Grenshields',
+        name: 'Panchito Green',
         age: 10,
         shirtSize: 'S',
       },
