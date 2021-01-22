@@ -26,59 +26,55 @@ Is important to understand the principles of the underlying [react-table](https:
 
 ```js
 const data = React.useMemo(
-   () => [
-      {
-        name: "Panchito Grenshields",
-        age: 10,
-        shirtSize: "S"
-      },
-      { 
-        name: "Rubia Robker",
-        age: 25,
-        shirtSize: "M"
-      },
-      { 
-        name: "Micheil Sappell",
-        age: 50,
-        shirtSize: "L"
-      },
-      { 
-        name: "Geoffrey Sprason",
-        age: 30,
-        shirtSize: "M"
-      },
-      { 
-        name: "Grissel Rounsefull",
-        age: 21,
-        shirtSize: "S"
-      }
-    ],
-    []
+  () => [
+    {
+      name: 'Panchito Grenshields',
+      age: 10,
+      shirtSize: 'S',
+    },
+    {
+      name: 'Rubia Robker',
+      age: 25,
+      shirtSize: 'M',
+    },
+    {
+      name: 'Micheil Sappell',
+      age: 50,
+      shirtSize: 'L',
+    },
+    {
+      name: 'Geoffrey Sprason',
+      age: 30,
+      shirtSize: 'M',
+    },
+    {
+      name: 'Grissel Rounsefull',
+      age: 21,
+      shirtSize: 'S',
+    },
+  ],
+  []
 );
 ```
 
 ## Defining your columns
 
-LineUp-lite provides four basic column types with automatic summary and filtering capabilities: 
-`text`, `number`, `categorial`, and `date`. Each types comes with a `asTYPEColumn` builder function, 
+LineUp-lite provides four basic column types with automatic summary and filtering capabilities:
+`text`, `number`, `categorial`, and `date`. Each types comes with a `asTYPEColumn` builder function,
 defining the basic attributes of a column, such as which renderer to use and how the summary should be computed.
 
 ```js
-import {asTextColumn, asNumberColumn, asCategoricalColumn} from '@lineup-lite/table';
+import { asTextColumn, asNumberColumn, asCategoricalColumn } from '@lineup-lite/table';
 
 const columns = React.useMemo(
-   () => [
-      asTextColumn('name'),
-      asNumberColumn('age'),
-      asCategoricalColumn('shirtSize')
-    ],
-    []
+  () => [asTextColumn('name'), asNumberColumn('age'), asCategoricalColumn('shirtSize')],
+  []
 );
 ```
 
 ## Define the features to use and render
 
-LineUp-lite supports a set of composoable features based on react-lite plugin hooks. 
+LineUp-lite supports a set of composoable features based on react-lite plugin hooks.
 The `featureDefault` function generates a list of default LineUp ranking table features, including:
 
 - an aggregation indicator column
@@ -104,7 +100,6 @@ return <LineUpLite<IRow> data={data} columns={columns} features={features} />;
 import GettingStarted from '../../src/samples/GettingStarted';
 
 <GettingStarted />
-
 
 ## Complete Example
 
@@ -152,11 +147,7 @@ export default function GettingStarted() {
   );
 
   const columns = React.useMemo(
-    () => [
-      asTextColumn('name'),
-      asNumberColumn('age'),
-      asCategoricalColumn('shirtSize'),
-    ],
+    () => [asTextColumn('name'), asNumberColumn('age'), asCategoricalColumn('shirtSize')],
     []
   );
 

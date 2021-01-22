@@ -30,12 +30,12 @@
     "deploy": "docusaurus deploy",
     "serve": "docusaurus serve",
     "clear": "docusaurus clear",
-    "lint": "npm run eslint && npm run prettier",
-    "fix": "npm run eslint:fix && npm run prettier:write",
+    "lint": "yarn run eslint && yarn run prettier",
+    "fix": "yarn run eslint:fix && yarn run prettier:write",
     "prettier:write": "prettier */** --write",
     "prettier": "prettier */** --check",
     "eslint": "eslint src --ext .ts,.tsx",
-    "eslint:fix": "npm run eslint -- --fix"
+    "eslint:fix": "yarn run eslint -- --fix"
   },
   "dependencies": {
     "@docusaurus/core": "^2.0.0-alpha.70",
