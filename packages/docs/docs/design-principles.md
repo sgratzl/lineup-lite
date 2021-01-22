@@ -17,7 +17,7 @@ LineUp-lite is build based on the following design principles:
   - [`@lineup-lite/components`](https://npmjs.com/package/@lineup-lite/components)
     contains basic React components and statistical logic methods which can be used independently of the LineUp ranking scenario.
   - [`@lineup-lite/hooks`](https://npmjs.com/package/@lineup-lite/hooks)
-    provides a series of extensions to the [react-table](react-table.tanstack.com/) for creating a LineUp based table, such as a react-table plugin for computing column statistics, Cell renderer using the `@lineup-lite/components`, ...
+    provides a series of extensions to the [react-table](https://react-table.tanstack.com/) for creating a LineUp based table, such as a react-table plugin for computing column statistics, Cell renderer using the `@lineup-lite/components`, ...
   - [`@lineup-lite/table`](https://npmjs.com/package/@lineup-lite/table)
     provides the highest abstraction level and provides React components such as `LineUpLite` for generating LineUp ranking tables with minimal effort.
 - **Good defaults** -
