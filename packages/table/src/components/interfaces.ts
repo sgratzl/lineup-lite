@@ -19,7 +19,7 @@ export interface IActionLineUpProps<D extends object> {
   /**
    * customize the icons to use
    */
-  icons: IActionIcons;
+  icons?: Partial<IActionIcons>;
 
   /**
    * callback for generating extra toolbar actions for a column

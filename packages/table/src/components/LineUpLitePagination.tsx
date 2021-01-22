@@ -1,4 +1,4 @@
-import type { IPaginationIcons } from 'icons';
+import type { IPaginationIcons } from '../icons';
 import React, { useCallback } from 'react';
 
 export interface ILineUpLitePagination {

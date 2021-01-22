@@ -1,4 +1,4 @@
-import type { IActionIcons } from 'icons';
+import type { IActionIcons } from '../icons';
 import React, { Ref } from 'react';
 import { useCustomize } from './hooks';
 import type { IActionLineUpProps, ICustomizeLineUpProps } from './interfaces';
@@ -13,7 +13,7 @@ export interface ILineUpLiteProps<D extends object>
     ICustomizeLineUpProps {
   className?: string;
   style?: React.CSSProperties;
-  icons: IActionIcons;
+  icons?: Partial<IActionIcons>;
 }
 
 export const LineUpLite = /*!#__PURE__*/ React.forwardRef(function LineUpLite<D extends object>(

@@ -9,4 +9,5 @@ export {
   asNumberColumn,
   deriveColumn,
   deriveColumns,
+  FullColumn,
 } from '@lineup-lite/hooks';

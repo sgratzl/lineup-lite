@@ -7,12 +7,12 @@ import type {
   UseResizeColumnsColumnProps,
   UseSortByColumnProps,
 } from 'react-table';
-import type { IActionIcons } from 'icons';
+import { IActionIcons, actionIconsText } from '../icons';
 
 export interface IToolbarProps<D extends object> extends HeaderGroup<D> {
   className?: string;
   style?: React.CSSProperties;
-  icons: IActionIcons;
+  icons?: Partial<IActionIcons>;
 }
 
 export default function Toolbar(props: React.PropsWithChildren<IToolbarProps<any>>) {
@@ -23,7 +23,10 @@ export default function Toolbar(props: React.PropsWithChildren<IToolbarProps<any
     UseSortByColumnProps<any> & {
       canHide?: boolean;
     };
-  const icons = props.icons;
+  const icons = {
+    ...actionIconsText(),
+    ...(props.icons ?? {}),
+  };
   const hide = useCallback(() => column.toggleHidden(true), [column]);
   return (
     <div className={clsx('lt-toolbar', props.className)} style={props.style}>

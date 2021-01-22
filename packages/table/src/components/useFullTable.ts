@@ -5,9 +5,10 @@ import {
   useRowSelectColumn,
   useStats,
   useRowRankColumn,
+  LineUpLiteColumn,
 } from '@lineup-lite/hooks';
+import { actionIconsText } from '../icons';
 import {
-  Column,
   PluginHook,
   TableInstance,
   TableOptions,
@@ -39,14 +40,14 @@ export type FullTableOptions<D extends object> = TableOptions<D> &
   UseSortByOptions<D>;
 
 export interface IFullTableProps<D extends object> extends FullTableOptions<D> {
-  defaultColumn: Partial<FullColumn<D>>;
-  columns: (Column<D> & Partial<FullColumn<D>>)[];
+  defaultColumn?: Partial<FullColumn<D>>;
+  columns: LineUpLiteColumn<D>[];
   plugins: (PluginHook<D> | PluginHook<D>[])[];
   /**
    * customize the icons to use
    */
-  icons: {
-    expandGroup: React.ComponentType;
+  icons?: {
+    expandGroup?: React.ComponentType;
   };
 }
 
@@ -82,7 +83,7 @@ export function useFullTable<D extends object>(
 ) {
   const tableProps: FullTableOptions<D> & UseRowExpandColumnTableOptions = {
     groupByFn: columnSpecificGroupByFn,
-    expandIcon: icons?.expandGroup,
+    expandIcon: icons?.expandGroup ?? actionIconsText().expandGroup,
     ...props,
   };
   const allPlugins = [...plugins.flat(), useStats, useBlockLayout, ...extraPlugins]

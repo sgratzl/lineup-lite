@@ -44,10 +44,12 @@ function asColumn<D extends object, C extends Column<D>>(col: C | keyof D): C {
   return col as C;
 }
 
+export type LineUpLiteColumn<D extends object> = Column<D> & Partial<FullColumn<D>>;
+
 export function asTextColumn<D extends object, C extends Column<D>>(
   col: C | keyof D,
   options?: TextStatsOptions
-): C & Partial<FullColumn<D>> {
+): C & LineUpLiteColumn<D> {
   return {
     Summary: TextSummaryRenderer,
     Aggregated: TextSummaryRenderer,
@@ -65,7 +67,7 @@ export function asTextColumn<D extends object, C extends Column<D>>(
 export function asNumberColumn<D extends object, C extends Column<D>>(
   col: C | keyof D,
   options?: NumberStatsOptions
-): C & Partial<FullColumn<D>> {
+): C & LineUpLiteColumn<D> {
   return {
     Cell: BarRenderer,
     Summary: NumberHistogramRenderer,
@@ -85,7 +87,7 @@ export function asNumberColumn<D extends object, C extends Column<D>>(
 export function asNumberBoxPlotColumn<D extends object, C extends Column<D>>(
   col: C | keyof D,
   options?: NumberStatsOptions
-): C & Partial<FullColumn<D>> {
+): C & LineUpLiteColumn<D> {
   return {
     Cell: BarRenderer,
     Summary: BoxPlotRenderer,
@@ -105,7 +107,7 @@ export function asNumberBoxPlotColumn<D extends object, C extends Column<D>>(
 export function asCategoricalColumn<D extends object, C extends Column<D>>(
   col: C | keyof D,
   options?: CategoricalStatsOptions
-): C & Partial<FullColumn<D>> {
+): C & LineUpLiteColumn<D> {
   return {
     Cell: CategoricalRenderer,
     Summary: CategoricalHistogramRenderer,
@@ -124,7 +126,7 @@ export function asCategoricalColumn<D extends object, C extends Column<D>>(
 export function asDateColumn<D extends object, C extends Column<D>>(
   col: C | keyof D,
   options?: DateStatsOptions
-): C & Partial<FullColumn<D>> {
+): C & LineUpLiteColumn<D> {
   return {
     Cell: DateRenderer,
     Summary: DateHistogramRenderer,

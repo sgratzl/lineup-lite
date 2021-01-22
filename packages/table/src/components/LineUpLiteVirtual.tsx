@@ -1,4 +1,4 @@
-import type { IActionIcons } from 'icons';
+import type { IActionIcons } from '../icons';
 import React, { useRef } from 'react';
 import { useCustomize } from './hooks';
 import type { IActionLineUpProps, ICustomizeLineUpProps } from './interfaces';

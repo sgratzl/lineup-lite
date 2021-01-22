@@ -1,5 +1,11 @@
 import React from 'react';
-import LineUpLite, { asTextColumn, asNumberColumn, asCategoricalColumn } from '@lineup-lite/table';
+import LineUpLite, {
+  asTextColumn,
+  asNumberColumn,
+  asCategoricalColumn,
+  LineUpLiteColumn,
+  useDefaultFeatures,
+} from '@lineup-lite/table';
 import '@lineup-lite/table/dist/table.css';
 
 interface IRow {
@@ -40,10 +46,12 @@ export default function GettingStarted() {
     []
   );
 
-  const columns: Partial<FullColumn<IRow>>[] = React.useMemo(
+  const columns: LineUpLiteColumn<IRow>[] = React.useMemo(
     () => [asTextColumn('name'), asNumberColumn('age'), asCategoricalColumn('shirtSize')],
     []
   );
 
-  return <LineUpLite data={data} columns={columns} />;
+  const features = React.useMemo(() => useDefaultFeatures(), []);
+
+  return <LineUpLite data={data} columns={columns} plugins={features} />;
 }
