@@ -17,7 +17,7 @@ export function invertColorScale(scale: (v: number) => string) {
 }
 
 export function defaultColorScale(v: number) {
-  const maxL = 1;
+  const maxL = 0.9;
   const minL = 0.23;
   return `hsl(206, 64%, ${Math.round(100 * (v * (maxL - minL) + minL))}%)`;
 }
