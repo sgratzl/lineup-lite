@@ -18,7 +18,7 @@ function ArrowDropRightLine() {
 }
 
 function GroupBy() {
-  return <>⮇</>;
+  return <span style={{ transform: 'rotate(90deg)' }}>◫</span>;
 }
 
 function FirstPage() {
