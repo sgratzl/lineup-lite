@@ -22,10 +22,10 @@ Is important to understand the principles of the underlying [react-table](https:
 
 :::
 
-## Defining your rows
+## Defining your data
 
 ```js
-const rows = React.useMemo(
+const data = React.useMemo(
    () => [
       {
         name: "Panchito Grenshields",
@@ -59,11 +59,14 @@ const rows = React.useMemo(
 
 ## Defining your columns
 
+LineUp-lite provides four basic column types with automatic summary and filtering capabilities: 
+`text`, `number`, `categorial`, and `date`. Each types comes with a `asTYPEColumn` builder function, 
+defining the basic attributes of a column, such as which renderer to use and how the summary should be computed.
 
 ```js
 import {asTextColumn, asNumberColumn, asCategoricalColumn} from '@lineup-lite/table';
 
-const rows = React.useMemo(
+const columns = React.useMemo(
    () => [
       asTextColumn('name'),
       asNumberColumn('age'),
@@ -73,15 +76,92 @@ const rows = React.useMemo(
 );
 ```
 
-## Render
+## Define the features to use and render
+
+LineUp-lite supports a set of composoable features based on react-lite plugin hooks. 
+The `featureDefault` function generates a list of default LineUp ranking table features, including:
+
+- an aggregation indicator column
+- a rank column
+- a select row checkbox column
+- sorting and gouping
+- interactive filtering
+- column resizing
+
+However, individual feature can be enabled manually.
 
 ```jsx
 import LineUpLite from '@lineup-lite/table';
 import '@lineup-lite/table/dist/table.css';
 
-TODO;
+const features = React.useMemo(() => featureDefault<IRow>(), []);
+
+return <LineUpLite<IRow> data={data} columns={columns} features={features} />;
 ```
+
+## Result
 
 import GettingStarted from '../../src/samples/GettingStarted';
 
 <GettingStarted />
+
+
+## Complete Example
+
+```jsx
+import React from 'react';
+import LineUpLite, {
+  asTextColumn,
+  asNumberColumn,
+  asCategoricalColumn,
+  LineUpLiteColumn,
+  featureDefault,
+} from '@lineup-lite/table';
+import '@lineup-lite/table/dist/table.css';
+
+export default function GettingStarted() {
+  const data = React.useMemo(
+    () => [
+      {
+        name: 'Panchito Grenshields',
+        age: 10,
+        shirtSize: 'S',
+      },
+      {
+        name: 'Rubia Robker',
+        age: 25,
+        shirtSize: 'M',
+      },
+      {
+        name: 'Micheil Sappell',
+        age: 50,
+        shirtSize: 'L',
+      },
+      {
+        name: 'Geoffrey Sprason',
+        age: 30,
+        shirtSize: 'M',
+      },
+      {
+        name: 'Grissel Rounsefull',
+        age: 21,
+        shirtSize: 'S',
+      },
+    ],
+    []
+  );
+
+  const columns = React.useMemo(
+    () => [
+      asTextColumn('name'),
+      asNumberColumn('age'),
+      asCategoricalColumn('shirtSize'),
+    ],
+    []
+  );
+
+  const features = React.useMemo(() => featureDefault(), []);
+
+  return <LineUpLite data={data} columns={columns} features={features} />;
+}
+```
