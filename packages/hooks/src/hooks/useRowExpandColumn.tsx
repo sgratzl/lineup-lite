@@ -91,6 +91,7 @@ function generateColumn<D extends object = {}>(columns: ColumnInstance<D>[]) {
     disableSortBy: true,
     disableGroupBy: true,
     disableResizing: true,
+    canHide: false,
   };
   return [expandColumn, ...columns];
 }

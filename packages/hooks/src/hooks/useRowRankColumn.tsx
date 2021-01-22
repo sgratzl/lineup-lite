@@ -61,6 +61,7 @@ function generateColumn<D extends object = {}>(columns: ColumnInstance<D>[]) {
     disableFilters: true,
     disableSortBy: true,
     disableGroupBy: true,
+    canHide: false,
   };
   return [rankColumn, ...columns];
 }

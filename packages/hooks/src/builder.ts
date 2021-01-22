@@ -58,6 +58,7 @@ export function asTextColumn<D extends object, C extends Column<D> = Column<D>>(
     sortType: sortCompare,
     defaultCanSort: true,
     groupBy: textGroupBy,
+    canHide: false,
     ...asColumn<D, C>(col),
   } as unknown) as LineUpLiteColumn<D>;
 }
@@ -78,6 +79,7 @@ export function asNumberColumn<D extends object, C extends Column<D> = Column<D>
     sortDescFirst: true,
     defaultCanGroupBy: false,
     groupBy: numberGroupBy,
+    canHide: false,
     ...asColumn<D, C>(col),
   } as unknown) as LineUpLiteColumn<D>;
 }
@@ -98,6 +100,7 @@ export function asNumberBoxPlotColumn<D extends object, C extends Column<D> = Co
     sortDescFirst: true,
     defaultCanGroupBy: false,
     groupBy: numberGroupBy,
+    canHide: false,
     ...asColumn<D, C>(col),
   } as unknown) as LineUpLiteColumn<D>;
 }
@@ -117,6 +120,7 @@ export function asCategoricalColumn<D extends object, C extends Column<D> = Colu
     sortType: options && options.categories ? sortCategories(options.categories) : sortCompare,
     defaultCanSort: true,
     groupBy: categoricalGroupBy,
+    canHide: false,
     ...asColumn<D, C>(col),
   } as unknown) as LineUpLiteColumn<D>;
 }
@@ -136,6 +140,7 @@ export function asDateColumn<D extends object, C extends Column<D> = Column<D>>(
     sortType: sortCompare,
     sortDescFirst: true,
     groupBy: dateGroupBy,
+    canHide: false,
     ...asColumn<D, C>(col),
   } as unknown) as LineUpLiteColumn<D>;
 }
