@@ -1,8 +1,15 @@
 import type { Row } from 'react-table';
 
-export function rangeFilter<D extends object, T>(rows: Row<D>[], ids: string[], filterValue: [T, T]) {
+/**
+ * a range numeric filter
+ */
+export function rangeFilter<D extends object, T>(
+  rows: readonly Row<D>[],
+  ids: readonly string[],
+  filterValue: readonly [T, T]
+): Row<D>[] {
   if (filterValue == null) {
-    return rows;
+    return rows as Row<D>[];
   }
   return rows.filter((row) =>
     ids.some((id) => {
@@ -11,4 +18,5 @@ export function rangeFilter<D extends object, T>(rows: Row<D>[], ids: string[], 
     })
   );
 }
+
 rangeFilter.autoRemove = (val: [any, any]) => !Array.isArray(val);

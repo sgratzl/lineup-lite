@@ -8,12 +8,17 @@ import type { LineUpLiteColumn } from './interfaces';
 import type { Column } from 'react-table';
 import { asCategoricalColumn, asDateColumn, asNumberColumn, asTextColumn } from './builder';
 
-export function cleanCategories(categories: Set<string>) {
+/**
+ * clears a set of categories of small invalid n/a values
+ * @param categories
+ */
+export function cleanCategories(categories: Set<string>): string[] {
   // remove missing values
   categories.delete(null as any);
   categories.delete(undefined as any);
   categories.delete('');
   categories.delete('NA');
+  categories.delete('N/A');
   categories.delete('NaN');
   categories.delete('na');
   return [...categories].map(String).sort();
@@ -46,6 +51,9 @@ export type DeriveColumnResult<D extends object> =
   | DeriveNumberColumnResult<D>
   | DeriveTextColumnResult<D>;
 
+/**
+ * guesses the column type based on the values
+ */
 export function deriveColumn<D extends object>(data: D[], accessor: keyof D): DeriveColumnResult<D> {
   const column = {
     Header: accessor.toString(),
@@ -103,6 +111,11 @@ export function deriveColumn<D extends object>(data: D[], accessor: keyof D): De
   return { type: 'text', column };
 }
 
+/**
+ * derive the columns within the given data
+ * @param data the data array
+ * @param columns optional list of column names to generate
+ */
 export function deriveColumns<D extends object>(
   data: D[],
   columns?: (keyof D)[]

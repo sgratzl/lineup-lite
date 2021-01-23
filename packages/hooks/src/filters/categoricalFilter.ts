@@ -1,10 +1,23 @@
 import type { IdType, Row } from 'react-table';
 
-export function categoricalFilter<D extends object>(rows: Row<D>[], ids: IdType<D>[], filterValue: string[]) {
+/**
+ * filter function by a set of filter values
+ * @param rows
+ * @param ids
+ * @param filterValue
+ */
+export function categoricalFilter<D extends object>(
+  rows: readonly Row<D>[],
+  ids: readonly IdType<D>[],
+  filterValue: readonly string[]
+): Row<D>[] {
   if (filterValue == null) {
-    return rows;
+    return rows as Row<D>[];
   }
   const lookup = new Set(filterValue);
   return rows.filter((row) => ids.some((id) => !lookup.has(row.values[id])));
 }
-categoricalFilter.autoRemove = (val: string[]) => !Array.isArray(val);
+/**
+ * determines whether the column value to should be automatically removed, since it cannot be handled by this filter
+ */
+categoricalFilter.autoRemove = (val: readonly string[]) => !Array.isArray(val);

@@ -10,12 +10,18 @@ export interface BarRendererOptions {
   format?: NumberFormatter;
 }
 
+/**
+ * Cell renderer for a number to be rendered as a a bar
+ */
 export function BarRenderer<D extends object, P extends CellProps<D, number>>(props: P) {
   const options = useContext(optionContext) as BarRendererOptions;
   const p = deriveNumberOptions<D, P>(props, options);
   return <NumberBar {...p} value={props.value} />;
 }
 
+/**
+ * factory for rendering numbers as a bar
+ */
 export function BarRendererFactory<D extends object, P extends CellProps<D, number>>(
   options: BarRendererOptions = {}
 ): Renderer<P> {

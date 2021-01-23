@@ -1,5 +1,10 @@
 import { Row, IdType, defaultGroupByFn } from 'react-table';
 
+/**
+ * helper function to defer the grouping logic to the column
+ * @param rows
+ * @param columnId
+ */
 export function columnSpecificGroupByFn<D extends object = {}>(
   rows: Row<D>[],
   columnId: IdType<D>

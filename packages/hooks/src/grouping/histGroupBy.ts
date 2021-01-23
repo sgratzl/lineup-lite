@@ -2,13 +2,20 @@ import type { INumericStats } from '@lineup-lite/components';
 import { ColumnInstance, defaultGroupByFn, Row } from 'react-table';
 import type { UseStatsColumnProps } from '../hooks';
 
+const MISSING_GROUP = 'Missing Values';
+
+/**
+ * group by histogram
+ * @param rows
+ * @param column
+ */
 export function histGroupBy<D extends object, T extends number | Date>(
-  rows: Row<D>[],
+  rows: readonly Row<D>[],
   column: ColumnInstance<D>
 ): Record<string, Row<D>[]> {
   const stats = ((column as unknown) as UseStatsColumnProps).statsValue as INumericStats<T>;
   if (stats == null) {
-    return defaultGroupByFn(rows, column.id);
+    return defaultGroupByFn(rows as Row<D>[], column.id);
   }
   // group by bin
   const r: Record<string, Row<D>[]> = {};
@@ -27,7 +34,7 @@ export function histGroupBy<D extends object, T extends number | Date>(
   });
   const group = rows.filter((row) => row.values[column.id] == null);
   if (group.length > 0) {
-    r['Missing Values'] = group;
+    r[MISSING_GROUP] = group;
   }
   return r;
 }

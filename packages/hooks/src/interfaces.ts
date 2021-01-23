@@ -11,10 +11,19 @@ import type {
 import type { UseStatsColumnOptions } from './hooks/useStats';
 
 export interface UseColumnGroupByColumnOptions<D extends object> {
+  /**
+   * renderer used to render the group cell
+   */
   Group?: Renderer<D>;
-  groupBy?(rows: Row<D>[], column: ColumnInstance<D>): Record<string, Row<D>[]>;
+  /**
+   * group by function for this column
+   */
+  groupBy?(rows: readonly Row<D>[], column: ColumnInstance<D>): Record<string, Row<D>[]>;
 }
 
+/**
+ * a lineup lite column description
+ */
 export type LineUpLiteColumn<D extends object> = Column<D> &
   UseFiltersColumnOptions<D> &
   UseGroupByColumnOptions<D> &

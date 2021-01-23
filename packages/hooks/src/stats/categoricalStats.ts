@@ -17,6 +17,9 @@ function compute(
   });
 }
 
+/**
+ * generator for computing categorical stats
+ */
 export function categoricalStats(
   options: CategoricalStatsOptions = {}
 ): (arr: readonly string[], preFilter?: ICategoricalStats) => ICategoricalStats {

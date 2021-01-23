@@ -16,7 +16,9 @@ function compute(
   // ensure the same hist structure
   return dateStatsGenerator(rawOptions)(arr);
 }
-
+/**
+ * generator for computing date stats
+ */
 export function dateStats(
   options: DateStatsOptions = {}
 ): (arr: readonly (Date | null)[], preFilter?: IDateStats) => IDateStats {

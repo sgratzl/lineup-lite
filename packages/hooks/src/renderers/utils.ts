@@ -70,6 +70,12 @@ export function groupMaxBin<P extends StatsPropsLike<any>>(
   return stats.reduce((acc, v) => (v != null && typeof v.maxBin === 'number' ? Math.max(acc, v.maxBin) : acc), 0);
 }
 
+/**
+ * helper function to resolve the first of multiple candidates
+ * @param directValue first candidate
+ * @param globalValue second candidate
+ * @param defaultValue factory function for generating a default value
+ */
 export function resolve<T>(directValue: T | undefined, globalValue: T | undefined, defaultValue: () => T) {
   if (directValue != null) {
     return directValue;

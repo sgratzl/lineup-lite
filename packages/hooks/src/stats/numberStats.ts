@@ -16,7 +16,9 @@ function compute(
   // ensure the same hist structure
   return numberStatsGenerator(rawOptions)(arr);
 }
-
+/**
+ * generator for computing number stats
+ */
 export function numberStats(
   options: NumberStatsOptions = {}
 ): (arr: readonly number[], preFilter?: INumberStats) => INumberStats {

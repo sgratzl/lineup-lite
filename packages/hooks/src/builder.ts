@@ -44,6 +44,11 @@ function asColumn<D extends object, C extends Column<D> = Column<D>>(col: C | ke
   return col as C;
 }
 
+/**
+ * defines a text column
+ * @param col property key or partial column Header and accessor
+ * @param options additional options for statistics
+ */
 export function asTextColumn<D extends object, C extends Column<D> = Column<D>>(
   col: C | keyof D,
   options?: TextStatsOptions
@@ -63,6 +68,11 @@ export function asTextColumn<D extends object, C extends Column<D> = Column<D>>(
   } as unknown) as LineUpLiteColumn<D>;
 }
 
+/**
+ * defines a number column
+ * @param col property key or partial column Header and accessor
+ * @param options additional options for statistics
+ */
 export function asNumberColumn<D extends object, C extends Column<D> = Column<D>>(
   col: C | keyof D,
   options?: NumberStatsOptions
@@ -84,6 +94,11 @@ export function asNumberColumn<D extends object, C extends Column<D> = Column<D>
   } as unknown) as LineUpLiteColumn<D>;
 }
 
+/**
+ * defines a number column that is rendered as boxplot
+ * @param col property key or partial column Header and accessor
+ * @param options additional options for statistics
+ */
 export function asNumberBoxPlotColumn<D extends object, C extends Column<D> = Column<D>>(
   col: C | keyof D,
   options?: NumberStatsOptions
@@ -105,6 +120,11 @@ export function asNumberBoxPlotColumn<D extends object, C extends Column<D> = Co
   } as unknown) as LineUpLiteColumn<D>;
 }
 
+/**
+ * defines a categorical column
+ * @param col property key or partial column Header and accessor
+ * @param options additional options for statistics
+ */
 export function asCategoricalColumn<D extends object, C extends Column<D> = Column<D>>(
   col: C | keyof D,
   options?: CategoricalStatsOptions
@@ -125,6 +145,11 @@ export function asCategoricalColumn<D extends object, C extends Column<D> = Colu
   } as unknown) as LineUpLiteColumn<D>;
 }
 
+/**
+ * defines a date column
+ * @param col property key or partial column Header and accessor
+ * @param options additional options for statistics
+ */
 export function asDateColumn<D extends object, C extends Column<D> = Column<D>>(
   col: C | keyof D,
   options?: DateStatsOptions
