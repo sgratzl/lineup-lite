@@ -3,7 +3,7 @@ module.exports = {
   tagline: 'a LineUp implementation based on react-table',
   url: 'https://lineup-lite.netlify.app',
   baseUrl: '/',
-  onBrokenLinks: 'throw',
+  onBrokenLinks: 'warn',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
   organizationName: 'sgratzl', // Usually your GitHub org/user name.

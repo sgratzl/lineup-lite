@@ -1,3 +1,4 @@
+import 'regenerator-runtime/runtime';
 import React from 'react';
 import * as components from '@lineup-lite/components';
 import * as hooks from '@lineup-lite/hooks';
