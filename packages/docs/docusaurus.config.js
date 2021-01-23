@@ -102,6 +102,7 @@ module.exports = {
       copyright: `Copyright © ${new Date().getFullYear()} <a href="https://www.sgratzl.com">Samuel Gratzl</a>. All rights reserved. Built with Docusaurus.`,
     },
   },
+  themes: ['@docusaurus/theme-live-codeblock'],
   presets: [
     [
       '@docusaurus/preset-classic',

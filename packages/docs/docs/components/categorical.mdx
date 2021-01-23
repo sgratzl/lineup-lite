@@ -2,47 +2,97 @@
 title: Categorical
 ---
 
-## Visualization
-
-`CategoricalColor` React component
-
-`Histogram` React component
-
-`FilterBinHistogram` React component
+Categorical attributes are string attributes that have a limited number of possible values such as colors (`red`, `green`, `blue`, ...). 
+In addtion they can have an inherit order (ordinal attributes) such as a shirt size (`small`, `medium`, and `large`).
 
 ## Statistics
 
-```ts
-export interface IBin<T> {
-  count: number;
-  color: string;
-  label: string;
-  x0: T;
-  x1: T;
-}
+LineUp-lite computes the following statistics for a categorical attribute:
 
-export interface ICommonStats {
-  readonly missing: number;
-  readonly count: number;
-}
-
-export interface IHistStats<T> extends ICommonStats {
-  readonly hist: readonly Readonly<IBin<T>>[];
+```tsx
+export interface ICategoricalStats extends IHistStats<string> {
+  /**
+   * histogram
+   */
+  readonly hist: readonly Readonly<IBin<string>>[];
+  /**
+   * maximal items in a bin
+   */
   readonly maxBin: number;
-
-  color: (v: T) => string;
-  format: (v: T) => string;
+  /**
+   * converts a given value to a color
+   */
+  color: (v: string) => string;
+  /**
+   * converts the given value to a label
+   */
+  format: (v: string) => string;
 }
-
-export interface ICategoricalStats extends IHistStats<string> {}
 ```
 
-```ts
-export interface CategoricalStatsOptions {
-  color?: (v: string) => string;
-  format?: (v: string) => string;
-  categories?: readonly string[];
-}
+see [ICategoricalStats API Docs](/api/components/interfaces/icategoricalstats.html)
 
+### Generator Function
+
+The stats generator function has the following signature. It returns a function that can be used to compute statistics for a given array.
+
+```tsx
 export function categoricalStatsGenerator(options: CategoricalStatsOptions = {}): (arr: readonly string[]): ICategoricalStats;
-``
+```
+
+see [categoricalStatsGenerator API Docs](/api/components/modules.html#categoricalstatsgenerator)
+
+### Example
+
+```jsx live
+function Example() {
+  const compute = categoricalStatsGenerator();
+  const stats = compute(['c1', 'c2', 'c3', 'c2', 'c3', 'c1', 'c1', 'c2', 'c2']);
+
+  return <pre>
+    {JSON.stringify(stats, null, 2)}
+  </pre>;
+}
+```
+
+## Visualization
+
+### Cell
+
+[`CategoricalColor`](/api/components/modules.html#categoricalcolor) React component
+
+```jsx live
+function Example() {
+  const compute = categoricalStatsGenerator();
+  const stats = compute(['c1', 'c2', 'c3', 'c2', 'c3', 'c1', 'c1', 'c2', 'c2']);
+
+  return <CategoricalColor value="c1" color={stats.color} format={stats.format} />;
+}
+```
+
+### Aggregation
+
+[`Histogram`](/api/components/modules.html#histogram) React component
+
+```jsx live
+function Example() {
+  const compute = categoricalStatsGenerator();
+  const stats = compute(['c1', 'c2', 'c3', 'c2', 'c3', 'c1', 'c1', 'c2', 'c2']);
+
+  return <Histogram s={stats}  style={{height: 100}}/>;
+}
+```
+
+### Interactive Summary
+
+[`FilterBinHistogram`](/api/components/modules.html#filterbinhistogram) React component
+
+```jsx live
+function Example() {
+  const compute = categoricalStatsGenerator();
+  const stats = compute(['c1', 'c2', 'c3', 'c2', 'c3', 'c1', 'c1', 'c2', 'c2']);
+
+  const [filterValue, setFilter] = React.useState(null);
+  return <FilterBinHistogram s={stats} filterValue={filterValue} setFilter={setFilter} summary  style={{height: 100}}/>;
+}
+```

@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import GettingStarted from './samples/GettingStarted';
+import GettingStarted from './getting-started/GettingStarted';
 
 function App() {
   return (

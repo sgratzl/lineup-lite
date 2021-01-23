@@ -40,6 +40,7 @@
   "dependencies": {
     "@docusaurus/core": "^2.0.0-alpha.70",
     "@docusaurus/preset-classic": "^2.0.0-alpha.70",
+    "@docusaurus/theme-live-codeblock": "^2.0.0-alpha.70",
     "@lineup-lite/components": "~1.0.0",
     "@lineup-lite/hooks": "~1.0.0",
     "@lineup-lite/table": "~1.0.0",

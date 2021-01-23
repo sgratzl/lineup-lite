@@ -76,11 +76,7 @@ export default function Home() {
               </Feature>
               <Feature title="Various proven visual encodings" imageUrl="img/undraw_docusaurus_tree.svg">
                 {`Proven visual visualizations for cells, aggregations, and summaries, such as `}
-                <Link to={useBaseUrl('docs/components/number')}>Bars</Link>
-                {`, `}
-                <Link to={useBaseUrl('docs/components/histogram')}>Histograms</Link>
-                {`, and `}
-                <Link to={useBaseUrl('docs/components/boxplot')}>Boxplots</Link>
+                <Link to={useBaseUrl('docs/components/number')}>Bars, Histograms, and Boxplots</Link>
                 {`.`}
               </Feature>
               <Feature title="Written in TypeScript" imageUrl="img/typescript-seeklogo.com.svg">

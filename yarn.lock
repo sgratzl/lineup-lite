@@ -2200,6 +2200,23 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@docusaurus/theme-live-codeblock@npm:^2.0.0-alpha.70":
+  version: 2.0.0-alpha.f48d435ce
+  resolution: "@docusaurus/theme-live-codeblock@npm:2.0.0-alpha.f48d435ce"
+  dependencies:
+    "@docusaurus/core": 2.0.0-alpha.f48d435ce
+    "@philpl/buble": ^0.19.7
+    clsx: ^1.1.1
+    parse-numeric-range: ^1.2.0
+    prism-react-renderer: ^1.1.1
+    react-live: ^2.2.3
+  peerDependencies:
+    react: ^16.8.4
+    react-dom: ^16.8.4
+  checksum: 551f0d18fbb235dbc20ff7bb7c1830e9860ca8c900a1135a6d6957046af783fb5b7478fcc851f52d3c2415e378626bf6ef1804032421e09229b81bc43b8d8cb1
+  languageName: node
+  linkType: hard
+
 "@docusaurus/theme-search-algolia@npm:2.0.0-alpha.f48d435ce":
   version: 2.0.0-alpha.f48d435ce
   resolution: "@docusaurus/theme-search-algolia@npm:2.0.0-alpha.f48d435ce"
@@ -2604,6 +2621,7 @@ __metadata:
     "@docusaurus/core": ^2.0.0-alpha.70
     "@docusaurus/module-type-aliases": ^2.0.0-alpha.70
     "@docusaurus/preset-classic": ^2.0.0-alpha.70
+    "@docusaurus/theme-live-codeblock": ^2.0.0-alpha.70
     "@lineup-lite/components": ~1.0.0
     "@lineup-lite/hooks": ~1.0.0
     "@lineup-lite/table": ~1.0.0
@@ -2854,6 +2872,25 @@ __metadata:
   dependencies:
     mkdirp: ^1.0.4
   checksum: ed2cb75eefe218113794416fae43b5307f7c30476506942ed6c6c51f702713323842f81102ae1327f9134130bec0360312e6f858ddef143c21d9e269e90737ac
+  languageName: node
+  linkType: hard
+
+"@philpl/buble@npm:^0.19.7":
+  version: 0.19.7
+  resolution: "@philpl/buble@npm:0.19.7"
+  dependencies:
+    acorn: ^6.1.1
+    acorn-class-fields: ^0.2.1
+    acorn-dynamic-import: ^4.0.0
+    acorn-jsx: ^5.0.1
+    chalk: ^2.4.2
+    magic-string: ^0.25.2
+    minimist: ^1.2.0
+    os-homedir: ^1.0.1
+    regexpu-core: ^4.5.4
+  bin:
+    buble: ./bin/buble
+  checksum: 6b17303c485591935a6220d7908b4f567da2b4762a2021e28aa7a083ddbd1f635c5c20f47e339a18ce03d089f00640cbf59932ee09ec7cb7c197c4ef881b770e
   languageName: node
   linkType: hard
 
@@ -4617,6 +4654,24 @@ __metadata:
   languageName: node
   linkType: hard
 
+"acorn-class-fields@npm:^0.2.1":
+  version: 0.2.1
+  resolution: "acorn-class-fields@npm:0.2.1"
+  peerDependencies:
+    acorn: ^6.0.0
+  checksum: 87acc40aa0869d9ffd60df3006b56d81f5e5a6ee27552279917e1843f7ec16a4e1d88c70f6451c64a5dfdd333cb6a42145c1a25c0f8a44bdece2e12027b06d99
+  languageName: node
+  linkType: hard
+
+"acorn-dynamic-import@npm:^4.0.0":
+  version: 4.0.0
+  resolution: "acorn-dynamic-import@npm:4.0.0"
+  peerDependencies:
+    acorn: ^6.0.0
+  checksum: ce61df77522b5eaee93f4a61043af9b059590d382bdbf5bf4a3717416d0cfb7bebbacb736d82764ba51381d2d55db4b27477384bb7e2642283941b52bcd9d008
+  languageName: node
+  linkType: hard
+
 "acorn-globals@npm:^6.0.0":
   version: 6.0.0
   resolution: "acorn-globals@npm:6.0.0"
@@ -4624,6 +4679,15 @@ __metadata:
     acorn: ^7.1.1
     acorn-walk: ^7.1.1
   checksum: 078ed9bc354e95a30893efd260e2dc566dfc34d8e1d24a54b9ad59984bea53ff93cb1986a85b2b5e2b8e573cb00d34ad8767371b852941a1947f81c37c1be759
+  languageName: node
+  linkType: hard
+
+"acorn-jsx@npm:^5.0.1, acorn-jsx@npm:^5.3.1":
+  version: 5.3.1
+  resolution: "acorn-jsx@npm:5.3.1"
+  peerDependencies:
+    acorn: ^6.0.0 || ^7.0.0 || ^8.0.0
+  checksum: 5925bc5d79a2821a8f7250b6de2b02bb86c0470dcb78cf68a603855291c5e50602b9eaf294aba2efbf3ee7063c80a9074b520b2330cc1aef80b849bfc7a041c0
   languageName: node
   linkType: hard
 
@@ -4636,19 +4700,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"acorn-jsx@npm:^5.3.1":
-  version: 5.3.1
-  resolution: "acorn-jsx@npm:5.3.1"
-  peerDependencies:
-    acorn: ^6.0.0 || ^7.0.0 || ^8.0.0
-  checksum: 5925bc5d79a2821a8f7250b6de2b02bb86c0470dcb78cf68a603855291c5e50602b9eaf294aba2efbf3ee7063c80a9074b520b2330cc1aef80b849bfc7a041c0
-  languageName: node
-  linkType: hard
-
 "acorn-walk@npm:^7.1.1":
   version: 7.2.0
   resolution: "acorn-walk@npm:7.2.0"
   checksum: 7b52d5d6397f2d395ca878bdb0f56e583e69bc875521876d05fe2b6e293c21aca918b288c01bd18ac99b46b55a0f00a8d0e30fbdfb53c8e36e78ad1a65f73a4a
+  languageName: node
+  linkType: hard
+
+"acorn@npm:^6.1.1":
+  version: 6.4.2
+  resolution: "acorn@npm:6.4.2"
+  bin:
+    acorn: bin/acorn
+  checksum: ec4707ffa0f41dcd9ef67e5f0938a9e8c83f2f1ffcbd3588b07126833d2ca3a6573e094c511162ad40f658a267c6533c6dd5eedead6844d50f7d8d0be080cc55
   languageName: node
   linkType: hard
 
@@ -5769,6 +5833,22 @@ __metadata:
   languageName: node
   linkType: hard
 
+"buble@npm:0.19.6":
+  version: 0.19.6
+  resolution: "buble@npm:0.19.6"
+  dependencies:
+    chalk: ^2.4.1
+    magic-string: ^0.25.1
+    minimist: ^1.2.0
+    os-homedir: ^1.0.1
+    regexpu-core: ^4.2.0
+    vlq: ^1.0.0
+  bin:
+    buble: ./bin/buble
+  checksum: 7a8ba6b3487922f7d066f861ddcc14ea5f2f10a0ea46f69b9e53f1282d44977c8eb53a7e8b3f6538ceadf48d977adb8bcbdb235bde764cc09c2d418d17d83f9c
+  languageName: node
+  linkType: hard
+
 "buffer-from@npm:1.x, buffer-from@npm:^1.0.0":
   version: 1.1.1
   resolution: "buffer-from@npm:1.1.1"
@@ -6649,6 +6729,20 @@ __metadata:
   languageName: node
   linkType: hard
 
+"component-props@npm:1.1.1":
+  version: 1.1.1
+  resolution: "component-props@npm:1.1.1"
+  checksum: 42d852bfbabc9d57c510b93a3ddc316e0a9ab5fd822186037eac8cea1147b3de5e8724745d32114a818b6687c9c59e1f27df97aaaee40dd3c2bb73b1c474f2b5
+  languageName: node
+  linkType: hard
+
+"component-xor@npm:0.0.4":
+  version: 0.0.4
+  resolution: "component-xor@npm:0.0.4"
+  checksum: 503dd27760858c78b3c3c64026862126d46ebdbf3a868f0b2e861350f025ca9c0ada5e3ac4fe1e8276b7b1a60a6d4d4d8621538312f7bef2e7880c4adf974886
+  languageName: node
+  linkType: hard
+
 "compressible@npm:~2.0.16":
   version: 2.0.18
   resolution: "compressible@npm:2.0.18"
@@ -6867,7 +6961,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"core-js@npm:^2.6.5":
+"core-js@npm:^2.4.1, core-js@npm:^2.6.5":
   version: 2.6.12
   resolution: "core-js@npm:2.6.12"
   checksum: b865823ce9cb5bc63336856440f6525e4996bb91af30660081e82bf447d177f36104f0986906a34ea0c9c03cb8b3d960380848a478e2621dac30c9b8198d28da
@@ -7836,6 +7930,16 @@ __metadata:
   dependencies:
     utila: ~0.4
   checksum: 437b4464bd3c5e654decf855f9263e939d633d7bb720512f9a400b3e1005d870eb4a5fbead7d9ccb7849f7df5ee30c62f9a56b68143c13575ae5fef16007742c
+  languageName: node
+  linkType: hard
+
+"dom-iterator@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "dom-iterator@npm:1.0.0"
+  dependencies:
+    component-props: 1.1.1
+    component-xor: 0.0.4
+  checksum: c9642df186ee6a57a18c8d37377587fb18d2ccc2bdf5ad24dbfc5a14b8aeddf47d5f2cfc1ed98354b275a73aacd41e05410fbec405ec356cc47cd1d61e850d46
   languageName: node
   linkType: hard
 
@@ -12758,7 +12862,7 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"magic-string@npm:^0.25.7":
+"magic-string@npm:^0.25.1, magic-string@npm:^0.25.2, magic-string@npm:^0.25.7":
   version: 0.25.7
   resolution: "magic-string@npm:0.25.7"
   dependencies:
@@ -13968,7 +14072,7 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"os-homedir@npm:^1.0.0":
+"os-homedir@npm:^1.0.0, os-homedir@npm:^1.0.1":
   version: 1.0.2
   resolution: "os-homedir@npm:1.0.2"
   checksum: 725256246b2cec353250ec46442e3cfa7bc96ef92285d448a90f12f4bbd78c1bf087051b2cef0382da572e1a9ebc8aa24bd0940a3bdc633c3e3012eef1dc6848
@@ -15558,7 +15662,7 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"prism-react-renderer@npm:^1.1.1":
+"prism-react-renderer@npm:^1.0.1, prism-react-renderer@npm:^1.1.1":
   version: 1.1.1
   resolution: "prism-react-renderer@npm:1.1.1"
   peerDependencies:
@@ -15645,7 +15749,7 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"prop-types@npm:^15.5.0, prop-types@npm:^15.6.0, prop-types@npm:^15.6.2, prop-types@npm:^15.7.2":
+"prop-types@npm:^15.5.0, prop-types@npm:^15.5.8, prop-types@npm:^15.6.0, prop-types@npm:^15.6.2, prop-types@npm:^15.7.2":
   version: 15.7.2
   resolution: "prop-types@npm:15.7.2"
   dependencies:
@@ -16010,6 +16114,21 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
+"react-live@npm:^2.2.3":
+  version: 2.2.3
+  resolution: "react-live@npm:2.2.3"
+  dependencies:
+    buble: 0.19.6
+    core-js: ^2.4.1
+    dom-iterator: ^1.0.0
+    prism-react-renderer: ^1.0.1
+    prop-types: ^15.5.8
+    react-simple-code-editor: ^0.10.0
+    unescape: ^1.0.1
+  checksum: 857a5c6a51662bc03a33a18042fa26cb04651e9574e6bbd5bb51acb1c0e08a72aba96ae16633dd993109ee03ae16cb814f589b0e538165210db281d4e1638a0f
+  languageName: node
+  linkType: hard
+
 "react-loadable-ssr-addon@npm:^0.3.0":
   version: 0.3.0
   resolution: "react-loadable-ssr-addon@npm:0.3.0"
@@ -16091,6 +16210,16 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
+"react-simple-code-editor@npm:^0.10.0":
+  version: 0.10.0
+  resolution: "react-simple-code-editor@npm:0.10.0"
+  peerDependencies:
+    react: ^16.0.0
+    react-dom: ^16.0.0
+  checksum: b0f2c48417979062d5c3a87e48532dc275a934f6a587e5732fa2e900236772831611f5f8dd519aaaa1222b9b01d6833dbbacd3c04f73dc16417ef77d4127e084
+  languageName: node
+  linkType: hard
+
 "react-table@npm:^7.6.3":
   version: 7.6.3
   resolution: "react-table@npm:7.6.3"
@@ -16136,6 +16265,16 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
+"react@npm:*, react@npm:^17.0.1":
+  version: 17.0.1
+  resolution: "react@npm:17.0.1"
+  dependencies:
+    loose-envify: ^1.1.0
+    object-assign: ^4.1.1
+  checksum: a76d86ec973eb4b25a46071ac7f974adfd66ed89ad1db63043be1d976ec25417520a210e6d724b0ad937422b706afcf9962cedda9e92125992a8c0e8a95f2051
+  languageName: node
+  linkType: hard
+
 "react@npm:^16.13.0":
   version: 16.13.1
   resolution: "react@npm:16.13.1"
@@ -16144,16 +16283,6 @@ fsevents@~2.1.2:
     object-assign: ^4.1.1
     prop-types: ^15.6.2
   checksum: 13dcc9ba8a7521ecc3d7e69998dbc5703ae9515308d06a94a474ad34b42f1fc109372265e924a8c9b11d20fa1828407c290b8f61617c36734c4ca907ae7e5f45
-  languageName: node
-  linkType: hard
-
-"react@npm:^17.0.1":
-  version: 17.0.1
-  resolution: "react@npm:17.0.1"
-  dependencies:
-    loose-envify: ^1.1.0
-    object-assign: ^4.1.1
-  checksum: a76d86ec973eb4b25a46071ac7f974adfd66ed89ad1db63043be1d976ec25417520a210e6d724b0ad937422b706afcf9962cedda9e92125992a8c0e8a95f2051
   languageName: node
   linkType: hard
 
@@ -16359,6 +16488,20 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
+"regexpu-core@npm:^4.2.0, regexpu-core@npm:^4.5.4, regexpu-core@npm:^4.7.1":
+  version: 4.7.1
+  resolution: "regexpu-core@npm:4.7.1"
+  dependencies:
+    regenerate: ^1.4.0
+    regenerate-unicode-properties: ^8.2.0
+    regjsgen: ^0.5.1
+    regjsparser: ^0.6.4
+    unicode-match-property-ecmascript: ^1.0.4
+    unicode-match-property-value-ecmascript: ^1.2.0
+  checksum: a4d25a11cb95841325289ab8d0d43182b74cf7fce537e60718bc8b901adb4141714f8108c5d333da302e707068f0ea7be09fd5f06ef26a2b1c27b4f29177b8ab
+  languageName: node
+  linkType: hard
+
 "regexpu-core@npm:^4.7.0":
   version: 4.7.0
   resolution: "regexpu-core@npm:4.7.0"
@@ -16370,20 +16513,6 @@ fsevents@~2.1.2:
     unicode-match-property-ecmascript: ^1.0.4
     unicode-match-property-value-ecmascript: ^1.2.0
   checksum: 8947f4c4ac23494cb842e6a0b82f29dd76737486d78f833c1ba2436a046a134435e442a615d988c6dc6b9cdaf611aafd3627ce8d2f62a8e580f094101916cad4
-  languageName: node
-  linkType: hard
-
-"regexpu-core@npm:^4.7.1":
-  version: 4.7.1
-  resolution: "regexpu-core@npm:4.7.1"
-  dependencies:
-    regenerate: ^1.4.0
-    regenerate-unicode-properties: ^8.2.0
-    regjsgen: ^0.5.1
-    regjsparser: ^0.6.4
-    unicode-match-property-ecmascript: ^1.0.4
-    unicode-match-property-value-ecmascript: ^1.2.0
-  checksum: a4d25a11cb95841325289ab8d0d43182b74cf7fce537e60718bc8b901adb4141714f8108c5d333da302e707068f0ea7be09fd5f06ef26a2b1c27b4f29177b8ab
   languageName: node
   linkType: hard
 
@@ -18902,6 +19031,15 @@ typescript@^4.1.3:
   languageName: node
   linkType: hard
 
+"unescape@npm:^1.0.1":
+  version: 1.0.1
+  resolution: "unescape@npm:1.0.1"
+  dependencies:
+    extend-shallow: ^2.0.1
+  checksum: 6c921025bd070379fd1d3a1b3ab447baa138db651dc127bf9d99f5eddc6df258c748f9292214df16086463683c04c792e02e2fb773bae062ab3d8c353fe58f43
+  languageName: node
+  linkType: hard
+
 "unherit@npm:^1.0.4":
   version: 1.1.3
   resolution: "unherit@npm:1.1.3"
@@ -19407,6 +19545,13 @@ typescript@^4.1.3:
     unist-util-stringify-position: ^2.0.0
     vfile-message: ^2.0.0
   checksum: 281f8bca81ef8600814ed5d6610cf6c10a412e3e3ffdf20ccd4d924f41d91799c52129ababff85efa96d4ee219b04b8bdd205767f62e7bc80619c36bdd5993f6
+  languageName: node
+  linkType: hard
+
+"vlq@npm:^1.0.0":
+  version: 1.0.1
+  resolution: "vlq@npm:1.0.1"
+  checksum: a15c2b8ed499d7ebf16fb5826738988fe177fe9f47e79c5a90da49c0408fce1aab7d22d83101603ff6b64d158b1e0662506f3305ca50c7f36e34bf18da2e1b56
   languageName: node
   linkType: hard
 
