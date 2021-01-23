@@ -2,22 +2,125 @@
 title: Number
 ---
 
-TODO
-
-## Primitive Rendering
-
-NumberBar
-NumberColor
-NumberSymbol
 
 ## Statistics
 
-numberStatsGenerator
+LineUp-lite computes the following statistics for a numerical attribute:
 
-## Summary Rendering
+```tsx
+export interface INumberStats extends IBoxPlot, INumericStats<number> {
 
-Histogram
-BoxPlot
+}
+```
 
-FilterRangeHistogram
-FilterRangeBoxPlot
+see [INumberStats API Docs](/api/components/interfaces/inumberstats.html)
+
+### Generator Function
+
+The stats generator function has the following signature. It returns a function that can be used to compute statistics for a given array.
+
+```tsx
+export function numberStatsGenerator(options: NumberStatsOptions = {}): (arr: readonly number[] | Float32Array | Float64Array) => INumberStats;
+```
+
+see [numberStatsGenerator API Docs](/api/components/modules.html#numberstatsgenerator)
+
+### Example
+
+```jsx live
+function Example() {
+  const compute = numberStatsGenerator();
+  const data = [43, 78, 45, 38, 33, 47, 45, 65, 56, 98, 58, 1, 58, 66, 57, 85, 32, 45, 75];
+  const stats = compute(data);
+
+  return <pre>{JSON.stringify(stats, null, 2)}</pre>;
+}
+```
+
+## Visualization
+
+### Cell
+
+[`NumberBar`](/api/components/modules.html#numberbar) React component,
+[`NumberColor`](/api/components/modules.html#numbercolor) React component, or
+[`NumberSymbol`](/api/components/modules.html#numbersymbol) React component.
+
+```jsx live
+function Example() {
+  const compute = numberStatsGenerator();
+  const data = [43, 78, 45, 38, 33, 47, 45, 65, 56, 98, 58, 1, 58, 66, 57, 85, 32, 45, 75];
+  const stats = compute(data);
+
+  return <div style={{display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gridGap: 10}}>
+    <NumberBar value={data[0]} scale={stats.scale} color={stats.color} format={stats.format} />
+    <NumberColor value={data[0]} scale={stats.scale} color={stats.color} format={stats.format} />
+    <NumberSymbol value={data[0]} scale={stats.scale} color={stats.color} format={stats.format} />
+    {/* */}
+    <NumberBar value={data[1]} scale={stats.scale} color={stats.color} format={stats.format} />
+    <NumberColor value={data[1]} scale={stats.scale} color={stats.color} format={stats.format} />
+    <NumberSymbol value={data[1]} scale={stats.scale} color={stats.color} format={stats.format} />
+    {/* */}
+    <NumberBar value={data[2]} scale={stats.scale} color={stats.color} format={stats.format} />
+    <NumberColor value={data[2]} scale={stats.scale} color={stats.color} format={stats.format} />
+    <NumberSymbol value={data[2]} scale={stats.scale} color={stats.color} format={stats.format} />
+  </div>;
+}
+```
+
+### Aggregation
+
+[`Histogram`](/api/components/modules.html#histogram) React component or
+[`BoxPlot`](/api/components/modules.html#boxplot) React component
+
+```jsx live
+function Example() {
+  const compute = numberStatsGenerator();
+  const data = [43, 78, 45, 38, 33, 47, 45, 65, 56, 98, 58, 1, 58, 66, 57, 85, 32, 45, 75];
+  const stats = compute(data);
+
+  return <div>
+    <Histogram s={stats} style={{ height: 100 }} />
+    <BoxPlot s={stats} style={{ height: 100 }} />
+  </div>;
+}
+```
+
+### Interactive Summary
+
+[`FilterRangeHistogram`](/api/components/modules.html#filterrangehistogram) React component or
+[`FilterRangeBoxPlot`](/api/components/modules.html#filterrangeboxplot) React component
+
+```jsx live
+function Example() {
+  const compute = numberStatsGenerator();
+  const data = [43, 78, 45, 38, 33, 47, 45, 65, 56, 98, 58, 1, 58, 66, 57, 85, 32, 45, 75];
+  const stats = compute(data);
+
+  const [filterValue, setFilter] = React.useState(null);
+  const filtered = filterValue ? data.filter((d) => (filterValue[0] == null || filterValue[0] <= d) && (filterValue[1] == null || d <= filterValue[1])) : data;
+  const filteredStats = numberStatsGenerator({ min: stats.min, max: stats.max })(filtered);
+
+  return (
+    <div>
+      <FilterRangeHistogram
+        s={filteredStats}
+        preFilter={stats}
+        filterValue={filterValue}
+        setFilter={setFilter}
+        label
+        summary
+        style={{ height: 100 }}
+      />
+      <FilterRangeBoxPlot
+        s={filteredStats}
+        preFilter={stats}
+        filterValue={filterValue}
+        setFilter={setFilter}
+        label
+        summary
+        style={{ height: 100 }}
+      />
+    </div>
+  );
+}
+```

@@ -2,11 +2,105 @@
 title: Text
 ---
 
-## Visualization
-
-`TextSummary` React component
+Text attributes are string attributes that have mostly uniquely different values, such as names or locations.
 
 ## Statistics
 
-`textStatsGenerator`
+LineUp-lite computes the following statistics for a text attribute:
 
+```tsx
+export interface ITextStats extends ICommonStats {
+  /**
+   * number of unique text items
+   */
+  readonly unique: number;
+  /**
+   * top 10 most frequent text items sorted descending by count
+   */
+  readonly mostFrequent: readonly { value: string; count: number }[];
+  /**
+   * converts a given string to a label
+   */
+  format: (v: string) => string;
+}
+```
+
+see [ITextStats API Docs](/api/components/interfaces/itextstats.html)
+
+### Generator Function
+
+The stats generator function has the following signature. It returns a function that can be used to compute statistics for a given array.
+
+```tsx
+export function textStatsGenerator(options: TextStatsOptions = {}): (arr: readonly string[]) => ITextStats;
+```
+
+see [textStatsGenerator API Docs](/api/components/modules.html#textstatsgenerator)
+
+### Example
+
+```jsx live
+function Example() {
+  const compute = textStatsGenerator();
+  const data = ['a', 'a', 'a', 'b', 'c', 'e', 'f', 'g', 'g', 'h', 'j'];
+  const stats = compute(data);
+
+  return <pre>{JSON.stringify(stats, null, 2)}</pre>;
+}
+```
+
+## Visualization
+
+### Cell
+
+[`TextLabel`](/api/components/modules.html#textlabel) React component
+
+```jsx live
+function Example() {
+  const compute = textStatsGenerator();
+  const data = ['a', 'a', 'a', 'b', 'c', 'e', 'f', 'g', 'g', 'h', 'j'];
+  const stats = compute(data);
+
+  return <TextLabel value="a" format={stats.format} />;
+}
+```
+
+### Aggregation
+
+[`Histogram`](/api/components/modules.html#histogram) React component
+
+```jsx live
+function Example() {
+  const compute = textStatsGenerator();
+  const data = ['a', 'a', 'a', 'b', 'c', 'e', 'f', 'g', 'g', 'h', 'j'];
+  const stats = compute(data);
+
+  return <TextSummary s={stats} />;
+}
+```
+
+### Interactive Summary
+
+[`TextSummary`](/api/components/modules.html#textsummary) React component
+
+```jsx live
+function Example() {
+  const compute = textStatsGenerator();
+  const data = ['a', 'a', 'a', 'b', 'c', 'e', 'f', 'g', 'g', 'h', 'j'];
+  const stats = compute(data);
+
+  const [filterValue, setFilter] = React.useState(null);
+  const filtered = filterValue ? data.filter((d) => d.startsWith(filterValue)) : data;
+  const filteredStats = compute(filtered);
+
+  return (
+    <FilterTextSummary
+      s={filteredStats}
+      preFilter={stats}
+      filterValue={filterValue}
+      setFilter={setFilter}
+      summary
+    />
+  );
+}
+```

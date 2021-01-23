@@ -2,7 +2,7 @@
 title: Categorical
 ---
 
-Categorical attributes are string attributes that have a limited number of possible values such as colors (`red`, `green`, `blue`, ...). 
+Categorical attributes are string attributes that have a limited number of possible values such as colors (`red`, `green`, `blue`, ...).
 In addtion they can have an inherit order (ordinal attributes) such as a shirt size (`small`, `medium`, and `large`).
 
 ## Statistics
@@ -47,11 +47,10 @@ see [categoricalStatsGenerator API Docs](/api/components/modules.html#categorica
 ```jsx live
 function Example() {
   const compute = categoricalStatsGenerator();
-  const stats = compute(['c1', 'c2', 'c3', 'c2', 'c3', 'c1', 'c1', 'c2', 'c2']);
+  const data = ['c1', 'c2', 'c3', 'c2', 'c3', 'c1', 'c1', 'c2', 'c2'];
+  const stats = compute(data);
 
-  return <pre>
-    {JSON.stringify(stats, null, 2)}
-  </pre>;
+  return <pre>{JSON.stringify(stats, null, 2)}</pre>;
 }
 ```
 
@@ -64,9 +63,14 @@ function Example() {
 ```jsx live
 function Example() {
   const compute = categoricalStatsGenerator();
-  const stats = compute(['c1', 'c2', 'c3', 'c2', 'c3', 'c1', 'c1', 'c2', 'c2']);
+  const data = ['c1', 'c2', 'c3', 'c2', 'c3', 'c1', 'c1', 'c2', 'c2'];
+  const stats = compute(data);
 
-  return <CategoricalColor value="c1" color={stats.color} format={stats.format} />;
+  return <div>
+    <CategoricalColor value="c1" color={stats.color} format={stats.format} />
+    <CategoricalColor value="c2" color={stats.color} format={stats.format} />
+    <CategoricalColor value="c3" color={stats.color} format={stats.format} />
+  </div>;
 }
 ```
 
@@ -77,9 +81,10 @@ function Example() {
 ```jsx live
 function Example() {
   const compute = categoricalStatsGenerator();
-  const stats = compute(['c1', 'c2', 'c3', 'c2', 'c3', 'c1', 'c1', 'c2', 'c2']);
+  const data = ['c1', 'c2', 'c3', 'c2', 'c3', 'c1', 'c1', 'c2', 'c2'];
+  const stats = compute(data);
 
-  return <Histogram s={stats}  style={{height: 100}}/>;
+  return <Histogram s={stats} style={{ height: 100 }} />;
 }
 ```
 
@@ -90,9 +95,23 @@ function Example() {
 ```jsx live
 function Example() {
   const compute = categoricalStatsGenerator();
-  const stats = compute(['c1', 'c2', 'c3', 'c2', 'c3', 'c1', 'c1', 'c2', 'c2']);
+  const data = ['c1', 'c2', 'c3', 'c2', 'c3', 'c1', 'c1', 'c2', 'c2'];
+  const stats = compute(data);
 
   const [filterValue, setFilter] = React.useState(null);
-  return <FilterBinHistogram s={stats} filterValue={filterValue} setFilter={setFilter} summary  style={{height: 100}}/>;
+  const filtered = filterValue ? data.filter((d) => !filterValue.includes(d)) : data;
+  const filteredStats = categoricalStatsGenerator({ categories: stats.categories })(filtered);
+
+  return (
+    <FilterBinHistogram
+      s={filteredStats}
+      preFilter={stats}
+      filterValue={filterValue}
+      setFilter={setFilter}
+      label
+      summary
+      style={{ height: 100 }}
+    />
+  );
 }
 ```
