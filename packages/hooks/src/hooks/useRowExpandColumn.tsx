@@ -20,14 +20,8 @@ export function useRowExpandColumn<D extends object = {}>(hooks: Hooks<D>) {
 }
 useRowExpandColumn.pluginName = 'useRowExpandColumn';
 
-// https://remixicon.com/
 function ArrowDropRightLine() {
-  return (
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1.2em">
-      <path fill="none" d="M0 0h24v24H0z" />
-      <path d="M12.172 12L9.343 9.172l1.414-1.415L15 12l-4.243 4.243-1.414-1.415z" />
-    </svg>
-  );
+  return <>▸</>;
 }
 
 function Cell() {

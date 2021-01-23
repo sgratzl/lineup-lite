@@ -2632,6 +2632,7 @@ __metadata:
     "@types/react": ^17.0.0
     "@types/react-helmet": ^6.1.0
     "@types/react-router-dom": ^5.1.7
+    "@types/react-table": ^7.0.27
     "@types/seedrandom": ^2.4.28
     clsx: ^1.1.1
     d3-scale-chromatic: ^2.0.0
@@ -2647,6 +2648,7 @@ __metadata:
     prettier: ^2.2.1
     react: ^17.0.1
     react-dom: ^17.0.1
+    react-table: ^7.6.3
     regenerator-runtime: ^0.13.7
     seedrandom: ^3.0.5
     typescript: ^4.1.3
@@ -3683,6 +3685,15 @@ __metadata:
   dependencies:
     "@types/react": "*"
   checksum: 22479bb7982e61e6d3f25eef8519118ae3e69fd6a20d3f83af110a51777729888ece463452fc4cd6451cdff6257e6a79075e74aded612614efcebca11ef58417
+  languageName: node
+  linkType: hard
+
+"@types/react-table@npm:^7.0.27":
+  version: 7.0.27
+  resolution: "@types/react-table@npm:7.0.27"
+  dependencies:
+    "@types/react": "*"
+  checksum: eb8a7b79505a8365432d805f11568e83a8da2279e17709b71057837090612a008ac462297544eb74b004b0efc61d6d9c33b5065e574a933c3b169e99c9bc625f
   languageName: node
   linkType: hard
 

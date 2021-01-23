@@ -68,7 +68,7 @@ function generateColumn<D extends object = {}>(columns: ColumnInstance<D>[]) {
 }
 
 function useInstance<D extends object>(instance: TableInstance<D>) {
-  ensurePluginOrder(instance.plugins, ['useFilters', 'useGroupBy', 'useSortBy'], 'useStats');
+  ensurePluginOrder(instance.plugins, ['useFilters', 'useGroupBy', 'useSortBy'], 'useRowRankColumn');
 
   const extendedInstance = (instance as unknown) as TableInstance<D> &
     UseFiltersInstanceProps<D> &
