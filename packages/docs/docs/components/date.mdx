@@ -2,7 +2,6 @@
 title: Date
 ---
 
-
 ## Statistics
 
 LineUp-lite computes the following statistics for a date attribute:
@@ -40,7 +39,15 @@ see [dateStatsGenerator API Docs](/api/components/modules.html#datestatsgenerato
 
 function Example() {
   const compute = dateStatsGenerator();
-  const data = [new Date(2008, 11, 1), new Date(2008, 8, 1), new Date(2008, 4, 1), new Date(2009, 2, 1), new Date(2010, 9, 1), new Date(2010, 1, 1), new Date(2018, 1, 1)];
+  const data = [
+    new Date(2008, 11, 1),
+    new Date(2008, 8, 1),
+    new Date(2008, 4, 1),
+    new Date(2009, 2, 1),
+    new Date(2010, 9, 1),
+    new Date(2010, 1, 1),
+    new Date(2018, 1, 1),
+  ];
   const stats = compute(data);
 
   return <pre>{JSON.stringify(stats, null, 2)}</pre>;
@@ -58,14 +65,24 @@ function Example() {
 
 function Example() {
   const compute = dateStatsGenerator();
-  const data = [new Date(2008, 11, 1), new Date(2008, 8, 1), new Date(2008, 4, 1), new Date(2009, 2, 1), new Date(2010, 9, 1), new Date(2010, 1, 1), new Date(2018, 1, 1)];
+  const data = [
+    new Date(2008, 11, 1),
+    new Date(2008, 8, 1),
+    new Date(2008, 4, 1),
+    new Date(2009, 2, 1),
+    new Date(2010, 9, 1),
+    new Date(2010, 1, 1),
+    new Date(2018, 1, 1),
+  ];
   const stats = compute(data);
 
-  return <div>
-    <DateLabel value={data[0]} format={stats.format} />
-    <DateLabel value={data[1]} format={stats.format} />
-    <DateLabel value={data[2]} format={stats.format} />
-  </div>;
+  return (
+    <div>
+      <DateLabel value={data[0]} format={stats.format} />
+      <DateLabel value={data[1]} format={stats.format} />
+      <DateLabel value={data[2]} format={stats.format} />
+    </div>
+  );
 }
 ```
 
@@ -78,7 +95,15 @@ function Example() {
 
 function Example() {
   const compute = dateStatsGenerator();
-  const data = [new Date(2008, 11, 1), new Date(2008, 8, 1), new Date(2008, 4, 1), new Date(2009, 2, 1), new Date(2010, 9, 1), new Date(2010, 1, 1), new Date(2018, 1, 1)];
+  const data = [
+    new Date(2008, 11, 1),
+    new Date(2008, 8, 1),
+    new Date(2008, 4, 1),
+    new Date(2009, 2, 1),
+    new Date(2010, 9, 1),
+    new Date(2010, 1, 1),
+    new Date(2018, 1, 1),
+  ];
   const stats = compute(data);
 
   return <Histogram s={stats} style={{ height: 100 }} />;
@@ -94,20 +119,34 @@ function Example() {
 
 function Example() {
   const compute = dateStatsGenerator();
-  const data = [new Date(2008, 11, 1), new Date(2008, 8, 1), new Date(2008, 4, 1), new Date(2009, 2, 1), new Date(2010, 9, 1), new Date(2010, 1, 1), new Date(2018, 1, 1)];
+  const data = [
+    new Date(2008, 11, 1),
+    new Date(2008, 8, 1),
+    new Date(2008, 4, 1),
+    new Date(2009, 2, 1),
+    new Date(2010, 9, 1),
+    new Date(2010, 1, 1),
+    new Date(2018, 1, 1),
+  ];
   const stats = compute(data);
-  
+
   const [filterValue, setFilter] = React.useState(null);
-  const filtered = filterValue ? data.filter((d) => (filterValue[0] == null || filterValue[0] <= d) && (filterValue[1] == null || d <= filterValue[1])) : data;
+  const filtered = filterValue
+    ? data.filter(
+        (d) => (filterValue[0] == null || filterValue[0] <= d) && (filterValue[1] == null || d <= filterValue[1])
+      )
+    : data;
   const filteredStats = dateStatsGenerator({ min: stats.min, max: stats.max })(filtered);
 
-  return <FilterRangeHistogram
-    s={filteredStats}
-    preFilter={stats}
-    filterValue={filterValue}
-    setFilter={setFilter}
-    summary
-    style={{ height: 100 }}
-  />;
+  return (
+    <FilterRangeHistogram
+      s={filteredStats}
+      preFilter={stats}
+      filterValue={filterValue}
+      setFilter={setFilter}
+      summary
+      style={{ height: 100 }}
+    />
+  );
 }
 ```

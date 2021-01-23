@@ -102,13 +102,7 @@ function Example() {
   const filteredStats = compute(filtered);
 
   return (
-    <FilterTextSummary
-      s={filteredStats}
-      preFilter={stats}
-      filterValue={filterValue}
-      setFilter={setFilter}
-      summary
-    />
+    <FilterTextSummary s={filteredStats} preFilter={stats} filterValue={filterValue} setFilter={setFilter} summary />
   );
 }
 ```

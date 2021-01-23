@@ -70,11 +70,13 @@ function Example() {
   const data = ['c1', 'c2', 'c3', 'c2', 'c3', 'c1', 'c1', 'c2', 'c2'];
   const stats = compute(data);
 
-  return <div>
-    <CategoricalColor value="c1" color={stats.color} format={stats.format} />
-    <CategoricalColor value="c2" color={stats.color} format={stats.format} />
-    <CategoricalColor value="c3" color={stats.color} format={stats.format} />
-  </div>;
+  return (
+    <div>
+      <CategoricalColor value="c1" color={stats.color} format={stats.format} />
+      <CategoricalColor value="c2" color={stats.color} format={stats.format} />
+      <CategoricalColor value="c3" color={stats.color} format={stats.format} />
+    </div>
+  );
 }
 ```
 

@@ -62,7 +62,7 @@ function Table() {
       {
         Header: 'Name',
         accessor: 'name',
-      },      
+      },
       {
         Header: 'Age',
         accessor: 'age',
@@ -70,7 +70,7 @@ function Table() {
       {
         Header: 'Shirt Size',
         accessor: 'shirtSize',
-      },      
+      },
       {
         Header: 'Birthday',
         accessor: (r) => r.birthday.toLocaleString(),
@@ -80,32 +80,33 @@ function Table() {
   );
 
   // Use the state and functions returned from useTable to build your UI
-  const {
-    getTableProps,
-    getTableBodyProps,
-    headerGroups,
-    rows,
-    prepareRow,
-  } = useTable({
-    columns,
-    data,
-  }, useGroupBy, useExpanded, useRowSelect, useRowSelectColumn, useRowRankColumn, useRowExpandColumn);
+  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = useTable(
+    {
+      columns,
+      data,
+    },
+    useGroupBy,
+    useExpanded,
+    useRowSelect,
+    useRowSelectColumn,
+    useRowRankColumn,
+    useRowExpandColumn
+  );
 
   // Render the UI for your table
   return (
     <table {...getTableProps()}>
       <thead>
-        {headerGroups.map(headerGroup => (
+        {headerGroups.map((headerGroup) => (
           <tr {...headerGroup.getHeaderGroupProps()}>
-            {headerGroup.headers.map(column => (
+            {headerGroup.headers.map((column) => (
               <th {...column.getHeaderProps()}>
                 {column.canGroupBy ? (
-                    // If the column can be grouped, let's add a toggle
-                    <span {...column.getGroupByToggleProps()}>
-                      {column.isGrouped ? '🛑 ' : '👊 '}
-                    </span>
-                  ) : null}
-                {column.render('Header')}</th>
+                  // If the column can be grouped, let's add a toggle
+                  <span {...column.getGroupByToggleProps()}>{column.isGrouped ? '🛑 ' : '👊 '}</span>
+                ) : null}
+                {column.render('Header')}
+              </th>
             ))}
           </tr>
         ))}
@@ -115,25 +116,29 @@ function Table() {
           prepareRow(row);
           return (
             <tr {...row.getRowProps()}>
-              {row.cells.map(cell => {
-                return <td {...cell.getCellProps()}>
-                  {cell.isGrouped ? (
-                   <>{cell.render('Cell')} ({row.subRows.length})</>
-                  ) : cell.isAggregated ? (
-                    // If the cell is aggregated, use the Aggregated
-                    // renderer for cell
-                    cell.render('Aggregated')
-                  ) : cell.isPlaceholder ? null : ( // For cells with repeated values, render null
-                    // Otherwise, just render the regular cell
-                    cell.render('Cell')
-                  )}
-                </td>
+              {row.cells.map((cell) => {
+                return (
+                  <td {...cell.getCellProps()}>
+                    {cell.isGrouped ? (
+                      <>
+                        {cell.render('Cell')} ({row.subRows.length})
+                      </>
+                    ) : cell.isAggregated ? (
+                      // If the cell is aggregated, use the Aggregated
+                      // renderer for cell
+                      cell.render('Aggregated')
+                    ) : cell.isPlaceholder ? null : ( // For cells with repeated values, render null
+                      // Otherwise, just render the regular cell
+                      cell.render('Cell')
+                    )}
+                  </td>
+                );
               })}
             </tr>
-          )
+          );
         })}
       </tbody>
     </table>
-  )
+  );
 }
 ```

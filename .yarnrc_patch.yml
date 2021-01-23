@@ -1,10 +1,10 @@
 packageExtensions:
-  "prism-react-renderer@*":
+  'prism-react-renderer@*':
     dependencies:
       react: '*'
-  "react-live@*":
+  'react-live@*':
     dependencies:
       react: '*'
-  "react-simple-code-editor@*":
+  'react-simple-code-editor@*':
     dependencies:
       react: '*'

@@ -31,11 +31,13 @@ function Example() {
     birthday: new Date(2011, 1, 1),
   };
 
-  return <div style={{maxWidth: 200}}>
-    <TextLabel value={row.name} />
-    <NumberBar value={row.age} scale={normalize(0, 50)} />
-    <CategoricalColor value={row.shirtSize} color="red" />
-    <DateLabel value={row.birthday} />
-  </div>;
+  return (
+    <div style={{ maxWidth: 200 }}>
+      <TextLabel value={row.name} />
+      <NumberBar value={row.age} scale={normalize(0, 50)} />
+      <CategoricalColor value={row.shirtSize} color="red" />
+      <DateLabel value={row.birthday} />
+    </div>
+  );
 }
 ```

@@ -147,12 +147,7 @@ function GettingStarted() {
   );
 
   const columns = React.useMemo(
-    () => [
-      asTextColumn('name'),
-      asNumberColumn('age'),
-      asCategoricalColumn('shirtSize'),
-      asDateColumn('birthday'),
-    ],
+    () => [asTextColumn('name'), asNumberColumn('age'), asCategoricalColumn('shirtSize'), asDateColumn('birthday')],
     []
   );
 
