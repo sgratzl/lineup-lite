@@ -6,11 +6,12 @@ import '@lineup-lite/table/dist/table.css';
 
 // Add react-live imports you need here
 const ReactLiveScope = {
-  React,
-  ...React,
   ...components,
   ...hooks,
   ...table,
+  React,
+  ...React,
 };
+delete ReactLiveScope.default;
 
 export default ReactLiveScope;

@@ -1,5 +1,5 @@
-export { default as LineUpLite, default } from './components';
 export * from './components';
+export { LineUpLite as default } from './components';
 export * from './icons';
 export {
   asCategoricalColumn,
