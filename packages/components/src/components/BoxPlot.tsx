@@ -75,9 +75,13 @@ export function BoxPlotChart(props: BoxPlotChartProps) {
         />
         <path d={path} className="lt-boxplot-frame" />
         {b.outlier.map((o) => (
-          <circle className="lt-boxplot-outlier" key={o} cx={scale(o)} cy={cy} r={outlierRadius}>
+          <path
+            className="lt-boxplot-outlier"
+            key={o}
+            d={`M${scale(o)} ${cy - outlierRadius} l 0 ${2 * outlierRadius}`}
+          >
             <title>{s.format(o)}</title>
-          </circle>
+          </path>
         ))}
       </>
     );

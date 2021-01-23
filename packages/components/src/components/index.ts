@@ -7,3 +7,4 @@ export * from './NumberBar';
 export * from './NumberColor';
 export * from './NumberSymbol';
 export * from './TextSummary';
+export * from './TextLabel';

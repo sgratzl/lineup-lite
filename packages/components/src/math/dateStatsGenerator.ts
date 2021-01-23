@@ -37,6 +37,7 @@ function computeGranularity(
         x1: new Date(i + 10, 0, 1),
         label: formatter(x0),
         color: color(new Date(i + 5, 0, 1)),
+        items: [],
         count: 0,
       });
     }
@@ -55,6 +56,7 @@ function computeGranularity(
         x1: new Date(i + 1, 0, 1),
         label: formatter(x0),
         color: color(new Date(i, 6, 1)),
+        items: [],
         count: 0,
       });
     }
@@ -73,6 +75,7 @@ function computeGranularity(
         x1,
         label: formatter(x0),
         color: color(new Date(x0.getFullYear(), x0.getMonth(), x0.getDate(), 12)),
+        items: [],
         count: 0,
       });
       x0 = x1;
@@ -91,6 +94,7 @@ function computeGranularity(
       x1,
       label: formatter(x0),
       color: color(new Date(x0.getFullYear(), x0.getMonth(), 15)),
+      items: [],
       count: 0,
     });
     x0 = x1;
@@ -99,17 +103,21 @@ function computeGranularity(
 }
 
 function pushDateHist(hist: IBin<Date>[], v: Date, count: number = 1) {
+  const values = (Array(count) as Date[]).fill(v);
   if (v < hist[0].x1) {
     hist[0].count += count;
+    (hist[0].items as Date[]).push(...values);
     return;
   }
   const l = hist.length - 1;
   if (v > hist[l].x0) {
     hist[l].count += count;
+    (hist[l].items as Date[]).push(...values);
     return;
   }
   if (l === 2) {
     hist[1].count += count;
+    (hist[1].items as Date[]).push(...values);
     return;
   }
 
@@ -125,6 +133,7 @@ function pushDateHist(hist: IBin<Date>[], v: Date, count: number = 1) {
     }
   }
   hist[low].count += count;
+  (hist[low].items as Date[]).push(...values);
 }
 
 export type DateFormatter =
@@ -222,9 +231,10 @@ export function dateStatsGenerator(options: DateStatsOptions = {}): (arr: readon
         acc.valid++;
         acc.min = Math.min(acc.min, t);
         acc.max = Math.max(acc.max, t);
+        acc.items.push(v);
         return acc;
       },
-      { min: Number.POSITIVE_INFINITY, max: Number.NEGATIVE_INFINITY, valid: 0 }
+      { min: Number.POSITIVE_INFINITY, max: Number.NEGATIVE_INFINITY, valid: 0, items: [] as Date[] }
     );
 
     const now = new Date();
@@ -241,6 +251,7 @@ export function dateStatsGenerator(options: DateStatsOptions = {}): (arr: readon
       });
     }
     return {
+      items: simpleStats.items,
       hist,
       histGranularity,
       missing,

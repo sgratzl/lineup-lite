@@ -10,7 +10,8 @@
 }
 
 .lt-boxplot-outlier {
-  fill: var(--current-color, black);
+  stroke: var(--current-color, black);
+  vector-effect: non-scaling-stroke;
 }
 
 .lt-boxplot-pre {

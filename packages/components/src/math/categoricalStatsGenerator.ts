@@ -4,7 +4,9 @@ import type { IHistStats } from './common';
 /**
  * categorical statistics object
  */
-export interface ICategoricalStats extends IHistStats<string> {}
+export interface ICategoricalStats extends IHistStats<string> {
+  categories: readonly string[];
+}
 
 export interface CategoricalStatsOptions {
   /**
@@ -34,11 +36,13 @@ export function categoricalStatsGenerator(
     if (options.categories) {
       options.categories.forEach((cat) => map.set(cat, 0));
     }
+    const items: string[] = [];
     arr.forEach((v) => {
       if (v == null) {
         missing++;
         return;
       }
+      items.push(v);
       map.set(v, 1 + (map.get(v) ?? 0));
     });
 
@@ -52,11 +56,14 @@ export function categoricalStatsGenerator(
       x1: value,
       label: value,
       count,
+      items: Array(count).fill(value),
       color: color(value),
     }));
 
     return {
+      categories: options.categories ?? hist.map((d) => d.x0),
       hist,
+      items,
       maxBin: hist.reduce((acc, b) => Math.max(acc, b.count), 0),
       color,
       format,

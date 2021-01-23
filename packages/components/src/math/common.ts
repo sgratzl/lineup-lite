@@ -22,9 +22,14 @@ export interface IBin<T> {
    * end point of this bin
    */
   x1: T;
+
+  /**
+   * the items in this bin
+   */
+  items: readonly T[];
 }
 
-export interface ICommonStats {
+export interface ICommonStats<T> {
   /**
    * number of missing items in the array
    */
@@ -33,9 +38,13 @@ export interface ICommonStats {
    * number of items in the array
    */
   readonly count: number;
+  /**
+   * the items in this stats
+   */
+  readonly items: readonly T[];
 }
 
-export interface IHistStats<T> extends ICommonStats {
+export interface IHistStats<T> extends ICommonStats<T> {
   /**
    * histogram
    */

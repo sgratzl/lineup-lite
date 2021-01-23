@@ -18,7 +18,9 @@ export function getNumberOfBins(length: number): number {
 /**
  * number statistics object
  */
-export interface INumberStats extends IBoxPlot, INumericStats<number> {}
+export interface INumberStats extends IBoxPlot, INumericStats<number> {
+  items: readonly number[];
+}
 
 export type NumberFormatter =
   | ((v: number) => string)
@@ -76,6 +78,7 @@ function createHist(
       const x0 = min + binWidth * i;
       return {
         count: 0,
+        items: [],
         x0,
         x1: x0 + binWidth,
         label: `${format(x0)} - ${format(x0 + binWidth)}`,
@@ -92,6 +95,7 @@ function createHist(
     const v = b.items[i];
     const bin = hist.find((d) => v < d.x1) || hist[hist.length - 1];
     bin.count++;
+    (bin.items as number[]).push(v);
   }
   return hist;
 }
@@ -111,6 +115,7 @@ export function numberStatsGenerator(
       min,
       max,
       hist,
+      items: Array.from(b.items),
       maxBin: hist.reduce((acc, b) => Math.max(acc, b.count), 0),
       scale: normalize(min, max),
       invert: deNormalize(min, max),

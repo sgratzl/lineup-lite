@@ -3,7 +3,7 @@ import type { ICommonStats } from './common';
 /**
  * text statistics object
  */
-export interface ITextStats extends ICommonStats {
+export interface ITextStats extends ICommonStats<string> {
   /**
    * number of unique text items
    */
@@ -41,17 +41,21 @@ export function textStatsGenerator(options: TextStatsOptions = {}): (arr: readon
   return (arr: readonly string[]): ITextStats => {
     let missing = 0;
     const counter = new Map<string, { value: string; count: number }>();
+    const items: string[] = [];
     arr.forEach((v) => {
       if (!v) {
         missing++;
       } else if (counter.has(v)) {
         counter.get(v)!.count++;
+        items.push(v);
       } else {
         counter.set(v, { value: v, count: 1 });
+        items.push(v);
       }
     });
     return {
       unique: counter.size,
+      items,
       mostFrequent:
         mostFrequentCount <= 0
           ? []
