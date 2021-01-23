@@ -17,13 +17,17 @@ module.exports = {
       items: [
         {
           type: 'category',
-          label: 'LineUp-lite Table',
+          label: 'LineUp-lite Components',
           items: [
-            'table/_index',
+            'components/_index',
+            'components/text',
+            'components/categorical',
+            'components/number',
+            'components/date',
             {
               type: 'link',
               label: 'API',
-              href: '/api/table',
+              href: '/api/components',
             },
           ],
         },
@@ -41,17 +45,13 @@ module.exports = {
         },
         {
           type: 'category',
-          label: 'LineUp-lite Components',
+          label: 'LineUp-lite Table',
           items: [
-            'components/_index',
-            'components/text',
-            'components/categorical',
-            'components/number',
-            'components/date',
+            'table/_index',
             {
               type: 'link',
               label: 'API',
-              href: '/api/components',
+              href: '/api/table',
             },
           ],
         },
