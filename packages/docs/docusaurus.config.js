@@ -30,6 +30,12 @@ module.exports = {
           label: 'Docs',
           position: 'left',
         },
+        {
+          to: 'api',
+          activeBasePath: 'api',
+          label: 'API',
+          position: 'left',
+        },
         // {to: 'blog', label: 'Blog', position: 'left'},
         {
           href: 'https://github.com/sgratzl/lineup-lite',
@@ -42,11 +48,36 @@ module.exports = {
       style: 'dark',
       links: [
         {
-          title: 'Docs',
+          title: 'Resources',
           items: [
+            {
+              label: 'Docs',
+              to: 'docs',
+            },
             {
               label: 'Getting Started',
               to: 'docs/getting-started',
+            },
+            {
+              label: 'Examples',
+              to: 'docs/examples',
+            },
+            {
+              label: 'API Reference',
+              to: 'api',
+            },
+          ],
+        },
+        {
+          title: 'Community',
+          items: [
+            {
+              label: 'GitHub',
+              href: 'https://github.com/sgratzl/lineup-lite',
+            },
+            {
+              label: 'GitHub Discussions',
+              href: 'https://github.com/sgratzl/lineup-lite/dicussions',
             },
           ],
         },
@@ -54,17 +85,21 @@ module.exports = {
           title: 'More',
           items: [
             {
-              label: 'GitHub',
-              href: 'https://github.com/sgratzl/lineup-lite',
+              label: '@sgratzl',
+              href: 'https://github.com/sgratzl',
             },
             {
-              label: 'Samuel Gratzl',
-              href: 'https://www.sgratzl.com',
+              label: 'LineUp.js',
+              href: 'https://lineup.js.org',
+            },
+            {
+              label: 'UpSet.js',
+              href: 'https://upset.js.org',
             },
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} <a href="https://www.sgratzl.com">Samuel Gratzl</a>. Built with Docusaurus.`,
+      copyright: `Copyright © ${new Date().getFullYear()} <a href="https://www.sgratzl.com">Samuel Gratzl</a>. All rights reserved. Built with Docusaurus.`,
     },
   },
   presets: [
