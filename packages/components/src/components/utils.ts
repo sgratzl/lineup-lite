@@ -15,3 +15,7 @@ export function mergeStyles(...args: (React.CSSProperties | undefined | null)[])
   }
   return Object.assign({}, ...s);
 }
+
+export function format<T>(value: T, formatter?: string | ((v: T) => string)): string {
+  return typeof formatter === 'string' ? formatter : typeof formatter === 'function' ? formatter(value) : String(value);
+}

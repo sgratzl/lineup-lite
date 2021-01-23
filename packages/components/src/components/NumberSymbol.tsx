@@ -1,6 +1,7 @@
 import React from 'react';
+import { defaultColorScale } from '../math';
 import type { NumberBarProps } from './NumberBar';
-import { cslx, mergeStyles, toPercent } from './utils';
+import { cslx, format, mergeStyles, toPercent } from './utils';
 
 function radiFromArea(area: number) {
   // r * r * PI = area
@@ -21,13 +22,13 @@ function proportionalSymbolProps(value: number, color: string | ((v: number) => 
  * renders a numeric value along with a circle whose area is proportional to the value
  */
 export function NumberSymbol(props: NumberBarProps) {
-  const label = typeof props.format === 'string' ? props.format : props.format(props.value);
+  const label = format(props.value, props.format ?? ((v: number) => (v ? v.toLocaleString() : '')));
   return (
     <div
       className={cslx('lt-proportional-symbol', props.className)}
       style={mergeStyles(
         props.style,
-        proportionalSymbolProps(props.scale ? props.scale(props.value) : props.value, props.color)
+        proportionalSymbolProps(props.scale ? props.scale(props.value) : props.value, props.color ?? defaultColorScale)
       )}
       title={label}
     >

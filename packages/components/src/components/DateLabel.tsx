@@ -1,6 +1,6 @@
 import React from 'react';
 import type { CommonProps } from './common';
-import { cslx } from './utils';
+import { cslx, format } from './utils';
 
 export interface DateLabelProps extends CommonProps {
   /**
@@ -10,14 +10,14 @@ export interface DateLabelProps extends CommonProps {
   /**
    * optional formatted date string or a function to compute the date string
    */
-  format: string | ((v: Date) => string);
+  format?: string | ((v: Date) => string);
 }
 
 /**
  * renders a date
  */
 export function DateLabel(props: DateLabelProps) {
-  const label = typeof props.format === 'string' ? props.format : props.format(props.value);
+  const label = format(props.value, props.format ?? ((v: Date) => (v ? v.toLocaleString() : '')));
   return (
     <div className={cslx('lt-date', props.className)} style={props.style} title={label}>
       {label}

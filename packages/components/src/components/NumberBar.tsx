@@ -1,6 +1,7 @@
 import React from 'react';
+import { defaultColorScale } from '../math';
 import type { CommonProps } from './common';
-import { cslx, mergeStyles, toPercent } from './utils';
+import { cslx, format, mergeStyles, toPercent } from './utils';
 
 export interface NumberBarProps extends CommonProps {
   /**
@@ -14,11 +15,11 @@ export interface NumberBarProps extends CommonProps {
   /**
    * value or value to color function
    */
-  color: string | ((v: number) => string);
+  color?: string | ((v: number) => string);
   /**
    * label for value to label function
    */
-  format: string | ((v: number) => string);
+  format?: string | ((v: number) => string);
 }
 
 function barProps(value: number, color: string | ((v: number) => string)): React.CSSProperties {
@@ -33,11 +34,14 @@ function barProps(value: number, color: string | ((v: number) => string)): React
  * renders a numeric value along with a bar
  */
 export function NumberBar(props: NumberBarProps) {
-  const label = typeof props.format === 'string' ? props.format : props.format(props.value);
+  const label = format(props.value, props.format ?? ((v: number) => (v ? v.toLocaleString() : '')));
   return (
     <div
       className={cslx('lt-bar', props.className)}
-      style={mergeStyles(props.style, barProps(props.scale ? props.scale(props.value) : props.value, props.color))}
+      style={mergeStyles(
+        props.style,
+        barProps(props.scale ? props.scale(props.value) : props.value, props.color ?? defaultColorScale)
+      )}
       title={label}
     >
       {label}
