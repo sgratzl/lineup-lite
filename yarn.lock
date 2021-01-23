@@ -2709,9 +2709,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@lineup-lite/playground@workspace:packages/playground"
   dependencies:
-    "@lineup-lite/components": "workspace:packages/components"
-    "@lineup-lite/hooks": "workspace:packages/hooks"
-    "@lineup-lite/table": "workspace:packages/table"
+    "@lineup-lite/components": ~1.0.0
+    "@lineup-lite/hooks": ~1.0.0
+    "@lineup-lite/table": ~1.0.0
     "@types/react": ^17.0.0
     "@types/react-dom": ^17.0.0
     css-loader: ^5.0.1
