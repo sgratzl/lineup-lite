@@ -1,5 +1,5 @@
 export { default as LineUpLite, default, LineUpLiteProps as ILineUpLiteProps } from './LineUpLite';
-export * from './useFullTable';
+export * from './useLineUpLite';
 export * from './LineUpLiteVirtual';
 export * from './interfaces';
 export * from './LineUpLiteTH';

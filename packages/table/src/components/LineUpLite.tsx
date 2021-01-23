@@ -4,11 +4,11 @@ import { useCustomize } from './hooks';
 import type { ActionLineUpProps, CustomizeLineUpProps } from './interfaces';
 import { LineUpLiteTHead } from './LineUpLiteTHead';
 import { LineUpLiteTR } from './LineUpLiteTR';
-import { FullTableProps, useFullTable } from './useFullTable';
+import { UseLineUpLiteOptions, useLineUpLite } from './useLineUpLite';
 import { clsx } from './utils';
 
 export interface LineUpLiteProps<D extends object>
-  extends FullTableProps<D>,
+  extends UseLineUpLiteOptions<D>,
     ActionLineUpProps<D>,
     CustomizeLineUpProps {
   className?: string;
@@ -20,7 +20,7 @@ export const LineUpLite = /*!#__PURE__*/ React.forwardRef(function LineUpLite<D 
   props: LineUpLiteProps<D>,
   ref: Ref<HTMLDivElement>
 ) {
-  const { getTableProps, getTableBodyProps, headerGroups, prepareRow, rows } = useFullTable<D>(props);
+  const { getTableProps, getTableBodyProps, headerGroups, prepareRow, rows } = useLineUpLite<D>(props);
 
   const shared = useCustomize(props);
 

@@ -35,14 +35,14 @@ export {
 } from 'react-table';
 export { useRowRankColumn as featureRowRank } from '@lineup-lite/hooks';
 
-export type FullTableOptions<D extends object> = TableOptions<D> &
+export type UseLineUpLiteTableOptions<D extends object> = TableOptions<D> &
   UseFiltersOptions<D> &
   UseExpandedOptions<D> &
   UseGroupByOptions<D> &
   UseRowSelectOptions<D> &
   UseSortByOptions<D>;
 
-export interface FullTableProps<D extends object> extends FullTableOptions<D> {
+export interface UseLineUpLiteOptions<D extends object> extends UseLineUpLiteTableOptions<D> {
   defaultColumn?: Partial<LineUpLiteColumn<D>>;
   columns: LineUpLiteColumn<D>[];
   features: readonly (PluginHook<D> | PluginHook<D>[])[];
@@ -80,11 +80,11 @@ function sortByPriority<D extends object>(a: [PluginHook<D>, number], b: [Plugin
   return a[1] - b[1];
 }
 
-export function useFullTable<D extends object>(
-  { features, icons, ...props }: FullTableProps<D>,
+export function useLineUpLite<D extends object>(
+  { features, icons, ...props }: UseLineUpLiteOptions<D>,
   ...extraPlugins: PluginHook<D>[]
 ) {
-  const tableProps: FullTableOptions<D> & UseRowExpandColumnTableOptions = {
+  const tableProps: UseLineUpLiteTableOptions<D> & UseRowExpandColumnTableOptions = {
     groupByFn: columnSpecificGroupByFn,
     expandIcon: icons?.expandGroup ?? actionIconsText().expandGroup,
     ...props,

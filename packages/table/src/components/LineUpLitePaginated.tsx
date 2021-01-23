@@ -2,7 +2,7 @@ import React from 'react';
 import { useCustomize } from './hooks';
 import type { CustomizeLineUpProps, ActionLineUpProps } from './interfaces';
 import { LineUpLiteTHead } from './LineUpLiteTHead';
-import { FullTableProps, useFullTable } from './useFullTable';
+import { UseLineUpLiteOptions, useLineUpLite } from './useLineUpLite';
 import { LineUpLiteTR } from './LineUpLiteTR';
 import { clsx } from './utils';
 import {
@@ -16,7 +16,7 @@ import { LineUpLitePagination } from './LineUpLitePagination';
 import type { ActionIcons, PaginationIcons } from '../icons';
 
 export interface LineUpLitePaginatedProps<D extends object>
-  extends FullTableProps<D>,
+  extends UseLineUpLiteOptions<D>,
     CustomizeLineUpProps,
     ActionLineUpProps<D>,
     UsePaginationOptions<D> {
@@ -26,7 +26,7 @@ export interface LineUpLitePaginatedProps<D extends object>
 }
 
 export function LineUpLitePaginated<D extends object>(props: LineUpLitePaginatedProps<D>) {
-  const fullTable = useFullTable<D>(props, usePagination);
+  const fullTable = useLineUpLite<D>(props, usePagination);
   const {
     getTableProps,
     getTableBodyProps,

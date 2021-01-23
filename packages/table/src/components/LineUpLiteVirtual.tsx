@@ -4,13 +4,13 @@ import { useCustomize } from './hooks';
 import type { ActionLineUpProps, CustomizeLineUpProps } from './interfaces';
 import { LineUpLiteTHead } from './LineUpLiteTHead';
 import { LineUpLiteTVirtualBody } from './LineUpLiteTVirtualBody';
-import { FullTableProps, useFullTable } from './useFullTable';
+import { UseLineUpLiteOptions, useLineUpLite } from './useLineUpLite';
 import { clsx } from './utils';
 
 export type SizeEstimator = number | [number, number] | ((index: number) => number);
 
 export interface LineUpLiteVirtualProps<D extends object>
-  extends FullTableProps<D>,
+  extends UseLineUpLiteOptions<D>,
     ActionLineUpProps<D>,
     CustomizeLineUpProps {
   className?: string;
@@ -22,7 +22,7 @@ export interface LineUpLiteVirtualProps<D extends object>
 }
 
 export function LineUpLiteVirtual<D extends object>(props: LineUpLiteVirtualProps<D>) {
-  const { getTableProps, getTableBodyProps, headerGroups, prepareRow, rows } = useFullTable<D>(props);
+  const { getTableProps, getTableBodyProps, headerGroups, prepareRow, rows } = useLineUpLite<D>(props);
 
   const shared = useCustomize(props);
 
