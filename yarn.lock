@@ -2877,7 +2877,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@philpl/buble@npm:^0.19.7":
+"@philpl/buble@npm:*, @philpl/buble@npm:^0.19.7":
   version: 0.19.7
   resolution: "@philpl/buble@npm:0.19.7"
   dependencies:

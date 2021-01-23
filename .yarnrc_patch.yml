@@ -5,6 +5,7 @@ packageExtensions:
   'react-live@*':
     dependencies:
       react: '*'
+      '@philpl/buble': '*'
   'react-simple-code-editor@*':
     dependencies:
       react: '*'
