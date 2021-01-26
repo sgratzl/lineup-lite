@@ -8,8 +8,4 @@ LineUp-lite is an extension of the excellent [react-table](https://react-table.t
 
 LineUp-lite is the small, lite, but customizable nephew of [LineUp.js](https://lineup.js.org). LineUp.js is a comprehensive JavaScript library, providing numerous advanced ranking features and scalability. However, in most cases, only a fraction of the provided features are needed and used. In addition, new custom features are often required.
 
-This is where LineUp-lite jumps in. LineUp-lite is a [React](https://reactjs.org) library written in [TypeScript](https://www.typescriptlang.org/) providing a several abstraction levels ranging ranging from `LineUpLite` - a ready to use ranking table visualization - down to individual components such as `Histogram` or `BoxPlot`.
-
-## Features
-
-TODO
+This is where LineUp-lite jumps in. LineUp-lite is a [React](https://reactjs.org) library written in [TypeScript](https://www.typescriptlang.org/) providing a several abstraction levels ranging ranging from `LineUpLite` - a ready to use ranking table visualization - over custom react-table hooks and renderers, down to individual components such as `Histogram` or `BoxPlot`.

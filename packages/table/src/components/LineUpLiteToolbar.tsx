@@ -9,13 +9,13 @@ import type {
 } from 'react-table';
 import { ActionIcons, actionIconsText } from '../icons';
 
-export interface ToolbarProps<D extends object> extends HeaderGroup<D> {
+export interface LineUpLiteToolbarProps<D extends object> extends HeaderGroup<D> {
   className?: string;
   style?: React.CSSProperties;
   icons?: Partial<ActionIcons>;
 }
 
-export default function Toolbar(props: React.PropsWithChildren<ToolbarProps<any>>) {
+export default function LineUpLiteToolbar(props: React.PropsWithChildren<LineUpLiteToolbarProps<any>>) {
   const column = (props as unknown) as HeaderGroup<any> &
     UseGroupByColumnProps<any> &
     UseResizeColumnsColumnProps<any> &

@@ -7,7 +7,6 @@ import {
   useRowRankColumn,
   LineUpLiteColumn,
 } from '@lineup-lite/hooks';
-import { actionIconsText } from '../icons';
 import {
   PluginHook,
   TableInstance,
@@ -86,7 +85,6 @@ export function useLineUpLite<D extends object>(
 ) {
   const tableProps: UseLineUpLiteTableOptions<D> & UseRowExpandColumnTableOptions = {
     groupByFn: columnSpecificGroupByFn,
-    expandIcon: icons?.expandGroup ?? actionIconsText().expandGroup,
     ...props,
   };
   const allPlugins = [...features.flat(), useStats, useBlockLayout, ...extraPlugins]

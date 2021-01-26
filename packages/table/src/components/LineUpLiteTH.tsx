@@ -1,7 +1,7 @@
 import React from 'react';
 import type { HeaderGroup, UseGroupByColumnProps, UseResizeColumnsColumnProps } from 'react-table';
 import { clsx } from './utils';
-import Toolbar from './Toolbar';
+import LineUpLiteToolbar from './LineUpLiteToolbar';
 import type { ActionLineUpProps, CustomizeLineUpProps } from './interfaces';
 
 export function LineUpLiteTH<D extends object>({
@@ -37,9 +37,9 @@ export function LineUpLiteTH<D extends object>({
           <div className={clsx('lt-header', c.classNames?.header)} style={c.styles?.header} title={column.tooltip}>
             {column.render('Header')}
           </div>
-          <Toolbar {...col} icons={icons}>
+          <LineUpLiteToolbar {...col} icons={icons}>
             {actions && actions(column)}
-          </Toolbar>
+          </LineUpLiteToolbar>
           {column.render('Summary')}
         </>
       ) : (

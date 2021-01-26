@@ -36,6 +36,10 @@ module.exports = {
           label: 'LineUp-lite Hooks',
           items: [
             'hooks/_index',
+            'hooks/useRowRankColumn',
+            'hooks/useRowSelectColumn',
+            'hooks/useRowExpandColumn',
+            'hooks/Renderers',
             {
               type: 'link',
               label: 'API',

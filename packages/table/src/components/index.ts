@@ -6,5 +6,6 @@ export * from './LineUpLiteTH';
 export * from './LineUpLiteTD';
 export * from './LineUpLiteTHead';
 export * from './LineUpLiteTR';
+export * from './LineUpLiteToolbar';
 export * from './LineUpLitePaginated';
 export * from './LineUpLitePagination';
