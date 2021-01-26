@@ -3,11 +3,10 @@ title: useRowSelectColumn
 ---
 
 The [`useRowSelectColumn`](/api/hooks/modules.html#userowselectcolumn) react-table plugin hook injects a new column at the beginning showing checkboxes to select rows.
-This hook depends on the `useRowSelect` hook from `react-table`. For grouped rows the checkbox selects the whole group. 
+This hook depends on the `useRowSelect` hook from `react-table`. For grouped rows the checkbox selects the whole group.
 
-In addition, it supports a range selection similar to GMail by using the `shift` key. 
+In addition, it supports a range selection similar to GMail by using the `shift` key.
 Clicking on a checkbox while pressing the `shift` key will automatically select all rows before this row till it either reaches the first row or a already selected row.
-
 
 ```jsx live
 // import { useTable, useRowSelect } from 'react-table';
@@ -19,27 +18,27 @@ function Table() {
       {
         name: 'Panchito Green',
         age: 10,
-        shirtSize: 'S'
+        shirtSize: 'S',
       },
       {
         name: 'Rubia Robker',
         age: 25,
-        shirtSize: 'M'
+        shirtSize: 'M',
       },
       {
         name: 'Micheil Sappell',
         age: 50,
-        shirtSize: 'L'
+        shirtSize: 'L',
       },
       {
         name: 'Geoffrey Sprason',
         age: 30,
-        shirtSize: 'M'
+        shirtSize: 'M',
       },
       {
         name: 'Grissel Rounsefull',
         age: 21,
-        shirtSize: 'S'
+        shirtSize: 'S',
       },
     ],
     []
@@ -94,11 +93,7 @@ function Table() {
           return (
             <tr {...row.getRowProps()}>
               {row.cells.map((cell) => {
-                return (
-                  <td {...cell.getCellProps()}>
-                    {cell.render('Cell')}
-                  </td>
-                );
+                return <td {...cell.getCellProps()}>{cell.render('Cell')}</td>;
               })}
             </tr>
           );

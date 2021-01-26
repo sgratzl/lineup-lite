@@ -3,11 +3,10 @@ title: Icon Packs
 ---
 
 LineUp-lite was designed to be injected with different icon packs dependin one needs. By default and to reduce bundle size Unicode icons are used.
-However, they might not alwasys look pretty. 
+However, they might not alwasys look pretty.
 By default LineUp-lite comes with an additional icon pack based on [Remix Icon](https://remixicon.com/).
 
 An icon pack is just an object of React components that render a specific icon. In the following example both the default and the remix icon version are rendered:
-
 
 ```jsx live
 // import React from 'react';
@@ -68,9 +67,11 @@ function GettingStarted() {
 
   const remix = React.useMemo(() => actionIconsRemixicon(), []);
 
-  return <div>
-    <LineUpLite data={data} columns={columns} features={features} />
-    <LineUpLite data={data} columns={columns} features={features} icons={remix} />
-  </div>
+  return (
+    <div>
+      <LineUpLite data={data} columns={columns} features={features} />
+      <LineUpLite data={data} columns={columns} features={features} icons={remix} />
+    </div>
+  );
 }
 ```

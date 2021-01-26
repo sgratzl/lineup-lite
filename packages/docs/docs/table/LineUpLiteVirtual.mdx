@@ -53,7 +53,13 @@ function GettingStarted() {
     []
   );
   // generate 9999 rows by repeating the base rows
-  const repeatedData = React.useMemo(() => Array(9999).fill(0).map((_, i) => data[i % data.length]), [data]);
+  const repeatedData = React.useMemo(
+    () =>
+      Array(9999)
+        .fill(0)
+        .map((_, i) => data[i % data.length]),
+    [data]
+  );
 
   const columns = React.useMemo(
     () => [asTextColumn('name'), asNumberColumn('age'), asCategoricalColumn('shirtSize')],
@@ -62,6 +68,14 @@ function GettingStarted() {
 
   const features = React.useMemo(() => featureDefault(), []);
 
-  return <LineUpLiteVirtual data={repeatedData} columns={columns} features={features} estimatedSize={25} style={{height: 300}}/>;
+  return (
+    <LineUpLiteVirtual
+      data={repeatedData}
+      columns={columns}
+      features={features}
+      estimatedSize={25}
+      style={{ height: 300 }}
+    />
+  );
 }
 ```
