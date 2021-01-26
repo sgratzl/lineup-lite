@@ -9,6 +9,8 @@ module.exports = {
   organizationName: 'sgratzl', // Usually your GitHub org/user name.
   projectName: 'lineup-lite', // Usually your repo name.
   themeConfig: {
+    image: 'img/preview.png',
+    metadatas: [{ name: 'twitter:card', content: 'summary' }],
     colorMode: {
       respectPrefersColorScheme: true,
     },
