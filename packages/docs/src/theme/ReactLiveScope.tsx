@@ -7,7 +7,8 @@ import * as table from '@lineup-lite/table';
 import '@lineup-lite/table/dist/table.css';
 import * as rtable from 'react-table';
 
-(window as any).regeneratorRuntime = regeneratorRuntime;
+// eslint-disable-next-line no-restricted-globals
+((window || self || global) as any).regeneratorRuntime = regeneratorRuntime;
 // Add react-live imports you need here
 const ReactLiveScope = {
   regeneratorRuntime,
