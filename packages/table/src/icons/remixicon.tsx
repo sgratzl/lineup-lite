@@ -91,7 +91,7 @@ export function actionIconsRemixicon(): ActionIcons {
   };
 }
 
-export function PaginationIconsRemixicon(): PaginationIcons & ActionIcons {
+export function paginationIconsRemixicon(): PaginationIcons & ActionIcons {
   return {
     ...actionIconsRemixicon(),
     firstPage: FirstPage,

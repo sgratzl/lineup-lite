@@ -23,7 +23,7 @@ export function useRowRankColumn<D extends object = {}>(hooks: Hooks<D>) {
 useRowRankColumn.pluginName = 'useRowRankColumn';
 
 function Cell(props: TableCellProps & UseTableCellProps<any, any>) {
-  return <div className="lt-rank">{`${((props.row as unknown) as UseRankRowProps).rank}.`}</div>;
+  return <div className="lt-rank">{`${((props.row as unknown) as UseRankRowProps).rank.toLocaleString()}.`}</div>;
 }
 
 function Aggregated(props: TableCellProps & UseTableCellProps<any, any>) {
@@ -35,8 +35,8 @@ function Aggregated(props: TableCellProps & UseTableCellProps<any, any>) {
   const lastRow = (group[group.length - 1] as unknown) as UseRankRowProps;
   return (
     <div className="lt-rank-agg">
-      <span>{`${firstRow.rank}.`}</span>
-      <span>{`${lastRow.rank}.`}</span>
+      <span>{`${firstRow.rank.toLocaleString()}.`}</span>
+      <span>{`${lastRow.rank.toLocaleString()}.`}</span>
     </div>
   );
 }
@@ -75,8 +75,10 @@ function useInstance<D extends object>(instance: TableInstance<D>) {
     UseGroupByInstanceProps<D>;
 
   let rank = 1;
+  let groupRank = 1;
   extendedInstance.flatRows.forEach((row) => {
     if (((row as unknown) as UseGroupByRowProps<D>).isGrouped) {
+      ((row as unknown) as UseRankRowProps).rank = groupRank++;
       return;
     }
     ((row as unknown) as UseRankRowProps).rank = rank++;

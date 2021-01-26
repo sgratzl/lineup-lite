@@ -11,7 +11,7 @@ export function LineUpLiteTR<D extends object>({
   virtualSize,
 }: {
   row: Row<D>;
-  c: CustomizeLineUpProps;
+  c?: CustomizeLineUpProps;
   virtualStart?: number;
   virtualSize?: number;
 }) {
@@ -29,10 +29,10 @@ export function LineUpLiteTR<D extends object>({
           rowTyped.isSelected && 'lt-tr-selected',
           rowTyped.isSomeSelected && 'lt-tr-some-selected',
           virtualStart != null && 'lt-tr-virtual',
-          c.classNames?.tr
+          c?.classNames?.tr
         ),
         style: mergeStyles(
-          c.styles?.tr,
+          c?.styles?.tr,
           virtualStart != null &&
             virtualSize != null && {
               height: `${virtualSize}px`,

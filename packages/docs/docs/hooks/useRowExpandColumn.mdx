@@ -2,4 +2,122 @@
 title: useRowExpandColumn
 ---
 
-TODO
+The [`useRowExpandColumn`](/api/hooks/modules.html#userowexpandcolumn) react-table plugin hook injects a new column at the beginning for expanding and collapsing groups.
+This hook depends on the `useGroupBy` and `useExpanded` react-table hooks.
+
+The icon to be used can be customized using the `expandIcon` table option. It has to be a React component that should be used instead.
+
+```jsx live
+// import { useTable, useGroupBy, useExpanded } from 'react-table';
+// import { useRowExpandColumn } from '@lineup-lite/hooks';
+
+function Table() {
+  const data = React.useMemo(
+    () => [
+      {
+        name: 'Panchito Green',
+        age: 10,
+        shirtSize: 'S'
+      },
+      {
+        name: 'Rubia Robker',
+        age: 25,
+        shirtSize: 'M'
+      },
+      {
+        name: 'Micheil Sappell',
+        age: 50,
+        shirtSize: 'L'
+      },
+      {
+        name: 'Geoffrey Sprason',
+        age: 30,
+        shirtSize: 'M'
+      },
+      {
+        name: 'Grissel Rounsefull',
+        age: 21,
+        shirtSize: 'S'
+      },
+    ],
+    []
+  );
+
+  const columns = React.useMemo(
+    () => [
+      {
+        Header: 'Name',
+        accessor: 'name',
+      },
+      {
+        Header: 'Age',
+        accessor: 'age',
+      },
+      {
+        Header: 'Shirt Size',
+        accessor: 'shirtSize',
+      },
+    ],
+    []
+  );
+
+  // Use the state and functions returned from useTable to build your UI
+  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = useTable(
+    {
+      columns,
+      data,
+    },
+    useGroupBy,
+    useExpanded,
+    useRowExpandColumn
+  );
+
+  // Render the UI for your table
+  return (
+    <table {...getTableProps()}>
+      <thead>
+        {headerGroups.map((headerGroup) => (
+          <tr {...headerGroup.getHeaderGroupProps()}>
+            {headerGroup.headers.map((column) => (
+              <th {...column.getHeaderProps()}>
+                {column.canGroupBy ? (
+                  // If the column can be grouped, let's add a toggle
+                  <span {...column.getGroupByToggleProps()}>{column.isGrouped ? '🛑 ' : '👊 '}</span>
+                ) : null}
+                {column.render('Header')}
+              </th>
+            ))}
+          </tr>
+        ))}
+      </thead>
+      <tbody {...getTableBodyProps()}>
+        {rows.map((row, i) => {
+          prepareRow(row);
+          return (
+            <tr {...row.getRowProps()}>
+              {row.cells.map((cell) => {
+                return (
+                  <td {...cell.getCellProps()}>
+                    {cell.isGrouped ? (
+                      <>
+                        {cell.render('Cell')} ({row.subRows.length})
+                      </>
+                    ) : cell.isAggregated ? (
+                      // If the cell is aggregated, use the Aggregated
+                      // renderer for cell
+                      cell.render('Aggregated')
+                    ) : cell.isPlaceholder ? null : ( // For cells with repeated values, render null
+                      // Otherwise, just render the regular cell
+                      cell.render('Cell')
+                    )}
+                  </td>
+                );
+              })}
+            </tr>
+          );
+        })}
+      </tbody>
+    </table>
+  );
+}
+```

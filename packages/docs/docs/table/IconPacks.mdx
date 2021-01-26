@@ -2,4 +2,75 @@
 title: Icon Packs
 ---
 
-TODO
+LineUp-lite was designed to be injected with different icon packs dependin one needs. By default and to reduce bundle size Unicode icons are used.
+However, they might not alwasys look pretty. 
+By default LineUp-lite comes with an additional icon pack based on [Remix Icon](https://remixicon.com/).
+
+An icon pack is just an object of React components that render a specific icon. In the following example both the default and the remix icon version are rendered:
+
+
+```jsx live
+// import React from 'react';
+// import LineUpLite, {
+//   asTextColumn,
+//   asNumberColumn,
+//   asCategoricalColumn,
+//   asDateColumn,
+//   LineUpLiteColumn,
+//   featureDefault,
+//   actionIconsRemixicon,
+// } from '@lineup-lite/table';
+// import '@lineup-lite/table/dist/table.css';
+
+function GettingStarted() {
+  const data = React.useMemo(
+    () => [
+      {
+        name: 'Panchito Green',
+        age: 10,
+        shirtSize: 'S',
+        birthday: new Date(2011, 1, 1),
+      },
+      {
+        name: 'Rubia Robker',
+        age: 25,
+        shirtSize: 'M',
+        birthday: new Date(1996, 4, 13),
+      },
+      {
+        name: 'Micheil Sappell',
+        age: 50,
+        shirtSize: 'L',
+        birthday: new Date(1971, 8, 23),
+      },
+      {
+        name: 'Geoffrey Sprason',
+        age: 30,
+        shirtSize: 'M',
+        birthday: new Date(1991, 11, 5),
+      },
+      {
+        name: 'Grissel Rounsefull',
+        age: 21,
+        shirtSize: 'S',
+        birthday: new Date(2000, 6, 30),
+      },
+    ],
+    []
+  );
+
+  const columns = React.useMemo(
+    () => [asTextColumn('name'), asNumberColumn('age'), asCategoricalColumn('shirtSize')],
+    []
+  );
+
+  const features = React.useMemo(() => featureDefault(), []);
+
+  const remix = React.useMemo(() => actionIconsRemixicon(), []);
+
+  return <div>
+    <LineUpLite data={data} columns={columns} features={features} />
+    <LineUpLite data={data} columns={columns} features={features} icons={remix} />
+  </div>
+}
+```

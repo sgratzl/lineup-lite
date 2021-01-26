@@ -1,7 +1,7 @@
 .lt-summary {
   font-size: xx-small;
   min-height: 2.5em;
-  margin-bottom: 1em;
+  margin-bottom: 1.2em;
   position: relative;
   font-weight: normal;
 }
@@ -19,6 +19,7 @@
   width: 50%;
   overflow: hidden;
   text-align: left;
+  line-height: 1.2;
 }
 
 .lt-summary[data-min]:not([data-max])::before {
@@ -34,4 +35,5 @@
   width: 50%;
   overflow: hidden;
   text-align: right;
+  line-height: 1.2;
 }

@@ -19,7 +19,7 @@ export function LineUpLiteTVirtualBody<D extends object>({
   getTableBodyProps: TableInstance<D>['getTableBodyProps'];
   rows: Row<D>[];
   theadRef: React.RefObject<HTMLDivElement>;
-  c: CustomizeLineUpProps;
+  c?: CustomizeLineUpProps;
   prepareRow: (row: Row<D>) => void;
   estimatedSize: SizeEstimator;
   rowSpacing: number;
@@ -72,8 +72,8 @@ export function LineUpLiteTVirtualBody<D extends object>({
   return (
     <div
       {...getTableBodyProps({
-        className: clsx('lt-tbody', 'lt-tbody-virtual', c.classNames?.tbody),
-        style: c.styles?.tbody,
+        className: clsx('lt-tbody', 'lt-tbody-virtual', c?.classNames?.tbody),
+        style: c?.styles?.tbody,
       })}
       ref={ref}
     >

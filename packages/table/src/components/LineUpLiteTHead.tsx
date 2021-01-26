@@ -12,20 +12,20 @@ export function LineUpLiteTHead<D extends object>({
   actions,
 }: {
   headerGroups: HeaderGroup<D>[];
-  c: CustomizeLineUpProps;
+  c?: CustomizeLineUpProps;
   virtualRef?: React.RefObject<HTMLDivElement>;
 } & ActionLineUpProps<D>) {
   return (
     <div
       ref={virtualRef}
-      className={clsx('lt-thead', virtualRef != null && 'lt-thead-virtual', c.classNames?.thead)}
-      style={c.styles?.thead}
+      className={clsx('lt-thead', virtualRef != null && 'lt-thead-virtual', c?.classNames?.thead)}
+      style={c?.styles?.thead}
     >
       {headerGroups.map((headerGroup) => (
         <div
           {...headerGroup.getHeaderGroupProps({
-            className: clsx('lt-th-group', c.classNames?.thGroup),
-            style: c.styles?.thGroup,
+            className: clsx('lt-th-group', c?.classNames?.thGroup),
+            style: c?.styles?.thGroup,
           })}
         >
           {headerGroup.headers

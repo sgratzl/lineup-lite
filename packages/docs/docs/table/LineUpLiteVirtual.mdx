@@ -2,4 +2,66 @@
 title: LineUpLiteVirtual
 ---
 
-TODO
+[`LineUpLiteVirtual`](/api/table/modules.html#lineuplitevirtual) is a variant of `LineUpLite` which renders the rows in a virtual fashion based on [react-virtual](https://github.com/tannerlinsley/react-virtual).
+This allows to render 1000s of rows with ease since only the visible rows are actually rendered.
+
+Besides the normal `LineUpLite` properties this components needs an additional `estimatedSize` which is the estimated pixel size of a row.
+Morever, one has to assign a dedicated height to the components, since it automatically fills the available space but doesn't enforce a minimum height.
+
+```jsx live
+// import React from 'react';
+// import {
+//   LineUpLiteVirtual
+//   asTextColumn,
+//   asNumberColumn,
+//   asCategoricalColumn,
+//   asDateColumn,
+//   LineUpLiteColumn,
+//   featureDefault,
+// } from '@lineup-lite/table';
+// import '@lineup-lite/table/dist/table.css';
+
+function GettingStarted() {
+  const data = React.useMemo(
+    () => [
+      {
+        name: 'Panchito Green',
+        age: 10,
+        shirtSize: 'S',
+      },
+      {
+        name: 'Rubia Robker',
+        age: 25,
+        shirtSize: 'M',
+      },
+      {
+        name: 'Micheil Sappell',
+        age: 50,
+        shirtSize: 'L',
+      },
+      {
+        name: 'Geoffrey Sprason',
+        age: 30,
+        shirtSize: 'M',
+      },
+      {
+        name: 'Grissel Rounsefull',
+        age: 21,
+        shirtSize: 'S',
+      },
+    ],
+    []
+  );
+  // generate 9999 rows by repeating the base rows
+  const repeatedData = React.useMemo(() => Array(9999).fill(0).map((_, i) => data[i % data.length]), [data]);
+
+  const columns = React.useMemo(
+    () => [asTextColumn('name'), asNumberColumn('age'), asCategoricalColumn('shirtSize')],
+    []
+  );
+
+  const features = React.useMemo(() => featureDefault(), []);
+
+  return <LineUpLiteVirtual data={repeatedData} columns={columns} features={features} estimatedSize={25} style={{height: 300}}/>;
+}
+```
