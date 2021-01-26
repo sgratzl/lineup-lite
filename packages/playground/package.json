@@ -10,9 +10,9 @@
   },
   "private": true,
   "dependencies": {
-    "@lineup-lite/components": "~1.0.0",
-    "@lineup-lite/hooks": "~1.0.0",
-    "@lineup-lite/table": "~1.0.0",
+    "@lineup-lite/components": "~0.0.1",
+    "@lineup-lite/hooks": "~0.0.1",
+    "@lineup-lite/table": "~0.0.1",
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
     "react": "^17.0.1",

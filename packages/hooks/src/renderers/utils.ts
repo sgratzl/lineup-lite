@@ -1,10 +1,10 @@
 import type { StatsProps, StatsCellProps } from '../hooks';
 import type { UseFiltersColumnProps, UseGroupByInstanceProps, Cell, CellProps, UseGroupByCellProps } from 'react-table';
 import type { ICommonStats, IHistStats } from '@lineup-lite/components';
-import { createContext } from 'react';
+import { createContext, Context } from 'react';
 
-export const optionContext = createContext<{ [key: string]: any }>({});
-export const statsGeneratorContext = createContext<null | any>(null);
+export const optionContext: Context<{ [key: string]: any }> = createContext<{ [key: string]: any }>({});
+export const statsGeneratorContext: Context<null | any> = createContext<null | any>(null);
 
 export type StatsPropsLike<T> = ({ value: readonly T[] } & StatsCellProps<any>) | StatsProps<any>;
 
