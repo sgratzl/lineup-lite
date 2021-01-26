@@ -35,7 +35,7 @@ function Cell(props: any) {
 
   return (
     <div className="le-selection">
-      <IndeterminateCheckbox {...typedRow.getToggleRowSelectedProps()} onClick={onClick} />
+      <IndeterminateCheckbox {...props.row.getToggleRowSelectedProps()} onClick={onClick} />
     </div>
   );
 }
