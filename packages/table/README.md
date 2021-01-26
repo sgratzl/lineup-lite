@@ -7,7 +7,7 @@ This package is part of the LineUp-lite ecosystem located at the main [Github Mo
 ## Installation
 
 ```sh
-npm install @lineup-lite/react react react-dom
+npm install @lineup-lite/table react react-dom
 ```
 
 ## Usage
@@ -19,8 +19,6 @@ npm install @lineup-lite/react react react-dom
 ## Privacy Policy
 
 LineUp-lite is a client only library. The library or any of its integrations doesn't track you or transfers your data to any server.
-The uploaded data in the app are stored in your browser only using IndexedDB.
-However, as soon as you export your session within the app to an external service (e.g., Codepen.io) your data will be transferred.
 
 ## License / Terms of Service
 
@@ -28,7 +26,7 @@ This library is released under the `MPL-2.0` license.
 
 [license-image]: https://img.shields.io/badge/License-MPL%202.0-brightgreen.svg
 [license-url]: https://opensource.org/licenses/MPL-2.0
-[npm-image]: https://badge.fury.io/js/%40lineup-lite%2Freact.svg
-[npm-url]: https://npmjs.org/package/@lineup-lite/react
+[npm-image]: https://badge.fury.io/js/%40lineup-lite%2Ftable.svg
+[npm-url]: https://npmjs.org/package/@lineup-lite/table
 [github-actions-image]: https://github.com/sgratzl/lineup-lite/workflows/nodeci/badge.svg
 [github-actions-url]: https://github.com/sgratzl/lineup-lite/actions

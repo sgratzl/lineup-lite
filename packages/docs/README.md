@@ -1,33 +1,20 @@
-# Website
+# LineUp-lite
 
-This website is built using [Docusaurus 2](https://v2.docusaurus.io/), a modern static website generator.
+[![Github Actions][github-actions-image]][github-actions-url] [![License: MPL 2.0][license-image]][license-url]
 
-## Installation
+This package is part of the LineUp-lite ecosystem located at the main [Github Monorepo](https://github.com/sgratzl/lineup-lite).
 
-```console
-yarn install
-```
+This package contains the lineup-lite website.
 
-## Local Development
+## Privacy Policy
 
-```console
-yarn start
-```
+LineUp-lite is a client only library. The library or any of its integrations doesn't track you or transfers your data to any server.
 
-This command starts a local development server and open up a browser window. Most changes are reflected live without having to restart the server.
+## License / Terms of Service
 
-## Build
+This library is released under the `MPL-2.0` license.
 
-```console
-yarn build
-```
-
-This command generates static content into the `build` directory and can be served using any static contents hosting service.
-
-## Deployment
-
-```console
-GIT_USER=<Your GitHub username> USE_SSH=true yarn deploy
-```
-
-If you are using GitHub pages for hosting, this command is a convenient way to build the website and push to the `gh-pages` branch.
+[license-image]: https://img.shields.io/badge/License-MPL%202.0-brightgreen.svg
+[license-url]: https://opensource.org/licenses/MPL-2.0
+[github-actions-image]: https://github.com/sgratzl/lineup-lite/workflows/nodeci/badge.svg
+[github-actions-url]: https://github.com/sgratzl/lineup-lite/actions

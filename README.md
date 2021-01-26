@@ -2,33 +2,106 @@
 
 [![NPM Package][npm-image]][npm-url] [![Github Actions][github-actions-image]][github-actions-url] [![License: MPL 2.0][license-image]][license-url]
 
+LineUp-lite is an extension of the excellent [react-table](https://react-table.tanstack.com/) library for rendering beautiful interactive table visualizations based on the [LineUp](https://jku-vds-lab.at/tools/lineup/) ranking visualization technique.
+
+see more at [https://lineup-lite.netlify.app](https://lineup-lite.netlify.app).
+
+## Mono Repo structure
+
 This monorepo contains following packages:
 
-- [@lineup-lite/components](https://github.com/sgratzl/lineup-lite/tree/main/packages/components) basic React components and statistic utils
-  [![Open Docs][docs]](https://lineup-lite.js.org/api/components)
+- [@lineup-lite/table](https://github.com/sgratzl/lineup-lite/tree/main/packages/table) higher level table component based on react-table and hooks
+  [![Quick Start][quick-start]](https://lineup-lite.netlify.app/docs/getting-started) [![API Docs][docs]](https://lineup-lite.netlify.app/api/table)
 
 - [@lineup-lite/hooks](https://github.com/sgratzl/lineup-lite/tree/main/packages/hooks) hooks and renderers for react-table
-  [![Open Docs][docs]](https://lineup-lite.js.org/api/hooks)
+  [![Quick Start][quick-start]](https://lineup-lite.netlify.app/docs/getting-started/hooks) [![API Docs][docs]](https://lineup-lite.netlify.app/api/hooks)
 
-- [@lineup-lite/table](https://github.com/sgratzl/lineup-lite/tree/main/packages/react) higher level table component based on react-table and hooks
-  [![Open Docs][docs]](https://lineup-lite.js.org/api/react)
+- [@lineup-lite/components](https://github.com/sgratzl/lineup-lite/tree/main/packages/components) basic React components and statistic utils
+  [![Quick Start][quick-start]](https://lineup-lite.netlify.app/docs/getting-started/components) [![API Docs][docs]](https://lineup-lite.netlify.app/api/components)
 
-- [@lineup-lite/docs](https://github.com/sgratzl/lineup-lite/tree/main/packages/docs) Docusaurus 
-  [![Open Example][example]](https://lineup-lite.js.org/app)
+- [@lineup-lite/docs](https://github.com/sgratzl/lineup-lite/tree/main/packages/docs) Docusaurus based documentation
 
-## Usage and Installation
+- [@lineup-lite/playground](https://github.com/sgratzl/lineup-lite/tree/main/packages/playground) Playground setup for testing lineup-lite
 
-### Table
+## Installation and Usage
+
+see also [Getting Started](https://lineup-lite.netlify.app/docs/getting-started) in the docs.
 
 ```sh
-npm install @lineup-lite/table react react-dom
+npm install @lineup-lite/table
 ```
 
-```ts
+or
+
+```sh
+yarn add @lineup-lite/table
+```
+
+**Is important to understand the principles of the underlying [react-table](https://react-table.tanstack.com/) library, such as following its own [Quick Start](https://react-table.tanstack.com/docs/quick-start).**
+
+```jsx
 import React from 'react';
+import LineUpLite, {
+   asTextColumn,
+   asNumberColumn,
+   asCategoricalColumn,
+   asDateColumn,
+   LineUpLiteColumn,
+   featureDefault,
+} from '@lineup-lite/table';
+import '@lineup-lite/table/dist/table.css';
 
-TODO;
+function GettingStarted() {
+  const data = React.useMemo(
+    () => [
+      {
+        name: 'Panchito Green',
+        age: 10,
+        shirtSize: 'S',
+        birthday: new Date(2011, 1, 1),
+      },
+      {
+        name: 'Rubia Robker',
+        age: 25,
+        shirtSize: 'M',
+        birthday: new Date(1996, 4, 13),
+      },
+      {
+        name: 'Micheil Sappell',
+        age: 50,
+        shirtSize: 'L',
+        birthday: new Date(1971, 8, 23),
+      },
+      {
+        name: 'Geoffrey Sprason',
+        age: 30,
+        shirtSize: 'M',
+        birthday: new Date(1991, 11, 5),
+      },
+      {
+        name: 'Grissel Rounsefull',
+        age: 21,
+        shirtSize: 'S',
+        birthday: new Date(2000, 6, 30),
+      },
+    ],
+    []
+  );
+
+  const columns = React.useMemo(
+    () => [asTextColumn('name'), asNumberColumn('age'), asCategoricalColumn('shirtSize'), asDateColumn('birthday')],
+    []
+  );
+
+  const features = React.useMemo(() => featureDefault(), []);
+
+  return <LineUpLite data={data} columns={columns} features={features} />;
+}
 ```
+
+![Getting Started Result](https://user-images.githubusercontent.com/4129778/105834355-a74ff600-5fca-11eb-8e3b-5374c2511682.png)
+
+
 ## Dev Environment
 
 ```sh
@@ -43,30 +116,13 @@ yarn pnpify --sdk vscode
 
 ### Commands
 
-
-### Testing
-
 ```sh
-yarn test
-```
-
-### Linting
-
-```sh
-yarn lint
-```
-
-### Fix Linting
-
-```sh
-yarn fix
-```
-
-### Building
-
-```sh
-yarn install
+yarn clear
 yarn build
+yarn test
+yarn lint
+yarn fix
+yarn start ... starts docusaurus
 ```
 
 ### Release
@@ -105,8 +161,8 @@ This library is released under the `MPL-2.0` license.
 
 [license-image]: https://img.shields.io/badge/License-MPL%202.0-brightgreen.svg
 [license-url]: https://opensource.org/licenses/MPL-2.0
-[npm-image]: https://badge.fury.io/js/%40lineup-lite%2Freact.svg
-[npm-url]: https://npmjs.org/package/@lineup-lite/react
+[npm-image]: https://badge.fury.io/js/%40lineup-lite%2Ftable.svg
+[npm-url]: https://npmjs.org/package/@lineup-lite/table
 [github-actions-image]: https://github.com/sgratzl/lineup-lite/workflows/ci/badge.svg
 [github-actions-url]: https://github.com/sgratzl/lineup-lite/actions
 [codepen]: https://img.shields.io/badge/CodePen-open-blue?logo=codepen
@@ -114,4 +170,4 @@ This library is released under the `MPL-2.0` license.
 [nbviewer]: https://img.shields.io/badge/NBViewer-open-blue?logo=jupyter
 [binder]: https://mybinder.org/badge_logo.svg
 [docs]: https://img.shields.io/badge/API-open-blue
-[example]: https://img.shields.io/badge/Example-open-red
+[quick-start]: https://img.shields.io/badge/Quick%20Start-open-red

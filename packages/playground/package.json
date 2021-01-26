@@ -1,6 +1,13 @@
 {
   "name": "@lineup-lite/playground",
+  "description": "LineUp-lite is an extension of react-table for rendering data visualization tables inspired by the LineUp visualization technique",
   "version": "0.1.0",
+  "license": "MPL-2.0",
+  "author": {
+    "name": "Samuel Gratzl",
+    "email": "sam@sgratzl.com",
+    "url": "https://wwww.sgratzl.com"
+  },
   "private": true,
   "dependencies": {
     "@lineup-lite/components": "~1.0.0",
