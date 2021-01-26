@@ -5,14 +5,23 @@ import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import useBaseUrl from '@docusaurus/useBaseUrl';
 import styles from './index.module.css';
+import Filter3FillIcon from 'remixicon-react/Filter3FillIcon';
+import NewspaperLineIcon from 'remixicon-react/NewspaperLineIcon';
+import BarChartBoxLineIcon from 'remixicon-react/BarChartBoxLineIcon';
+import StackLineIcon from 'remixicon-react/StackLineIcon';
 
-function Feature({ imageUrl, title, children }: React.PropsWithChildren<{ imageUrl: string; title: string }>) {
-  const imgUrl = useBaseUrl(imageUrl);
+function Feature({
+  imageUrl,
+  title,
+  children,
+}: React.PropsWithChildren<{ imageUrl: string | React.ReactNode; title: string }>) {
+  const imgUrl = useBaseUrl(typeof imageUrl === 'string' ? imageUrl : '/');
   return (
     <div className={clsx('col col--4', styles.feature)}>
-      {imgUrl && (
+      {imageUrl && (
         <div className="text--center">
-          <img className={styles.featureImage} src={imgUrl} alt={title} />
+          {typeof imageUrl === 'string' && <img className={styles.featureImage} src={imgUrl} alt={title} />}
+          {typeof imageUrl !== 'string' && imageUrl}
         </div>
       )}
       <h3>{title}</h3>
@@ -55,14 +64,20 @@ export default function Home() {
                 <a href="https://react-table.tanstack.com/">react-table</a>
                 {`, a light-weight, headless React data table library.`}
               </Feature>
-              <Feature title="Inspired by IEEEVIS publication" imageUrl="img/iconfinder_12.File_290138.svg">
+              <Feature
+                title="Inspired by IEEEVIS publication"
+                imageUrl={<NewspaperLineIcon className={styles.featureImageSVG} />}
+              >
                 {`LineUp-lite is inspired on the award winning paper `}
                 <a href="https://lineup.caleydo.org/">Visual Analysis of Multi-Attribute Rankings</a>
                 {` by Gratzl et. al. and is the lightweight nephew of `}
                 <a href="https://lineup.js.org/">LineUp.js</a>
                 {`.`}
               </Feature>
-              <Feature title="Multiple abstraction levels" imageUrl="img/undraw_docusaurus_tree.svg">
+              <Feature
+                title="Multiple abstraction levels"
+                imageUrl={<StackLineIcon className={styles.featureImageSVG} />}
+              >
                 {`LineUp-lite supports three abstraction levels. Ranging from individual `}
                 <Link to={useBaseUrl('docs/components')}>components</Link>
                 {', over '}
@@ -71,10 +86,16 @@ export default function Home() {
                 <Link to={useBaseUrl('docs/table')}>LineUpLite React component</Link>
                 {'.'}
               </Feature>
-              <Feature title="Flexible interactive filtering" imageUrl="img/iconfinder_filter_326641.svg">
+              <Feature
+                title="Flexible interactive filtering"
+                imageUrl={<Filter3FillIcon className={styles.featureImageSVG} />}
+              >
                 {`Columns can be interactively filtered based on the column type using the column header.`}
               </Feature>
-              <Feature title="Various proven visual encodings" imageUrl="img/undraw_docusaurus_tree.svg">
+              <Feature
+                title="Various proven visual encodings"
+                imageUrl={<BarChartBoxLineIcon className={styles.featureImageSVG} />}
+              >
                 {`Proven visual visualizations for cells, aggregations, and summaries, such as `}
                 <Link to={useBaseUrl('docs/components/number')}>Bars, Histograms, and Boxplots</Link>
                 {`.`}
