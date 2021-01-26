@@ -2241,7 +2241,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@lineup-lite/components@workspace:packages/components, @lineup-lite/components@~0.0.1":
+"@lineup-lite/components@workspace:packages/components, @lineup-lite/components@~1.0.0":
   version: 0.0.0-use.local
   resolution: "@lineup-lite/components@workspace:packages/components"
   dependencies:
@@ -2298,9 +2298,9 @@ __metadata:
     "@docusaurus/module-type-aliases": ^2.0.0-alpha.70
     "@docusaurus/preset-classic": ^2.0.0-alpha.70
     "@docusaurus/theme-live-codeblock": ^2.0.0-alpha.70
-    "@lineup-lite/components": ~0.0.1
-    "@lineup-lite/hooks": ~0.0.1
-    "@lineup-lite/table": ~0.0.1
+    "@lineup-lite/components": ~1.0.0
+    "@lineup-lite/hooks": ~1.0.0
+    "@lineup-lite/table": ~1.0.0
     "@mdx-js/react": ^1.6.22
     "@tsconfig/docusaurus": ^1.0.2
     "@types/d3-scale-chromatic": ^2.0.0
@@ -2332,13 +2332,13 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@lineup-lite/hooks@workspace:packages/hooks, @lineup-lite/hooks@~0.0.1":
+"@lineup-lite/hooks@workspace:packages/hooks, @lineup-lite/hooks@~1.0.0":
   version: 0.0.0-use.local
   resolution: "@lineup-lite/hooks@workspace:packages/hooks"
   dependencies:
     "@babel/core": ^7.12.10
     "@babel/preset-env": ^7.12.11
-    "@lineup-lite/components": ~0.0.1
+    "@lineup-lite/components": ~1.0.0
     "@rollup/plugin-babel": ^5.2.2
     "@rollup/plugin-commonjs": ^17.0.0
     "@rollup/plugin-node-resolve": ^11.1.0
@@ -2386,9 +2386,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@lineup-lite/playground@workspace:packages/playground"
   dependencies:
-    "@lineup-lite/components": ~0.0.1
-    "@lineup-lite/hooks": ~0.0.1
-    "@lineup-lite/table": ~0.0.1
+    "@lineup-lite/components": ~1.0.0
+    "@lineup-lite/hooks": ~1.0.0
+    "@lineup-lite/table": ~1.0.0
     "@types/react": ^17.0.0
     "@types/react-dom": ^17.0.0
     css-loader: ^5.0.1
@@ -2405,14 +2405,14 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@lineup-lite/table@workspace:packages/table, @lineup-lite/table@~0.0.1":
+"@lineup-lite/table@workspace:packages/table, @lineup-lite/table@~1.0.0":
   version: 0.0.0-use.local
   resolution: "@lineup-lite/table@workspace:packages/table"
   dependencies:
     "@babel/core": ^7.12.10
     "@babel/preset-env": ^7.12.11
-    "@lineup-lite/components": ~0.0.1
-    "@lineup-lite/hooks": ~0.0.1
+    "@lineup-lite/components": ~1.0.0
+    "@lineup-lite/hooks": ~1.0.0
     "@rollup/plugin-babel": ^5.2.2
     "@rollup/plugin-commonjs": ^17.0.0
     "@rollup/plugin-node-resolve": ^11.1.0
