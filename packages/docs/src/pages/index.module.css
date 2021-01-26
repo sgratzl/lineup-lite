@@ -48,8 +48,8 @@
 }
 
 .getStarted {
-  color: var(--ifm-heading-color);
+  color: var(--ifm-font-color-base-inverse) !important;
 }
 .getStarted:hover {
-  color: var(--ifm-heading-color);
+  color: var(--ifm-color-black) !important;
 }
