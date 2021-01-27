@@ -1,5 +1,5 @@
 import { defaultCategoricalColorScale } from './defaults';
-import type { IHistStats } from './common';
+import { IHistStats, toHistString } from './common';
 
 /**
  * categorical statistics object
@@ -22,6 +22,10 @@ export interface CategoricalStatsOptions {
    * defines the list of categories
    */
   categories?: readonly string[];
+}
+
+function toCategoricalString(this: ICategoricalStats) {
+  return `CategoricalStats(count=${this.count}, hist=${toHistString(this.hist)})`;
 }
 
 export function categoricalStatsGenerator(
@@ -60,7 +64,7 @@ export function categoricalStatsGenerator(
       color: color(value),
     }));
 
-    return {
+    const r: ICategoricalStats = {
       categories: options.categories ?? hist.map((d) => d.x0),
       hist,
       items,
@@ -70,5 +74,7 @@ export function categoricalStatsGenerator(
       missing,
       count: arr.length,
     };
+    r.toString = toCategoricalString;
+    return r;
   };
 }

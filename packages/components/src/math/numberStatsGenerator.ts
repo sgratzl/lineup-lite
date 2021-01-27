@@ -1,6 +1,6 @@
 import boxplot, { BoxplotStatsOptions, IBoxPlot } from '@sgratzl/boxplots';
 import { defaultColorScale } from './defaults';
-import type { INumericStats, IBin } from './common';
+import { INumericStats, IBin, toHistString } from './common';
 import { normalize, deNormalize } from './scale';
 
 /**
@@ -29,6 +29,12 @@ export type NumberFormatter =
       options?: Intl.NumberFormatOptions;
     };
 
+function toNumberString(this: INumberStats) {
+  const f = (v: number) => this.format(v);
+  return `NumberStats(count=${this.count}, min=${f(this.min)}, median=${f(this.median)}, max=${f(
+    this.max
+  )}, hist=${toHistString(this.hist)})`;
+}
 /**
  * helper function to resolve the number formatter
  */
@@ -111,7 +117,7 @@ export function numberStatsGenerator(
     const min = options.min ?? b.min;
     const max = options.max ?? b.max;
     const hist = createHist(b, min, max, color, format, options.numberOfBins);
-    return Object.assign(b, {
+    const r: INumberStats = Object.assign(b, {
       min,
       max,
       hist,
@@ -122,5 +128,7 @@ export function numberStatsGenerator(
       format,
       color,
     });
+    r.toString = toNumberString;
+    return r;
   };
 }

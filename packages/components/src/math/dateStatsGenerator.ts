@@ -1,5 +1,5 @@
 import { defaultConstantColorScale } from './defaults';
-import type { INumericStats, IBin } from './common';
+import { INumericStats, IBin, toHistString } from './common';
 
 /**
  * on which granularity level is the histogram computed
@@ -11,6 +11,11 @@ export interface IDateStats extends INumericStats<Date> {
    * the granularity in which the histogram is computed
    */
   readonly histGranularity: DateHistGranularity;
+}
+
+function toDateString(this: IDateStats) {
+  const f = (v: Date) => this.format(v);
+  return `NumberStats(count=${this.count}, min=${f(this.min)}, max=${f(this.max)}, hist=${toHistString(this.hist)})`;
 }
 
 /**
@@ -250,7 +255,7 @@ export function dateStatsGenerator(options: DateStatsOptions = {}): (arr: readon
         }
       });
     }
-    return {
+    const r: IDateStats = {
       items: simpleStats.items,
       hist,
       histGranularity,
@@ -259,5 +264,7 @@ export function dateStatsGenerator(options: DateStatsOptions = {}): (arr: readon
       ...normalizeDate(min, max),
       ...base,
     };
+    r.toString = toDateString;
+    return r;
   };
 }

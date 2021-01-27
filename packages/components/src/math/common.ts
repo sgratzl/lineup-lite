@@ -63,6 +63,10 @@ export interface IHistStats<T> extends ICommonStats<T> {
   format: (v: T) => string;
 }
 
+export function toHistString<T>(hist: readonly Readonly<IBin<T>>[]): string {
+  return `(${hist.map((d) => `${d.label}=${d.count}`).join(', ')})`;
+}
+
 export interface INumericStats<T> extends IHistStats<T> {
   /**
    * minimal value in the array

@@ -18,6 +18,12 @@ export interface ITextStats extends ICommonStats<string> {
   format: (v: string) => string;
 }
 
+function toTextString(this: ITextStats) {
+  return `TextStats(count=${this.count},mostFrequent=(${this.mostFrequent
+    .map((d) => `${d.value}=${d.count}`)
+    .join(', ')}))`;
+}
+
 export interface TextStatsOptions {
   /**
    * number of most frequent items to include in the stats
@@ -53,7 +59,7 @@ export function textStatsGenerator(options: TextStatsOptions = {}): (arr: readon
         items.push(v);
       }
     });
-    return {
+    const r: ITextStats = {
       unique: counter.size,
       items,
       mostFrequent:
@@ -66,5 +72,7 @@ export function textStatsGenerator(options: TextStatsOptions = {}): (arr: readon
       count: arr.length,
       format,
     };
+    r.toString = toTextString;
+    return r;
   };
 }
