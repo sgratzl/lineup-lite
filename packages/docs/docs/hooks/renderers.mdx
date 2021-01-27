@@ -2,8 +2,8 @@
 title: Renderers
 ---
 
-The [`useStats`](./useStats) hooks provides summary statistics and centralized settings for renderers such as which color scheme to use. 
-LineUp-lite hooks provides adaptors to [LineUp-lite components](/docs/components) such that they can be easily used within react-table. 
+The [`useStats`](./useStats) hooks provides summary statistics and centralized settings for renderers such as which color scheme to use.
+LineUp-lite hooks provides adaptors to [LineUp-lite components](/docs/components) such that they can be easily used within react-table.
 In addition, utility functions for filtering and grouping of different data types are provided.
 
 ## Builder functions
@@ -15,7 +15,7 @@ Besides standard react-table attributes it defines several additional ones for r
 const col = asCategoricalColumn('shirtSize');
 ```
 
-is the same as 
+is the same as
 
 ```jsx
 const col = {
@@ -40,7 +40,7 @@ const col = {
   // grouping computation logic, requires `columnSpecificGroupByFn` to be used in the useTable options
   groupBy: categoricalGroupBy,
   canHide: false,
-}
+};
 ```
 
 ## Example
@@ -82,11 +82,7 @@ function Table() {
   );
 
   const columns = React.useMemo(
-    () => [
-      asTextColumn('name'),
-      asNumberColumn('age'),
-      asCategoricalColumn('shirtSize'),
-    ],
+    () => [asTextColumn('name'), asNumberColumn('age'), asCategoricalColumn('shirtSize')],
     []
   );
 
@@ -130,16 +126,14 @@ function Table() {
               {row.cells.map((cell) => {
                 return (
                   <td {...cell.getCellProps()}>
-                    {cell.isGrouped ? (
-                      cell.render('Group')
-                    ) : cell.isAggregated ? (
-                      // If the cell is aggregated, use the Aggregated
-                      // renderer for cell
-                      cell.render('Aggregated')
-                    ) : (
-                      // Otherwise, just render the regular cell
-                      cell.render('Cell')
-                    )}
+                    {cell.isGrouped
+                      ? cell.render('Group')
+                      : cell.isAggregated
+                      ? // If the cell is aggregated, use the Aggregated
+                        // renderer for cell
+                        cell.render('Aggregated')
+                      : // Otherwise, just render the regular cell
+                        cell.render('Cell')}
                   </td>
                 );
               })}
