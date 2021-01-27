@@ -36,7 +36,7 @@ module.exports = {
         'hooks/useRowSelectColumn',
         'hooks/useRowExpandColumn',
         'hooks/useStats',
-        'hooks/Renderers',
+        'hooks/renderers',
         {
           type: 'link',
           label: 'API',

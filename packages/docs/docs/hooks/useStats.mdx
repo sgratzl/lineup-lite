@@ -2,4 +2,111 @@
 title: useStats
 ---
 
-TODO
+The [`useStats`](/api/hooks/modules.html#usestats) react-table plugin hook computes summary statistics for columns,
+groups, and unfiltered column data.
+
+```jsx live
+// import { useTable, useFilters, useGroupBy } from 'react-table';
+// import { useStats, TextSummaryRenderer, CategoricalHistogramRenderer, NumberHistogramRenderer } from '@lineup-lite/hooks';
+
+function Table() {
+  const data = React.useMemo(
+    () => [
+      {
+        name: 'Panchito Green',
+        age: 10,
+        shirtSize: 'S',
+      },
+      {
+        name: 'Rubia Robker',
+        age: 25,
+        shirtSize: 'M',
+      },
+      {
+        name: 'Micheil Sappell',
+        age: 50,
+        shirtSize: 'L',
+      },
+      {
+        name: 'Geoffrey Sprason',
+        age: 30,
+        shirtSize: 'M',
+      },
+      {
+        name: 'Grissel Rounsefull',
+        age: 21,
+        shirtSize: 'S',
+      },
+    ],
+    []
+  );
+
+  const columns = React.useMemo(
+    () => [
+      {
+        Header: 'Name',
+        accessor: 'name',
+        Summary: TextSummaryRenderer,
+        stats: textStats(),
+      },
+      {
+        Header: 'Age',
+        accessor: 'age',
+        Summary: NumberHistogramRenderer,
+        stats: numberStats(),
+      },
+      {
+        Header: 'Shirt Size',
+        accessor: 'shirtSize',
+        Summary: CategoricalHistogramRenderer,
+        stats: categoricalStats(),
+      },
+    ],
+    []
+  );
+
+  // Use the state and functions returned from useTable to build your UI
+  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = useTable(
+    {
+      columns,
+      data,
+    },
+    useFilters,
+    useStats
+  );
+
+  // Render the UI for your table
+  return (
+    <table {...getTableProps()}>
+      <thead>
+        {headerGroups.map((headerGroup) => (
+          <tr {...headerGroup.getHeaderGroupProps()}>
+            {headerGroup.headers.map((column) => (
+              <th {...column.getHeaderProps()}>
+                {column.render('Header')}
+                {column.render('Summary')}
+              </th>
+            ))}
+          </tr>
+        ))}
+      </thead>
+      <tbody {...getTableBodyProps()}>
+        {rows.map((row, i) => {
+          prepareRow(row);
+          return (
+            <tr {...row.getRowProps()}>
+              {row.cells.map((cell) => {
+                return (
+                  <td {...cell.getCellProps()}>
+                    {cell.render('Cell')}
+                  </td>
+                );
+              })}
+            </tr>
+          );
+        })}
+      </tbody>
+    </table>
+  );
+}
+```

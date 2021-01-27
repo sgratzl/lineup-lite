@@ -1,0 +1,153 @@
+---
+title: Renderers
+---
+
+The [`useStats`](./useStats) hooks provides summary statistics and centralized settings for renderers such as which color scheme to use. 
+LineUp-lite hooks provides adaptors to [LineUp-lite components](/docs/components) such that they can be easily used within react-table. 
+In addition, utility functions for filtering and grouping of different data types are provided.
+
+## Builder functions
+
+Builder functions (such `asTextColumn` or `asNumberColumn`) simplify the definition of columns with all renderers and options.
+Besides standard react-table attributes it defines several additional ones for rendering specific scenarios.
+
+```jsx
+const col = asCategoricalColumn('shirtSize');
+```
+
+is the same as 
+
+```jsx
+const col = {
+  Header: 'name',
+  accessor: 'name',
+  // renderer for regular cells
+  Cell: CategoricalRenderer,
+  // renderer for header summary
+  Summary: CategoricalHistogramRenderer,
+  // renderer for group rows in which the column is the grouping criteria
+  Group: CategoricalRenderer,
+  // renderer for group rows in which the column is NOT the grouping criteria
+  Aggregated: CategoricalHistogramRenderer,
+  // logic how to aggregate group rows to a single value
+  aggregate: statsAggregate,
+  // filter logic that should be applied
+  filter: categoricalFilter,
+  // statistics computation logic
+  stats: categoricalStats(options),
+  sortType: options && options.categories ? sortCategories(options.categories) : sortCompare,
+  defaultCanSort: true,
+  // grouping computation logic, requires `columnSpecificGroupByFn` to be used in the useTable options
+  groupBy: categoricalGroupBy,
+  canHide: false,
+}
+```
+
+## Example
+
+```jsx live
+// import { useTable } from 'react-table';
+// import { useRowExpandColumn, asTextColumn, asCategoricalColumn, asNumberColumn } from '@lineup-lite/hooks';
+
+function Table() {
+  const data = React.useMemo(
+    () => [
+      {
+        name: 'Panchito Green',
+        age: 10,
+        shirtSize: 'S',
+      },
+      {
+        name: 'Rubia Robker',
+        age: 25,
+        shirtSize: 'M',
+      },
+      {
+        name: 'Micheil Sappell',
+        age: 50,
+        shirtSize: 'L',
+      },
+      {
+        name: 'Geoffrey Sprason',
+        age: 30,
+        shirtSize: 'M',
+      },
+      {
+        name: 'Grissel Rounsefull',
+        age: 21,
+        shirtSize: 'S',
+      },
+    ],
+    []
+  );
+
+  const columns = React.useMemo(
+    () => [
+      asTextColumn('name'),
+      asNumberColumn('age'),
+      asCategoricalColumn('shirtSize'),
+    ],
+    []
+  );
+
+  // Use the state and functions returned from useTable to build your UI
+  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = useTable(
+    {
+      columns,
+      data,
+    },
+    useFilters,
+    useGroupBy,
+    useExpanded,
+    useStats,
+    useRowExpandColumn
+  );
+
+  // Render the UI for your table
+  return (
+    <table {...getTableProps()}>
+      <thead>
+        {headerGroups.map((headerGroup) => (
+          <tr {...headerGroup.getHeaderGroupProps()}>
+            {headerGroup.headers.map((column) => (
+              <th {...column.getHeaderProps()}>
+                {column.canGroupBy ? (
+                  // If the column can be grouped, let's add a toggle
+                  <span {...column.getGroupByToggleProps()}>{column.isGrouped ? '🛑 ' : '👊 '}</span>
+                ) : null}
+                {column.render('Header')}
+                {column.render('Summary')}
+              </th>
+            ))}
+          </tr>
+        ))}
+      </thead>
+      <tbody {...getTableBodyProps()}>
+        {rows.map((row, i) => {
+          prepareRow(row);
+          return (
+            <tr {...row.getRowProps()}>
+              {row.cells.map((cell) => {
+                return (
+                  <td {...cell.getCellProps()}>
+                    {cell.isGrouped ? (
+                      cell.render('Group')
+                    ) : cell.isAggregated ? (
+                      // If the cell is aggregated, use the Aggregated
+                      // renderer for cell
+                      cell.render('Aggregated')
+                    ) : (
+                      // Otherwise, just render the regular cell
+                      cell.render('Cell')
+                    )}
+                  </td>
+                );
+              })}
+            </tr>
+          );
+        })}
+      </tbody>
+    </table>
+  );
+}
+```
