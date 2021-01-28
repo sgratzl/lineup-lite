@@ -2,7 +2,7 @@ import type { INumericStats } from '@lineup-lite/components';
 import { ColumnInstance, defaultGroupByFn, Row } from 'react-table';
 import type { UseStatsColumnProps } from '../hooks';
 
-const MISSING_GROUP = 'Missing Values';
+export const MISSING_GROUP = 'Missing Values';
 
 /**
  * group by histogram
