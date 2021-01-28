@@ -30,7 +30,7 @@ function guessName(acc: string) {
   return acc
     .replace(/[-_ ]+/gm, ' ')
     .split(/(?=[A-Z ])/)
-    .map((d) => (d.length <= 1 ? d : `${d[0]}${d.slice(1)}`))
+    .map((d) => (d.length <= 1 ? d : `${d[0].toUpperCase()}${d.slice(1)}`))
     .join(' ');
 }
 
