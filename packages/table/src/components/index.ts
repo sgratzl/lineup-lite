@@ -1,4 +1,4 @@
-export { default as LineUpLite, LineUpLiteProps } from './LineUpLite';
+export { default as LineUpLite } from './LineUpLite';
 export * from './useLineUpLite';
 export * from './LineUpLiteVirtual';
 export * from './interfaces';

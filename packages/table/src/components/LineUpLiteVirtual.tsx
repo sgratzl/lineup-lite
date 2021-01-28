@@ -1,20 +1,15 @@
 import type { ActionIcons } from '../icons';
 import React, { useRef } from 'react';
-import { useCustomize } from './hooks';
-import type { ActionLineUpProps, CustomizeLineUpProps } from './interfaces';
+import { useCommonLineUp } from './hooks';
+import type { LineUpLiteProps } from './interfaces';
 import { LineUpLiteTHead } from './LineUpLiteTHead';
 import { LineUpLiteTVirtualBody } from './LineUpLiteTVirtualBody';
-import { UseLineUpLiteOptions, useLineUpLite } from './useLineUpLite';
+import { useLineUpLite } from './useLineUpLite';
 import { clsx } from './utils';
 
 export type SizeEstimator = number | [number, number] | ((index: number) => number);
 
-export interface LineUpLiteVirtualProps<D extends object>
-  extends UseLineUpLiteOptions<D>,
-    ActionLineUpProps<D>,
-    CustomizeLineUpProps {
-  className?: string;
-  style?: React.CSSProperties;
+export interface LineUpLiteVirtualProps<D extends object> extends LineUpLiteProps<D> {
   estimatedSize: SizeEstimator;
   rowSpacing?: number;
   overscan?: number;
@@ -22,9 +17,9 @@ export interface LineUpLiteVirtualProps<D extends object>
 }
 
 export function LineUpLiteVirtual<D extends object>(props: LineUpLiteVirtualProps<D>) {
-  const { getTableProps, getTableBodyProps, headerGroups, prepareRow, rows } = useLineUpLite<D>(props);
+  const { getTableProps, getTableBodyProps, headerGroups, prepareRow, rows, state } = useLineUpLite<D>(props);
 
-  const shared = useCustomize(props);
+  const shared = useCommonLineUp(props, state);
 
   const theadRef = useRef<HTMLDivElement>(null);
 

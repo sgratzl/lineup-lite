@@ -1,8 +1,8 @@
 import React from 'react';
-import { useCustomize } from './hooks';
-import type { CustomizeLineUpProps, ActionLineUpProps } from './interfaces';
+import { useCommonLineUp } from './hooks';
+import type { LineUpLiteProps } from './interfaces';
 import { LineUpLiteTHead } from './LineUpLiteTHead';
-import { UseLineUpLiteOptions, useLineUpLite } from './useLineUpLite';
+import { useLineUpLite } from './useLineUpLite';
 import { LineUpLiteTR } from './LineUpLiteTR';
 import { clsx } from './utils';
 import {
@@ -15,13 +15,7 @@ import {
 import { LineUpLitePagination } from './LineUpLitePagination';
 import type { ActionIcons, PaginationIcons } from '../icons';
 
-export interface LineUpLitePaginatedProps<D extends object>
-  extends UseLineUpLiteOptions<D>,
-    CustomizeLineUpProps,
-    ActionLineUpProps<D>,
-    UsePaginationOptions<D> {
-  className?: string;
-  style?: React.CSSProperties;
+export interface LineUpLitePaginatedProps<D extends object> extends LineUpLiteProps<D>, UsePaginationOptions<D> {
   icons: PaginationIcons & ActionIcons;
 }
 
@@ -37,10 +31,12 @@ export function LineUpLitePaginated<D extends object>(props: LineUpLitePaginated
     pageCount,
     gotoPage,
     setPageSize,
+    state,
   } = fullTable as TableInstance<D> & UseFiltersInstanceProps<D> & UsePaginationInstanceProps<D>;
+
   const { pageIndex, pageSize } = fullTable.state as any;
 
-  const shared = useCustomize(props);
+  const shared = useCommonLineUp(props, state);
 
   return (
     <div

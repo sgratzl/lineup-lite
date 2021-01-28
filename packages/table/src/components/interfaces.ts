@@ -1,5 +1,6 @@
 import type { HeaderGroup } from 'react-table';
 import type { ActionIcons } from '../icons';
+import type { UseLineUpLiteOptions } from './useLineUpLite';
 
 export type MultiCustomizeKeys = 'tbody' | 'tr' | 'thead' | 'th' | 'thGroup' | 'td' | 'header';
 
@@ -24,4 +25,14 @@ export interface ActionLineUpProps<D extends object> {
    * callback for generating extra toolbar actions for a column
    */
   actions?: (column: HeaderGroup<D>) => React.ReactNode;
+}
+
+export interface LineUpLiteProps<D extends object>
+  extends UseLineUpLiteOptions<D>,
+    ActionLineUpProps<D>,
+    CustomizeLineUpProps {
+  className?: string;
+  style?: React.CSSProperties;
+  icons?: Partial<ActionIcons>;
+  onStateChange?: (state: any) => void;
 }
