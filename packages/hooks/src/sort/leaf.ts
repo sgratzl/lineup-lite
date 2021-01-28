@@ -7,6 +7,7 @@ import type { Row } from 'react-table';
  * @param columnId column id
  */
 export function sortCompare(a: Row<any>, b: Row<any>, columnId: string): number {
+  debugger;
   const va = a.values[columnId];
   const vb = b.values[columnId];
   if (va === vb) {
