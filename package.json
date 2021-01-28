@@ -10,7 +10,8 @@
     "url": "https://wwww.sgratzl.com"
   },
   "workspaces": [
-    "packages/*"
+    "packages/*",
+    "examples/*"
   ],
   "homepage": "https://github.com/sgratzl/lineup-lite",
   "bugs": {
