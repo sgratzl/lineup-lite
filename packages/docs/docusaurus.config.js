@@ -1,3 +1,8 @@
+const exec = require('child_process').execSync;
+
+function resolveGitBranch() {
+  return exec('git rev-parse --abbrev-ref HEAD').toString();
+}
 module.exports = {
   title: 'LineUp-lite',
   tagline: 'a LineUp implementation based on react-table',
@@ -8,6 +13,9 @@ module.exports = {
   favicon: 'img/favicon.ico',
   organizationName: 'sgratzl', // Usually your GitHub org/user name.
   projectName: 'lineup-lite', // Usually your repo name.
+  customFields: {
+    branch: resolveGitBranch(),
+  },
   themeConfig: {
     image: 'img/preview.png',
     metadatas: [{ name: 'twitter:card', content: 'summary' }],

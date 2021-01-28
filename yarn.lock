@@ -2776,7 +2776,6 @@ __metadata:
     react: ^16.13.0
     react-table: ^7.6.3
     react-virtual: ^2.3.2
-    remixicon: ^2.5.0
     rollup: ^2.36.2
     rollup-plugin-css-only: ^3.1.0
     rollup-plugin-dts: ^2.0.1
@@ -17209,13 +17208,6 @@ fsevents@~2.1.2:
   peerDependencies:
     react: ">=0.14.0"
   checksum: e619341e0538cc1615e8603074de2a8087dc4483dfd8ecee78ead488864460923d515a6125f6da3677f42d476de672357f76084e223390933e21e5cca6000f10
-  languageName: node
-  linkType: hard
-
-"remixicon@npm:^2.5.0":
-  version: 2.5.0
-  resolution: "remixicon@npm:2.5.0"
-  checksum: f650cd50e60877b8c9ebdf24e75c2c69a9505751a532dbe39f359dcfdcc30ed29904511635293079e255eb903e7b6ada947b7689905a61c465608bd83cde1e14
   languageName: node
   linkType: hard
 
