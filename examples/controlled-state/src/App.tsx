@@ -38,7 +38,7 @@ function Table({ isDarkTheme }: { isDarkTheme: boolean }) {
 }
 
 export default function App() {
-  const isDarkTheme = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const isDarkTheme = window.matchMedia != null && window.matchMedia('(prefers-color-scheme: dark)').matches;
   return (
     <div className="App">
       <Table isDarkTheme={isDarkTheme} />
