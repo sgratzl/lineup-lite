@@ -85,6 +85,7 @@ export function useLineUpLite<D extends object>(
 ) {
   const tableProps: UseLineUpLiteTableOptions<D> & UseRowExpandColumnTableOptions = {
     groupByFn: columnSpecificGroupByFn,
+    expandIcon: icons?.expandGroup,
     ...props,
   };
   const allPlugins = [...features.flat(), useStats, useBlockLayout, ...extraPlugins]
