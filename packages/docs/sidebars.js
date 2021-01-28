@@ -85,5 +85,6 @@ module.exports = {
         },
       ],
     },
+    'faq',
   ],
 };
