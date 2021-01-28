@@ -1,6 +1,6 @@
 import type { ColumnInstance, Row } from 'react-table';
-import { MISSING_GROUP } from './histGroupBy';
 import type { ICategoricalStats } from '@lineup-lite/components';
+import { baseGroupBy } from './internal';
 
 export function categoricalGroupBy<D extends object>(
   rows: Row<D>[],
@@ -9,28 +9,19 @@ export function categoricalGroupBy<D extends object>(
   if (rows.length === 0) {
     return {};
   }
-  const r: Record<string, Row<D>[]> = {};
-  for (const row of rows) {
-    const value = row.values[column.id] ?? MISSING_GROUP;
-    if (!r[value]) {
-      r[value] = [row];
-    } else {
-      r[value]!.push(row);
-    }
-  }
+  const base = baseGroupBy(rows, column);
   if ((column as any).statsValue == null) {
-    return r;
+    return base;
   }
-
   // create a new one but this time sorted
   const stats = (column as any).statsValue as ICategoricalStats;
   const sortedGrouped: Record<string, Row<D>[]> = {};
   stats.categories.forEach((cat) => {
-    if (r[cat] != null) {
-      sortedGrouped[cat] = r[cat];
-      delete r[cat];
+    if (base[cat] != null) {
+      sortedGrouped[cat] = base[cat];
+      delete base[cat];
     }
   });
   // assign the rest with unknown values
-  return Object.assign(sortedGrouped, r);
+  return Object.assign(sortedGrouped, base);
 }
