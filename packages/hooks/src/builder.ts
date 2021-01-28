@@ -19,7 +19,15 @@ import {
 import { textStats, categoricalStats, dateStats, numberStats } from './stats';
 import { rangeFilter, categoricalFilter } from './filters';
 import type { LineUpLiteColumn } from './interfaces';
-import { sortCompare, sortCategories } from './sort';
+import {
+  sortCompare,
+  sortCategories,
+  sortSplitter,
+  numberGroupCompare,
+  textGroupCompare,
+  categoricalGroupCompare,
+  dateGroupCompare,
+} from './sort';
 import { categoricalGroupBy, dateGroupBy, numberGroupBy, textGroupBy } from './grouping';
 
 export function statsAggregate<T>(v: T) {
@@ -60,7 +68,7 @@ export function asTextColumn<D extends object, C extends Column<D> = Column<D>>(
     aggregate: statsAggregate,
     filter: 'text',
     stats: textStats(options),
-    sortType: sortCompare,
+    sortType: sortSplitter(sortCompare, textGroupCompare),
     defaultCanSort: true,
     groupBy: textGroupBy,
     canHide: false,
@@ -85,7 +93,7 @@ export function asNumberColumn<D extends object, C extends Column<D> = Column<D>
     aggregate: statsAggregate,
     filter: rangeFilter,
     stats: numberStats(options),
-    sortType: sortCompare,
+    sortType: sortSplitter(sortCompare, numberGroupCompare),
     sortDescFirst: true,
     defaultCanGroupBy: false,
     groupBy: numberGroupBy,
@@ -111,7 +119,7 @@ export function asNumberBoxPlotColumn<D extends object, C extends Column<D> = Co
     aggregate: statsAggregate,
     filter: rangeFilter,
     stats: numberStats(options),
-    sortType: sortCompare,
+    sortType: sortSplitter(sortCompare, numberGroupCompare),
     sortDescFirst: true,
     defaultCanGroupBy: false,
     groupBy: numberGroupBy,
@@ -137,7 +145,10 @@ export function asCategoricalColumn<D extends object, C extends Column<D> = Colu
     aggregate: statsAggregate,
     filter: categoricalFilter,
     stats: categoricalStats(options),
-    sortType: options && options.categories ? sortCategories(options.categories) : sortCompare,
+    sortType: sortSplitter(
+      options && options.categories ? sortCategories(options.categories) : sortCompare,
+      categoricalGroupCompare
+    ),
     defaultCanSort: true,
     groupBy: categoricalGroupBy,
     canHide: false,
@@ -162,7 +173,7 @@ export function asDateColumn<D extends object, C extends Column<D> = Column<D>>(
     aggregate: statsAggregate,
     filter: rangeFilter,
     stats: dateStats(options),
-    sortType: sortCompare,
+    sortType: sortSplitter(sortCompare, dateGroupCompare),
     sortDescFirst: true,
     groupBy: dateGroupBy,
     canHide: false,

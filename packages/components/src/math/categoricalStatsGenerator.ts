@@ -1,11 +1,19 @@
 import { defaultCategoricalColorScale } from './defaults';
-import { IHistStats, toHistString } from './common';
+import { IHistStats, maxHistBin, toHistString } from './common';
 
 /**
  * categorical statistics object
  */
 export interface ICategoricalStats extends IHistStats<string> {
   categories: readonly string[];
+}
+
+export function isCategoricalStats(obj: any): obj is ICategoricalStats {
+  return (
+    obj != null &&
+    Array.isArray((obj as ICategoricalStats).categories) &&
+    Array.isArray((obj as ICategoricalStats).hist)
+  );
 }
 
 export interface CategoricalStatsOptions {
@@ -68,7 +76,7 @@ export function categoricalStatsGenerator(
       categories: options.categories ?? hist.map((d) => d.x0),
       hist,
       items,
-      maxBin: hist.reduce((acc, b) => Math.max(acc, b.count), 0),
+      maxBin: maxHistBin(hist)!,
       color,
       format,
       missing,

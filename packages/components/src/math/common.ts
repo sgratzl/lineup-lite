@@ -52,7 +52,7 @@ export interface IHistStats<T> extends ICommonStats<T> {
   /**
    * maximal items in a bin
    */
-  readonly maxBin: number;
+  readonly maxBin: IBin<T>;
   /**
    * converts a given (normalized) value to a color
    */
@@ -84,4 +84,17 @@ export interface INumericStats<T> extends IHistStats<T> {
    * invert operation given a number between 0 and 1 convert it back
    */
   invert: (v: number) => T;
+}
+
+export function maxHistBin<T>(hist: readonly Readonly<IBin<T>>[]) {
+  if (hist.length === 0) {
+    return null;
+  }
+  let max = hist[0];
+  for (const bin of hist) {
+    if (bin.count > max.count) {
+      max = bin;
+    }
+  }
+  return max;
 }

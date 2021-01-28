@@ -18,6 +18,12 @@ export interface ITextStats extends ICommonStats<string> {
   format: (v: string) => string;
 }
 
+export function isTextStats(obj: any): obj is ITextStats {
+  return (
+    obj != null && typeof (obj as ITextStats).unique === 'number' && Array.isArray((obj as ITextStats).mostFrequent)
+  );
+}
+
 function toTextString(this: ITextStats) {
   return `TextStats(count=${this.count},mostFrequent=(${this.mostFrequent
     .map((d) => `${d.value}=${d.count}`)

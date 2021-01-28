@@ -1,6 +1,6 @@
 import boxplot, { BoxplotStatsOptions, IBoxPlot } from '@sgratzl/boxplots';
 import { defaultColorScale } from './defaults';
-import { INumericStats, IBin, toHistString } from './common';
+import { INumericStats, IBin, toHistString, maxHistBin } from './common';
 import { normalize, deNormalize } from './scale';
 
 /**
@@ -20,6 +20,10 @@ export function getNumberOfBins(length: number): number {
  */
 export interface INumberStats extends IBoxPlot, INumericStats<number> {
   items: readonly number[];
+}
+
+export function isNumberStats(obj: any): obj is INumberStats {
+  return obj != null && typeof (obj as INumberStats).min === 'number' && typeof (obj as INumberStats).max === 'number';
 }
 
 export type NumberFormatter =
@@ -122,7 +126,7 @@ export function numberStatsGenerator(
       max,
       hist,
       items: Array.from(b.items),
-      maxBin: hist.reduce((acc, b) => Math.max(acc, b.count), 0),
+      maxBin: maxHistBin(hist)!,
       scale: normalize(min, max),
       invert: deNormalize(min, max),
       format,

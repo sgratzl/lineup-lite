@@ -67,7 +67,7 @@ function Bin<T>({
   props: HistogramProps<T>;
 }) {
   const preFilter = props.preFilter;
-  const maxBin = props.maxBin ?? preFilter?.maxBin ?? props.s.maxBin;
+  const maxBin = props.maxBin ?? preFilter?.maxBin.count ?? props.s.maxBin.count;
   const lastBin = props.s.hist.length - 1;
   const dense = props.s.hist.length > DENSE || i === lastBin;
   const p = toPercent(h.count / maxBin);

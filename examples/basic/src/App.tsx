@@ -19,7 +19,9 @@ function Table({ isDarkTheme }: { isDarkTheme: boolean }) {
       asNumberColumn<Row>('age', {
         color: isDarkTheme ? defaultDarkColorScale : defaultColorScale,
       }),
-      asCategoricalColumn<Row>('shirtSize'),
+      asCategoricalColumn<Row>('shirtSize', {
+        categories: ['S', 'M', 'L'],
+      }),
     ],
     [isDarkTheme]
   );

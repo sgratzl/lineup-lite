@@ -1,5 +1,5 @@
 import { defaultConstantColorScale } from './defaults';
-import { INumericStats, IBin, toHistString } from './common';
+import { INumericStats, IBin, toHistString, maxHistBin } from './common';
 
 /**
  * on which granularity level is the histogram computed
@@ -11,6 +11,10 @@ export interface IDateStats extends INumericStats<Date> {
    * the granularity in which the histogram is computed
    */
   readonly histGranularity: DateHistGranularity;
+}
+
+export function isDateStats(obj: any): obj is IDateStats {
+  return obj != null && typeof (obj as IDateStats).histGranularity === 'string' && Array.isArray(obj.hist);
 }
 
 function toDateString(this: IDateStats) {
@@ -260,7 +264,7 @@ export function dateStatsGenerator(options: DateStatsOptions = {}): (arr: readon
       hist,
       histGranularity,
       missing,
-      maxBin: hist.reduce((acc, b) => Math.max(acc, b.count), 0),
+      maxBin: maxHistBin(hist)!,
       ...normalizeDate(min, max),
       ...base,
     };
