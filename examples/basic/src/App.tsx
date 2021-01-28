@@ -6,6 +6,7 @@ import LineUpLite, {
   asCategoricalColumn,
   LineUpLiteColumn,
   featureDefault,
+  actionIconsRemixicon,
 } from '@lineup-lite/table';
 import { defaultDarkColorScale, defaultColorScale } from '@lineup-lite/components';
 import '@lineup-lite/table/dist/table.css';
@@ -17,7 +18,7 @@ interface IRow {
 }
 
 export default function App() {
-  const isDarkTheme = false;
+  const isDarkTheme = window.matchMedia('(prefers-color-scheme: dark)').matches;
 
   const data: IRow[] = useMemo(
     () => [
@@ -62,10 +63,11 @@ export default function App() {
   );
 
   const features = useMemo(() => featureDefault<IRow>(), []);
+  const icons = useMemo(() => actionIconsRemixicon(), []);
 
   return (
     <div className="App">
-      <LineUpLite<IRow> data={data} columns={columns} features={features} />
+      <LineUpLite<IRow> data={data} columns={columns} features={features} icons={icons} />
     </div>
   );
 }
