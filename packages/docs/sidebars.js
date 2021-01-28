@@ -62,7 +62,7 @@ module.exports = {
     {
       type: 'category',
       label: 'Examples',
-      items: ['examples/_index', 'examples/virtualized-rows', 'examples/pagination'],
+      items: ['examples/_index', 'examples/virtualized-rows', 'examples/pagination', 'examples/controlled-state'],
     },
     {
       type: 'category',
