@@ -9,3 +9,12 @@ packageExtensions:
   'react-simple-code-editor@*':
     dependencies:
       react: '*'
+  '@lineup-lite/components@*':
+    peerDependencies:
+      'react-refresh': '*'
+  '@lineup-lite/hooks@*':
+    peerDependencies:
+      'react-refresh': '*'
+  '@lineup-lite/table@*':
+    peerDependencies:
+      'react-refresh': '*'
