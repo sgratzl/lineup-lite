@@ -9,20 +9,27 @@ import LineUpLite, {
   actionIconsRemixicon,
   LineUpLiteI18N,
 } from '@lineup-lite/table';
-import { defaultDarkColorScale, defaultColorScale } from '@lineup-lite/components';
+import { defaultDarkColorScale, defaultColorScale, formatCategories } from '@lineup-lite/components';
 import '@lineup-lite/table/dist/table.css';
 import { data, Row } from './data';
 
 function Table({ isDarkTheme }: { isDarkTheme: boolean }) {
   const columns: LineUpLiteColumn<Row>[] = useMemo(
     () => [
-      asTextColumn<Row>('name'),
-      asNumberColumn<Row>('age', {
-        color: isDarkTheme ? defaultDarkColorScale : defaultColorScale,
-      }),
-      asCategoricalColumn<Row>('shirtSize', {
-        categories: ['S', 'M', 'L'],
-      }),
+      asTextColumn<Row>({ Header: 'Name', accessor: 'name' }),
+      asNumberColumn<Row>(
+        { Header: 'Alter', accessor: 'age' },
+        {
+          color: isDarkTheme ? defaultDarkColorScale : defaultColorScale,
+        }
+      ),
+      asCategoricalColumn<Row>(
+        { Header: 'T-Shirt Größe', accessor: 'shirtSize' },
+        {
+          categories: ['S', 'M', 'L'],
+          format: formatCategories(['S', 'Klein'], ['M', 'Mittel'], ['L', 'Groß']),
+        }
+      ),
     ],
     [isDarkTheme]
   );

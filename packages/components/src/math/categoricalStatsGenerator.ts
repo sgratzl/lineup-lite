@@ -16,6 +16,15 @@ export function isCategoricalStats(obj: any): obj is ICategoricalStats {
   );
 }
 
+/**
+ * helper function to create a formatter between a category value and a category label
+ * @param categoryLabel tuple list of [category, label] to map
+ */
+export function formatCategories(...categoryLabel: [string, string][]) {
+  const map = new Map(categoryLabel);
+  return (v: string) => map.get(v) ?? v;
+}
+
 export interface CategoricalStatsOptions {
   /**
    * defines the color function to convert a value to a color. By default colors are automatically assigned
@@ -66,7 +75,7 @@ export function categoricalStatsGenerator(
     const hist = entries.map(([value, count]) => ({
       x0: value,
       x1: value,
-      label: value,
+      label: format(value),
       count,
       items: Array(count).fill(value),
       color: color(value),
