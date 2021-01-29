@@ -50,7 +50,7 @@ export function textStatsGenerator(options: TextStatsOptions = {}): (arr: readon
   const mostFrequentCount = options.mostFrequentCount ?? 10;
   const format = options.format ?? ((v: string) => (v ? v.toString() : v));
 
-  return (arr: readonly string[]): ITextStats => {
+  return (arr): ITextStats => {
     let missing = 0;
     const counter = new Map<string, { value: string; count: number }>();
     const items: string[] = [];
@@ -77,6 +77,9 @@ export function textStatsGenerator(options: TextStatsOptions = {}): (arr: readon
       missing,
       count: arr.length,
       format,
+      flatCount: arr.length,
+      flatItems: items,
+      flatMissing: missing,
     };
     r.toString = toTextString;
     return r;

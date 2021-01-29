@@ -20,8 +20,9 @@ function FilterBoxPlot(props: FilterRangeBoxPlotProps) {
 export function BoxPlotRenderer<P extends StatsPropsLike<number>>(props: P) {
   const options = useContext(optionContext) as BoxPlotRendererOptions;
   const stats =
-    useContext<((arr: readonly number[], preFilter?: INumberStats) => INumberStats) | null>(statsGeneratorContext) ??
-    numberStats(options);
+    useContext<((arr: readonly (number | null | undefined)[], preFilter?: INumberStats) => INumberStats) | null>(
+      statsGeneratorContext
+    ) ?? numberStats(options);
   const { s, preFilter, cell } = extractStats(props, stats);
   if (cell) {
     return <BoxPlot s={s} i18n={props.i18n} />;

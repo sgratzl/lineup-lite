@@ -45,27 +45,59 @@ function toCategoricalString(this: ICategoricalStats) {
   return `CategoricalStats(count=${this.count}, hist=${toHistString(this.hist)})`;
 }
 
+export type CategoricalValueLike = string | null | undefined | readonly (string | null | undefined)[] | Set<string>;
+
 export function categoricalStatsGenerator(
   options: CategoricalStatsOptions = {}
-): (arr: readonly string[]) => ICategoricalStats {
+): (arr: readonly CategoricalValueLike[]) => ICategoricalStats {
   const color = options.color ?? defaultCategoricalColorScale();
   const format = options.format ?? ((v: string) => v);
 
-  return (arr: readonly string[]): ICategoricalStats => {
-    let missing = 0;
+  return (arr): ICategoricalStats => {
     const map = new Map<string, number>();
     if (options.categories) {
       options.categories.forEach((cat) => map.set(cat, 0));
     }
-    const items: string[] = [];
-    arr.forEach((v) => {
+    let missing = 0;
+    const items: (string | readonly string[] | Set<string>)[] = [];
+    let flatMissing = 0;
+    const flatItems: string[] = [];
+
+    const pushValue = (v: string) => {
+      flatItems.push(v);
+      map.set(v, 1 + (map.get(v) ?? 0));
+    };
+    for (const v of arr) {
       if (v == null) {
         missing++;
-        return;
+        flatMissing++;
+        continue;
       }
-      items.push(v);
-      map.set(v, 1 + (map.get(v) ?? 0));
-    });
+      if (typeof v === 'string') {
+        items.push(v);
+        pushValue(v);
+        continue;
+      }
+      if (v instanceof Set) {
+        items.push(v);
+        v.forEach((vi) => pushValue(vi));
+        continue;
+      }
+      const vClean: string[] = [];
+      for (const vi of v) {
+        if (vi == null) {
+          flatMissing++;
+        } else {
+          pushValue(vi);
+          vClean.push(vi);
+        }
+      }
+      if (vClean.length === v.length) {
+        items.push(v as string[]);
+      } else {
+        items.push(vClean);
+      }
+    }
 
     // if categories are given, keep the order
     const entries = options.categories
@@ -90,6 +122,9 @@ export function categoricalStatsGenerator(
       format,
       missing,
       count: arr.length,
+      flatMissing,
+      flatItems,
+      flatCount: flatItems.length + flatMissing,
     };
     r.toString = toCategoricalString;
     return r;

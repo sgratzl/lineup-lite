@@ -1,10 +1,9 @@
 import React from 'react';
-import type { IHistStats } from '../math/common';
 import { clsx } from './utils';
 
 export function NumberStatsWrapper<T>(
   props: React.PropsWithChildren<{
-    s: IHistStats<T> & { readonly min?: T; readonly max?: T };
+    s: { readonly min?: T; readonly max?: T; format: (v: T) => string };
     summary?: boolean;
     className?: string;
     style?: React.CSSProperties;

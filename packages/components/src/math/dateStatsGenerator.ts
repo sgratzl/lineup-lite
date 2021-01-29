@@ -221,51 +221,98 @@ function normalizeDate(min: Date, max: Date) {
   };
 }
 
-export function dateStatsGenerator(options: DateStatsOptions = {}): (arr: readonly (Date | null)[]) => IDateStats {
+export type DateLike = Date | null | undefined | readonly (Date | null | undefined)[] | Set<Date>;
+
+function createFlat(arr: readonly DateLike[]) {
+  let missing = 0;
+  const items: (Date | readonly Date[] | Set<Date>)[] = [];
+  let flatMissing = 0;
+  const flatItems: Date[] = [];
+  let min = Number.POSITIVE_INFINITY;
+  let max = Number.NEGATIVE_INFINITY;
+
+  const push = (v: Date) => {
+    flatItems.push(v);
+    const vt = v.getTime();
+    if (vt < min) {
+      min = vt;
+    }
+    if (vt > max) {
+      max = vt;
+    }
+  };
+
+  for (const v of arr) {
+    if (v == null) {
+      missing++;
+      flatMissing++;
+      continue;
+    }
+    if (v instanceof Date) {
+      items.push(v);
+      push(v);
+      continue;
+    }
+    if (v instanceof Set) {
+      items.push(v);
+      v.forEach((vi) => push(vi));
+      continue;
+    }
+    const vClean: Date[] = [];
+    for (const vi of v) {
+      if (vi == null) {
+        flatMissing++;
+      } else {
+        push(vi);
+        vClean.push(vi);
+      }
+    }
+    if (vClean.length === v.length) {
+      items.push(v as Date[]);
+    } else {
+      items.push(vClean);
+    }
+  }
+  return {
+    missing,
+    items,
+    flatMissing,
+    flatItems,
+    min,
+    max,
+  };
+}
+
+export function dateStatsGenerator(options: DateStatsOptions = {}): (arr: readonly DateLike[]) => IDateStats {
   const format = resolveDateFormatter(options.format);
   const color = options.color ?? defaultConstantColorScale;
 
-  return (arr: readonly (Date | null)[]): IDateStats => {
+  return (arr): IDateStats => {
     const base = {
       color,
       format,
       count: arr.length,
     };
-    const simpleStats = arr.reduce(
-      (acc, v) => {
-        if (!v) {
-          return acc;
-        }
-        const t = v.getTime();
-        acc.valid++;
-        acc.min = Math.min(acc.min, t);
-        acc.max = Math.max(acc.max, t);
-        acc.items.push(v);
-        return acc;
-      },
-      { min: Number.POSITIVE_INFINITY, max: Number.NEGATIVE_INFINITY, valid: 0, items: [] as Date[] }
-    );
+    const { missing, items, flatMissing, flatItems, min, max } = createFlat(arr);
 
     const now = new Date();
-    const min = options.min ?? (simpleStats.valid === 0 ? now : new Date(simpleStats.min));
-    const max = options.max ?? (simpleStats.valid === 0 ? now : new Date(simpleStats.max));
-    const { hist, histGranularity } = computeGranularity(min, max, color, options.format, options.histGranularity);
+    const minD = options.min ?? (Number.isFinite(min) ? new Date(min) : now);
+    const maxD = options.max ?? (Number.isFinite(max) ? new Date(max) : now);
+    const { hist, histGranularity } = computeGranularity(minD, maxD, color, options.format, options.histGranularity);
 
-    const missing = arr.length - simpleStats.valid;
-    if (simpleStats.valid > 0) {
-      arr.forEach((d) => {
-        if (d) {
-          pushDateHist(hist, d);
-        }
-      });
+    for (const v of flatItems) {
+      pushDateHist(hist, v);
     }
     const r: IDateStats = {
-      items: simpleStats.items,
+      missing,
+      items,
+      flatMissing,
+      flatItems,
+      flatCount: flatMissing + flatItems.length,
       hist,
       histGranularity,
-      missing,
       maxBin: maxHistBin(hist)!,
-      ...normalizeDate(min, max),
+      ...normalizeDate(minD, maxD),
       ...base,
     };
     r.toString = toDateString;

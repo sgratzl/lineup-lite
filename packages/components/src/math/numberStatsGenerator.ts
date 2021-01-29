@@ -18,9 +18,7 @@ export function getNumberOfBins(length: number): number {
 /**
  * number statistics object
  */
-export interface INumberStats extends IBoxPlot, INumericStats<number> {
-  items: readonly number[];
-}
+export interface INumberStats extends Omit<IBoxPlot, 'items'>, INumericStats<number> {}
 
 export function isNumberStats(obj: any): obj is INumberStats {
   return obj != null && typeof (obj as INumberStats).min === 'number' && typeof (obj as INumberStats).max === 'number';
@@ -110,14 +108,69 @@ function createHist(
   return hist;
 }
 
+export type NumberLike =
+  | number
+  | null
+  | undefined
+  | readonly (number | null | undefined)[]
+  | Set<number>
+  | Float32Array
+  | Float64Array;
+
+function createFlat(arr: readonly NumberLike[] | Float32Array | Float64Array) {
+  let missing = 0;
+  const items: (number | readonly number[] | Set<number>)[] = [];
+  let flatMissing = 0;
+  const flatItems: number[] = [];
+
+  for (const v of arr) {
+    if (v == null) {
+      missing++;
+      flatMissing++;
+      continue;
+    }
+    if (typeof v === 'number') {
+      items.push(v);
+      flatItems.push(v);
+      continue;
+    }
+    if (v instanceof Set) {
+      items.push(v);
+      v.forEach((vi) => flatItems.push(vi));
+      continue;
+    }
+    const vClean: number[] = [];
+    for (const vi of v) {
+      if (vi == null) {
+        flatMissing++;
+      } else {
+        flatItems.push(vi);
+        vClean.push(vi);
+      }
+    }
+    if (vClean.length === v.length) {
+      items.push(v as number[]);
+    } else {
+      items.push(vClean);
+    }
+  }
+  return {
+    missing,
+    items,
+    flatMissing,
+    flatItems,
+  };
+}
+
 export function numberStatsGenerator(
   options: NumberStatsOptions = {}
-): (arr: readonly number[] | Float32Array | Float64Array) => INumberStats {
+): (arr: readonly NumberLike[] | Float32Array | Float64Array) => INumberStats {
   const color = options.color ?? defaultColorScale;
   const format = resolveNumberFormatter(options.format);
 
-  return (arr: readonly number[] | Float32Array | Float64Array): INumberStats => {
-    const b = boxplot(arr, options);
+  return (arr): INumberStats => {
+    const { missing, items, flatMissing, flatItems } = createFlat(arr);
+    const b = boxplot(flatItems, options);
     const min = options.min ?? b.min;
     const max = options.max ?? b.max;
     const hist = createHist(b, min, max, color, format, options.numberOfBins);
@@ -125,7 +178,11 @@ export function numberStatsGenerator(
       min,
       max,
       hist,
-      items: Array.from(b.items),
+      missing,
+      items,
+      flatMissing,
+      flatItems,
+      flatCount: flatMissing + flatItems.length,
       maxBin: maxHistBin(hist)!,
       scale: normalize(min, max),
       invert: deNormalize(min, max),

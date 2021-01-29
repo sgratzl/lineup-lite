@@ -25,12 +25,17 @@ export interface BoxPlotChartProps extends CommonProps {
    * the optional stats containing the unfiltered stats in case of filtering operation applied
    * to the regular one
    */
-  preFilter?: IBoxPlot;
+  preFilter?: Omit<IBoxPlot, 'items'>;
 
   i18n?: Partial<typeof BOXPLOT_I18N_EN>;
 }
 
-function generatePath(stats: IBoxPlot, s: (v: number) => number, h: number, padding: number) {
+function generatePath(
+  stats: Pick<IBoxPlot, 'q1' | 'q3' | 'whiskerHigh' | 'whiskerLow' | 'median'>,
+  s: (v: number) => number,
+  h: number,
+  padding: number
+) {
   const cy = h / 2;
   const q1 = s(stats.q1);
   const q3 = s(stats.q3);
@@ -42,7 +47,7 @@ function generatePath(stats: IBoxPlot, s: (v: number) => number, h: number, padd
   return `${whiskerLow} ${whiskerHigh} ${median}`;
 }
 
-function generateTitle(s: INumberStats, pre: IBoxPlot | undefined, i18n: typeof BOXPLOT_I18N_EN) {
+function generateTitle(s: INumberStats, pre: Omit<IBoxPlot, 'items'> | undefined, i18n: typeof BOXPLOT_I18N_EN) {
   const p = (v: number) => `/${s.format(v)}`;
   return `${t(i18n.boxplotMinimum, `${s.format(s.min)}${pre ? p(pre.min) : ''}`)}
 ${t(i18n.boxplot25Quantile, `${s.format(s.q1)}${pre ? p(pre.q1) : ''}`)}
@@ -71,7 +76,7 @@ export function BoxPlotChart(props: BoxPlotChartProps) {
   const outlierRadius = 4;
   const height = 20;
 
-  const generateBoxPlot = (b: IBoxPlot) => {
+  const generateBoxPlot = (b: Omit<IBoxPlot, 'items'>) => {
     const cy = height / 2;
     const path = generatePath(b, scale, height, boxPadding);
     return (
@@ -135,7 +140,7 @@ export interface BoxPlotProps extends CommonProps {
    * the optional stats containing the unfiltered stats in case of filtering operation applied
    * to the regular one
    */
-  preFilter?: IBoxPlot;
+  preFilter?: Omit<IBoxPlot, 'items'>;
   /**
    * whether to render it as a summary including labels
    */

@@ -42,7 +42,7 @@ function guessName(acc: string) {
     .join(' ');
 }
 
-function asColumn<D extends object, C extends Column<D> = Column<D>>(col: C | keyof D): C {
+export function asColumn<D extends object, C extends Column<D> = Column<D>>(col: C | keyof D): C {
   if (typeof col === 'string') {
     return {
       Header: guessName(col),

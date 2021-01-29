@@ -41,7 +41,19 @@ export interface ICommonStats<T> {
   /**
    * the items in this stats
    */
-  readonly items: readonly T[];
+  readonly items: readonly (T | readonly T[] | Set<T>)[];
+  /**
+   * number of missing items in the array
+   */
+  readonly flatMissing: number;
+  /**
+   * number of items in the array
+   */
+  readonly flatCount: number;
+  /**
+   * the items in this stats
+   */
+  readonly flatItems: readonly T[];
 }
 
 export interface IHistStats<T> extends ICommonStats<T> {
