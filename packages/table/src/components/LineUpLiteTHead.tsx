@@ -12,17 +12,18 @@ export function LineUpLiteTHead<D extends object>({
   actions,
 }: {
   headerGroups: HeaderGroup<D>[];
-  virtualRef?: React.RefObject<HTMLDivElement>;
+  virtualRef?: React.RefObject<HTMLElement>;
 } & ActionLineUpProps<D>) {
   const c = useContext(LineUpLiteContext);
+  const p = { c: c?.components.thead ?? 'div', g: c?.components.thGroup ?? 'div' };
   return (
-    <div
+    <p.c
       ref={virtualRef}
       className={clsx('lt-thead', virtualRef != null && 'lt-thead-virtual', c?.classNames?.thead)}
       style={c?.styles?.thead}
     >
       {headerGroups.map((headerGroup) => (
-        <div
+        <p.g
           {...headerGroup.getHeaderGroupProps({
             className: clsx('lt-th-group', c?.classNames?.thGroup),
             style: c?.styles?.thGroup,
@@ -33,8 +34,8 @@ export function LineUpLiteTHead<D extends object>({
             .map((col) => (
               <LineUpLiteTH key={col.id} col={col} actions={actions} icons={icons} />
             ))}
-        </div>
+        </p.g>
       ))}
-    </div>
+    </p.c>
   );
 }

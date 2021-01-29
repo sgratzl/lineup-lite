@@ -20,10 +20,12 @@ export function LineUpLiteVirtual<D extends object>(props: LineUpLiteVirtualProp
   const instance = useLineUpLite<D>(props);
   const { getTableProps, getTableBodyProps, headerGroups, prepareRow, rows } = instance;
 
-  const theadRef = useRef<HTMLDivElement>(null);
+  const theadRef = useRef<HTMLElement>(null);
+
+  const p = { c: props.components?.table ?? 'div' };
 
   return (
-    <div
+    <p.c
       {...getTableProps({
         className: clsx('lt-table', 'lt-table-virtual', props.dark && 'lt-dark', props.className),
         style: props.style,
@@ -46,6 +48,6 @@ export function LineUpLiteVirtual<D extends object>(props: LineUpLiteVirtualProp
           prepareRow={prepareRow}
         />
       </LineUpLiteContextProvider>
-    </div>
+    </p.c>
   );
 }

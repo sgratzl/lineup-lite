@@ -14,8 +14,9 @@ export function LineUpLiteTH<D extends object>({
     UseGroupByColumnProps<D> &
     UseResizeColumnsColumnProps<D> & { tooltip?: string };
   const c = useContext(LineUpLiteContext);
+  const p = { c: c?.components.th ?? 'div' };
   return (
-    <div
+    <p.c
       {...column.getHeaderProps({
         className: clsx(
           'lt-th',
@@ -46,6 +47,6 @@ export function LineUpLiteTH<D extends object>({
       ) : (
         column.render('Summary')
       )}
-    </div>
+    </p.c>
   );
 }

@@ -4,11 +4,20 @@ import type { CustomizeLineUpProps } from './interfaces';
 import type { LineUpLiteContextProps } from './contexts';
 import { LINEUP_LITE_I18N_EN } from '../i18n';
 
+const EMPTY_OBJ = {}; // static object to avoid updates
+
 export function useLineUpLiteContext<D extends object>(
   props: CustomizeLineUpProps & { dark?: boolean; onStateChange?: (state: any) => void },
   instance: TableInstance<D>
 ): LineUpLiteContextProps {
-  const { styles = {}, classNames = {}, dark = false, onStateChange, i18n = {} } = props;
+  const {
+    styles = EMPTY_OBJ,
+    classNames = EMPTY_OBJ,
+    components = EMPTY_OBJ,
+    dark = false,
+    onStateChange,
+    i18n = EMPTY_OBJ,
+  } = props;
   const { dispatch, state } = instance;
 
   useEffect(() => {
@@ -24,6 +33,7 @@ export function useLineUpLiteContext<D extends object>(
     () => ({
       styles,
       classNames,
+      components,
       i18n: {
         ...LINEUP_LITE_I18N_EN,
         ...(i18n ?? {}),
@@ -33,6 +43,6 @@ export function useLineUpLiteContext<D extends object>(
       sortByColumnCount,
       groupByColumnCount,
     }),
-    [styles, classNames, dispatch, dark, sortByColumnCount, groupByColumnCount, i18n]
+    [styles, classNames, components, dispatch, dark, sortByColumnCount, groupByColumnCount, i18n]
   );
 }

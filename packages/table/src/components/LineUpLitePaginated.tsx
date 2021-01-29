@@ -36,8 +36,10 @@ export function LineUpLitePaginated<D extends object>(props: LineUpLitePaginated
 
   const { pageIndex, pageSize } = state as any;
 
+  const p = { c: props.components?.table ?? 'div', b: props.components?.tbody ?? 'div' };
+
   return (
-    <div
+    <p.c
       {...getTableProps({
         className: clsx('lt-table', props.dark && 'lt-dark', props.className),
         style: props.style,
@@ -45,7 +47,7 @@ export function LineUpLitePaginated<D extends object>(props: LineUpLitePaginated
     >
       <LineUpLiteContextProvider instance={instance} props={props}>
         <LineUpLiteTHead headerGroups={headerGroups} icons={props.icons} actions={props.actions} />
-        <div
+        <p.b
           {...getTableBodyProps({
             className: clsx('lt-tbody', props.classNames?.tbody),
             style: props.styles?.tbody,
@@ -55,7 +57,7 @@ export function LineUpLitePaginated<D extends object>(props: LineUpLitePaginated
             prepareRow(row);
             return <LineUpLiteTR key={row.id} row={row} />;
           })}
-        </div>
+        </p.b>
         <LineUpLitePagination
           icons={props.icons}
           pageCount={pageCount}
@@ -65,6 +67,6 @@ export function LineUpLitePaginated<D extends object>(props: LineUpLitePaginated
           pageSize={pageSize}
         />
       </LineUpLiteContextProvider>
-    </div>
+    </p.c>
   );
 }

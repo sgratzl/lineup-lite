@@ -8,8 +8,9 @@ export function LineUpLiteTD<D extends object>({ cell }: { cell: Cell<D, any> })
   const cellTyped = (cell as unknown) as Cell<D> & UseGroupByCellProps<D>;
   const column = cellTyped.column as LineUpLiteColumn<D> & ColumnInstance<D> & UseResizeColumnsColumnProps<D>;
   const c = useContext(LineUpLiteContext);
+  const p = { c: c?.components.td ?? 'div' };
   return (
-    <div
+    <p.c
       {...cellTyped.getCellProps({
         className: clsx('lt-td', !column.canResize && 'lt-td-support', c?.classNames?.td),
         style: c?.styles?.td,
@@ -20,6 +21,6 @@ export function LineUpLiteTD<D extends object>({ cell }: { cell: Cell<D, any> })
         : cellTyped.isAggregated
         ? cellTyped.render('Aggregated')
         : cellTyped.render('Cell')}
-    </div>
+    </p.c>
   );
 }

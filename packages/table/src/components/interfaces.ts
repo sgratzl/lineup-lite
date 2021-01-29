@@ -5,6 +5,10 @@ import type { UseLineUpLiteOptions } from './useLineUpLite';
 
 export type MultiCustomizeKeys = 'tbody' | 'tr' | 'thead' | 'th' | 'thGroup' | 'td' | 'header';
 
+export type LineUpLiteComponentLike = React.ComponentType<
+  React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>
+>;
+
 export interface CustomizeLineUpProps {
   /**
    * hook for adding extra CSS classnames
@@ -16,6 +20,8 @@ export interface CustomizeLineUpProps {
   styles?: Partial<Record<MultiCustomizeKeys, React.CSSProperties>>;
 
   i18n?: Partial<LineUpLiteI18N>;
+
+  components?: Partial<Record<MultiCustomizeKeys | 'table', LineUpLiteComponentLike>>;
 }
 
 export interface ActionLineUpProps<D extends object> {

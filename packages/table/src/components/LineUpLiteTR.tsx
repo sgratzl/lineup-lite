@@ -4,22 +4,15 @@ import { LineUpLiteContext } from './contexts';
 import { LineUpLiteTD } from './LineUpLiteTD';
 import { clsx, mergeStyles } from './utils';
 
-export function LineUpLiteTR<D extends object>({
-  row,
-  virtualStart,
-  virtualSize,
-}: {
-  row: Row<D>;
-  virtualStart?: number;
-  virtualSize?: number;
-}) {
+export function LineUpLiteTR<D extends object>(props: { row: Row<D>; virtualStart?: number; virtualSize?: number }) {
   const c = useContext(LineUpLiteContext);
-  const rowTyped = (row as unknown) as Row<D> &
+  const rowTyped = (props.row as unknown) as Row<D> &
     UseExpandedRowProps<D> &
     UseGroupByRowProps<D> &
     UseRowSelectRowProps<D>;
+  const p = { c: c?.components.tr ?? 'div' };
   return (
-    <div
+    <p.c
       {...rowTyped.getRowProps({
         className: clsx(
           'lt-tr',
@@ -27,15 +20,15 @@ export function LineUpLiteTR<D extends object>({
           rowTyped.isExpanded && 'lt-tr-group-expanded',
           rowTyped.isSelected && 'lt-tr-selected',
           rowTyped.isSomeSelected && 'lt-tr-some-selected',
-          virtualStart != null && 'lt-tr-virtual',
+          props.virtualStart != null && 'lt-tr-virtual',
           c?.classNames?.tr
         ),
         style: mergeStyles(
           c?.styles?.tr,
-          virtualStart != null &&
-            virtualSize != null && {
-              height: `${virtualSize}px`,
-              transform: `translateY(${virtualStart}px)`,
+          props.virtualStart != null &&
+            props.virtualSize != null && {
+              height: `${props.virtualSize}px`,
+              transform: `translateY(${props.virtualStart}px)`,
             }
         ),
       })}
@@ -45,7 +38,7 @@ export function LineUpLiteTR<D extends object>({
         .map((cell) => (
           <LineUpLiteTD key={cell.column.id} cell={cell} />
         ))}
-    </div>
+    </p.c>
   );
 }
 
