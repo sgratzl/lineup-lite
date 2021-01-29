@@ -10,8 +10,16 @@
 }
 
 .lt-boxplot-outlier {
+  fill: none;
   stroke: var(--current-color, black);
   vector-effect: non-scaling-stroke;
+}
+
+.lt-boxplot-mean {
+  fill: none;
+  stroke: var(--current-color, black);
+  vector-effect: non-scaling-stroke;
+  stroke-dasharray: 2,1;
 }
 
 .lt-boxplot-pre {

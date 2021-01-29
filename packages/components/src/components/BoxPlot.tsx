@@ -73,6 +73,7 @@ export function BoxPlotChart(props: BoxPlotChartProps) {
           style={{ fill: s.color(s.scale((b.median + b.q3) / 2)) }}
           className="lt-boxplot-box"
         />
+        <path d={`M${scale(b.mean)} ${boxPadding} l 0 ${height - boxPadding * 2}`} className="lt-boxplot-mean" />
         <path d={path} className="lt-boxplot-frame" />
         {b.outlier.map((o) => (
           <path
