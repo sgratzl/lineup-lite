@@ -7,8 +7,7 @@ function resolveGroupByColumn(a: Row<any>) {
     return null;
   }
   // grouped try to resolve by which column
-  console.log(a);
-  return '';
+  return (a as any).groupByID;
 }
 
 /**
