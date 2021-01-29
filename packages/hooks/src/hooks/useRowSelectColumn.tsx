@@ -8,9 +8,26 @@ export function useRowSelectColumn<D extends object = {}>(hooks: Hooks<D>) {
 }
 useRowSelectColumn.pluginName = 'useRowSelectColumn';
 
+export const USE_ROW_SELECT_COLUMN_I18N_EN = {
+  selectGroup: 'Click to select all rows in this group',
+  unselectGroup: 'Click to unselect all rows in this group',
+  selectAll: 'Click to select all rows',
+  unselectAll: 'Click to unselect all rows',
+  selectRow: 'Click to select this rows',
+  unselectRow: 'Click to unselect this rows',
+};
+
+export interface UseSelectColumnTableOptions {
+  i18n?: Partial<typeof USE_ROW_SELECT_COLUMN_I18N_EN>;
+}
+
 function Cell(props: any) {
   const typedRow = props.row as Row<any> & UseRowSelectRowProps<any>;
   const rows = props.rows as (Row<any> & UseRowSelectRowProps<any>)[];
+  const i18n = {
+    ...USE_ROW_SELECT_COLUMN_I18N_EN,
+    ...(props.i18n ?? {}),
+  };
   const onClick = React.useCallback(
     (e: React.MouseEvent<HTMLInputElement>) => {
       if (!e.shiftKey) {
@@ -35,15 +52,26 @@ function Cell(props: any) {
 
   return (
     <div className="le-selection">
-      <IndeterminateCheckbox {...props.row.getToggleRowSelectedProps()} onClick={onClick} />
+      <IndeterminateCheckbox
+        {...props.row.getToggleRowSelectedProps()}
+        onClick={onClick}
+        title={props.row.isSelected ? i18n.unselectRow : i18n.selectRow}
+      />
     </div>
   );
 }
 
-function Summary({ getToggleAllRowsSelectedProps }: any) {
+function Summary(props: any) {
+  const i18n = {
+    ...USE_ROW_SELECT_COLUMN_I18N_EN,
+    ...(props.i18n ?? {}),
+  };
   return (
     <div className="le-selection le-summary">
-      <IndeterminateCheckbox {...getToggleAllRowsSelectedProps()} />
+      <IndeterminateCheckbox
+        {...props.getToggleAllRowsSelectedProps()}
+        title={props.isAllRowsSelected ? i18n.unselectAll : i18n.selectAll}
+      />
     </div>
   );
 }

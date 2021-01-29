@@ -45,12 +45,6 @@ export interface UseLineUpLiteOptions<D extends object> extends UseLineUpLiteTab
   defaultColumn?: Partial<LineUpLiteColumn<D>>;
   columns: LineUpLiteColumn<D>[];
   features: readonly (PluginHook<D> | PluginHook<D>[])[];
-  /**
-   * customize the icons to use
-   */
-  icons?: {
-    expandGroup?: React.ComponentType;
-  };
 }
 
 export function featureRowSelect<D extends object>(): PluginHook<D>[] {
@@ -80,12 +74,11 @@ function sortByPriority<D extends object>(a: [PluginHook<D>, number], b: [Plugin
 }
 
 export function useLineUpLite<D extends object>(
-  { features, icons, ...props }: UseLineUpLiteOptions<D>,
+  { features, ...props }: UseLineUpLiteOptions<D>,
   ...extraPlugins: PluginHook<D>[]
 ) {
   const tableProps: UseLineUpLiteTableOptions<D> & UseRowExpandColumnTableOptions = {
     groupByFn: columnSpecificGroupByFn,
-    expandIcon: icons?.expandGroup,
     ...props,
   };
   const allPlugins = [...features.flat(), useStats, useBlockLayout, ...extraPlugins]

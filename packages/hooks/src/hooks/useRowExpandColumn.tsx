@@ -11,8 +11,18 @@ import type {
 import type { LineUpLiteColumn } from '../interfaces';
 import { cslx } from '../renderers/utils';
 
+export const USE_EXPAND_COLUMN_I18N_EN = {
+  expandGroup: 'Click to expand this group',
+  collapseGroup: 'Click to collapse this group',
+  expandAllGroups: 'Click to expand all groups',
+  collapseAllGroups: 'Click to collapse all groups',
+};
+
 export interface UseRowExpandColumnTableOptions {
-  expandIcon?: React.ComponentType;
+  icons?: {
+    expandGroup?: React.ComponentType;
+  };
+  i18n?: Partial<typeof USE_EXPAND_COLUMN_I18N_EN>;
 }
 
 export function useRowExpandColumn<D extends object = {}>(hooks: Hooks<D>) {
@@ -39,26 +49,34 @@ function Aggregated(
   if (!row.canExpand) {
     return null;
   }
+  const i18n = {
+    ...USE_EXPAND_COLUMN_I18N_EN,
+    ...(props.i18n ?? {}),
+  };
   return (
     <button
       {...row.getToggleRowExpandedProps({
         className: cslx('lt-expand-agg', `lt-expand-${row.depth}`, row.isExpanded && 'lt-expanded'),
       })}
-      title="Expand/Collapse this group"
+      title={row.isExpanded ? i18n.collapseGroup : i18n.expandGroup}
     >
-      {props.expandIcon ? <props.expandIcon /> : <ArrowDropRightLine />}
+      {props.icons?.expandGroup ? <props.icons.expandGroup /> : <ArrowDropRightLine />}
     </button>
   );
 }
 
 function Summary(props: any) {
   if (props.allColumns.some((d: any) => d.isGrouped)) {
+    const i18n = {
+      ...USE_EXPAND_COLUMN_I18N_EN,
+      ...(props.i18n ?? {}),
+    };
     return (
       <button
         {...props.getToggleAllRowsExpandedProps({
           className: cslx('lt-expand-agg', props.isAllRowsExpanded && 'lt-expanded'),
         })}
-        title="Expand/Collapse all groups"
+        title={props.isAllRowsExpanded ? i18n.collapseAllGroups : i18n.expandAllGroups}
       >
         {props.expandIcon ? <props.expandIcon /> : <ArrowDropRightLine />}
       </button>
