@@ -1,5 +1,5 @@
 import type { ActionIcons } from '../icons';
-import React, { useRef } from 'react';
+import React, { forwardRef, Ref, useRef } from 'react';
 import type { LineUpLiteProps } from './interfaces';
 import { LineUpLiteTHead } from './LineUpLiteTHead';
 import { LineUpLiteTVirtualBody } from './LineUpLiteTVirtualBody';
@@ -16,7 +16,10 @@ export interface LineUpLiteVirtualProps<D extends object> extends LineUpLiteProp
   icons?: Partial<ActionIcons>;
 }
 
-export function LineUpLiteVirtual<D extends object>(props: LineUpLiteVirtualProps<D>) {
+const LineUpLiteVirtualImpl = /*!#__PURE__*/ forwardRef(function LineUpLiteVirtual<D extends object>(
+  props: LineUpLiteVirtualProps<D>,
+  ref: Ref<HTMLElement>
+) {
   const instance = useLineUpLite<D>(props);
   const { getTableProps, getTableBodyProps, headerGroups, prepareRow, rows } = instance;
 
@@ -26,18 +29,14 @@ export function LineUpLiteVirtual<D extends object>(props: LineUpLiteVirtualProp
 
   return (
     <p.c
+      ref={ref}
       {...getTableProps({
         className: clsx('lt-table', 'lt-table-virtual', props.dark && 'lt-dark', props.className),
         style: props.style,
       })}
     >
       <LineUpLiteContextProvider instance={instance} props={props}>
-        <LineUpLiteTHead
-          headerGroups={headerGroups}
-          virtualRef={theadRef}
-          icons={props.icons}
-          actions={props.actions}
-        />
+        <LineUpLiteTHead headerGroups={headerGroups} ref={theadRef} icons={props.icons} actions={props.actions} />
         <LineUpLiteTVirtualBody
           getTableBodyProps={getTableBodyProps}
           theadRef={theadRef}
@@ -50,4 +49,8 @@ export function LineUpLiteVirtual<D extends object>(props: LineUpLiteVirtualProp
       </LineUpLiteContextProvider>
     </p.c>
   );
-}
+});
+
+export const LineUpLiteVirtual = LineUpLiteVirtualImpl as <D extends object>(
+  p: LineUpLiteVirtualProps<D> & React.RefAttributes<HTMLElement>
+) => React.ReactElement;

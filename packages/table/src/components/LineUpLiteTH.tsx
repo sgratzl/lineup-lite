@@ -1,15 +1,18 @@
-import React, { useContext } from 'react';
+import React, { forwardRef, Ref, useContext } from 'react';
 import type { HeaderGroup, UseGroupByColumnProps, UseResizeColumnsColumnProps } from 'react-table';
 import { clsx } from './utils';
 import { LineUpLiteToolbar } from './LineUpLiteToolbar';
 import type { ActionLineUpProps } from './interfaces';
 import { LineUpLiteContext } from './contexts';
 
-export function LineUpLiteTH<D extends object>({
-  col,
-  actions,
-  icons,
-}: { col: HeaderGroup<D> } & ActionLineUpProps<D>) {
+export interface LineUpLiteTHProps<D extends object> extends ActionLineUpProps<D> {
+  col: HeaderGroup<D>;
+}
+
+const LineUpLiteTHImpl = /*!#__PURE__*/ forwardRef(function LineUpLiteTH<D extends object>(
+  { col, actions, icons }: LineUpLiteTHProps<D>,
+  ref: Ref<HTMLElement>
+) {
   const column = (col as unknown) as HeaderGroup<D> &
     UseGroupByColumnProps<D> &
     UseResizeColumnsColumnProps<D> & { tooltip?: string };
@@ -17,6 +20,7 @@ export function LineUpLiteTH<D extends object>({
   const p = { c: c?.components.th ?? 'div' };
   return (
     <p.c
+      ref={ref}
       {...column.getHeaderProps({
         className: clsx(
           'lt-th',
@@ -49,4 +53,8 @@ export function LineUpLiteTH<D extends object>({
       )}
     </p.c>
   );
-}
+});
+
+export const LineUpLiteTH = LineUpLiteTHImpl as <D extends object>(
+  p: LineUpLiteTHProps<D> & React.RefAttributes<HTMLElement>
+) => React.ReactElement;
