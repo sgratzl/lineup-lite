@@ -27,7 +27,7 @@ const LineUpLiteTDImpl = /*!#__PURE__*/ forwardRef(function LineUpLiteTD<D exten
       {cellTyped.isGrouped
         ? cellTyped.render(column.Group ? 'Group' : 'Cell')
         : cellTyped.isAggregated
-        ? cellTyped.render('Aggregated')
+        ? cellTyped.render(column.Aggregated ? 'Aggregated' : 'Cell')
         : cellTyped.render('Cell')}
     </p.c>
   );

@@ -1,5 +1,5 @@
 import React, { forwardRef, Ref, useContext } from 'react';
-import type { HeaderGroup, UseGroupByColumnProps, UseResizeColumnsColumnProps } from 'react-table';
+import type { HeaderGroup, Renderer, UseGroupByColumnProps, UseResizeColumnsColumnProps } from 'react-table';
 import { clsx } from './utils';
 import { LineUpLiteToolbar } from './LineUpLiteToolbar';
 import type { ActionLineUpProps } from './interfaces';
@@ -15,7 +15,7 @@ const LineUpLiteTHImpl = /*!#__PURE__*/ forwardRef(function LineUpLiteTH<D exten
 ) {
   const column = (col as unknown) as HeaderGroup<D> &
     UseGroupByColumnProps<D> &
-    UseResizeColumnsColumnProps<D> & { tooltip?: string };
+    UseResizeColumnsColumnProps<D> & { tooltip?: string; Summary?: Renderer<any> };
   const c = useContext(LineUpLiteContext);
   const p = { c: c?.components.th ?? 'div' };
   return (
@@ -46,10 +46,10 @@ const LineUpLiteTHImpl = /*!#__PURE__*/ forwardRef(function LineUpLiteTH<D exten
           <LineUpLiteToolbar {...col} icons={icons}>
             {actions && actions(column)}
           </LineUpLiteToolbar>
-          {column.render('Summary')}
+          {column.Summary && column.render('Summary')}
         </>
       ) : (
-        column.render('Summary')
+        column.render(column.Summary ? 'Summary' : 'Header')
       )}
     </p.c>
   );
