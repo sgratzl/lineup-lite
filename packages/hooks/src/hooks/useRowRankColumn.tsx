@@ -36,6 +36,7 @@ function Aggregated(props: TableCellProps & UseTableCellProps<any, any>) {
   return (
     <div className="lt-rank-agg">
       <span>{`${firstRow.rank.toLocaleString()}.`}</span>
+      <span className="lt-rank-agg-spacer" />
       <span>{`${lastRow.rank.toLocaleString()}.`}</span>
     </div>
   );

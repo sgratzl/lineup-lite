@@ -4,9 +4,15 @@
 }
 
 .lt-rank-agg {
+  flex-grow: 1;
   text-align: right;
   white-space: nowrap;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+}
+
+.lt-rank-agg-spacer {
+  flex-grow: 1;
+  border-right: 1px solid var(--current-color, currentColor);
+  margin-right: 0.4em;
 }

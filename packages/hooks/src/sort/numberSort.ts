@@ -6,7 +6,7 @@ export function numberGroupCompare(a: Row<any>, b: Row<any>, columnId: string): 
   const av: INumberStats = a.values[columnId];
   const bv: INumberStats = b.values[columnId];
   if (isNumberStats(av) && isNumberStats(bv)) {
-    return compareAsc(av.mean, bv.mean);
+    return compareAsc(av.median, bv.median);
   }
   return compareAsc(av, bv);
 }
