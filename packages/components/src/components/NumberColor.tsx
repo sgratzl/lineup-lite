@@ -1,14 +1,14 @@
 import React from 'react';
 import { defaultColorScale } from '../math';
 import type { NumberBarProps } from './NumberBar';
-import { clsx, format, mergeStyles } from './utils';
+import { clsx, format, mergeStyles, toLocaleString } from './utils';
 
 /**
  * renders a numeric value along with a colored rect
  */
 export function NumberColor(props: NumberBarProps) {
   const v = props.scale ? props.scale(props.value) : props.value;
-  const label = format(props.value, props.format ?? ((v: number) => (v ? v.toLocaleString() : '')));
+  const label = format(props.value, props.format ?? toLocaleString);
   return (
     <div
       className={clsx('lt-color', props.className)}

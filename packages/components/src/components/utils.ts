@@ -28,3 +28,7 @@ export function i18n(pattern: string, ...args: string[]) {
   }
   return pattern.replace(/\{(\d+)\}/g, (_, v) => args[Number.parseInt(v, 10)] ?? '?');
 }
+
+export function toLocaleString(v?: number | Date | null) {
+  return v == null ? '' : v.toLocaleString();
+}

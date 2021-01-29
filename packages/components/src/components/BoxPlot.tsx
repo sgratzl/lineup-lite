@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import type { INumberStats } from '../math/numberStatsGenerator';
 import type { IBoxPlot } from '@sgratzl/boxplots';
 import { NumberStatsWrapper } from './NumberStatsWrapper';
@@ -67,7 +67,7 @@ export function BoxPlotChart(props: BoxPlotChartProps) {
     [props.i18n]
   );
   const boxPadding = 2;
-  const scale = (v: number) => Math.round(s.scale(v) * 1000) / 10;
+  const scale = useCallback((v: number) => Math.round(s.scale(v) * 1000) / 10, [s]);
   const outlierRadius = 4;
   const height = 20;
 

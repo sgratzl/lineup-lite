@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import type { IHistStats, IBin } from '../math/common';
 import { toPercent, clsx, i18n } from './utils';
 import { FilterRangeSliderProps, FilterRangeWrapper } from './FilterRange';
@@ -128,7 +128,7 @@ export function FilterBinHistogram<T>(props: FilterBinHistogramProps<T>) {
     [props.i18n]
   );
 
-  const onClick = React.useCallback(
+  const onClick = useCallback(
     (evt: React.MouseEvent<HTMLElement>) => {
       const current: T[] = filterValue ?? [];
       const bin = hist[Number.parseInt(evt.currentTarget.dataset.i!, 10)];

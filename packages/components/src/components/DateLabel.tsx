@@ -1,6 +1,6 @@
 import React from 'react';
 import type { CommonProps } from './common';
-import { clsx, format } from './utils';
+import { clsx, format, toLocaleString } from './utils';
 
 export interface DateLabelProps extends CommonProps {
   /**
@@ -17,7 +17,7 @@ export interface DateLabelProps extends CommonProps {
  * renders a date
  */
 export function DateLabel(props: DateLabelProps) {
-  const label = format(props.value, props.format ?? ((v: Date) => (v ? v.toLocaleString() : '')));
+  const label = format(props.value, props.format ?? toLocaleString);
   return (
     <div className={clsx('lt-date', props.className)} style={props.style} title={label}>
       {label}

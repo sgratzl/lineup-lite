@@ -1,6 +1,6 @@
 import React from 'react';
 import type { CommonProps } from './common';
-import { clsx, mergeStyles } from './utils';
+import { clsx, format, mergeStyles } from './utils';
 
 export interface CategoricalColorProps extends CommonProps {
   /**
@@ -18,8 +18,7 @@ export interface CategoricalColorProps extends CommonProps {
 }
 
 export function CategoricalColor(props: CategoricalColorProps) {
-  const title =
-    typeof props.format === 'string' ? props.format : props.format ? props.format(props.value) : props.value;
+  const title = format(props.value, props.format);
   return (
     <div
       className={clsx('lt-categorical', props.className)}

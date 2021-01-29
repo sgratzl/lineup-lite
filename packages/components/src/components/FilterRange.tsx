@@ -1,4 +1,4 @@
-import React, { MutableRefObject, useCallback, useLayoutEffect, useMemo, useRef } from 'react';
+import React, { MutableRefObject, useCallback, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import type { INumericStats } from '../math/common';
 import type { CommonProps } from './common';
 import { clsx, toPercent, i18n as t } from './utils';
@@ -34,8 +34,8 @@ function FilterRangeSlider<T>(props: FilterRangeSliderProps<T> & { refData: Muta
   const { setFilter } = props;
   const { invert, scale } = props.s;
   const filterValue = props.filterValue;
-  const [localFilter, setLocalFilter] = React.useState(filterValue ?? [null as T | null, null as T | null]);
-  const filterRef = React.useRef(localFilter);
+  const [localFilter, setLocalFilter] = useState(filterValue ?? [null as T | null, null as T | null]);
+  const filterRef = useRef(localFilter);
   filterRef.current = localFilter;
 
   const i18n = useMemo(
@@ -54,7 +54,7 @@ function FilterRangeSlider<T>(props: FilterRangeSliderProps<T> & { refData: Muta
     }
   }, [setLocalFilter, filterRef, filterValue]);
 
-  const onMinMouseDown = React.useMemo(() => {
+  const onMinMouseDown = useMemo(() => {
     let ueber: HTMLElement | null = null;
     let base = 0;
     let width = 0;
@@ -83,7 +83,7 @@ function FilterRangeSlider<T>(props: FilterRangeSliderProps<T> & { refData: Muta
     };
   }, [setFilter, setLocalFilter, filterRef, invert]);
 
-  const onMaxMouseDown = React.useMemo(() => {
+  const onMaxMouseDown = useMemo(() => {
     let ueber: HTMLElement | null = null;
     let base = 0;
     let width = 0;

@@ -1,7 +1,7 @@
 import React from 'react';
 import { defaultColorScale } from '../math';
 import type { CommonProps } from './common';
-import { clsx, format, mergeStyles, toPercent } from './utils';
+import { clsx, format, mergeStyles, toLocaleString, toPercent } from './utils';
 
 export interface NumberBarProps extends CommonProps {
   /**
@@ -34,7 +34,7 @@ function barProps(value: number, color: string | ((v: number) => string)): React
  * renders a numeric value along with a bar
  */
 export function NumberBar(props: NumberBarProps) {
-  const label = format(props.value, props.format ?? ((v: number) => (v ? v.toLocaleString() : '')));
+  const label = format(props.value, props.format ?? toLocaleString);
   return (
     <div
       className={clsx('lt-bar', props.className)}

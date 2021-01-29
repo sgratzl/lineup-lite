@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import type { ITextStats } from '../math';
 import type { CommonProps } from './common';
 import { clsx, i18n as t } from './utils';
@@ -61,14 +61,14 @@ export function FilterTextSummary(props: FilterTextSummaryProps) {
   const { setFilter, filterValue, s, preFilter } = props;
   const unique = `${s.count.toLocaleString()}${preFilter ? `/${preFilter.count.toLocaleString()}` : ''} items`;
 
-  const onChange = React.useCallback(
+  const onChange = useCallback(
     (evt: React.ChangeEvent<HTMLInputElement>) => {
       setFilter(evt.currentTarget.value || undefined);
     },
     [setFilter]
   );
 
-  const clearFilter = React.useCallback(() => setFilter(undefined), [setFilter]);
+  const clearFilter = useCallback(() => setFilter(undefined), [setFilter]);
 
   const i18n = {
     ...TEXT_SUMMARY_I18N_EN,
