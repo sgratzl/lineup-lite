@@ -1,7 +1,13 @@
 import React from 'react';
 import type { ITextStats } from '../math';
 import type { CommonProps } from './common';
-import { cslx } from './utils';
+import { clsx, i18n as t } from './utils';
+
+export const TEXT_SUMMARY_I18N_EN = {
+  textSummaryItems: '{0} items',
+  textSummaryUniqueItems: '{0} unique',
+  filterTextPlaceholder: 'Filter {0} unique items',
+};
 
 export interface TextSummaryProps extends CommonProps {
   /**
@@ -17,14 +23,20 @@ export interface TextSummaryProps extends CommonProps {
    * whether to render it as a summary including labels
    */
   summary?: boolean;
+
+  i18n?: Partial<typeof TEXT_SUMMARY_I18N_EN>;
 }
 
 export function TextSummary(props: TextSummaryProps) {
   const s = props.s;
+  const i18n = {
+    ...TEXT_SUMMARY_I18N_EN,
+    ...(props.i18n ?? {}),
+  };
   return (
-    <div className={cslx('lt-text-summary', !props.summary && 'lt-group', props.className)} style={props.style}>
-      <span>{s.count.toLocaleString()} items</span>
-      {s.unique < s.count && <span>{s.unique} unique</span>}
+    <div className={clsx('lt-text-summary', !props.summary && 'lt-group', props.className)} style={props.style}>
+      <span>{t(i18n.textSummaryItems, s.count.toLocaleString())}</span>
+      {s.unique < s.count && <span>{t(i18n.textSummaryUniqueItems, s.unique.toLocaleString())}</span>}
     </div>
   );
 }
@@ -58,12 +70,19 @@ export function FilterTextSummary(props: FilterTextSummaryProps) {
 
   const clearFilter = React.useCallback(() => setFilter(undefined), [setFilter]);
 
+  const i18n = {
+    ...TEXT_SUMMARY_I18N_EN,
+    ...(props.i18n ?? {}),
+  };
+
   return (
-    <div className={cslx('lt-text-summary', 'lt-summary', props.className)} data-min={unique} style={props.style}>
+    <div className={clsx('lt-text-summary', 'lt-summary', props.className)} data-min={unique} style={props.style}>
       <input
         value={filterValue ?? ''}
         onChange={onChange}
-        placeholder={props.placeholder ? props.placeholder(s) : `Filter ${s.unique} unique items`}
+        placeholder={
+          props.placeholder ? props.placeholder(s) : t(i18n.filterTextPlaceholder, s.unique.toLocaleString())
+        }
         size={3}
         className="lt-text-summary-input"
       />

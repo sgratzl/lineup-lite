@@ -16,7 +16,7 @@ export interface HistogramRendererOptions extends DateStatsOptions {
 
 function Filtered(props: FilterRangeHistogramProps<Date>) {
   const setFilter = useAsyncDebounce(props.setFilter);
-  return <FilterRangeHistogram {...props} setFilter={setFilter} />;
+  return <FilterRangeHistogram {...props} setFilter={setFilter} i18n={props.i18n} />;
 }
 
 export function DateHistogramRenderer<P extends StatsPropsLike<Date | null>>(props: P) {
@@ -32,7 +32,14 @@ export function DateHistogramRenderer<P extends StatsPropsLike<Date | null>>(pro
   if (isFilterAble(props) && props.column.canFilter) {
     const { setFilter, filterValue } = props.column;
     return (
-      <Filtered s={s} preFilter={preFilter} maxBin={options.maxBin} setFilter={setFilter} filterValue={filterValue} />
+      <Filtered
+        s={s}
+        preFilter={preFilter}
+        maxBin={options.maxBin}
+        setFilter={setFilter}
+        filterValue={filterValue}
+        i18n={props.i18n}
+      />
     );
   }
   return <Histogram s={s} maxBin={options.maxBin} summary />;

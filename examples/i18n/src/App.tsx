@@ -36,6 +36,7 @@ function Table({ isDarkTheme }: { isDarkTheme: boolean }) {
       groupByAnotherColumn:
         'Hier klicken um nur noch nach dieser Spalte zu gruppieren oder die Shift-Taste gedrückt halten um zusätzlich nach dieser Spalte zu gruppieren',
       groupByColumn: 'Hier klicken um nach dieser Spalte zu gruppieren',
+      filterTextPlaceholder: 'Spalte filtern nach...',
     }),
     []
   );

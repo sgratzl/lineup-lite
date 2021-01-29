@@ -23,7 +23,7 @@ export interface TextSummaryRendererOptions {
 
 function Filtered(props: FilterTextSummaryProps) {
   const setFilter = useAsyncDebounce(props.setFilter, 10);
-  return <FilterTextSummary {...props} setFilter={setFilter} />;
+  return <FilterTextSummary {...props} setFilter={setFilter} i18n={props.i18n} />;
 }
 
 export function TextSummaryRenderer<P extends StatsPropsLike<string>>(props: P) {
@@ -33,13 +33,13 @@ export function TextSummaryRenderer<P extends StatsPropsLike<string>>(props: P) 
     textStats(options);
   const { s, preFilter, cell } = extractStats(props, stats);
   if (cell) {
-    return <TextSummary s={s} preFilter={preFilter} />;
+    return <TextSummary s={s} preFilter={preFilter} i18n={props.i18n} />;
   }
   if (isFilterAble(props) && props.column.canFilter) {
     const { setFilter, filterValue } = props.column;
-    return <Filtered s={s} preFilter={preFilter} setFilter={setFilter} filterValue={filterValue} />;
+    return <Filtered s={s} preFilter={preFilter} setFilter={setFilter} filterValue={filterValue} i18n={props.i18n} />;
   }
-  return <TextSummary s={s} preFilter={preFilter} summary />;
+  return <TextSummary s={s} preFilter={preFilter} summary i18n={props.i18n} />;
 }
 
 export function TextSummaryRendererFactory<P extends StatsPropsLike<string>>(

@@ -30,6 +30,7 @@ export function CategoricalHistogramRenderer<P extends StatsPropsLike<string>>(p
         setFilter={setFilter}
         filterValue={filterValue}
         label
+        i18n={props.i18n}
       />
     );
   }

@@ -1,7 +1,7 @@
 import React from 'react';
 import { defaultColorScale } from '../math';
 import type { CommonProps } from './common';
-import { cslx, format, mergeStyles, toPercent } from './utils';
+import { clsx, format, mergeStyles, toPercent } from './utils';
 
 export interface NumberBarProps extends CommonProps {
   /**
@@ -37,7 +37,7 @@ export function NumberBar(props: NumberBarProps) {
   const label = format(props.value, props.format ?? ((v: number) => (v ? v.toLocaleString() : '')));
   return (
     <div
-      className={cslx('lt-bar', props.className)}
+      className={clsx('lt-bar', props.className)}
       style={mergeStyles(
         props.style,
         barProps(props.scale ? props.scale(props.value) : props.value, props.color ?? defaultColorScale)

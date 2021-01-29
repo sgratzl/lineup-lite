@@ -16,7 +16,7 @@ export interface NumberHistogramRendererOptions extends NumberStatsOptions {
 
 function Filtered(props: FilterRangeHistogramProps<number>) {
   const setFilter = useAsyncDebounce(props.setFilter, 100);
-  return <FilterRangeHistogram {...props} setFilter={setFilter} />;
+  return <FilterRangeHistogram {...props} setFilter={setFilter} i18n={props.i18n} />;
 }
 
 export function NumberHistogramRenderer<P extends StatsPropsLike<number>>(props: P) {
@@ -32,7 +32,14 @@ export function NumberHistogramRenderer<P extends StatsPropsLike<number>>(props:
   if (isFilterAble(props) && props.column.canFilter) {
     const { setFilter, filterValue } = props.column;
     return (
-      <Filtered s={s} preFilter={preFilter} maxBin={options.maxBin} setFilter={setFilter} filterValue={filterValue} />
+      <Filtered
+        s={s}
+        preFilter={preFilter}
+        maxBin={options.maxBin}
+        setFilter={setFilter}
+        filterValue={filterValue}
+        i18n={props.i18n}
+      />
     );
   }
   return <Histogram s={s} maxBin={options.maxBin} summary />;

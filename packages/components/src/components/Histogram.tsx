@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import type { IHistStats, IBin } from '../math/common';
-import { toPercent, cslx } from './utils';
+import { toPercent, clsx, i18n } from './utils';
 import { FilterRangeSliderProps, FilterRangeWrapper } from './FilterRange';
 import { NumberStatsWrapper } from './NumberStatsWrapper';
 import type { CommonProps } from './common';
@@ -30,9 +30,13 @@ export interface HistogramProps<T> extends CommonProps {
 
 const DENSE = 10;
 
-function generateBinTitle<T>(h: IBin<T>, raw?: IBin<T>) {
+function generateBinTitle<T>(h: IBin<T>, raw?: IBin<T>, title?: string) {
   const rawT = raw ? `/${raw.count.toLocaleString()}` : '';
-  return `${h.label}: ${h.count.toLocaleString()}${rawT} items`;
+  const base = `${h.label}: ${h.count.toLocaleString()}${rawT}`;
+  if (title) {
+    return i18n(title, base);
+  }
+  return base;
 }
 
 /**
@@ -42,7 +46,7 @@ export function Histogram<T>(props: HistogramProps<T>) {
   return (
     <NumberStatsWrapper
       style={props.style}
-      className={cslx('lt-histogram', props.className)}
+      className={clsx('lt-histogram', props.className)}
       s={props.s}
       summary={props.summary}
     >
@@ -58,11 +62,13 @@ function Bin<T>({
   props,
   i,
   onClick,
+  title,
 }: {
   h: IBin<T>;
   i: number;
   onClick?: (evt: React.MouseEvent<HTMLElement>) => void;
   props: HistogramProps<T>;
+  title?: string;
 }) {
   const preFilter = props.preFilter;
   const maxBin = props.maxBin ?? preFilter?.maxBin.count ?? props.s.maxBin.count;
@@ -80,17 +86,22 @@ function Bin<T>({
   }
   return (
     <div
-      className={cslx('lt-histogram-bin', dense && 'lt-histogram-bin-dense', onClick && 'lt-histogram-bin-interactive')}
+      className={clsx('lt-histogram-bin', dense && 'lt-histogram-bin-dense', onClick && 'lt-histogram-bin-interactive')}
       style={{
         backgroundImage: gradient,
       }}
       data-i={i}
       onClick={onClick}
       data-label={props.label ? h.label : null}
-      title={generateBinTitle<T>(h, raw)}
+      title={generateBinTitle<T>(h, raw, title)}
     />
   );
 }
+
+export const FILTER_BIN_I18N_EN = {
+  filterBin: '{0} - Click to filter this out this bin',
+  removeFilterBin: '{0} - Click to remove filtering out this bin',
+};
 
 export interface FilterBinHistogramProps<T> extends HistogramProps<T> {
   /**
@@ -101,11 +112,21 @@ export interface FilterBinHistogramProps<T> extends HistogramProps<T> {
    * current filter value
    */
   filterValue: T[];
+
+  i18n?: Partial<typeof FILTER_BIN_I18N_EN>;
 }
 
 export function FilterBinHistogram<T>(props: FilterBinHistogramProps<T>) {
   const { setFilter, filterValue } = props;
   const hist = props.s.hist;
+
+  const i18n = useMemo(
+    () => ({
+      ...FILTER_BIN_I18N_EN,
+      ...(props.i18n ?? {}),
+    }),
+    [props.i18n]
+  );
 
   const onClick = React.useCallback(
     (evt: React.MouseEvent<HTMLElement>) => {
@@ -118,9 +139,16 @@ export function FilterBinHistogram<T>(props: FilterBinHistogramProps<T>) {
     [setFilter, hist, filterValue]
   );
   return (
-    <NumberStatsWrapper style={props.style} className={cslx('lt-histogram', props.className)} s={props.s} summary>
+    <NumberStatsWrapper style={props.style} className={clsx('lt-histogram', props.className)} s={props.s} summary>
       {props.s.hist.map((h, i) => (
-        <Bin key={String(h.x0)} h={h} props={props} i={i} onClick={onClick} />
+        <Bin
+          key={String(h.x0)}
+          h={h}
+          props={props}
+          i={i}
+          onClick={onClick}
+          title={(filterValue ?? []).includes(h.x0) ? i18n.removeFilterBin : i18n.filterBin}
+        />
       ))}
     </NumberStatsWrapper>
   );
@@ -133,7 +161,7 @@ export type FilterRangeHistogramProps<T> = HistogramProps<T> & FilterRangeSlider
  */
 export function FilterRangeHistogram<T>(props: FilterRangeHistogramProps<T>) {
   return (
-    <FilterRangeWrapper summary {...props} className={cslx('lt-histogram', props.className)}>
+    <FilterRangeWrapper summary {...props} className={clsx('lt-histogram', props.className)}>
       {props.s.hist.map((h, i) => (
         <Bin key={String(h.x0)} h={h} i={i} props={props} />
       ))}

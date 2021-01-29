@@ -9,7 +9,7 @@ import type {
   UseTableCellProps,
 } from 'react-table';
 import type { LineUpLiteColumn } from '../interfaces';
-import { cslx } from '../renderers/utils';
+import { clsx } from '@lineup-lite/components';
 
 export const USE_EXPAND_COLUMN_I18N_EN = {
   expandGroup: 'Click to expand this group',
@@ -56,7 +56,7 @@ function Aggregated(
   return (
     <button
       {...row.getToggleRowExpandedProps({
-        className: cslx('lt-expand-agg', `lt-expand-${row.depth}`, row.isExpanded && 'lt-expanded'),
+        className: clsx('lt-expand-agg', `lt-expand-${row.depth}`, row.isExpanded && 'lt-expanded'),
       })}
       title={row.isExpanded ? i18n.collapseGroup : i18n.expandGroup}
     >
@@ -74,7 +74,7 @@ function Summary(props: any) {
     return (
       <button
         {...props.getToggleAllRowsExpandedProps({
-          className: cslx('lt-expand-agg', props.isAllRowsExpanded && 'lt-expanded'),
+          className: clsx('lt-expand-agg', props.isAllRowsExpanded && 'lt-expanded'),
         })}
         title={props.isAllRowsExpanded ? i18n.collapseAllGroups : i18n.expandAllGroups}
       >

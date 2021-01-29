@@ -24,13 +24,15 @@ export function BoxPlotRenderer<P extends StatsPropsLike<number>>(props: P) {
     numberStats(options);
   const { s, preFilter, cell } = extractStats(props, stats);
   if (cell) {
-    return <BoxPlot s={s} />;
+    return <BoxPlot s={s} i18n={props.i18n} />;
   }
   if (isFilterAble(props) && props.column.canFilter) {
     const { setFilter, filterValue } = props.column;
-    return <FilterBoxPlot s={s} setFilter={setFilter} preFilter={preFilter} filterValue={filterValue} />;
+    return (
+      <FilterBoxPlot s={s} setFilter={setFilter} preFilter={preFilter} filterValue={filterValue} i18n={props.i18n} />
+    );
   }
-  return <BoxPlot s={s} preFilter={preFilter} summary />;
+  return <BoxPlot s={s} preFilter={preFilter} summary i18n={props.i18n} />;
 }
 
 export function BoxPlotRendererFactory<P extends StatsPropsLike<number>>(

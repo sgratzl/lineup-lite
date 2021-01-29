@@ -6,7 +6,9 @@ import { createContext, Context } from 'react';
 export const optionContext: Context<{ [key: string]: any }> = createContext<{ [key: string]: any }>({});
 export const statsGeneratorContext: Context<null | any> = createContext<null | any>(null);
 
-export type StatsPropsLike<T> = ({ value: readonly T[] } & StatsCellProps<any>) | StatsProps<any>;
+export type StatsPropsLike<T> =
+  | ({ value: readonly T[]; i18n?: Record<string, string> } & StatsCellProps<any>)
+  | StatsProps<any>;
 
 function isValueArray<T>(props: any): props is { value: readonly T[] } {
   return Array.isArray((props as { value: readonly T[] }).value);
@@ -88,8 +90,4 @@ export function resolve<T>(directValue: T | undefined, globalValue: T | undefine
 
 export function isFilterAble<D extends object>(props: any): props is { column: UseFiltersColumnProps<D> } {
   return typeof (props.column as UseFiltersColumnProps<D>).setFilter === 'function';
-}
-
-export function cslx(...args: (boolean | string | undefined | null)[]) {
-  return args.filter(Boolean).join(' ');
 }

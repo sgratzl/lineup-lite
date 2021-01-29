@@ -35,8 +35,14 @@ export interface UseStatsColumnProps {
   preFilterStatsValue?: StatsValue;
 }
 
-export type StatsProps<D extends object> = HeaderProps<D> & { column: UseStatsColumnProps };
-export type StatsCellProps<D extends object> = CellProps<D> & { column: UseStatsColumnProps };
+export type StatsProps<D extends object> = HeaderProps<D> & {
+  column: UseStatsColumnProps;
+  i18n?: Record<string, string>;
+};
+export type StatsCellProps<D extends object> = CellProps<D> & {
+  column: UseStatsColumnProps;
+  i18n?: Record<string, string>;
+};
 export type StatsValue = any;
 export type Stats<D extends object> = Array<{ id: IdType<D>; value: StatsValue }>;
 

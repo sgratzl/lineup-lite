@@ -8,3 +8,4 @@ export * from './NumberColor';
 export * from './NumberSymbol';
 export * from './TextSummary';
 export * from './TextLabel';
+export { clsx, i18n, mergeStyles, format } from './utils';

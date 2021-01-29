@@ -1,7 +1,7 @@
 import React from 'react';
 import { defaultColorScale } from '../math';
 import type { NumberBarProps } from './NumberBar';
-import { cslx, format, mergeStyles, toPercent } from './utils';
+import { clsx, format, mergeStyles, toPercent } from './utils';
 
 function radiFromArea(area: number) {
   // r * r * PI = area
@@ -25,7 +25,7 @@ export function NumberSymbol(props: NumberBarProps) {
   const label = format(props.value, props.format ?? ((v: number) => (v ? v.toLocaleString() : '')));
   return (
     <div
-      className={cslx('lt-proportional-symbol', props.className)}
+      className={clsx('lt-proportional-symbol', props.className)}
       style={mergeStyles(
         props.style,
         proportionalSymbolProps(props.scale ? props.scale(props.value) : props.value, props.color ?? defaultColorScale)

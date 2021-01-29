@@ -13,8 +13,8 @@ export const USE_ROW_SELECT_COLUMN_I18N_EN = {
   unselectGroup: 'Click to unselect all rows in this group',
   selectAll: 'Click to select all rows',
   unselectAll: 'Click to unselect all rows',
-  selectRow: 'Click to select this rows',
-  unselectRow: 'Click to unselect this rows',
+  selectRow: 'Click to select this row',
+  unselectRow: 'Click to unselect this row',
 };
 
 export interface UseSelectColumnTableOptions {

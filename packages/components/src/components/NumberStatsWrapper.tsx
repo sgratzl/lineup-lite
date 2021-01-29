@@ -1,6 +1,6 @@
 import React from 'react';
 import type { IHistStats } from '../math/common';
-import { cslx } from './utils';
+import { clsx } from './utils';
 
 export function NumberStatsWrapper<T>(
   props: React.PropsWithChildren<{
@@ -12,7 +12,7 @@ export function NumberStatsWrapper<T>(
 ) {
   return (
     <div
-      className={cslx(props.className, 'lt-summary', !props.summary && 'lt-group')}
+      className={clsx(props.className, 'lt-summary', !props.summary && 'lt-group')}
       data-min={props.s.min != null && props.summary ? props.s.format(props.s.min) : null}
       data-max={props.s.max != null && props.summary ? props.s.format(props.s.max) : null}
       style={props.style}

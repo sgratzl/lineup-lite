@@ -1,10 +1,20 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import type { INumberStats } from '../math/numberStatsGenerator';
 import type { IBoxPlot } from '@sgratzl/boxplots';
 import { NumberStatsWrapper } from './NumberStatsWrapper';
 import { FilterRangeWrapper, FilterRangeSliderProps } from './FilterRange';
 import type { CommonProps } from './common';
-import { cslx } from './utils';
+import { clsx, i18n as t } from './utils';
+
+export const BOXPLOT_I18N_EN = {
+  boxplotMinimum: 'Minimum: {0}',
+  boxplot25Quantile: '25% Quantile: {0}',
+  boxplotMedian: 'Median: {0}',
+  boxplotMean: 'Mean: {0}',
+  boxplot75Quantile: '75% Quantile: {0}',
+  boxplotMaximum: 'Maximum: {0}',
+  boxplotNrItems: '# Items: {0}',
+};
 
 export interface BoxPlotChartProps extends CommonProps {
   /**
@@ -16,6 +26,8 @@ export interface BoxPlotChartProps extends CommonProps {
    * to the regular one
    */
   preFilter?: IBoxPlot;
+
+  i18n?: Partial<typeof BOXPLOT_I18N_EN>;
 }
 
 function generatePath(stats: IBoxPlot, s: (v: number) => number, h: number, padding: number) {
@@ -30,15 +42,15 @@ function generatePath(stats: IBoxPlot, s: (v: number) => number, h: number, padd
   return `${whiskerLow} ${whiskerHigh} ${median}`;
 }
 
-function generateTitle(s: INumberStats, pre?: IBoxPlot) {
+function generateTitle(s: INumberStats, pre: IBoxPlot | undefined, i18n: typeof BOXPLOT_I18N_EN) {
   const p = (v: number) => `/${s.format(v)}`;
-  return `Minimum: ${s.format(s.min)}${pre ? p(pre.min) : ''}
-25% Quantile: ${s.format(s.q1)}${pre ? p(pre.q1) : ''}
-Median: ${s.format(s.median)}${pre ? p(pre.median) : ''}
-Mean: ${s.format(s.mean)}${pre ? p(pre.mean) : ''}
-75% Quantile: ${s.format(s.q3)}${pre ? p(pre.q3) : ''}
-Maximum: ${s.format(s.max)}${pre ? p(pre.max) : ''}
-# Items: ${s.count.toLocaleString()}${pre ? `/${pre.count.toLocaleString()}` : ''}`;
+  return `${t(i18n.boxplotMinimum, `${s.format(s.min)}${pre ? p(pre.min) : ''}`)}
+${t(i18n.boxplot25Quantile, `${s.format(s.q1)}${pre ? p(pre.q1) : ''}`)}
+${t(i18n.boxplotMedian, `${s.format(s.median)}${pre ? p(pre.median) : ''}`)}
+${t(i18n.boxplotMean, `${s.format(s.mean)}${pre ? p(pre.mean) : ''}`)}
+${t(i18n.boxplot75Quantile, `${s.format(s.q3)}${pre ? p(pre.q3) : ''}`)}
+${t(i18n.boxplotMaximum, `${s.format(s.max)}${pre ? p(pre.max) : ''}`)}
+${t(i18n.boxplotNrItems, `${s.count.toLocaleString()}${pre ? `/${pre.count.toLocaleString()}` : ''}`)}`;
 }
 
 /**
@@ -47,6 +59,13 @@ Maximum: ${s.format(s.max)}${pre ? p(pre.max) : ''}
 export function BoxPlotChart(props: BoxPlotChartProps) {
   const s = props.s;
   const pre = props.preFilter;
+  const i18n = useMemo(
+    () => ({
+      ...BOXPLOT_I18N_EN,
+      ...(props.i18n ?? {}),
+    }),
+    [props.i18n]
+  );
   const boxPadding = 2;
   const scale = (v: number) => Math.round(s.scale(v) * 1000) / 10;
   const outlierRadius = 4;
@@ -96,7 +115,7 @@ export function BoxPlotChart(props: BoxPlotChartProps) {
       style={props.style}
       preserveAspectRatio="none"
     >
-      <title>{generateTitle(s, pre)}</title>
+      <title>{generateTitle(s, pre, i18n)}</title>
       {pre != null && pre.count > s.count && (
         <g className="lt-boxplot-pre" transform={`translate(0,${offset})`}>
           {generateBoxPlot(pre)}
@@ -121,6 +140,8 @@ export interface BoxPlotProps extends CommonProps {
    * whether to render it as a summary including labels
    */
   summary?: boolean;
+
+  i18n?: Partial<typeof BOXPLOT_I18N_EN>;
 }
 
 /**
@@ -129,25 +150,28 @@ export interface BoxPlotProps extends CommonProps {
 export function BoxPlot(props: BoxPlotProps) {
   return (
     <NumberStatsWrapper
-      className={cslx('lt-boxplot', props.className)}
+      className={clsx('lt-boxplot', props.className)}
       s={props.s}
       summary={props.summary}
       style={props.style}
     >
-      <BoxPlotChart {...props} className={cslx('lt-boxplot-wrapper', props.className)} />
+      <BoxPlotChart {...props} className={clsx('lt-boxplot-wrapper', props.className)} />
     </NumberStatsWrapper>
   );
 }
 
-export type FilterRangeBoxPlotProps = BoxPlotProps & FilterRangeSliderProps<number>;
+export type FilterRangeBoxPlotProps = BoxPlotProps &
+  FilterRangeSliderProps<number> & {
+    i18n?: FilterRangeSliderProps<number>['i18n'] & BoxPlotProps['i18n'];
+  };
 
 /**
  * renders a boxplot along with a range filter
  */
 export function FilterRangeBoxPlot(props: FilterRangeBoxPlotProps) {
   return (
-    <FilterRangeWrapper summary={props.summary} {...props} className={cslx('lt-boxplot', props.className)}>
-      <BoxPlotChart {...props} className={cslx('lt-boxplot-wrapper', props.className)} />
+    <FilterRangeWrapper summary={props.summary} {...props} className={clsx('lt-boxplot', props.className)}>
+      <BoxPlotChart {...props} className={clsx('lt-boxplot-wrapper', props.className)} />
     </FilterRangeWrapper>
   );
 }

@@ -1,7 +1,12 @@
-import React, { MutableRefObject, useCallback, useLayoutEffect, useRef } from 'react';
+import React, { MutableRefObject, useCallback, useLayoutEffect, useMemo, useRef } from 'react';
 import type { INumericStats } from '../math/common';
 import type { CommonProps } from './common';
-import { cslx, toPercent } from './utils';
+import { clsx, toPercent, i18n as t } from './utils';
+
+export const FILTER_RANGE_I18N_EN = {
+  filterRangeMinFilter: 'Min Filter: {0}',
+  filterRangeMaxFilter: 'Max Filter: {0}',
+};
 
 export interface FilterRangeSliderProps<T> {
   /**
@@ -16,6 +21,8 @@ export interface FilterRangeSliderProps<T> {
    * get current filter value
    */
   filterValue: [T | null, T | null];
+
+  i18n?: Partial<typeof FILTER_RANGE_I18N_EN>;
 }
 
 interface FilterRefData {
@@ -30,6 +37,14 @@ function FilterRangeSlider<T>(props: FilterRangeSliderProps<T> & { refData: Muta
   const [localFilter, setLocalFilter] = React.useState(filterValue ?? [null as T | null, null as T | null]);
   const filterRef = React.useRef(localFilter);
   filterRef.current = localFilter;
+
+  const i18n = useMemo(
+    () => ({
+      ...FILTER_RANGE_I18N_EN,
+      ...(props.i18n ?? {}),
+    }),
+    [props.i18n]
+  );
 
   useLayoutEffect(() => {
     const v = filterRef.current;
@@ -130,19 +145,18 @@ function FilterRangeSlider<T>(props: FilterRangeSliderProps<T> & { refData: Muta
     clearFilter,
     setShortCutFilter,
   };
-
   return (
     <>
       <div
         className="lt-filter-range lt-filter-range-min"
-        title={localFilter[0] == null ? undefined : `Min Filter: ${props.s.format(localFilter[0])}`}
+        title={localFilter[0] == null ? undefined : t(i18n.filterRangeMinFilter, props.s.format(localFilter[0]))}
         style={{ width: toPercent(localFilter[0] == null ? 0 : Math.max(0, props.s.scale(localFilter[0]))) }}
       >
         <div className="lt-filter-range-drag" onMouseDown={onMinMouseDown} />
       </div>
       <div
         className="lt-filter-range lt-filter-range-max"
-        title={localFilter[1] == null ? undefined : `Max Filter: ${props.s.format(localFilter[1])}`}
+        title={localFilter[1] == null ? undefined : t(i18n.filterRangeMaxFilter, props.s.format(localFilter[1]))}
         style={{ width: toPercent(localFilter[1] == null ? 0 : Math.max(0, 1 - props.s.scale(localFilter[1]))) }}
       >
         <div className="lt-filter-range-drag" onMouseDown={onMaxMouseDown} />
@@ -169,7 +183,7 @@ export function FilterRangeWrapper<T>(
 
   return (
     <div
-      className={cslx('lt-summary', !props.summary && 'lt-group', props.className)}
+      className={clsx('lt-summary', !props.summary && 'lt-group', props.className)}
       data-min={props.s.min != null && props.summary ? props.s.format(props.s.min) : null}
       data-max={props.s.max != null && props.summary ? props.s.format(props.s.max) : null}
       onDoubleClick={clearFilter}
