@@ -68,6 +68,7 @@ module.exports = {
         'examples/pagination',
         'examples/controlled-state',
         'examples/multi-sorting',
+        'examples/i18n',
       ],
     },
     {
