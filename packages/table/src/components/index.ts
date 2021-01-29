@@ -9,3 +9,4 @@ export * from './LineUpLiteTR';
 export * from './LineUpLiteToolbar';
 export * from './LineUpLitePaginated';
 export * from './LineUpLitePagination';
+export * from './actions';

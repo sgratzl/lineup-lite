@@ -17,7 +17,7 @@ export interface LineUpLiteVirtualProps<D extends object> extends LineUpLiteProp
 }
 
 export function LineUpLiteVirtual<D extends object>(props: LineUpLiteVirtualProps<D>) {
-  const { getTableProps, getTableBodyProps, headerGroups, prepareRow, rows, state } = useLineUpLite<D>(props);
+  const { getTableProps, getTableBodyProps, headerGroups, prepareRow, rows, state, dispatch } = useLineUpLite<D>(props);
 
   const shared = useCommonLineUp(props, state);
 
@@ -36,6 +36,7 @@ export function LineUpLiteVirtual<D extends object>(props: LineUpLiteVirtualProp
         virtualRef={theadRef}
         icons={props.icons}
         actions={props.actions}
+        dispatch={dispatch}
       />
       <LineUpLiteTVirtualBody
         getTableBodyProps={getTableBodyProps}

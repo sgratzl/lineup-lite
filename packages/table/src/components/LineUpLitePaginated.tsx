@@ -32,9 +32,10 @@ export function LineUpLitePaginated<D extends object>(props: LineUpLitePaginated
     gotoPage,
     setPageSize,
     state,
+    dispatch,
   } = fullTable as TableInstance<D> & UseFiltersInstanceProps<D> & UsePaginationInstanceProps<D>;
 
-  const { pageIndex, pageSize } = fullTable.state as any;
+  const { pageIndex, pageSize } = state as any;
 
   const shared = useCommonLineUp(props, state);
 
@@ -45,7 +46,13 @@ export function LineUpLitePaginated<D extends object>(props: LineUpLitePaginated
         style: props.style,
       })}
     >
-      <LineUpLiteTHead headerGroups={headerGroups} c={shared} icons={props.icons} actions={props.actions} />
+      <LineUpLiteTHead
+        headerGroups={headerGroups}
+        c={shared}
+        icons={props.icons}
+        actions={props.actions}
+        dispatch={dispatch}
+      />
       <div
         {...getTableBodyProps({
           className: clsx('lt-tbody', props.classNames?.tbody),

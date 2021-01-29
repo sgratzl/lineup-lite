@@ -10,7 +10,8 @@ export const LineUpLite = /*!#__PURE__*/ React.forwardRef(function LineUpLite<D 
   props: LineUpLiteProps<D>,
   ref: Ref<HTMLDivElement>
 ) {
-  const { getTableProps, getTableBodyProps, headerGroups, prepareRow, rows, state } = useLineUpLite<D>(props);
+  const instance = useLineUpLite<D>(props);
+  const { getTableProps, getTableBodyProps, headerGroups, prepareRow, rows, state, dispatch } = instance;
 
   const shared = useCommonLineUp(props, state);
 
@@ -22,7 +23,13 @@ export const LineUpLite = /*!#__PURE__*/ React.forwardRef(function LineUpLite<D 
       })}
       ref={ref}
     >
-      <LineUpLiteTHead headerGroups={headerGroups} c={shared} actions={props.actions} icons={props.icons} />
+      <LineUpLiteTHead
+        headerGroups={headerGroups}
+        c={shared}
+        actions={props.actions}
+        icons={props.icons}
+        dispatch={dispatch}
+      />
       <div
         {...getTableBodyProps({
           className: clsx('lt-tbody', props.classNames?.tbody),
