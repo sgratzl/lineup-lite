@@ -26,8 +26,6 @@
 }
 
 .lt-action:hover,
-.lt-action:active,
-.lt-action:focus,
 .lt-action-active {
   opacity: 1;
 }
