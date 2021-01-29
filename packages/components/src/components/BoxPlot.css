@@ -19,7 +19,7 @@
   fill: none;
   stroke: var(--current-color, black);
   vector-effect: non-scaling-stroke;
-  stroke-dasharray: 2,1;
+  stroke-dasharray: 2, 1;
 }
 
 .lt-boxplot-pre {
