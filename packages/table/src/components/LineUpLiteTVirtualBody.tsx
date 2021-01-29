@@ -68,8 +68,10 @@ export function LineUpLiteTVirtualBody<D extends object>({
       elem.removeEventListener('scroll', scrollListener);
     };
   }, [ref, theadRef]);
+
+  const p = { c: c?.components.tbody ?? 'div' };
   return (
-    <div
+    <p.c
       {...getTableBodyProps({
         className: clsx('lt-tbody', 'lt-tbody-virtual', c?.classNames?.tbody),
         style: c?.styles?.tbody,
@@ -96,6 +98,6 @@ export function LineUpLiteTVirtualBody<D extends object>({
           );
         })}
       </div>
-    </div>
+    </p.c>
   );
 }

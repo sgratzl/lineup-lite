@@ -69,7 +69,7 @@ export function groupMaxBin<P extends StatsPropsLike<any>>(
   }
   const groups = ((props as unknown) as UseGroupByInstanceProps<any>).onlyGroupedFlatRows ?? [];
   const stats = groups.map((group) => group.values[props.column.id]) as IHistStats<any>[];
-  return stats.reduce((acc, v) => (v != null && typeof v.maxBin === 'number' ? Math.max(acc, v.maxBin) : acc), 0);
+  return stats.reduce((acc, v) => (v != null && v.maxBin != null ? Math.max(acc, v.maxBin.count) : acc), 1);
 }
 
 /**
