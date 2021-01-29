@@ -1,7 +1,6 @@
 import React from 'react';
 import type { IHistStats, IBin } from '../math/common';
 import { toPercent, cslx } from './utils';
-import { color } from 'd3-color';
 import { FilterRangeSliderProps, FilterRangeWrapper } from './FilterRange';
 import { NumberStatsWrapper } from './NumberStatsWrapper';
 import type { CommonProps } from './common';
@@ -30,7 +29,6 @@ export interface HistogramProps<T> extends CommonProps {
 }
 
 const DENSE = 10;
-const FILTERED_OPACITY = 0.2;
 
 function generateBinTitle<T>(h: IBin<T>, raw?: IBin<T>) {
   const rawT = raw ? `/${raw.count.toLocaleString()}` : '';
@@ -71,22 +69,20 @@ function Bin<T>({
   const lastBin = props.s.hist.length - 1;
   const dense = props.s.hist.length > DENSE || i === lastBin;
   const p = toPercent(h.count / maxBin);
-  let gradient = `${h.color} ${p}, transparent ${p}`;
+  let gradient = `linear-gradient(to top, ${h.color} ${p}, transparent ${p})`;
   const raw = preFilter?.hist[i];
   if (raw) {
     const rawP = toPercent(raw.count / maxBin);
     if (raw.count > h.count) {
-      const c = color(h.color)!;
-      c.opacity *= FILTERED_OPACITY;
-      const semi = c.toString();
-      gradient = `${h.color} ${p}, ${semi} ${p}, ${semi} ${rawP}, transparent ${rawP}`;
+      const semi = `rgba(var(--current-inverted-color-rgb, 255,255,255), 0.7)`;
+      gradient = `linear-gradient(to top, ${h.color} ${p}, ${semi} ${p}, ${semi} ${rawP}, transparent ${rawP}), linear-gradient(to top, ${h.color} ${rawP}, transparent ${rawP})`;
     }
   }
   return (
     <div
       className={cslx('lt-histogram-bin', dense && 'lt-histogram-bin-dense', onClick && 'lt-histogram-bin-interactive')}
       style={{
-        backgroundImage: `linear-gradient(to top, ${gradient})`,
+        backgroundImage: gradient,
       }}
       data-i={i}
       onClick={onClick}

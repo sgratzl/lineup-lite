@@ -38,7 +38,9 @@ function Table({ isDarkTheme }: { isDarkTheme: boolean }) {
     []
   );
 
-  return <LineUpLitePaginated<Row> data={data} columns={columns} features={features} icons={icons} />;
+  return (
+    <LineUpLitePaginated<Row> data={data} columns={columns} features={features} icons={icons} dark={isDarkTheme} />
+  );
 }
 
 export default function App() {

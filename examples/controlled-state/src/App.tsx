@@ -31,7 +31,14 @@ function Table({ isDarkTheme }: { isDarkTheme: boolean }) {
 
   return (
     <div>
-      <LineUpLite<Row> data={data} columns={columns} features={features} icons={icons} onStateChange={setState} />
+      <LineUpLite<Row>
+        data={data}
+        columns={columns}
+        features={features}
+        icons={icons}
+        onStateChange={setState}
+        dark={isDarkTheme}
+      />
       <pre>{JSON.stringify(state, null, 2)}</pre>
     </div>
   );

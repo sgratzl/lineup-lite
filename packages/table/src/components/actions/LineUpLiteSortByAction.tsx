@@ -5,10 +5,11 @@ import { clsx } from '../utils';
 export function LineUpLiteSortByAction(
   props: UseSortByColumnProps<any> & { iconAsc: React.ComponentType; iconDesc: React.ComponentType }
 ) {
-  const { toggleSortBy } = props;
-  const sort = useCallback((e: React.MouseEvent<HTMLElement>) => toggleSortBy(undefined, e.shiftKey || e.ctrlKey), [
-    toggleSortBy,
-  ]);
+  const { toggleSortBy, isSorted } = props;
+  const sort = useCallback(
+    (e: React.MouseEvent<HTMLElement>) => toggleSortBy(undefined, e.shiftKey || e.ctrlKey || isSorted),
+    [toggleSortBy, isSorted]
+  );
   return props.canSort ? (
     <button
       {...props.getSortByToggleProps({

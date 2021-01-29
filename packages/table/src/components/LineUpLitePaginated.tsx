@@ -42,7 +42,7 @@ export function LineUpLitePaginated<D extends object>(props: LineUpLitePaginated
   return (
     <div
       {...getTableProps({
-        className: clsx('lt-table', props.className),
+        className: clsx('lt-table', props.dark && 'lt-dark', props.className),
         style: props.style,
       })}
     >

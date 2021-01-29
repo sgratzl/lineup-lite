@@ -29,7 +29,7 @@ function Table({ isDarkTheme }: { isDarkTheme: boolean }) {
   const features = useMemo(() => featureDefault<Row>(), []);
   const icons = useMemo(() => actionIconsRemixicon(), []);
 
-  return <LineUpLite<Row> data={data} columns={columns} features={features} icons={icons} />;
+  return <LineUpLite<Row> data={data} columns={columns} features={features} icons={icons} dark={isDarkTheme} />;
 }
 
 export default function App() {

@@ -22,9 +22,7 @@
   },
   "dependencies": {
     "@sgratzl/boxplots": "^1.2.2",
-    "@types/d3-color": "^2.0.1",
     "@types/d3-scale-chromatic": "^2.0.0",
-    "d3-color": "^2.0.0",
     "d3-scale-chromatic": "^2.0.0"
   },
   "main": "dist/components.js",

@@ -18,7 +18,7 @@ export const LineUpLite = /*!#__PURE__*/ React.forwardRef(function LineUpLite<D 
   return (
     <div
       {...getTableProps({
-        className: clsx('lt-table', props.className),
+        className: clsx('lt-table', props.dark && 'lt-dark', props.className),
         style: props.style,
       })}
       ref={ref}

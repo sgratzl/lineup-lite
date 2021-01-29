@@ -2560,13 +2560,11 @@ __metadata:
     "@rollup/plugin-typescript": ^8.1.0
     "@sgratzl/boxplots": ^1.2.2
     "@testing-library/react": ^11.2.3
-    "@types/d3-color": ^2.0.1
     "@types/d3-scale-chromatic": ^2.0.0
     "@types/jest": ^26.0.20
     "@types/react": ^17.0.0
     "@typescript-eslint/eslint-plugin": ^4.13.0
     "@typescript-eslint/parser": ^4.13.0
-    d3-color: ^2.0.0
     d3-scale-chromatic: ^2.0.0
     eslint: ^7.18.0
     eslint-config-prettier: ^7.1.0
@@ -3478,13 +3476,6 @@ __metadata:
     "@types/node": "*"
     "@types/responselike": "*"
   checksum: 3dae802a0808573986c56b92bf16cd031a5b648b6c893d20c7ef6bfda3fc72a2107c7978697d2b27b14febc597162d6959985eeb5befc307a9f9f3c5081d4905
-  languageName: node
-  linkType: hard
-
-"@types/d3-color@npm:^2.0.1":
-  version: 2.0.1
-  resolution: "@types/d3-color@npm:2.0.1"
-  checksum: 744f8325d1053688fad049be2504b5b058411ddccc3f665afb06cb0899405dd2845d714a7d99df1b0a95f8c56d4abba62517d0a7d018534fe9da4f48216889fa
   languageName: node
   linkType: hard
 
@@ -7399,7 +7390,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"d3-color@npm:1 - 2, d3-color@npm:^2.0.0":
+"d3-color@npm:1 - 2":
   version: 2.0.0
   resolution: "d3-color@npm:2.0.0"
   checksum: 637e1115981b7598d3f86418478e7bfc4939d23b48eecbf5ea2297048724e13e42dda60963cbf2ebe3866705fe2eb87fa27e529da55ad57cda16aa799747554d

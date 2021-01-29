@@ -3,7 +3,7 @@ import './styles.css';
 import {
   LineUpLiteVirtual,
   asTextColumn,
-  asNumberColumn,
+  asNumberBoxPlotColumn,
   asCategoricalColumn,
   LineUpLiteColumn,
   featureDefault,
@@ -17,7 +17,7 @@ function Table({ isDarkTheme }: { isDarkTheme: boolean }) {
   const columns: LineUpLiteColumn<Row>[] = useMemo(
     () => [
       { ...asTextColumn<Row>('name'), width: 200 },
-      asNumberColumn<Row>('age', {
+      asNumberBoxPlotColumn<Row>('age', {
         color: isDarkTheme ? defaultDarkColorScale : defaultColorScale,
       }),
       asCategoricalColumn<Row>('shirtSize', {
@@ -37,8 +37,9 @@ function Table({ isDarkTheme }: { isDarkTheme: boolean }) {
       columns={columns}
       features={features}
       icons={icons}
-      estimatedSize={23 /* row size for estimating who many are visible */}
+      estimatedSize={[23, 50] /* row size for estimating who many are visible */}
       style={{ height: '100vh' /* define the table height since it will fill its given space */ }}
+      dark={isDarkTheme}
     />
   );
 }

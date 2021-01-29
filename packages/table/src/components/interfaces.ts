@@ -33,6 +33,7 @@ export interface LineUpLiteProps<D extends object>
     CustomizeLineUpProps {
   className?: string;
   style?: React.CSSProperties;
+  dark?: boolean;
   icons?: Partial<ActionIcons>;
   onStateChange?: (state: any) => void;
 }

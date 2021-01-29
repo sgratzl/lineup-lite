@@ -26,7 +26,7 @@ export function LineUpLiteVirtual<D extends object>(props: LineUpLiteVirtualProp
   return (
     <div
       {...getTableProps({
-        className: clsx('lt-table', 'lt-table-virtual', props.className),
+        className: clsx('lt-table', 'lt-table-virtual', props.dark && 'lt-dark', props.className),
         style: props.style,
       })}
     >
