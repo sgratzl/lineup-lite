@@ -1,5 +1,4 @@
 import React from 'react';
-import { useCommonLineUp } from './hooks';
 import type { LineUpLiteProps } from './interfaces';
 import { LineUpLiteTHead } from './LineUpLiteTHead';
 import { useLineUpLite } from './useLineUpLite';
@@ -14,13 +13,14 @@ import {
 } from 'react-table';
 import { LineUpLitePagination } from './LineUpLitePagination';
 import type { ActionIcons, PaginationIcons } from '../icons';
+import { LineUpLiteContextProvider } from './contexts';
 
 export interface LineUpLitePaginatedProps<D extends object> extends LineUpLiteProps<D>, UsePaginationOptions<D> {
   icons: PaginationIcons & ActionIcons;
 }
 
 export function LineUpLitePaginated<D extends object>(props: LineUpLitePaginatedProps<D>) {
-  const fullTable = useLineUpLite<D>(props, usePagination);
+  const instance = useLineUpLite<D>(props, usePagination);
   const {
     getTableProps,
     getTableBodyProps,
@@ -32,12 +32,9 @@ export function LineUpLitePaginated<D extends object>(props: LineUpLitePaginated
     gotoPage,
     setPageSize,
     state,
-    dispatch,
-  } = fullTable as TableInstance<D> & UseFiltersInstanceProps<D> & UsePaginationInstanceProps<D>;
+  } = instance as TableInstance<D> & UseFiltersInstanceProps<D> & UsePaginationInstanceProps<D>;
 
   const { pageIndex, pageSize } = state as any;
-
-  const shared = useCommonLineUp(props, state);
 
   return (
     <div
@@ -46,32 +43,28 @@ export function LineUpLitePaginated<D extends object>(props: LineUpLitePaginated
         style: props.style,
       })}
     >
-      <LineUpLiteTHead
-        headerGroups={headerGroups}
-        c={shared}
-        icons={props.icons}
-        actions={props.actions}
-        dispatch={dispatch}
-      />
-      <div
-        {...getTableBodyProps({
-          className: clsx('lt-tbody', props.classNames?.tbody),
-          style: props.styles?.tbody,
-        })}
-      >
-        {page.map((row) => {
-          prepareRow(row);
-          return <LineUpLiteTR key={row.id} row={row} c={shared} />;
-        })}
-      </div>
-      <LineUpLitePagination
-        icons={props.icons}
-        pageCount={pageCount}
-        gotoPage={gotoPage}
-        setPageSize={setPageSize}
-        pageIndex={pageIndex}
-        pageSize={pageSize}
-      />
+      <LineUpLiteContextProvider instance={instance} props={props}>
+        <LineUpLiteTHead headerGroups={headerGroups} icons={props.icons} actions={props.actions} />
+        <div
+          {...getTableBodyProps({
+            className: clsx('lt-tbody', props.classNames?.tbody),
+            style: props.styles?.tbody,
+          })}
+        >
+          {page.map((row) => {
+            prepareRow(row);
+            return <LineUpLiteTR key={row.id} row={row} />;
+          })}
+        </div>
+        <LineUpLitePagination
+          icons={props.icons}
+          pageCount={pageCount}
+          gotoPage={gotoPage}
+          setPageSize={setPageSize}
+          pageIndex={pageIndex}
+          pageSize={pageSize}
+        />
+      </LineUpLiteContextProvider>
     </div>
   );
 }

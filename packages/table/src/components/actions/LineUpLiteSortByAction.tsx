@@ -1,5 +1,6 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useContext } from 'react';
 import type { UseSortByColumnProps } from 'react-table';
+import { LineUpLiteContext } from '../contexts';
 import { clsx } from '../utils';
 
 export function LineUpLiteSortByAction(
@@ -10,6 +11,7 @@ export function LineUpLiteSortByAction(
     (e: React.MouseEvent<HTMLElement>) => toggleSortBy(undefined, e.shiftKey || e.ctrlKey || isSorted),
     [toggleSortBy, isSorted]
   );
+  const c = useContext(LineUpLiteContext);
   return props.canSort ? (
     <button
       {...props.getSortByToggleProps({
@@ -21,7 +23,7 @@ export function LineUpLiteSortByAction(
         ),
       })}
       onClick={sort}
-      data-index={props.isSorted ? props.sortedIndex + 1 : null}
+      data-index={props.isSorted && (c?.sortByColumnCount ?? 0) > 1 ? props.sortedIndex + 1 : null}
       title="Click to toggle sorting"
     >
       {props.isSortedDesc || (!props.isSorted && (props as any).sortDescFirst) ? <props.iconDesc /> : <props.iconAsc />}

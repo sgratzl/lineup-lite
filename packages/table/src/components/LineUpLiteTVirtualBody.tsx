@@ -1,14 +1,14 @@
-import React, { useRef, useCallback, useLayoutEffect, useMemo } from 'react';
+import React, { useRef, useCallback, useLayoutEffect, useMemo, useContext } from 'react';
 import type { Row, TableInstance, UseExpandedRowProps, UseGroupByRowProps } from 'react-table';
 import type { CustomizeLineUpProps } from './interfaces';
 import { clsx } from './utils';
 import { useVirtual } from 'react-virtual';
 import { LineUpLiteTRMemo } from './LineUpLiteTR';
 import type { SizeEstimator } from './LineUpLiteVirtual';
+import { LineUpLiteContext } from './contexts';
 
 export function LineUpLiteTVirtualBody<D extends object>({
   rows,
-  c,
   prepareRow,
   getTableBodyProps,
   theadRef,
@@ -19,12 +19,12 @@ export function LineUpLiteTVirtualBody<D extends object>({
   getTableBodyProps: TableInstance<D>['getTableBodyProps'];
   rows: Row<D>[];
   theadRef: React.RefObject<HTMLDivElement>;
-  c?: CustomizeLineUpProps;
   prepareRow: (row: Row<D>) => void;
   estimatedSize: SizeEstimator;
   rowSpacing: number;
   overscan?: number;
 }) {
+  const c = useContext(LineUpLiteContext);
   const ref = useRef<HTMLDivElement>(null);
   const givenEstimate = estimatedSize;
   const estimateSize = useCallback(
@@ -91,7 +91,6 @@ export function LineUpLiteTVirtualBody<D extends object>({
             <LineUpLiteTRMemo
               key={`${row.id}-${nonce}`}
               row={row}
-              c={c}
               virtualStart={item.start}
               virtualSize={item.size - rowSpacing}
             />

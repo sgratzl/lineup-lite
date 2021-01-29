@@ -1,11 +1,11 @@
 import type { ActionIcons } from '../icons';
 import React, { useRef } from 'react';
-import { useCommonLineUp } from './hooks';
 import type { LineUpLiteProps } from './interfaces';
 import { LineUpLiteTHead } from './LineUpLiteTHead';
 import { LineUpLiteTVirtualBody } from './LineUpLiteTVirtualBody';
 import { useLineUpLite } from './useLineUpLite';
 import { clsx } from './utils';
+import { LineUpLiteContextProvider } from './contexts';
 
 export type SizeEstimator = number | [number, number] | ((index: number) => number);
 
@@ -17,9 +17,8 @@ export interface LineUpLiteVirtualProps<D extends object> extends LineUpLiteProp
 }
 
 export function LineUpLiteVirtual<D extends object>(props: LineUpLiteVirtualProps<D>) {
-  const { getTableProps, getTableBodyProps, headerGroups, prepareRow, rows, state, dispatch } = useLineUpLite<D>(props);
-
-  const shared = useCommonLineUp(props, state);
+  const instance = useLineUpLite<D>(props);
+  const { getTableProps, getTableBodyProps, headerGroups, prepareRow, rows } = instance;
 
   const theadRef = useRef<HTMLDivElement>(null);
 
@@ -30,24 +29,23 @@ export function LineUpLiteVirtual<D extends object>(props: LineUpLiteVirtualProp
         style: props.style,
       })}
     >
-      <LineUpLiteTHead
-        headerGroups={headerGroups}
-        c={shared}
-        virtualRef={theadRef}
-        icons={props.icons}
-        actions={props.actions}
-        dispatch={dispatch}
-      />
-      <LineUpLiteTVirtualBody
-        getTableBodyProps={getTableBodyProps}
-        theadRef={theadRef}
-        c={shared}
-        rows={rows}
-        rowSpacing={props.rowSpacing ?? 0}
-        estimatedSize={props.estimatedSize}
-        overscan={props.overscan}
-        prepareRow={prepareRow}
-      />
+      <LineUpLiteContextProvider instance={instance} props={props}>
+        <LineUpLiteTHead
+          headerGroups={headerGroups}
+          virtualRef={theadRef}
+          icons={props.icons}
+          actions={props.actions}
+        />
+        <LineUpLiteTVirtualBody
+          getTableBodyProps={getTableBodyProps}
+          theadRef={theadRef}
+          rows={rows}
+          rowSpacing={props.rowSpacing ?? 0}
+          estimatedSize={props.estimatedSize}
+          overscan={props.overscan}
+          prepareRow={prepareRow}
+        />
+      </LineUpLiteContextProvider>
     </div>
   );
 }

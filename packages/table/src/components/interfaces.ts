@@ -37,3 +37,9 @@ export interface LineUpLiteProps<D extends object>
   icons?: Partial<ActionIcons>;
   onStateChange?: (state: any) => void;
 }
+
+export interface LineUpLiteStateInfo {
+  visibleColumnCount: number;
+  sortedColumnCount: number;
+  groupedColumnCount: number;
+}

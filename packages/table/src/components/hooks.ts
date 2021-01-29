@@ -1,22 +1,33 @@
 import { useEffect, useMemo } from 'react';
-import type { CustomizeLineUpProps, LineUpLiteProps } from './interfaces';
+import type { TableInstance } from 'react-table';
+import type { CustomizeLineUpProps } from './interfaces';
+import type { LineUpLiteContextProps } from './contexts';
 
-export function useCommonLineUp<D extends object>(props: LineUpLiteProps<D>, state: any): CustomizeLineUpProps {
-  const shared = useMemo(
-    () => ({
-      styles: props.styles,
-      classNames: props.classNames,
-    }),
-    [props.styles, props.classNames]
-  );
+export function useLineUpLiteContext<D extends object>(
+  props: CustomizeLineUpProps & { dark?: boolean; onStateChange?: (state: any) => void },
+  instance: TableInstance<D>
+): LineUpLiteContextProps {
+  const { styles = {}, classNames = {}, dark = false, onStateChange } = props;
+  const { dispatch, state } = instance;
 
-  // call the callback when the internal state changes
-  const { onStateChange } = props;
   useEffect(() => {
     if (onStateChange) {
       onStateChange(state);
     }
   }, [onStateChange, state]);
 
-  return shared;
+  const sortByColumnCount = (state as any).sortBy?.length ?? 0;
+  const groupByColumnCount = (state as any).groupBy?.length ?? 0;
+
+  return useMemo(
+    () => ({
+      styles,
+      classNames,
+      dispatch,
+      dark,
+      sortByColumnCount,
+      groupByColumnCount,
+    }),
+    [styles, classNames, dispatch, dark, sortByColumnCount, groupByColumnCount]
+  );
 }

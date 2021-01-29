@@ -1,22 +1,20 @@
-import type { HeaderGroup, TableDispatch } from 'react-table';
-import type { CustomizeLineUpProps, ActionLineUpProps } from './interfaces';
-import React from 'react';
-import { clsx } from './utils';
+import React, { useContext } from 'react';
+import type { HeaderGroup } from 'react-table';
+import { LineUpLiteContext } from './contexts';
+import type { ActionLineUpProps } from './interfaces';
 import { LineUpLiteTH } from './LineUpLiteTH';
+import { clsx } from './utils';
 
 export function LineUpLiteTHead<D extends object>({
   headerGroups,
-  c,
   virtualRef,
   icons,
   actions,
-  dispatch,
 }: {
   headerGroups: HeaderGroup<D>[];
-  c?: CustomizeLineUpProps;
   virtualRef?: React.RefObject<HTMLDivElement>;
-  dispatch: TableDispatch;
 } & ActionLineUpProps<D>) {
+  const c = useContext(LineUpLiteContext);
   return (
     <div
       ref={virtualRef}
@@ -33,7 +31,7 @@ export function LineUpLiteTHead<D extends object>({
           {headerGroup.headers
             .filter((d) => d.isVisible)
             .map((col) => (
-              <LineUpLiteTH key={col.id} col={col} c={c} actions={actions} icons={icons} dispatch={dispatch} />
+              <LineUpLiteTH key={col.id} col={col} actions={actions} icons={icons} />
             ))}
         </div>
       ))}

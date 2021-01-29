@@ -2,7 +2,6 @@ import React, { useMemo } from 'react';
 import { clsx } from './utils';
 import type {
   HeaderGroup,
-  TableDispatch,
   UseFiltersColumnProps,
   UseGroupByColumnProps,
   UseResizeColumnsColumnProps,
@@ -15,7 +14,6 @@ export interface LineUpLiteToolbarProps<D extends object> extends HeaderGroup<D>
   className?: string;
   style?: React.CSSProperties;
   icons?: Partial<ActionIcons>;
-  dispatch: TableDispatch;
 }
 
 export function LineUpLiteToolbar(props: React.PropsWithChildren<LineUpLiteToolbarProps<any>>) {
@@ -25,8 +23,6 @@ export function LineUpLiteToolbar(props: React.PropsWithChildren<LineUpLiteToolb
     UseFiltersColumnProps<any> &
     UseSortByColumnProps<any> & {
       canHide?: boolean;
-    } & {
-      dispatch: TableDispatch;
     };
   const pIcons = props.icons;
   const icons = useMemo(
@@ -36,7 +32,6 @@ export function LineUpLiteToolbar(props: React.PropsWithChildren<LineUpLiteToolb
     }),
     [pIcons]
   );
-
   return (
     <div className={clsx('lt-toolbar', props.className)} style={props.style}>
       <LineUpLiteSortByAction {...column} iconAsc={icons.sortAsc} iconDesc={icons.sortDesc} />

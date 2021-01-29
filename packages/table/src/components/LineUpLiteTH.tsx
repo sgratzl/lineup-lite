@@ -1,19 +1,15 @@
-import React from 'react';
-import type { HeaderGroup, TableDispatch, UseGroupByColumnProps, UseResizeColumnsColumnProps } from 'react-table';
+import React, { useContext } from 'react';
+import type { HeaderGroup, UseGroupByColumnProps, UseResizeColumnsColumnProps } from 'react-table';
 import { clsx } from './utils';
 import { LineUpLiteToolbar } from './LineUpLiteToolbar';
-import type { ActionLineUpProps, CustomizeLineUpProps } from './interfaces';
+import type { ActionLineUpProps } from './interfaces';
+import { LineUpLiteContext } from './contexts';
 
-export function LineUpLiteTH<D extends object>({
-  col,
-  c,
-  actions,
-  icons,
-  dispatch,
-}: { col: HeaderGroup<D>; c?: CustomizeLineUpProps; dispatch: TableDispatch } & ActionLineUpProps<D>) {
+export function LineUpLiteTH<D extends object>({ col, actions, icons }: { col: HeaderGroup<D> } & ActionLineUpProps<D>) {
   const column = (col as unknown) as HeaderGroup<D> &
     UseGroupByColumnProps<D> &
     UseResizeColumnsColumnProps<D> & { tooltip?: string };
+  const c = useContext(LineUpLiteContext);
   return (
     <div
       {...column.getHeaderProps({
@@ -38,7 +34,7 @@ export function LineUpLiteTH<D extends object>({
           <div className={clsx('lt-header', c?.classNames?.header)} style={c?.styles?.header} title={column.tooltip}>
             {column.render('Header')}
           </div>
-          <LineUpLiteToolbar {...col} icons={icons} dispatch={dispatch}>
+          <LineUpLiteToolbar {...col} icons={icons}>
             {actions && actions(column)}
           </LineUpLiteToolbar>
           {column.render('Summary')}

@@ -1,20 +1,19 @@
-import React, { memo } from 'react';
+import React, { memo, useContext } from 'react';
 import type { Row, UseExpandedRowProps, UseGroupByRowProps, UseRowSelectRowProps } from 'react-table';
-import type { CustomizeLineUpProps } from './interfaces';
+import { LineUpLiteContext } from './contexts';
 import { LineUpLiteTD } from './LineUpLiteTD';
 import { clsx, mergeStyles } from './utils';
 
 export function LineUpLiteTR<D extends object>({
   row,
-  c,
   virtualStart,
   virtualSize,
 }: {
   row: Row<D>;
-  c?: CustomizeLineUpProps;
   virtualStart?: number;
   virtualSize?: number;
 }) {
+  const c = useContext(LineUpLiteContext);
   const rowTyped = (row as unknown) as Row<D> &
     UseExpandedRowProps<D> &
     UseGroupByRowProps<D> &
@@ -44,7 +43,7 @@ export function LineUpLiteTR<D extends object>({
       {rowTyped.cells
         .filter((d) => d.column.isVisible)
         .map((cell) => (
-          <LineUpLiteTD key={cell.column.id} cell={cell} c={c} />
+          <LineUpLiteTD key={cell.column.id} cell={cell} />
         ))}
     </div>
   );

@@ -1,12 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import type { Cell, ColumnInstance, UseGroupByCellProps, UseResizeColumnsColumnProps } from 'react-table';
-import type { CustomizeLineUpProps } from './interfaces';
 import type { LineUpLiteColumn } from '@lineup-lite/hooks';
 import { clsx } from './utils';
+import { LineUpLiteContext } from './contexts';
 
-export function LineUpLiteTD<D extends object>({ cell, c }: { cell: Cell<D, any>; c?: CustomizeLineUpProps }) {
+export function LineUpLiteTD<D extends object>({ cell }: { cell: Cell<D, any> }) {
   const cellTyped = (cell as unknown) as Cell<D> & UseGroupByCellProps<D>;
   const column = cellTyped.column as LineUpLiteColumn<D> & ColumnInstance<D> & UseResizeColumnsColumnProps<D>;
+  const c = useContext(LineUpLiteContext);
   return (
     <div
       {...cellTyped.getCellProps({
