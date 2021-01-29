@@ -1,5 +1,3 @@
-import { schemeTableau10 } from 'd3-scale-chromatic';
-
 /**
  * simple scale option clamping between 0 and 1
  */
@@ -60,6 +58,18 @@ export function autoAssignColors(colors: readonly string[], start = 0): (v: stri
   };
 }
 
+export const schemeTableau10 = [
+  '#4e79a7',
+  '#f28e2c',
+  '#e15759',
+  '#76b7b2',
+  '#59a14f',
+  '#edc949',
+  '#af7aa1',
+  '#ff9da7',
+  '#9c755f',
+  '#bab0ab',
+];
 /**
  * default
  */

@@ -21,9 +21,7 @@
     "url": "https://github.com/sgratzl/lineup-lite.git"
   },
   "dependencies": {
-    "@sgratzl/boxplots": "^1.2.2",
-    "@types/d3-scale-chromatic": "^2.0.0",
-    "d3-scale-chromatic": "^2.0.0"
+    "@sgratzl/boxplots": "^1.2.2"
   },
   "main": "dist/components.js",
   "module": "dist/index.js",
