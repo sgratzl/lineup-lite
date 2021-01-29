@@ -5,7 +5,11 @@ import { LineUpLiteToolbar } from './LineUpLiteToolbar';
 import type { ActionLineUpProps } from './interfaces';
 import { LineUpLiteContext } from './contexts';
 
-export function LineUpLiteTH<D extends object>({ col, actions, icons }: { col: HeaderGroup<D> } & ActionLineUpProps<D>) {
+export function LineUpLiteTH<D extends object>({
+  col,
+  actions,
+  icons,
+}: { col: HeaderGroup<D> } & ActionLineUpProps<D>) {
   const column = (col as unknown) as HeaderGroup<D> &
     UseGroupByColumnProps<D> &
     UseResizeColumnsColumnProps<D> & { tooltip?: string };

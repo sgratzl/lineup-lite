@@ -7,7 +7,7 @@ import type {
   UseResizeColumnsColumnProps,
   UseSortByColumnProps,
 } from 'react-table';
-import { ActionIcons, actionIconsText } from '../icons';
+import { ActionIcons, LINEUP_LITE_TEXT_ICONS } from '../icons';
 import { LineUpLiteSortByAction, LineUpLiteGroupByAction, LineUpLiteHideAction } from './actions';
 
 export interface LineUpLiteToolbarProps<D extends object> extends HeaderGroup<D> {
@@ -27,7 +27,7 @@ export function LineUpLiteToolbar(props: React.PropsWithChildren<LineUpLiteToolb
   const pIcons = props.icons;
   const icons = useMemo(
     () => ({
-      ...actionIconsText(),
+      ...LINEUP_LITE_TEXT_ICONS,
       ...(pIcons ?? {}),
     }),
     [pIcons]

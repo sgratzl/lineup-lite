@@ -1,13 +1,13 @@
 .lt-table {
   --current-color: currentColor;
-  --current-color-rgb: 0,0,0;
-  --current-inverted-color-rgb: 255,255,255;
+  --current-color-rgb: 0, 0, 0;
+  --current-inverted-color-rgb: 255, 255, 255;
   --current-inverted-color: rgb(var(--current-inverted-color-rgb));
   --select-color: #ffa500;
 }
 .lt-dark {
-  --current-color-rgb: 255,255,255;
-  --current-inverted-color-rgb: 0,0,0;
+  --current-color-rgb: 255, 255, 255;
+  --current-inverted-color-rgb: 0, 0, 0;
   --select-color: #ff8c00;
 }
 

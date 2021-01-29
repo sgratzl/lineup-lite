@@ -1,5 +1,6 @@
 import type { HeaderGroup } from 'react-table';
 import type { ActionIcons } from '../icons';
+import type { LineUpLiteI18N } from '../i18n';
 import type { UseLineUpLiteOptions } from './useLineUpLite';
 
 export type MultiCustomizeKeys = 'tbody' | 'tr' | 'thead' | 'th' | 'thGroup' | 'td' | 'header';
@@ -13,6 +14,8 @@ export interface CustomizeLineUpProps {
    * hoop for adding extra styles
    */
   styles?: Partial<Record<MultiCustomizeKeys, React.CSSProperties>>;
+
+  i18n?: Partial<LineUpLiteI18N>;
 }
 
 export interface ActionLineUpProps<D extends object> {

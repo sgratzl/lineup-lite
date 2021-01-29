@@ -37,22 +37,14 @@ function PreviousPage() {
   return <>‹</>;
 }
 
-export function actionIconsText(): ActionIcons {
-  return {
-    groupBy: GroupBy,
-    expandGroup: ArrowDropRightLine,
-    sortAsc: SortAsc,
-    sortDesc: SortDesc,
-    hideColumn: DeleteBinLine,
-  };
-}
-
-export function paginationIconsText(): PaginationIcons & ActionIcons {
-  return {
-    ...actionIconsText(),
-    firstPage: FirstPage,
-    previousPage: PreviousPage,
-    nextPage: NextPage,
-    lastPage: LastPage,
-  };
-}
+export const LINEUP_LITE_TEXT_ICONS: PaginationIcons & ActionIcons = {
+  groupBy: GroupBy,
+  expandGroup: ArrowDropRightLine,
+  sortAsc: SortAsc,
+  sortDesc: SortDesc,
+  hideColumn: DeleteBinLine,
+  firstPage: FirstPage,
+  previousPage: PreviousPage,
+  nextPage: NextPage,
+  lastPage: LastPage,
+};

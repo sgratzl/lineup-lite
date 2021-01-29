@@ -2,12 +2,13 @@ import { useEffect, useMemo } from 'react';
 import type { TableInstance } from 'react-table';
 import type { CustomizeLineUpProps } from './interfaces';
 import type { LineUpLiteContextProps } from './contexts';
+import { LINEUP_LITE_I18N_EN } from '../i18n';
 
 export function useLineUpLiteContext<D extends object>(
   props: CustomizeLineUpProps & { dark?: boolean; onStateChange?: (state: any) => void },
   instance: TableInstance<D>
 ): LineUpLiteContextProps {
-  const { styles = {}, classNames = {}, dark = false, onStateChange } = props;
+  const { styles = {}, classNames = {}, dark = false, onStateChange, i18n = {} } = props;
   const { dispatch, state } = instance;
 
   useEffect(() => {
@@ -23,11 +24,15 @@ export function useLineUpLiteContext<D extends object>(
     () => ({
       styles,
       classNames,
+      i18n: {
+        ...LINEUP_LITE_I18N_EN,
+        ...(i18n ?? {}),
+      },
       dispatch,
       dark,
       sortByColumnCount,
       groupByColumnCount,
     }),
-    [styles, classNames, dispatch, dark, sortByColumnCount, groupByColumnCount]
+    [styles, classNames, dispatch, dark, sortByColumnCount, groupByColumnCount, i18n]
   );
 }

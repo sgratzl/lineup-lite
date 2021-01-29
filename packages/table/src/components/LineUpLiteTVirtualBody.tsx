@@ -1,6 +1,5 @@
 import React, { useRef, useCallback, useLayoutEffect, useMemo, useContext } from 'react';
 import type { Row, TableInstance, UseExpandedRowProps, UseGroupByRowProps } from 'react-table';
-import type { CustomizeLineUpProps } from './interfaces';
 import { clsx } from './utils';
 import { useVirtual } from 'react-virtual';
 import { LineUpLiteTRMemo } from './LineUpLiteTR';
