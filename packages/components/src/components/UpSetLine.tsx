@@ -1,6 +1,11 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import type { CommonProps } from './common';
-import { clsx, format, toPercent } from './utils';
+import { clsx, format, i18n as l } from './utils';
+
+export const UPSET_LINE_I18N_EN = {
+  upsetHas: '{0}: yes',
+  upsetHasNot: '{0}: no',
+};
 
 export interface UpSetLineProps extends CommonProps {
   /**
@@ -13,6 +18,8 @@ export interface UpSetLineProps extends CommonProps {
   format?: string | ((v: string) => string);
 
   sets: readonly string[];
+
+  i18n?: Partial<typeof UPSET_LINE_I18N_EN>;
 }
 
 export function UpSetLine(props: UpSetLineProps) {
@@ -28,11 +35,18 @@ export function UpSetLine(props: UpSetLineProps) {
         .reverse()
         .findIndex((d) => has.has(d));
   }
+  const i18n = useMemo(
+    () => ({
+      ...UPSET_LINE_I18N_EN,
+      ...(props.i18n ?? {}),
+    }),
+    [props.i18n]
+  );
   return (
     <div className={clsx('lt-upset-line', props.className)} style={props.style}>
       {props.sets.map((s) => (
         <svg key={s} className={clsx('lt-upset-dot', has.has(s) && 'lt-upset-dot-enabled')} viewBox="0 0 2 2">
-          <title>{format(s, props.format)}</title>
+          <title>{l(has.has(s) ? i18n.upsetHas : i18n.upsetHasNot, format(s, props.format))}</title>
           <circle r="1" cx="1" cy="1" />
         </svg>
       ))}
