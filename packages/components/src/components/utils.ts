@@ -1,4 +1,4 @@
-import type React from 'react';
+import React, { useMemo } from 'react';
 
 export function toPercent(v: number) {
   return `${Math.round(v * 1000) / 10}%`;
@@ -31,4 +31,18 @@ export function i18n(pattern: string, ...args: string[]) {
 
 export function toLocaleString(v?: number | Date | null) {
   return v == null ? '' : v.toLocaleString();
+}
+
+export function useI18N<T extends Record<string, string>>(
+  original: T,
+  overrides?: Partial<T>
+): Record<keyof T, (...args: any[]) => string> {
+  return useMemo(() => {
+    const r: Record<keyof T, (...args: any[]) => string> = {} as any;
+    for (const key of Object.keys(original) as (keyof T)[]) {
+      const v = (overrides ? overrides[key] : original[key]) as string;
+      r[key] = i18n.bind(null, v);
+    }
+    return r;
+  }, [original, overrides]);
 }

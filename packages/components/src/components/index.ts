@@ -9,4 +9,4 @@ export * from './NumberSymbol';
 export * from './TextSummary';
 export * from './TextLabel';
 export * from './UpSetLine';
-export { clsx, i18n, mergeStyles, format } from './utils';
+export { clsx, mergeStyles, format, useI18N } from './utils';

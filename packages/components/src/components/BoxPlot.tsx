@@ -1,10 +1,10 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback } from 'react';
 import type { INumberStats } from '../math/numberStatsGenerator';
 import type { IBoxPlot } from '@sgratzl/boxplots';
 import { NumberStatsWrapper } from './NumberStatsWrapper';
 import { FilterRangeWrapper, FilterRangeSliderProps } from './FilterRange';
 import type { CommonProps } from './common';
-import { clsx, i18n as t } from './utils';
+import { clsx, useI18N } from './utils';
 
 export const BOXPLOT_I18N_EN = {
   boxplotMinimum: 'Minimum: {0}',
@@ -47,15 +47,19 @@ function generatePath(
   return `${whiskerLow} ${whiskerHigh} ${median}`;
 }
 
-function generateTitle(s: INumberStats, pre: Omit<IBoxPlot, 'items'> | undefined, i18n: typeof BOXPLOT_I18N_EN) {
+function generateTitle(
+  s: INumberStats,
+  pre: Omit<IBoxPlot, 'items'> | undefined,
+  i18n: Record<keyof typeof BOXPLOT_I18N_EN, (...args: any[]) => string>
+) {
   const p = (v: number) => `/${s.format(v)}`;
-  return `${t(i18n.boxplotMinimum, `${s.format(s.min)}${pre ? p(pre.min) : ''}`)}
-${t(i18n.boxplot25Quantile, `${s.format(s.q1)}${pre ? p(pre.q1) : ''}`)}
-${t(i18n.boxplotMedian, `${s.format(s.median)}${pre ? p(pre.median) : ''}`)}
-${t(i18n.boxplotMean, `${s.format(s.mean)}${pre ? p(pre.mean) : ''}`)}
-${t(i18n.boxplot75Quantile, `${s.format(s.q3)}${pre ? p(pre.q3) : ''}`)}
-${t(i18n.boxplotMaximum, `${s.format(s.max)}${pre ? p(pre.max) : ''}`)}
-${t(i18n.boxplotNrItems, `${s.count.toLocaleString()}${pre ? `/${pre.count.toLocaleString()}` : ''}`)}`;
+  return `${i18n.boxplotMinimum(`${s.format(s.min)}${pre ? p(pre.min) : ''}`)}
+${i18n.boxplot25Quantile(`${s.format(s.q1)}${pre ? p(pre.q1) : ''}`)}
+${i18n.boxplotMedian(`${s.format(s.median)}${pre ? p(pre.median) : ''}`)}
+${i18n.boxplotMean(`${s.format(s.mean)}${pre ? p(pre.mean) : ''}`)}
+${i18n.boxplot75Quantile(`${s.format(s.q3)}${pre ? p(pre.q3) : ''}`)}
+${i18n.boxplotMaximum(`${s.format(s.max)}${pre ? p(pre.max) : ''}`)}
+${i18n.boxplotNrItems(`${s.count.toLocaleString()}${pre ? `/${pre.count.toLocaleString()}` : ''}`)}`;
 }
 
 /**
@@ -64,13 +68,7 @@ ${t(i18n.boxplotNrItems, `${s.count.toLocaleString()}${pre ? `/${pre.count.toLoc
 export function BoxPlotChart(props: BoxPlotChartProps) {
   const s = props.s;
   const pre = props.preFilter;
-  const i18n = useMemo(
-    () => ({
-      ...BOXPLOT_I18N_EN,
-      ...(props.i18n ?? {}),
-    }),
-    [props.i18n]
-  );
+  const i18n = useI18N(BOXPLOT_I18N_EN, props.i18n);
   const boxPadding = 2;
   const scale = useCallback((v: number) => Math.round(s.scale(v) * 1000) / 10, [s]);
   const outlierRadius = 4;
