@@ -6,9 +6,17 @@ import {
   IDateStats,
 } from '@lineup-lite/components';
 import React, { useContext } from 'react';
-import { Renderer, useAsyncDebounce } from 'react-table';
+import type { Renderer } from 'react-table';
 import { dateStats } from '../stats';
-import { extractStats, groupMaxBin, isFilterAble, optionContext, statsGeneratorContext, StatsPropsLike } from './utils';
+import {
+  extractStats,
+  groupMaxBin,
+  isFilterAble,
+  optionContext,
+  statsGeneratorContext,
+  StatsPropsLike,
+  useAsyncDebounce,
+} from './utils';
 
 export interface HistogramRendererOptions extends DateStatsOptions {
   maxBin?: number;

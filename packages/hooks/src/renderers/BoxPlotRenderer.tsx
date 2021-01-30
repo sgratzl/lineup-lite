@@ -6,9 +6,16 @@ import {
   NumberStatsOptions,
 } from '@lineup-lite/components';
 import React, { useContext } from 'react';
-import { Renderer, useAsyncDebounce } from 'react-table';
+import type { Renderer } from 'react-table';
 import { numberStats } from '../stats';
-import { extractStats, isFilterAble, optionContext, statsGeneratorContext, StatsPropsLike } from './utils';
+import {
+  extractStats,
+  isFilterAble,
+  optionContext,
+  statsGeneratorContext,
+  StatsPropsLike,
+  useAsyncDebounce,
+} from './utils';
 
 export interface BoxPlotRendererOptions extends NumberStatsOptions {}
 

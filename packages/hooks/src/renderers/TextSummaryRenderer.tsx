@@ -1,7 +1,13 @@
 import React, { useContext } from 'react';
-import { Renderer, useAsyncDebounce } from 'react-table';
-// import { UseStatsColumnProps } from '../hooks';
-import { extractStats, isFilterAble, StatsPropsLike, statsGeneratorContext, optionContext } from './utils';
+import type { Renderer } from 'react-table';
+import {
+  extractStats,
+  isFilterAble,
+  StatsPropsLike,
+  statsGeneratorContext,
+  optionContext,
+  useAsyncDebounce,
+} from './utils';
 import { ITextStats, TextSummary, FilterTextSummary, FilterTextSummaryProps } from '@lineup-lite/components';
 import { textStats } from '../stats';
 

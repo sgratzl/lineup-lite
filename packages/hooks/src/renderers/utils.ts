@@ -1,7 +1,7 @@
 import type { StatsProps, StatsCellProps } from '../hooks';
 import type { UseFiltersColumnProps, UseGroupByInstanceProps, Cell, CellProps, UseGroupByCellProps } from 'react-table';
 import { ICommonStats, IHistStats, defaultCategoricalColorScale } from '@lineup-lite/components';
-import { createContext, Context } from 'react';
+import { createContext, Context, useCallback, useRef } from 'react';
 
 export const EMPTY_ARR = [];
 export const EMPTY_OBJ = {};
@@ -105,4 +105,23 @@ export function generateIdentity() {
 
 export function generateColor() {
   return defaultCategoricalColorScale();
+}
+
+// own implementation to avoid regenerator runtime
+export function useAsyncDebounce<F extends (...args: any[]) => void>(f: F, timeout = 0): F {
+  const debounceRef = useRef(-1);
+
+  const b = useCallback(
+    (...args: any[]) => {
+      if (debounceRef.current >= 0) {
+        clearTimeout(debounceRef.current);
+      }
+      debounceRef.current = setTimeout(() => {
+        debounceRef.current = -1;
+        f(...args);
+      }, timeout);
+    },
+    [f, timeout]
+  );
+  return b as F;
 }
