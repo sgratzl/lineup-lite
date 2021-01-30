@@ -15,7 +15,15 @@ export function categoricalFilter<D extends object>(
     return rows as Row<D>[];
   }
   const lookup = new Set(filterValue);
-  return rows.filter((row) => ids.some((id) => !lookup.has(row.values[id])));
+  return rows.filter((row) =>
+    ids.some((id) => {
+      const v = row.values[id];
+      if (v == null) {
+        return false;
+      }
+      return !lookup.has(v);
+    })
+  );
 }
 /**
  * determines whether the column value to should be automatically removed, since it cannot be handled by this filter

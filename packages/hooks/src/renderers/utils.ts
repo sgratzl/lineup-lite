@@ -1,7 +1,10 @@
 import type { StatsProps, StatsCellProps } from '../hooks';
 import type { UseFiltersColumnProps, UseGroupByInstanceProps, Cell, CellProps, UseGroupByCellProps } from 'react-table';
-import type { ICommonStats, IHistStats } from '@lineup-lite/components';
+import { ICommonStats, IHistStats, defaultCategoricalColorScale } from '@lineup-lite/components';
 import { createContext, Context } from 'react';
+
+export const EMPTY_ARR = [];
+export const EMPTY_OBJ = {};
 
 export const optionContext: Context<{ [key: string]: any }> = createContext<{ [key: string]: any }>({});
 export const statsGeneratorContext: Context<null | any> = createContext<null | any>(null);
@@ -90,4 +93,16 @@ export function resolve<T>(directValue: T | undefined, globalValue: T | undefine
 
 export function isFilterAble<D extends object>(props: any): props is { column: UseFiltersColumnProps<D> } {
   return typeof (props.column as UseFiltersColumnProps<D>).setFilter === 'function';
+}
+
+export function identity(v: string) {
+  return v;
+}
+
+export function generateIdentity() {
+  return identity;
+}
+
+export function generateColor() {
+  return defaultCategoricalColorScale();
 }

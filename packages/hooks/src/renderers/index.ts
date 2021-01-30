@@ -9,3 +9,4 @@ export * from './NumberHistogramRenderer';
 export * from './ProportionalSymbolRenderer';
 export * from './TextSummaryRenderer';
 export * from './GroupValueRenderer';
+export * from './CategoricalSetRenderer';

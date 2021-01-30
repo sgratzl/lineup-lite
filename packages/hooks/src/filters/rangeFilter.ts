@@ -14,6 +14,9 @@ export function rangeFilter<D extends object, T>(
   return rows.filter((row) =>
     ids.some((id) => {
       const v = row.values[id];
+      if (v == null) {
+        return false;
+      }
       return (filterValue[0] == null || v >= filterValue[0]) && (filterValue[1] == null || v <= filterValue[1]);
     })
   );

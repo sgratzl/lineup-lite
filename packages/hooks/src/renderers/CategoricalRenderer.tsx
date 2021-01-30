@@ -1,24 +1,12 @@
-import { CategoricalColor, defaultCategoricalColorScale, ICategoricalStats } from '@lineup-lite/components';
+import { CategoricalColor, ICategoricalStats } from '@lineup-lite/components';
 import React, { useContext } from 'react';
 import type { CellProps, Renderer } from 'react-table';
 import type { UseStatsColumnProps } from '../hooks';
-import { optionContext, resolve } from './utils';
+import { generateColor, generateIdentity, optionContext, resolve } from './utils';
 
 export interface CategoricalRendererOptions {
   color?: (v: string) => string;
   format?: (v: string) => string;
-}
-
-function identity(v: string) {
-  return v;
-}
-
-function generateIdentity() {
-  return identity;
-}
-
-function generateColor() {
-  return defaultCategoricalColorScale();
 }
 
 function deriveCategoricalOptions<D extends object, P extends CellProps<D, string>>(
