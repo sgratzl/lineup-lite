@@ -8,5 +8,6 @@ import './components/NumberColor.css';
 import './components/NumberSymbol.css';
 import './components/TextSummary.css';
 import './components/Summary.css';
+import './components/UpSetLine.css';
 
 export * from '.';
