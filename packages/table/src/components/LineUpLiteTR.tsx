@@ -1,4 +1,4 @@
-import React, { memo, useContext, Ref, forwardRef } from 'react';
+import React, { memo, useContext, Ref, forwardRef, RefAttributes, ReactElement } from 'react';
 import type { Row, UseExpandedRowProps, UseGroupByRowProps, UseRowSelectRowProps } from 'react-table';
 import { LineUpLiteContext } from './contexts';
 import { LineUpLiteTD } from './LineUpLiteTD';
@@ -53,7 +53,7 @@ const LineUpLiteTRImpl = /*!#__PURE__*/ forwardRef(function LineUpLiteTR<D exten
 });
 
 export const LineUpLiteTR = LineUpLiteTRImpl as <D extends object>(
-  p: LineUpLiteTRProps<D> & React.RefAttributes<HTMLElement>
-) => React.ReactElement;
+  p: LineUpLiteTRProps<D> & RefAttributes<HTMLElement>
+) => ReactElement;
 
 export const LineUpLiteTRMemo = /*!#__PURE__*/ memo(LineUpLiteTRImpl) as typeof LineUpLiteTR;

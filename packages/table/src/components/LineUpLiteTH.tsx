@@ -1,4 +1,4 @@
-import React, { forwardRef, Ref, useContext } from 'react';
+import React, { forwardRef, ReactElement, Ref, RefAttributes, useContext } from 'react';
 import type { HeaderGroup, Renderer, UseGroupByColumnProps, UseResizeColumnsColumnProps } from 'react-table';
 import { clsx } from './utils';
 import { LineUpLiteToolbar } from './LineUpLiteToolbar';
@@ -56,5 +56,5 @@ const LineUpLiteTHImpl = /*!#__PURE__*/ forwardRef(function LineUpLiteTH<D exten
 });
 
 export const LineUpLiteTH = LineUpLiteTHImpl as <D extends object>(
-  p: LineUpLiteTHProps<D> & React.RefAttributes<HTMLElement>
-) => React.ReactElement;
+  p: LineUpLiteTHProps<D> & RefAttributes<HTMLElement>
+) => ReactElement;

@@ -1,5 +1,5 @@
 import type { ActionIcons } from '../icons';
-import React, { forwardRef, Ref, useRef } from 'react';
+import React, { forwardRef, ReactElement, Ref, RefAttributes, useRef } from 'react';
 import type { LineUpLiteProps } from './interfaces';
 import { LineUpLiteTHead } from './LineUpLiteTHead';
 import { LineUpLiteTVirtualBody } from './LineUpLiteTVirtualBody';
@@ -52,5 +52,5 @@ const LineUpLiteVirtualImpl = /*!#__PURE__*/ forwardRef(function LineUpLiteVirtu
 });
 
 export const LineUpLiteVirtual = LineUpLiteVirtualImpl as <D extends object>(
-  p: LineUpLiteVirtualProps<D> & React.RefAttributes<HTMLElement>
-) => React.ReactElement;
+  p: LineUpLiteVirtualProps<D> & RefAttributes<HTMLElement>
+) => ReactElement;

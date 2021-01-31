@@ -1,4 +1,4 @@
-import React, { Ref } from 'react';
+import React, { forwardRef, ReactElement, Ref, RefAttributes } from 'react';
 import type { LineUpLiteProps } from './interfaces';
 import { LineUpLiteTHead } from './LineUpLiteTHead';
 import { LineUpLiteTR } from './LineUpLiteTR';
@@ -6,7 +6,7 @@ import { useLineUpLite } from './useLineUpLite';
 import { clsx } from './utils';
 import { LineUpLiteContextProvider } from './contexts';
 
-export const LineUpLite = /*!#__PURE__*/ React.forwardRef(function LineUpLite<D extends object>(
+export const LineUpLite = /*!#__PURE__*/ forwardRef(function LineUpLite<D extends object>(
   props: LineUpLiteProps<D>,
   ref: Ref<HTMLElement>
 ) {
@@ -41,6 +41,4 @@ export const LineUpLite = /*!#__PURE__*/ React.forwardRef(function LineUpLite<D 
   );
 });
 
-export default LineUpLite as <D extends object>(
-  p: LineUpLiteProps<D> & React.RefAttributes<HTMLElement>
-) => React.ReactElement;
+export default LineUpLite as <D extends object>(p: LineUpLiteProps<D> & RefAttributes<HTMLElement>) => ReactElement;

@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { CSSProperties, PropsWithChildren, useMemo } from 'react';
 import { clsx } from './utils';
 import type {
   HeaderGroup,
@@ -12,11 +12,11 @@ import { LineUpLiteSortByAction, LineUpLiteGroupByAction, LineUpLiteHideAction }
 
 export interface LineUpLiteToolbarProps<D extends object> extends HeaderGroup<D> {
   className?: string;
-  style?: React.CSSProperties;
+  style?: CSSProperties;
   icons?: Partial<ActionIcons>;
 }
 
-export function LineUpLiteToolbar(props: React.PropsWithChildren<LineUpLiteToolbarProps<any>>) {
+export function LineUpLiteToolbar(props: PropsWithChildren<LineUpLiteToolbarProps<any>>) {
   const column = (props as unknown) as HeaderGroup<any> &
     UseGroupByColumnProps<any> &
     UseResizeColumnsColumnProps<any> &

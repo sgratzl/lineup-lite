@@ -1,16 +1,16 @@
-import type React from 'react';
+import type { ComponentType } from 'react';
 
 export interface ActionIcons {
-  groupBy: React.ComponentType;
-  sortAsc: React.ComponentType;
-  sortDesc: React.ComponentType;
-  hideColumn: React.ComponentType;
-  expandGroup: React.ComponentType;
+  groupBy: ComponentType;
+  sortAsc: ComponentType;
+  sortDesc: ComponentType;
+  hideColumn: ComponentType;
+  expandGroup: ComponentType;
 }
 
 export interface PaginationIcons {
-  firstPage: React.ComponentType;
-  previousPage: React.ComponentType;
-  nextPage: React.ComponentType;
-  lastPage: React.ComponentType;
+  firstPage: ComponentType;
+  previousPage: ComponentType;
+  nextPage: ComponentType;
+  lastPage: ComponentType;
 }

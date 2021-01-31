@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, MouseEvent } from 'react';
 import type { ColumnInstance, Hooks, Row, UseRowSelectRowProps } from 'react-table';
 import type { LineUpLiteColumn } from '../interfaces';
 import IndeterminateCheckbox from './IndeterminateCheckbox';
@@ -28,8 +28,8 @@ function Cell(props: any) {
     ...USE_ROW_SELECT_COLUMN_I18N_EN,
     ...(props.i18n ?? {}),
   };
-  const onClick = React.useCallback(
-    (e: React.MouseEvent<HTMLInputElement>) => {
+  const onClick = useCallback(
+    (e: MouseEvent<HTMLInputElement>) => {
       if (!e.shiftKey) {
         return;
       }

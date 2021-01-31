@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropsWithChildren, ReactNode } from 'react';
 import clsx from 'clsx';
 import Layout from '@theme/Layout';
 import Link from '@docusaurus/Link';
@@ -10,11 +10,7 @@ import NewspaperLineIcon from 'remixicon-react/NewspaperLineIcon';
 import BarChartBoxLineIcon from 'remixicon-react/BarChartBoxLineIcon';
 import StackLineIcon from 'remixicon-react/StackLineIcon';
 
-function Feature({
-  imageUrl,
-  title,
-  children,
-}: React.PropsWithChildren<{ imageUrl: string | React.ReactNode; title: string }>) {
+function Feature({ imageUrl, title, children }: PropsWithChildren<{ imageUrl: string | ReactNode; title: string }>) {
   const imgUrl = useBaseUrl(typeof imageUrl === 'string' ? imageUrl : '/');
   return (
     <div className={clsx('col col--4', styles.feature)}>

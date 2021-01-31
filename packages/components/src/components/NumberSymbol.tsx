@@ -1,16 +1,16 @@
-import React from 'react';
+import React, { CSSProperties } from 'react';
 import { defaultColorScale } from '../math';
 import type { NumberBarProps } from './NumberBar';
 import { clsx, format, mergeStyles, toLocaleString, toPercent } from './utils';
 
-function radiFromArea(area: number) {
+function radiusFromArea(area: number) {
   // r * r * PI = area
   return Math.sqrt(area);
 }
 
-function proportionalSymbolProps(value: number, color: string | ((v: number) => string)): React.CSSProperties {
+function proportionalSymbolProps(value: number, color: string | ((v: number) => string)): CSSProperties {
   const c = typeof color === 'string' ? color : color(value);
-  const v = radiFromArea(value);
+  const v = radiusFromArea(value);
   const p = toPercent(v);
   const p2 = toPercent(Math.min(1, v + 0.04));
   return {

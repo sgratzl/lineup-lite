@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { PropsWithChildren } from 'react';
 import Head from '@docusaurus/Head';
 
 // Default implementation, that you can customize
-function Root({ children }: React.PropsWithChildren<{}>) {
+function Root({ children }: PropsWithChildren<{}>) {
   return (
     <>
       <Head>

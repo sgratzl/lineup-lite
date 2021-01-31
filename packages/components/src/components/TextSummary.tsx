@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { ChangeEvent, useCallback } from 'react';
 import type { ITextStats } from '../math';
 import type { CommonProps } from './common';
 import { clsx, useI18N } from './utils';
@@ -59,7 +59,7 @@ export function FilterTextSummary(props: FilterTextSummaryProps) {
   const unique = `${s.count.toLocaleString()}${preFilter ? `/${preFilter.count.toLocaleString()}` : ''} items`;
 
   const onChange = useCallback(
-    (evt: React.ChangeEvent<HTMLInputElement>) => {
+    (evt: ChangeEvent<HTMLInputElement>) => {
       setFilter(evt.currentTarget.value || undefined);
     },
     [setFilter]

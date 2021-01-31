@@ -1,4 +1,4 @@
-import React, { forwardRef, Ref, useContext } from 'react';
+import React, { forwardRef, ReactElement, Ref, RefAttributes, useContext } from 'react';
 import type { Cell, ColumnInstance, UseGroupByCellProps, UseResizeColumnsColumnProps } from 'react-table';
 import type { LineUpLiteColumn } from '@lineup-lite/hooks';
 import { clsx } from './utils';
@@ -34,5 +34,5 @@ const LineUpLiteTDImpl = /*!#__PURE__*/ forwardRef(function LineUpLiteTD<D exten
 });
 
 export const LineUpLiteTD = LineUpLiteTDImpl as <D extends object>(
-  p: LineUpLiteTDProps<D> & React.RefAttributes<HTMLElement>
-) => React.ReactElement;
+  p: LineUpLiteTDProps<D> & RefAttributes<HTMLElement>
+) => ReactElement;

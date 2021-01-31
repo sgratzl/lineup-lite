@@ -1,4 +1,13 @@
-import React, { MutableRefObject, useCallback, useLayoutEffect, useMemo, useRef, useState } from 'react';
+import React, {
+  MutableRefObject,
+  useCallback,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  useState,
+  MouseEvent as RMouseEvent,
+  PropsWithChildren,
+} from 'react';
 import type { INumericStats } from '../math/common';
 import type { CommonProps } from './common';
 import { clsx, toPercent, useI18N } from './utils';
@@ -27,7 +36,7 @@ export interface FilterRangeSliderProps<T> {
 
 interface FilterRefData {
   clearFilter(): void;
-  setShortCutFilter(evt: React.MouseEvent<HTMLElement>): void;
+  setShortCutFilter(evt: RMouseEvent<HTMLElement>): void;
 }
 
 function FilterRangeSlider<T>(props: FilterRangeSliderProps<T> & { refData: MutableRefObject<FilterRefData> }) {
@@ -66,7 +75,7 @@ function FilterRangeSlider<T>(props: FilterRangeSliderProps<T> & { refData: Muta
       ueber = null;
     };
 
-    return (evt: React.MouseEvent<HTMLElement>) => {
+    return (evt: RMouseEvent<HTMLElement>) => {
       const bb = evt.currentTarget.parentElement!.parentElement!.getBoundingClientRect();
       base = bb.x;
       width = bb.width;
@@ -95,7 +104,7 @@ function FilterRangeSlider<T>(props: FilterRangeSliderProps<T> & { refData: Muta
       ueber = null;
     };
 
-    return (evt: React.MouseEvent<HTMLElement>) => {
+    return (evt: RMouseEvent<HTMLElement>) => {
       const bb = evt.currentTarget.parentElement!.parentElement!.getBoundingClientRect();
       base = bb.x;
       width = bb.width;
@@ -112,7 +121,7 @@ function FilterRangeSlider<T>(props: FilterRangeSliderProps<T> & { refData: Muta
   }, [setFilter, setLocalFilter]);
 
   const setShortCutFilter = useCallback(
-    (evt: React.MouseEvent<HTMLElement>) => {
+    (evt: RMouseEvent<HTMLElement>) => {
       // set filter shortcut
       const bb = evt.currentTarget.getBoundingClientRect();
       const ratio = Math.min(1, Math.max(0, (evt.clientX - bb.x) / bb.width));
@@ -160,7 +169,7 @@ function FilterRangeSlider<T>(props: FilterRangeSliderProps<T> & { refData: Muta
 }
 
 export function FilterRangeWrapper<T>(
-  props: React.PropsWithChildren<
+  props: PropsWithChildren<
     {
       s: INumericStats<T>;
       summary?: boolean;
@@ -170,10 +179,9 @@ export function FilterRangeWrapper<T>(
 ) {
   const refData = useRef({ clearFilter() {}, setShortCutFilter() {} } as FilterRefData);
   const clearFilter = useCallback(() => refData.current.clearFilter(), [refData]);
-  const setShortCutFilter = useCallback(
-    (evt: React.MouseEvent<HTMLElement>) => refData.current.setShortCutFilter(evt),
-    [refData]
-  );
+  const setShortCutFilter = useCallback((evt: RMouseEvent<HTMLElement>) => refData.current.setShortCutFilter(evt), [
+    refData,
+  ]);
 
   return (
     <div

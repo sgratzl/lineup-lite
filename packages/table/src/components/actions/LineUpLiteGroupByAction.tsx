@@ -1,17 +1,17 @@
-import React, { useCallback, useContext } from 'react';
+import React, { ComponentType, useCallback, useContext, MouseEvent } from 'react';
 import type { ColumnInstance, UseGroupByColumnProps } from 'react-table';
 import { LINEUP_LITE_I18N_EN } from '../../i18n';
 import { LineUpLiteContext } from '../contexts';
 import { clsx } from '../utils';
 
 export function LineUpLiteGroupByAction(
-  props: UseGroupByColumnProps<any> & ColumnInstance<any> & { icon: React.ComponentType }
+  props: UseGroupByColumnProps<any> & ColumnInstance<any> & { icon: ComponentType }
 ) {
   const c = useContext(LineUpLiteContext);
   const dispatch = c?.dispatch;
   const { toggleGroupBy, isGrouped, id } = props;
   const group = useCallback(
-    (e: React.MouseEvent<HTMLElement>) => {
+    (e: MouseEvent<HTMLElement>) => {
       if (e.shiftKey || e.ctrlKey || isGrouped || !dispatch) {
         // multi is the default
         toggleGroupBy();

@@ -1,15 +1,15 @@
-import React, { useCallback, useContext } from 'react';
+import React, { ComponentType, useCallback, useContext, MouseEvent } from 'react';
 import type { UseSortByColumnProps } from 'react-table';
 import { LINEUP_LITE_I18N_EN } from '../../i18n';
 import { LineUpLiteContext } from '../contexts';
 import { clsx } from '../utils';
 
 export function LineUpLiteSortByAction(
-  props: UseSortByColumnProps<any> & { iconAsc: React.ComponentType; iconDesc: React.ComponentType }
+  props: UseSortByColumnProps<any> & { iconAsc: ComponentType; iconDesc: ComponentType }
 ) {
   const { toggleSortBy, isSorted } = props;
   const sort = useCallback(
-    (e: React.MouseEvent<HTMLElement>) => toggleSortBy(undefined, e.shiftKey || e.ctrlKey || isSorted),
+    (e: MouseEvent<HTMLElement>) => toggleSortBy(undefined, e.shiftKey || e.ctrlKey || isSorted),
     [toggleSortBy, isSorted]
   );
   const c = useContext(LineUpLiteContext);

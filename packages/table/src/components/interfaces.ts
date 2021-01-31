@@ -2,12 +2,11 @@ import type { HeaderGroup } from 'react-table';
 import type { ActionIcons } from '../icons';
 import type { LineUpLiteI18N } from '../i18n';
 import type { UseLineUpLiteOptions } from './useLineUpLite';
+import type { ComponentType, CSSProperties, DetailedHTMLProps, HTMLAttributes, ReactNode } from 'react';
 
 export type MultiCustomizeKeys = 'tbody' | 'tr' | 'thead' | 'th' | 'thGroup' | 'td' | 'header';
 
-export type LineUpLiteComponentLike = React.ComponentType<
-  React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>
->;
+export type LineUpLiteComponentLike = ComponentType<DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement>>;
 
 export interface CustomizeLineUpProps {
   /**
@@ -17,7 +16,7 @@ export interface CustomizeLineUpProps {
   /**
    * hoop for adding extra styles
    */
-  styles?: Partial<Record<MultiCustomizeKeys, React.CSSProperties>>;
+  styles?: Partial<Record<MultiCustomizeKeys, CSSProperties>>;
 
   i18n?: Partial<LineUpLiteI18N>;
 
@@ -33,7 +32,7 @@ export interface ActionLineUpProps<D extends object> {
   /**
    * callback for generating extra toolbar actions for a column
    */
-  actions?: (column: HeaderGroup<D>) => React.ReactNode;
+  actions?: (column: HeaderGroup<D>) => ReactNode;
 }
 
 export interface LineUpLiteProps<D extends object>
@@ -41,7 +40,7 @@ export interface LineUpLiteProps<D extends object>
     ActionLineUpProps<D>,
     CustomizeLineUpProps {
   className?: string;
-  style?: React.CSSProperties;
+  style?: CSSProperties;
   dark?: boolean;
   icons?: Partial<ActionIcons>;
   onStateChange?: (state: any) => void;

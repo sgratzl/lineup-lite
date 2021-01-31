@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import { CSSProperties, useMemo } from 'react';
 
 export const EMPTY_OBJ = {}; // static object to avoid updates
 export const EMPTY_ARR = [];
@@ -11,10 +11,8 @@ export function clsx(...args: (boolean | string | undefined | null)[]) {
   return args.filter(Boolean).join(' ');
 }
 
-export function mergeStyles(
-  ...args: (React.CSSProperties | undefined | null | boolean)[]
-): React.CSSProperties | undefined {
-  const s = args.filter((d): d is React.CSSProperties => Boolean(d));
+export function mergeStyles(...args: (CSSProperties | undefined | null | boolean)[]): CSSProperties | undefined {
+  const s = args.filter((d): d is CSSProperties => Boolean(d));
   if (s.length <= 1) {
     return s[0];
   }

@@ -1,11 +1,11 @@
-import React, { useCallback, useContext } from 'react';
+import React, { ComponentType, useCallback, useContext } from 'react';
 import type { ColumnInstance } from 'react-table';
 import { LINEUP_LITE_I18N_EN } from '../../i18n';
 import { LineUpLiteContext } from '../contexts';
 import { clsx } from '../utils';
 
 export function LineUpLiteHideAction(
-  props: ColumnInstance<any> & { canHide?: boolean; canResize?: boolean; icon: React.ComponentType }
+  props: ColumnInstance<any> & { canHide?: boolean; canResize?: boolean; icon: ComponentType }
 ) {
   const c = useContext(LineUpLiteContext);
   const i18n = c?.i18n ?? LINEUP_LITE_I18N_EN;

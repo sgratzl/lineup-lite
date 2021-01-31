@@ -1,4 +1,4 @@
-import React, { forwardRef, Ref, useContext } from 'react';
+import React, { forwardRef, ReactElement, Ref, RefAttributes, useContext } from 'react';
 import type { HeaderGroup } from 'react-table';
 import { LineUpLiteContext } from './contexts';
 import type { ActionLineUpProps } from './interfaces';
@@ -40,5 +40,5 @@ const LineUpLiteTHeadImpl = /*!#__PURE__*/ forwardRef(function LineUpLiteTHead<D
 });
 
 export const LineUpLiteTHead = LineUpLiteTHeadImpl as <D extends object>(
-  p: LineUpLiteTHeadProps<D> & React.RefAttributes<HTMLElement>
-) => React.ReactElement;
+  p: LineUpLiteTHeadProps<D> & RefAttributes<HTMLElement>
+) => ReactElement;

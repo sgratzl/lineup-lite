@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { CSSProperties } from 'react';
 import { defaultColorScale } from '../math';
 import type { CommonProps } from './common';
 import { clsx, format, mergeStyles, toLocaleString, toPercent } from './utils';
@@ -22,7 +22,7 @@ export interface NumberBarProps extends CommonProps {
   format?: string | ((v: number) => string);
 }
 
-function barProps(value: number, color: string | ((v: number) => string)): React.CSSProperties {
+function barProps(value: number, color: string | ((v: number) => string)): CSSProperties {
   const c = typeof color === 'string' ? color : color(value);
   const p = toPercent(value);
   return {

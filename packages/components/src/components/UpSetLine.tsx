@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import type { CommonProps } from './common';
 import { UpSetDot } from './UpSetDot';
 import { clsx, format, toPercent, useI18N } from './utils';
@@ -54,7 +54,7 @@ function UpSetLineLine({
     return null;
   }
   let stroke: string | undefined = undefined;
-  let g: React.ReactNode = null;
+  let g: ReactNode = null;
   if (typeof color === 'string') {
     stroke = color;
   } else if (typeof color === 'function') {

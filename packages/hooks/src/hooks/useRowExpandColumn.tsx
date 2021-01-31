@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ComponentType } from 'react';
 import type {
   ColumnInstance,
   Hooks,
@@ -20,7 +20,7 @@ export const USE_EXPAND_COLUMN_I18N_EN = {
 
 export interface UseRowExpandColumnTableOptions {
   icons?: {
-    expandGroup?: React.ComponentType;
+    expandGroup?: ComponentType;
   };
   i18n?: Partial<typeof USE_EXPAND_COLUMN_I18N_EN>;
 }

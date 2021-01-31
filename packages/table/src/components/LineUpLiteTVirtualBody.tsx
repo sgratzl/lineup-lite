@@ -1,4 +1,4 @@
-import React, { useRef, useCallback, useLayoutEffect, useMemo, useContext } from 'react';
+import React, { useRef, useCallback, useLayoutEffect, useMemo, useContext, RefObject } from 'react';
 import type { Row, TableInstance, UseExpandedRowProps, UseGroupByRowProps } from 'react-table';
 import { clsx } from './utils';
 import { useVirtual } from 'react-virtual';
@@ -17,7 +17,7 @@ export function LineUpLiteTVirtualBody<D extends object>({
 }: {
   getTableBodyProps: TableInstance<D>['getTableBodyProps'];
   rows: Row<D>[];
-  theadRef: React.RefObject<HTMLElement>;
+  theadRef: RefObject<HTMLElement>;
   prepareRow: (row: Row<D>) => void;
   estimatedSize: SizeEstimator;
   rowSpacing: number;
