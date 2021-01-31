@@ -24,7 +24,7 @@ export interface NumberHistogramRendererOptions extends NumberStatsOptions {
 
 function Filtered(props: FilterRangeHistogramProps<number>) {
   const setFilter = useAsyncDebounce(props.setFilter, 100);
-  return <FilterRangeHistogram {...props} setFilter={setFilter} i18n={props.i18n} />;
+  return <FilterRangeHistogram {...props} setFilter={setFilter} />;
 }
 
 export function NumberHistogramRenderer<P extends StatsPropsLike<number>>(props: P) {

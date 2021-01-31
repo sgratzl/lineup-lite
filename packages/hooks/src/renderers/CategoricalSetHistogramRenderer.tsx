@@ -1,9 +1,9 @@
-import { Histogram, ICategoricalStats, FilterSetHistogram } from '@lineup-lite/components';
+import { Histogram, ICategoricalStats, FilterSetHistogram, UpSetPartialLine } from '@lineup-lite/components';
 import React, { useContext } from 'react';
 import type { Renderer } from 'react-table';
 import { categoricalStats } from '../stats';
 import type { CategoricalRendererOptions } from './CategoricalRenderer';
-import { extractStats, groupMaxBin, isFilterAble, optionContext, statsGeneratorContext, StatsPropsLike } from './utils';
+import { extractStats, isFilterAble, optionContext, statsGeneratorContext, StatsPropsLike } from './utils';
 
 export interface CategoricalSetHistogramRendererOptions extends CategoricalRendererOptions {
   maxBin?: number;
@@ -17,8 +17,8 @@ export function CategoricalSetHistogramRenderer<P extends StatsPropsLike<string>
     ) ?? categoricalStats(options);
   const { s, preFilter, cell } = extractStats(props, stats);
   if (cell) {
-    const maxBin = groupMaxBin(options, cell, props);
-    return <Histogram s={s} maxBin={maxBin} />;
+    const groupValue = s.hist.map((bin) => (bin.count === 0 ? false : bin.count === s.count ? true : null));
+    return <UpSetPartialLine {...s} sets={s.categories} value={groupValue} i18n={props.i18n} />;
   }
   if (isFilterAble(props) && props.column.canFilter) {
     const { setFilter, filterValue } = props.column;
