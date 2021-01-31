@@ -35,7 +35,7 @@
     "src/**/*.css"
   ],
   "scripts": {
-    "clear": "shx rm -rf build dist node_modules \"*.tgz\" \"*.tsbuildinfo\"",
+    "clear": "shx rm -rf build dist docs node_modules \"*.tgz\" \"*.tsbuildinfo\"",
     "compile": "tsc -b tsconfig.c.json",
     "start": "yarn run watch",
     "watch": "rollup -c -w",
