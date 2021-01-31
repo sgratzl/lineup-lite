@@ -1,11 +1,9 @@
-import { ICategoricalStats, UpSetLine } from '@lineup-lite/components';
+import { ICategoricalStats, UpSetLine, CategoricalSetValue } from '@lineup-lite/components';
 import React, { useContext } from 'react';
 import type { CellProps, Renderer } from 'react-table';
 import type { UseStatsColumnProps } from '../hooks';
 import type { CategoricalRendererOptions } from './CategoricalRenderer';
 import { EMPTY_ARR, generateColor, generateIdentity, optionContext, resolve } from './utils';
-
-export type CategoricalSetValue = readonly string[] | Set<string>;
 
 export interface CategoricalSetRendererOptions extends CategoricalRendererOptions {
   categories?: readonly string[];

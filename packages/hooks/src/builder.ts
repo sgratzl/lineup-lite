@@ -23,14 +23,16 @@ import { rangeFilter, categoricalFilter, categoricalSetFilter } from './filters'
 import type { LineUpLiteColumn } from './interfaces';
 import {
   sortCompare,
-  sortCategories,
+  categoricalSort,
   sortSplitter,
   numberGroupCompare,
   textGroupCompare,
   categoricalGroupCompare,
   dateGroupCompare,
+  categoricalSetCompare,
+  categoricalSetGroupCompare,
 } from './sort';
-import { categoricalGroupBy, dateGroupBy, numberGroupBy, textGroupBy } from './grouping';
+import { categoricalGroupBy, dateGroupBy, numberGroupBy, textGroupBy, categoricalSetGroupBy } from './grouping';
 
 export function statsAggregate<T>(v: T) {
   return v;
@@ -148,7 +150,7 @@ export function asCategoricalColumn<D extends object, C extends Column<D> = Colu
     filter: categoricalFilter,
     stats: categoricalStats(options),
     sortType: sortSplitter(
-      options && options.categories ? sortCategories(options.categories) : sortCompare,
+      options && options.categories ? categoricalSort(options.categories) : sortCompare,
       categoricalGroupCompare
     ),
     defaultCanSort: true,
@@ -176,11 +178,11 @@ export function asCategoricalSetColumn<D extends object, C extends Column<D> = C
     filter: categoricalSetFilter,
     stats: categoricalStats(options),
     sortType: sortSplitter(
-      options && options.categories ? sortCategories(options.categories) : sortCompare,
-      categoricalGroupCompare // TODO
+      options && options.categories ? categoricalSetCompare(options.categories) : categoricalSetCompare(),
+      categoricalSetGroupCompare
     ),
     defaultCanSort: true,
-    groupBy: categoricalGroupBy, // TODO
+    groupBy: categoricalSetGroupBy,
     canHide: false,
     ...asColumn<D, C>(col),
   } as unknown) as LineUpLiteColumn<D>;

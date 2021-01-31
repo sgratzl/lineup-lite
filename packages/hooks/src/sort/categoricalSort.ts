@@ -18,7 +18,7 @@ export function categoricalGroupCompare(a: Row<any>, b: Row<any>, columnId: stri
 /**
  * generates a comparator that sorts by the given set of category order
  */
-export function sortCategories(categories: readonly string[]): RowCompareFunction {
+export function categoricalSort(categories: readonly string[]): RowCompareFunction {
   const lookup = new Map(categories.map((cat, i) => [cat, i]));
   return (a, b, columnId) => {
     const va = a.values[columnId];

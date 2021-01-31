@@ -1,6 +1,6 @@
 import React, { forwardRef, HTMLAttributes, RefObject, useEffect, useRef } from 'react';
 
-const IndeterminateCheckbox = forwardRef<
+const IndeterminateCheckbox = /*!#__PURE__*/ forwardRef<
   HTMLInputElement,
   HTMLAttributes<HTMLInputElement> & { indeterminate?: boolean }
 >(function IndeterminateCheckbox({ indeterminate, ...rest }, ref) {

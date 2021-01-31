@@ -5,15 +5,30 @@ import { clsx, format, toPercent, useI18N } from './utils';
 
 export const UPSET_LINE_I18N_EN = {
   upsetHas: '{0}: yes',
-  upsetHasPartial: '{0}: some',
+  upsetHasAll: '{0}: all',
+  upsetHasSome: '{0}: some',
+  upsetHasNone: '{0}: none',
   upsetHasNot: '{0}: no',
 };
+
+export type CategoricalSetValue = readonly string[] | Set<string>;
+
+export function isCategoricalSetValue(v: CategoricalSetValue | string | null | undefined): v is CategoricalSetValue {
+  return Array.isArray(v) || v instanceof Set;
+}
+
+export function categoricalSetDegree(v?: CategoricalSetValue | null): number {
+  if (v == null) {
+    return 0;
+  }
+  return v instanceof Set ? v.size : v.length;
+}
 
 export interface UpSetLineProps extends CommonProps {
   /**
    * the value to render
    */
-  value: Set<string> | readonly string[];
+  value: CategoricalSetValue;
   /**
    * the color of the category or a function to convert the value to a color
    */
@@ -142,7 +157,7 @@ export function UpSetPartialLine(props: UpSetPartialLineProps) {
           <UpSetDot
             key={s}
             mode={!has && !hasNot ? null : has}
-            title={(has ? i18n.upsetHas : partial ? i18n.upsetHasPartial : i18n.upsetHasNot)(format(s, props.format))}
+            title={(has ? i18n.upsetHasAll : partial ? i18n.upsetHasSome : i18n.upsetHasNone)(format(s, props.format))}
             color={typeof props.color === 'string' ? props.color : props.color ? props.color(s) : undefined}
           />
         );
