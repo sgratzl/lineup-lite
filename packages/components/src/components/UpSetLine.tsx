@@ -28,6 +28,60 @@ export interface UpSetLineProps extends CommonProps {
   i18n?: Partial<typeof UPSET_LINE_I18N_EN>;
 }
 
+function generateGradient(colors: string[]) {
+  const id = `upset-line-g-${colors.join(',')}`.replace(/[, ]+/gm, '').replace(/[-#$()[\]{}"']+/gm, '-');
+  return {
+    stroke: `url('#${id}')`,
+    def: (
+      <defs>
+        <linearGradient id={id}>
+          {colors.map((d, i) => (
+            <stop key={d} offset={toPercent(i / (colors.length - 1))} stop-color={d} />
+          ))}
+        </linearGradient>
+      </defs>
+    ),
+  };
+}
+
+function UpSetLineLine({
+  first,
+  last,
+  sets,
+  color,
+}: Pick<UpSetLineProps, 'sets' | 'color'> & { first: number; last: number }) {
+  if (first >= last) {
+    return null;
+  }
+  let stroke: string | undefined = undefined;
+  let g: React.ReactNode = null;
+  if (typeof color === 'string') {
+    stroke = color;
+  } else if (typeof color === 'function') {
+    const colors = sets.slice(first, last + 1).map((d) => color(d));
+    console.log(first, last, colors);
+    if (colors.every((d) => d === colors[0])) {
+      // single color
+      stroke = colors[0];
+    } else {
+      const r = generateGradient(colors);
+      stroke = r.stroke;
+      g = r.def;
+    }
+  }
+  return (
+    <svg
+      className="lt-upset-line-line"
+      viewBox={`0 0 ${(sets.length - 1) * 2} 2`}
+      preserveAspectRatio="none"
+      style={{ left: toPercent(1 / (sets.length + 1)), width: toPercent(1 - 2 / (sets.length + 1)) }}
+    >
+      {g}
+      <path d={`M${first * 2},1 L${last * 2},1.001`} style={stroke ? { stroke } : undefined} />
+    </svg>
+  );
+}
+
 export function UpSetLine(props: UpSetLineProps) {
   const has = props.value instanceof Set ? props.value : new Set(props.value);
   const sets = props.sets;
@@ -53,16 +107,7 @@ export function UpSetLine(props: UpSetLineProps) {
           color={typeof props.color === 'string' ? props.color : props.color ? props.color(s) : undefined}
         />
       ))}
-      {first < last && (
-        <svg
-          className="lt-upset-line-line"
-          viewBox={`0 0 ${(sets.length - 1) * 2} 2`}
-          preserveAspectRatio="none"
-          style={{ left: toPercent(1 / (sets.length + 1)), width: toPercent(1 - 2 / (sets.length + 1)) }}
-        >
-          <line x1={first * 2} x2={last * 2} y1={1} y2={1} />
-        </svg>
-      )}
+      <UpSetLineLine first={first} last={last} sets={sets} color={props.color} />
     </div>
   );
 }
