@@ -36,7 +36,7 @@ function generateGradient(colors: string[]) {
       <defs>
         <linearGradient id={id}>
           {colors.map((d, i) => (
-            <stop key={d} offset={toPercent(i / (colors.length - 1))} stop-color={d} />
+            <stop key={d} offset={toPercent(i / (colors.length - 1))} stopColor={d} />
           ))}
         </linearGradient>
       </defs>

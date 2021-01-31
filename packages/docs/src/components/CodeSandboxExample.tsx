@@ -6,8 +6,6 @@ export default function CodeSandboxExample({ name }: { name: string }) {
   const { siteConfig } = useDocusaurusContext();
   const { isDarkTheme } = useThemeContext();
 
-  console.log(siteConfig);
-
   const path = `${siteConfig.organizationName}/${siteConfig.projectName}/tree/${siteConfig.customFields.branch}/examples/${name}`;
   return (
     <>
