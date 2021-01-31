@@ -59,7 +59,6 @@ function UpSetLineLine({
     stroke = color;
   } else if (typeof color === 'function') {
     const colors = sets.slice(first, last + 1).map((d) => color(d));
-    console.log(first, last, colors);
     if (colors.every((d) => d === colors[0])) {
       // single color
       stroke = colors[0];
