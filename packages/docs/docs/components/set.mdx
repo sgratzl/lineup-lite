@@ -18,7 +18,17 @@ see [ICategoricalStats API Docs](/api/components/interfaces/icategoricalstats.ht
 
 function Example() {
   const compute = categoricalStatsGenerator();
-  const data = [['c1', 'c2'], ['c2'], ['c1', 'c3'], ['c1'], ['c1', 'c2', 'c3'], ['c1', 'c2'], ['c1'], ['c2','c3'], ['c3']];
+  const data = [
+    ['c1', 'c2'],
+    ['c2'],
+    ['c1', 'c3'],
+    ['c1'],
+    ['c1', 'c2', 'c3'],
+    ['c1', 'c2'],
+    ['c1'],
+    ['c2', 'c3'],
+    ['c3'],
+  ];
   const stats = compute(data);
 
   return <pre>{JSON.stringify(stats, null, 2)}</pre>;
@@ -36,7 +46,17 @@ function Example() {
 
 function Example() {
   const compute = categoricalStatsGenerator();
-  const data = [['c1', 'c2'], ['c2'], ['c1', 'c3'], ['c1'], ['c1', 'c2', 'c3'], ['c1', 'c2'], ['c1'], ['c2','c3'], ['c3']];
+  const data = [
+    ['c1', 'c2'],
+    ['c2'],
+    ['c1', 'c3'],
+    ['c1'],
+    ['c1', 'c2', 'c3'],
+    ['c1', 'c2'],
+    ['c1'],
+    ['c2', 'c3'],
+    ['c3'],
+  ];
   const stats = compute(data);
 
   return (
@@ -59,7 +79,17 @@ function Example() {
 
 function Example() {
   const compute = categoricalStatsGenerator();
-  const data = [['c1', 'c2'], ['c2'], ['c1', 'c3'], ['c1'], ['c1', 'c2', 'c3'], ['c1', 'c2'], ['c1'], ['c2','c3'], ['c3']];
+  const data = [
+    ['c1', 'c2'],
+    ['c2'],
+    ['c1', 'c3'],
+    ['c1'],
+    ['c1', 'c2', 'c3'],
+    ['c1', 'c2'],
+    ['c1'],
+    ['c2', 'c3'],
+    ['c3'],
+  ];
   const stats = compute(data);
 
   return <Histogram s={stats} style={{ height: 100 }} />;
@@ -75,13 +105,23 @@ function Example() {
 
 function Example() {
   const compute = categoricalStatsGenerator();
-  const data = [['c1', 'c2'], ['c2'], ['c1', 'c3'], ['c1'], ['c1', 'c2', 'c3'], ['c1', 'c2'], ['c1'], ['c2','c3'], ['c3']];
+  const data = [
+    ['c1', 'c2'],
+    ['c2'],
+    ['c1', 'c3'],
+    ['c1'],
+    ['c1', 'c2', 'c3'],
+    ['c1', 'c2'],
+    ['c1'],
+    ['c2', 'c3'],
+    ['c3'],
+  ];
   const stats = compute(data);
 
-  const [filterValue, setFilter] = React.useState(null);  
+  const [filterValue, setFilter] = React.useState(null);
   const must = new Set();
   const mustNot = new Set();
-  for (const v of (filterValue || [])) {
+  for (const v of filterValue || []) {
     if (v.value) {
       must.add(v.set);
     } else {
@@ -108,7 +148,7 @@ function Example() {
       return false;
     }
     return true;
-  }
+  };
   const filtered = filterValue ? data.filter(filterRow) : data;
   const filteredStats = categoricalStatsGenerator({ categories: stats.categories })(filtered);
 
