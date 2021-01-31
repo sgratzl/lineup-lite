@@ -130,7 +130,7 @@ export function FilterBinHistogram<T>(props: FilterBinHistogramProps<T>) {
 
   const onClick = useCallback(
     (evt: React.MouseEvent<HTMLElement>) => {
-      const current: T[] = filterValue;
+      const current: T[] = filterValue ?? EMPTY_ARR;
       const bin = hist[Number.parseInt(evt.currentTarget.dataset.i!, 10)];
       const value = bin.x0;
       const next = current.includes(value) ? current.filter((d) => d !== value) : current.concat([value]);
@@ -147,7 +147,7 @@ export function FilterBinHistogram<T>(props: FilterBinHistogramProps<T>) {
           props={props}
           i={i}
           onClick={onClick}
-          title={filterValue.includes(h.x0) ? i18n.removeFilterBin : i18n.filterBin}
+          title={(filterValue ?? EMPTY_ARR).includes(h.x0) ? i18n.removeFilterBin : i18n.filterBin}
         />
       ))}
     </NumberStatsWrapper>
@@ -207,7 +207,7 @@ export function FilterSetHistogram<T>(props: FilterSetHistogramProps<T>) {
 
   const onClick = useCallback(
     (evt: React.MouseEvent<HTMLElement>) => {
-      const current: FilterSetValue<T>[] = filterValue ?? [];
+      const current: FilterSetValue<T>[] = filterValue ?? EMPTY_ARR;
       const bin = hist[Number.parseInt(evt.currentTarget.dataset.i!, 10)];
       const value = bin.x0;
       const index = current.findIndex((d) => d.set === value);
@@ -227,7 +227,7 @@ export function FilterSetHistogram<T>(props: FilterSetHistogramProps<T>) {
   return (
     <NumberStatsWrapper style={props.style} className={clsx('lt-histogram', props.className)} s={props.s} summary>
       {props.s.hist.map((h, i) => {
-        const index = filterValue.findIndex((d) => d.set === h.x0);
+        const index = (filterValue ?? EMPTY_ARR).findIndex((d) => d.set === h.x0);
         return (
           <Bin
             key={String(h.x0)}

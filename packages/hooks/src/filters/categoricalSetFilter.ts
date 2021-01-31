@@ -30,10 +30,20 @@ export function categoricalSetFilter<D extends object>(
       if (v == null) {
         return false;
       }
-      for (const vi of v) {
-        if (!must.has(vi) || mustNot.has(vi)) {
-          return false;
+      if (mustNot.size > 0) {
+        for (const vi of v) {
+          if (mustNot.has(vi)) {
+            return false;
+          }
         }
+      }
+      if (must.size > 0) {
+        for (const vi of v) {
+          if (must.has(vi)) {
+            return true;
+          }
+        }
+        return false;
       }
       return true;
     })
