@@ -60,7 +60,6 @@ export function autoAssignColors(colors: readonly string[], start = 0): (v: stri
 
 export const schemeTableau10 = [
   '#4e79a7',
-  '#f28e2c',
   '#e15759',
   '#76b7b2',
   '#59a14f',
@@ -69,10 +68,11 @@ export const schemeTableau10 = [
   '#ff9da7',
   '#9c755f',
   '#bab0ab',
+  '#f28e2c',
 ];
 /**
  * default
  */
 export function defaultCategoricalColorScale(): (v: string) => string {
-  return autoAssignColors(schemeTableau10, 1);
+  return autoAssignColors(schemeTableau10, 0);
 }

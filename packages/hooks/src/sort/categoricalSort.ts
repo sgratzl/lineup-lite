@@ -1,7 +1,7 @@
 import type { RowCompareFunction } from './interfaces';
 import type { Row } from 'react-table';
 import { ICategoricalStats, isCategoricalStats } from '@lineup-lite/components';
-import { compareAsc } from './internal';
+import { categoricalSortFunc, compareAsc } from './internal';
 
 export function categoricalGroupCompare(a: Row<any>, b: Row<any>, columnId: string): number {
   const av: ICategoricalStats = a.values[columnId];
@@ -19,12 +19,10 @@ export function categoricalGroupCompare(a: Row<any>, b: Row<any>, columnId: stri
  * generates a comparator that sorts by the given set of category order
  */
 export function categoricalSort(categories: readonly string[]): RowCompareFunction {
-  const lookup = new Map(categories.map((cat, i) => [cat, i]));
+  const sorter = categoricalSortFunc(categories);
   return (a, b, columnId) => {
     const va = a.values[columnId];
     const vb = b.values[columnId];
-    const aIndex = va == null || !lookup.has(va) ? Number.POSITIVE_INFINITY : lookup.get(va)!;
-    const bIndex = vb == null || !lookup.has(vb) ? Number.POSITIVE_INFINITY : lookup.get(vb)!;
-    return compareAsc(aIndex, bIndex);
+    return sorter(va, vb);
   };
 }

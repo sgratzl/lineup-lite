@@ -4,8 +4,6 @@
 
 This package is part of the LineUp-lite ecosystem located at the main [Github Monorepo](https://github.com/sgratzl/lineup-lite).
 
-TODO
-
 ## Privacy Policy
 
 LineUp-lite is a client only library. The library or any of its integrations doesn't track you or transfers your data to any server.

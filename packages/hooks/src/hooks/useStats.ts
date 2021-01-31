@@ -50,6 +50,15 @@ export interface StatsType {
   (values: readonly any[], preFilterStats?: any): any;
 }
 
+export function statsAggregate<T>(v: T[]): T[] {
+  if (Array.isArray(v)) {
+    const copy: T[] & { _agg?: boolean } = v.slice();
+    copy._agg = true;
+    return copy;
+  }
+  return v;
+}
+
 function DummyComponent() {
   return null;
 }
@@ -67,7 +76,6 @@ function useInstance<D extends object>(instance: TableInstance<D>) {
     UseGroupByInstanceProps<D>;
 
   instance.allColumns.forEach((col) => {
-    // TODO do proper options
     const extended = (col as unknown) as UseStatsColumnProps &
       UseStatsColumnOptions<D> &
       UseGroupByColumnProps<D> &
@@ -96,7 +104,8 @@ function useInstance<D extends object>(instance: TableInstance<D>) {
     const grouped = extendedInstance.onlyGroupedFlatRows ?? [];
     grouped.forEach((group) => {
       const value = group.values[col.id];
-      if (!Array.isArray(value)) {
+      // not an array or the grouped row
+      if (!Array.isArray(value) || !(value as { _agg?: boolean })._agg || col.id === (group as any).groupByID) {
         return;
       }
       // compute stats

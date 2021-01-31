@@ -9,15 +9,34 @@ import {
 } from '@lineup-lite/components';
 import { compareAsc } from './internal';
 
+function toMode(s: ICategoricalStats, bin: number) {
+  if (bin < 0 || s.hist.length <= bin) {
+    return 4;
+  }
+  const binValue = s.hist[bin].count;
+  const maxCount = s.flatItems.length;
+  if (maxCount === binValue) {
+    return 1;
+  }
+  if (binValue > 0) {
+    return 2;
+  }
+  return 3;
+}
+
 export function categoricalSetGroupCompare(a: Row<any>, b: Row<any>, columnId: string): number {
   const av: ICategoricalStats = a.values[columnId];
   const bv: ICategoricalStats = b.values[columnId];
 
   if (isCategoricalStats(av) && isCategoricalStats(bv)) {
-    // TODO
-    const ai = av.categories.indexOf(av.maxBin.x0);
-    const bi = av.categories.indexOf(bv.maxBin.x0);
-    return compareAsc(ai, bi);
+    for (let i = 0; i < av.hist.length; i++) {
+      const avi = toMode(av, i);
+      const bvi = toMode(bv, i);
+      if (avi !== bvi) {
+        return compareAsc(avi, bvi);
+      }
+    }
+    return 0;
   }
   return compareAsc(av, bv);
 }

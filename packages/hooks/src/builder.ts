@@ -33,10 +33,7 @@ import {
   categoricalSetGroupCompare,
 } from './sort';
 import { categoricalGroupBy, dateGroupBy, numberGroupBy, textGroupBy, categoricalSetGroupBy } from './grouping';
-
-export function statsAggregate<T>(v: T) {
-  return v;
-}
+import { statsAggregate } from './hooks';
 
 function guessName(acc: string) {
   return acc

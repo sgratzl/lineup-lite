@@ -1,6 +1,7 @@
 import type { ColumnInstance, Row } from 'react-table';
 import type { ICategoricalStats } from '@lineup-lite/components';
 import { baseGroupBy } from './internal';
+import { categoricalSortFunc, compareAsc } from '../sort/internal';
 
 export function categoricalSetGroupBy<D extends object>(
   rows: Row<D>[],
@@ -9,20 +10,7 @@ export function categoricalSetGroupBy<D extends object>(
   if (rows.length === 0) {
     return {};
   }
-  // TODO
-  const base = baseGroupBy(rows, column);
-  if ((column as any).statsValue == null) {
-    return base;
-  }
-  // create a new one but this time sorted
   const stats = (column as any).statsValue as ICategoricalStats;
-  const sortedGrouped: Record<string, Row<D>[]> = {};
-  stats.categories.forEach((cat) => {
-    if (base[cat] != null) {
-      sortedGrouped[cat] = base[cat];
-      delete base[cat];
-    }
-  });
-  // assign the rest with unknown values
-  return Object.assign(sortedGrouped, base);
+  const sorter = stats ? categoricalSortFunc(stats.categories) : compareAsc;
+  return baseGroupBy(rows, column, (d) => (d == null ? null : (Array.from(d) as string[]).sort(sorter).join(',')));
 }

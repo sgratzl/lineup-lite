@@ -29,7 +29,6 @@ const defaultColumn: Partial<LineUpLiteColumn<IRandomRow>> = {
   minWidth: 30,
   width: 150,
   maxWidth: 400,
-  // canHide: false, // TODO
 };
 
 export default function create(darkTheme: boolean) {
