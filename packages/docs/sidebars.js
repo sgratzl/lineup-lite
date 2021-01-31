@@ -20,6 +20,7 @@ module.exports = {
         'components/categorical',
         'components/number',
         'components/date',
+        'components/set',
         {
           type: 'link',
           label: 'API',

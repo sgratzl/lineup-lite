@@ -1,4 +1,5 @@
 import type { IdType, Row } from 'react-table';
+import type { FilterSetValue } from '@lineup-lite/components';
 
 /**
  * filter function by a set of filter values
@@ -9,7 +10,7 @@ import type { IdType, Row } from 'react-table';
 export function categoricalSetFilter<D extends object>(
   rows: readonly Row<D>[],
   ids: readonly IdType<D>[],
-  filterValue: readonly { set: string; value: boolean }[]
+  filterValue: readonly FilterSetValue<string>[]
 ): Row<D>[] {
   if (filterValue == null) {
     return rows as Row<D>[];

@@ -1,6 +1,6 @@
 import React, { useCallback, useMemo } from 'react';
 import type { IHistStats, IBin } from '../math/common';
-import { toPercent, clsx, i18n } from './utils';
+import { toPercent, clsx, i18n, EMPTY_ARR } from './utils';
 import { FilterRangeSliderProps, FilterRangeWrapper } from './FilterRange';
 import { NumberStatsWrapper } from './NumberStatsWrapper';
 import type { CommonProps } from './common';
@@ -117,7 +117,7 @@ export interface FilterBinHistogramProps<T> extends HistogramProps<T> {
 }
 
 export function FilterBinHistogram<T>(props: FilterBinHistogramProps<T>) {
-  const { setFilter, filterValue } = props;
+  const { setFilter, filterValue = EMPTY_ARR } = props;
   const hist = props.s.hist;
 
   const i18n = useMemo(
@@ -130,7 +130,7 @@ export function FilterBinHistogram<T>(props: FilterBinHistogramProps<T>) {
 
   const onClick = useCallback(
     (evt: React.MouseEvent<HTMLElement>) => {
-      const current: T[] = filterValue ?? [];
+      const current: T[] = filterValue;
       const bin = hist[Number.parseInt(evt.currentTarget.dataset.i!, 10)];
       const value = bin.x0;
       const next = current.includes(value) ? current.filter((d) => d !== value) : current.concat([value]);
@@ -147,7 +147,7 @@ export function FilterBinHistogram<T>(props: FilterBinHistogramProps<T>) {
           props={props}
           i={i}
           onClick={onClick}
-          title={(filterValue ?? []).includes(h.x0) ? i18n.removeFilterBin : i18n.filterBin}
+          title={filterValue.includes(h.x0) ? i18n.removeFilterBin : i18n.filterBin}
         />
       ))}
     </NumberStatsWrapper>
@@ -166,5 +166,81 @@ export function FilterRangeHistogram<T>(props: FilterRangeHistogramProps<T>) {
         <Bin key={String(h.x0)} h={h} i={i} props={props} />
       ))}
     </FilterRangeWrapper>
+  );
+}
+
+export const FILTER_SET_I18N_EN = {
+  filterMustNotSet: '{0} - Click to must not have this set',
+  filterMustSet: '{0} - Click to must have this set',
+  filterMaybeSet: '{0} - Click to remove filtering by this set',
+};
+
+export interface FilterSetValue<T> {
+  set: T;
+  value: boolean;
+}
+
+export interface FilterSetHistogramProps<T> extends HistogramProps<T> {
+  /**
+   * sets the current filter
+   */
+  setFilter: (value: FilterSetValue<T>[]) => void;
+  /**
+   * current filter value
+   */
+  filterValue: FilterSetValue<T>[];
+
+  i18n?: Partial<typeof FILTER_SET_I18N_EN>;
+}
+
+export function FilterSetHistogram<T>(props: FilterSetHistogramProps<T>) {
+  const { setFilter, filterValue = EMPTY_ARR } = props;
+  const hist = props.s.hist;
+
+  const i18n = useMemo(
+    () => ({
+      ...FILTER_SET_I18N_EN,
+      ...(props.i18n ?? {}),
+    }),
+    [props.i18n]
+  );
+
+  const onClick = useCallback(
+    (evt: React.MouseEvent<HTMLElement>) => {
+      const current: FilterSetValue<T>[] = filterValue ?? [];
+      const bin = hist[Number.parseInt(evt.currentTarget.dataset.i!, 10)];
+      const value = bin.x0;
+      const index = current.findIndex((d) => d.set === value);
+      if (index < 0) {
+        setFilter(current.concat([{ set: value, value: true }]));
+      } else if (current[index].value) {
+        current[index].value = false;
+        setFilter(current.slice());
+      } else {
+        const next = current.slice();
+        next.splice(index, 1);
+        setFilter(next);
+      }
+    },
+    [setFilter, hist, filterValue]
+  );
+  return (
+    <NumberStatsWrapper style={props.style} className={clsx('lt-histogram', props.className)} s={props.s} summary>
+      {props.s.hist.map((h, i) => {
+        const index = filterValue.findIndex((d) => d.set === h.x0);
+        return (
+          <Bin
+            key={String(h.x0)}
+            h={h}
+            props={props}
+            i={i}
+            onClick={onClick}
+            title={
+              index < 0 ? i18n.filterMustSet : filterValue[index].value ? i18n.filterMustNotSet : i18n.filterMaybeSet
+            }
+          />
+        );
+      })}
+    </NumberStatsWrapper>
   );
 }

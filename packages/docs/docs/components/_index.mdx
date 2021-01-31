@@ -6,7 +6,12 @@ slug: /components
 
 The `@lineup-lite/components` package is a collection of basic React visualization components and methods for computing statistics.
 
-LineUp-lite supports four different attribute types: [text](components/text), [categorical](components/categorical), [number](components/number), and [date](components/date).
+LineUp-lite supports thes different attribute types: 
+ - [text](components/text), 
+ - [categorical](components/categorical), 
+ - [categorical set](components/set)
+ - [number](components/number), 
+ - [date](components/date)
 
 ## Example
 
@@ -19,6 +24,7 @@ function Example() {
     age: 10,
     shirtSize: 'S',
     birthday: new Date(2011, 1, 1),
+    hobbies: ['running', 'cooking']
   };
 
   return (
@@ -27,6 +33,7 @@ function Example() {
       <NumberBar value={row.age} scale={normalize(0, 50)} />
       <CategoricalColor value={row.shirtSize} color="red" />
       <DateLabel value={row.birthday} />
+      <UpSetLine value={row.hobbies} sets={['running', 'reading', 'cooking']} />
     </div>
   );
 }

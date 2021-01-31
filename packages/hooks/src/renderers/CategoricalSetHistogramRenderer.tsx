@@ -1,16 +1,16 @@
-import { Histogram, FilterBinHistogram, ICategoricalStats } from '@lineup-lite/components';
+import { Histogram, ICategoricalStats, FilterSetHistogram } from '@lineup-lite/components';
 import React, { useContext } from 'react';
 import type { Renderer } from 'react-table';
 import { categoricalStats } from '../stats';
 import type { CategoricalRendererOptions } from './CategoricalRenderer';
 import { extractStats, groupMaxBin, isFilterAble, optionContext, statsGeneratorContext, StatsPropsLike } from './utils';
 
-export interface CategoricalHistogramRendererOptions extends CategoricalRendererOptions {
+export interface CategoricalSetHistogramRendererOptions extends CategoricalRendererOptions {
   maxBin?: number;
 }
 
-export function CategoricalHistogramRenderer<P extends StatsPropsLike<string>>(props: P) {
-  const options = useContext(optionContext) as CategoricalHistogramRendererOptions;
+export function CategoricalSetHistogramRenderer<P extends StatsPropsLike<string>>(props: P) {
+  const options = useContext(optionContext) as CategoricalSetHistogramRendererOptions;
   const stats =
     useContext<((arr: readonly string[], preFilter?: ICategoricalStats) => ICategoricalStats) | null>(
       statsGeneratorContext
@@ -23,7 +23,7 @@ export function CategoricalHistogramRenderer<P extends StatsPropsLike<string>>(p
   if (isFilterAble(props) && props.column.canFilter) {
     const { setFilter, filterValue } = props.column;
     return (
-      <FilterBinHistogram
+      <FilterSetHistogram
         s={s}
         preFilter={preFilter}
         maxBin={options.maxBin}
@@ -37,14 +37,14 @@ export function CategoricalHistogramRenderer<P extends StatsPropsLike<string>>(p
   return <Histogram s={s} maxBin={options.maxBin} label summary />;
 }
 
-export function CategoricalHistogramRendererFactory<P extends StatsPropsLike<string>>(
-  options: CategoricalHistogramRendererOptions = {}
+export function CategoricalSetHistogramRendererFactory<P extends StatsPropsLike<string>>(
+  options: CategoricalSetHistogramRendererOptions = {}
 ): Renderer<P> {
   const stats = categoricalStats(options);
   return (props: P) => (
     <statsGeneratorContext.Provider value={stats}>
       <optionContext.Provider value={options}>
-        <CategoricalHistogramRenderer {...props} />
+        <CategoricalSetHistogramRenderer {...props} />
       </optionContext.Provider>
     </statsGeneratorContext.Provider>
   );

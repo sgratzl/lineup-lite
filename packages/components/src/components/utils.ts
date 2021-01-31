@@ -1,5 +1,8 @@
 import React, { useMemo } from 'react';
 
+export const EMPTY_OBJ = {}; // static object to avoid updates
+export const EMPTY_ARR = [];
+
 export function toPercent(v: number) {
   return `${Math.round(v * 1000) / 10}%`;
 }

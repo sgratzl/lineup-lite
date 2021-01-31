@@ -1,0 +1,96 @@
+---
+title: Set
+---
+
+Categorical set attributes are string attributes that have a limited number of possible values such as colors (`red`, `green`, `blue`, ...).
+However, in contrast to a [categorical](/docs/components/categorical) attribute each row has a set of values, given in a set (`Set<string>`) or an array of strings (`string[]`).
+
+## Statistics
+
+The statistics are the same as the categorical attribute ones.
+
+see [ICategoricalStats API Docs](/api/components/interfaces/icategoricalstats.html)
+
+### Example
+
+```jsx live
+// import { categoricalStatsGenerator } from '@lineup-lite/components';
+
+function Example() {
+  const compute = categoricalStatsGenerator();
+  const data = ['c1', 'c2', 'c3', 'c2', 'c3', 'c1', 'c1', 'c2', 'c2'];
+  const stats = compute(data);
+
+  return <pre>{JSON.stringify(stats, null, 2)}</pre>;
+}
+```
+
+## Visualization
+
+### Cell
+
+[`UpSetLine`](/api/components/modules.html#upsetline) React component
+
+```jsx live
+// import { categoricalStatsGenerator, UpSetLine } from '@lineup-lite/components';
+
+function Example() {
+  const compute = categoricalStatsGenerator();
+  const data = ['c1', 'c2', 'c3', 'c2', 'c3', 'c1', 'c1', 'c2', 'c2'];
+  const stats = compute(data);
+
+  return (
+    <div>
+      <UpSetLine value="c1" color={stats.color} format={stats.format} sets={['c1', 'c2', 'c3']} />
+      <UpSetLine value="c2" color={stats.color} format={stats.format} sets={['c1', 'c2', 'c3']} />
+      <UpSetLine value="c3" color={stats.color} format={stats.format} sets={['c1', 'c2', 'c3']} />
+    </div>
+  );
+}
+```
+
+### Aggregation
+
+[`Histogram`](/api/components/modules.html#histogram) React component
+
+```jsx live
+// import { categoricalStatsGenerator, Histogram } from '@lineup-lite/components';
+
+function Example() {
+  const compute = categoricalStatsGenerator();
+  const data = ['c1', 'c2', 'c3', 'c2', 'c3', 'c1', 'c1', 'c2', 'c2'];
+  const stats = compute(data);
+
+  return <Histogram s={stats} style={{ height: 100 }} />;
+}
+```
+
+### Interactive Summary
+
+[`FilterSetHistogram`](/api/components/modules.html#filtersethistogram) React component
+
+```jsx live
+// import { categoricalStatsGenerator, FilterSetHistogram } from '@lineup-lite/components';
+
+function Example() {
+  const compute = categoricalStatsGenerator();
+  const data = ['c1', 'c2', 'c3', 'c2', 'c3', 'c1', 'c1', 'c2', 'c2'];
+  const stats = compute(data);
+
+  const [filterValue, setFilter] = React.useState(null);
+  const filtered = filterValue ? data.filter((d) => !filterValue.includes(d)) : data;
+  const filteredStats = categoricalStatsGenerator({ categories: stats.categories })(filtered);
+
+  return (
+    <FilterSetHistogram
+      s={filteredStats}
+      preFilter={stats}
+      filterValue={filterValue}
+      setFilter={setFilter}
+      label
+      summary
+      style={{ height: 100 }}
+    />
+  );
+}
+```

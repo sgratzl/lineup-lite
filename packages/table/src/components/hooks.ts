@@ -3,8 +3,7 @@ import type { TableInstance } from 'react-table';
 import type { CustomizeLineUpProps } from './interfaces';
 import type { LineUpLiteContextProps } from './contexts';
 import { LINEUP_LITE_I18N_EN } from '../i18n';
-
-const EMPTY_OBJ = {}; // static object to avoid updates
+import { EMPTY_OBJ } from './utils';
 
 export function useLineUpLiteContext<D extends object>(
   props: CustomizeLineUpProps & { dark?: boolean; onStateChange?: (state: any) => void },

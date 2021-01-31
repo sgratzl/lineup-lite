@@ -15,9 +15,11 @@ import {
   NumberHistogramRenderer,
   GroupValueRenderer,
   TextSummaryRenderer,
+  CategoricalSetRenderer,
+  CategoricalSetHistogramRenderer,
 } from './renderers';
 import { textStats, categoricalStats, dateStats, numberStats } from './stats';
-import { rangeFilter, categoricalFilter } from './filters';
+import { rangeFilter, categoricalFilter, categoricalSetFilter } from './filters';
 import type { LineUpLiteColumn } from './interfaces';
 import {
   sortCompare,
@@ -151,6 +153,34 @@ export function asCategoricalColumn<D extends object, C extends Column<D> = Colu
     ),
     defaultCanSort: true,
     groupBy: categoricalGroupBy,
+    canHide: false,
+    ...asColumn<D, C>(col),
+  } as unknown) as LineUpLiteColumn<D>;
+}
+
+/**
+ * defines a categorical set column
+ * @param col property key or partial column Header and accessor
+ * @param options additional options for statistics
+ */
+export function asCategoricalSetColumn<D extends object, C extends Column<D> = Column<D>>(
+  col: C | keyof D,
+  options?: CategoricalStatsOptions
+): LineUpLiteColumn<D> {
+  return ({
+    Cell: CategoricalSetRenderer,
+    Summary: CategoricalSetHistogramRenderer,
+    Group: CategoricalSetRenderer,
+    Aggregated: CategoricalSetHistogramRenderer,
+    aggregate: statsAggregate,
+    filter: categoricalSetFilter,
+    stats: categoricalStats(options),
+    sortType: sortSplitter(
+      options && options.categories ? sortCategories(options.categories) : sortCompare,
+      categoricalGroupCompare // TODO
+    ),
+    defaultCanSort: true,
+    groupBy: categoricalGroupBy, // TODO
     canHide: false,
     ...asColumn<D, C>(col),
   } as unknown) as LineUpLiteColumn<D>;
