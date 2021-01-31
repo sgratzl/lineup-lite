@@ -24,7 +24,7 @@
   "scripts": {
     "lint": "yarn run prettier:check && yarn workspaces foreach -v -p --topological-dev run lint",
     "fix": "yarn run prettier:write && yarn workspaces foreach -v --topological-dev run fix",
-    "clear": "yarn workspaces foreach -v -p --topological-dev run clear",
+    "clear": "yarn workspaces foreach -v -p --topological-dev run clear && shx rm -rf docs",
     "test": "yarn workspaces foreach -v -p --topological-dev run test",
     "libs": "yarn workspaces foreach -v -p --topological-dev --include \"@lineup-lite/(hooks|components|table)\" run build",
     "build": "yarn workspaces foreach -v -p --topological-dev run build",
