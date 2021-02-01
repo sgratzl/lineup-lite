@@ -50,6 +50,7 @@ export interface LineUpLiteProps<D extends object>
   style?: CSSProperties;
   dark?: boolean;
   icons?: Partial<ActionIcons>;
+  i18n?: UseLineUpLiteOptions<D>['i18n'] & CustomizeLineUpProps['i18n'];
   onStateChange?: (state: any) => void;
 }
 
