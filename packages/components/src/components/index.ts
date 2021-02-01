@@ -16,4 +16,5 @@ export * from './NumberSymbol';
 export * from './TextSummary';
 export * from './TextLabel';
 export * from './UpSetLine';
+export * from './HeatMap1D';
 export { clsx, mergeStyles, format, useI18N } from './utils';

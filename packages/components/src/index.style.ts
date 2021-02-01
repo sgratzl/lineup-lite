@@ -16,5 +16,6 @@ import './components/NumberSymbol.css';
 import './components/TextSummary.css';
 import './components/Summary.css';
 import './components/UpSetLine.css';
+import './components/HeatMap1D.css';
 
 export * from '.';

@@ -1,0 +1,20 @@
+/**
+ * @lineup-lite/components
+ * https://github.com/sgratzl/lineup-lite
+ *
+ * Copyright (c) 2021 Samuel Gratzl <sam@sgratzl.com>
+ */
+
+.lt-heatmap-1d {
+  flex-grow: 1;
+  display: flex;
+  height: 1.2em;
+}
+
+.lt-heatmap-1d-cell {
+  flex: 1 1 0;
+}
+
+.lt-heatmap-1d-cell > [aria-hidden="false"] {
+  display: none;
+}
