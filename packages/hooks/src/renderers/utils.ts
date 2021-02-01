@@ -24,7 +24,7 @@ function isValueArray<T>(props: any): props is { value: readonly T[] } {
   return Array.isArray((props as { value: readonly T[] }).value);
 }
 
-function deriveStats<S extends ICommonStats<T>, T>(
+export function deriveStats<S extends ICommonStats<T>, T>(
   props: StatsPropsLike<T>,
   statsGen: (arr: readonly T[], preFilterValues?: S) => S
 ) {

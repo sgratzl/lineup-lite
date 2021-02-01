@@ -7,9 +7,9 @@
 
 import { BoxPlotArray, INumberStats, NumberStatsOptions } from '@lineup-lite/components';
 import React, { useContext } from 'react';
-import type { Renderer } from 'react-table';
+import type { CellProps, Renderer } from 'react-table';
 import { numberStats } from '../stats';
-import { extractStats, optionContext, statsGeneratorContext, StatsPropsLike } from './utils';
+import { deriveStats, optionContext, statsGeneratorContext, StatsPropsLike } from './utils';
 
 export interface BoxPlotArrayRendererOptions extends NumberStatsOptions {
   maxBin?: number;
@@ -20,11 +20,10 @@ export function BoxPlotArrayRenderer<P extends StatsPropsLike<number>>(props: P)
   const stats =
     useContext<((arr: readonly number[], preFilter?: INumberStats) => INumberStats) | null>(statsGeneratorContext) ??
     numberStats(options);
-  const { s, base, cell } = extractStats(props, stats, true);
-  if (cell) {
-    return <BoxPlotArray value={s} i81n={props.i18n} scale={base.scale} color={base.color} format={base.format} />;
-  }
-  return null;
+  const { s } = deriveStats(props, stats);
+  const cellProps = (props as unknown) as CellProps<any, any>;
+
+  return <BoxPlotArray value={cellProps.value} i18n={props.i18n} scale={s.scale} color={s.color} format={s.format} />;
 }
 
 export function BoxPlotArrayRendererFactory<P extends StatsPropsLike<number>>(
