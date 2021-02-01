@@ -1,3 +1,10 @@
+/**
+ * @lineup-lite/table
+ * https://github.com/sgratzl/lineup-lite
+ *
+ * Copyright (c) 2021 Samuel Gratzl <sam@sgratzl.com>
+ */
+
 import React, { CSSProperties, PropsWithChildren, useMemo } from 'react';
 import { clsx } from './utils';
 import type {

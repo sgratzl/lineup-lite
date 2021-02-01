@@ -1,3 +1,10 @@
+/**
+ * @lineup-lite/docs
+ * https://github.com/sgratzl/lineup-lite
+ *
+ * Copyright (c) 2021 Samuel Gratzl <sam@sgratzl.com>
+ */
+
 import React, { PropsWithChildren, ReactNode } from 'react';
 import clsx from 'clsx';
 import Layout from '@theme/Layout';

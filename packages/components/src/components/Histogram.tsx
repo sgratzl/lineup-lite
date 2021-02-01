@@ -1,3 +1,10 @@
+/**
+ * @lineup-lite/components
+ * https://github.com/sgratzl/lineup-lite
+ *
+ * Copyright (c) 2021 Samuel Gratzl <sam@sgratzl.com>
+ */
+
 import React, { useCallback, useMemo, MouseEvent } from 'react';
 import type { IHistStats, IBin } from '../math/common';
 import { toPercent, clsx, i18n, EMPTY_ARR } from './utils';

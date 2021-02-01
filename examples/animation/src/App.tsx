@@ -1,3 +1,10 @@
+/**
+ * @lineup-lite/example-animation
+ * https://github.com/sgratzl/lineup-lite
+ *
+ * Copyright (c) 2021 Samuel Gratzl <sam@sgratzl.com>
+ */
+
 import React, { useMemo } from 'react';
 import './styles.css';
 import LineUpLite, {

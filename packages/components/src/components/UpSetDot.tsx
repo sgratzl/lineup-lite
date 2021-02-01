@@ -1,3 +1,10 @@
+/**
+ * @lineup-lite/components
+ * https://github.com/sgratzl/lineup-lite
+ *
+ * Copyright (c) 2021 Samuel Gratzl <sam@sgratzl.com>
+ */
+
 import React from 'react';
 import type { CommonProps } from './common';
 import { clsx } from './utils';

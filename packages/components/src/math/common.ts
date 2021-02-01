@@ -1,6 +1,10 @@
 /**
- * a bin in the histogram
+ * @lineup-lite/components
+ * https://github.com/sgratzl/lineup-lite
+ *
+ * Copyright (c) 2021 Samuel Gratzl <sam@sgratzl.com>
  */
+
 export interface IBin<T> {
   /**
    * number of items in this bin

@@ -1,3 +1,10 @@
+/**
+ * @lineup-lite/table
+ * https://github.com/sgratzl/lineup-lite
+ *
+ * Copyright (c) 2021 Samuel Gratzl <sam@sgratzl.com>
+ */
+
 import React, { forwardRef, ReactElement, Ref, RefAttributes, useContext } from 'react';
 import type { HeaderGroup } from 'react-table';
 import { LineUpLiteContext } from './contexts';

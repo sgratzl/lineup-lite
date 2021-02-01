@@ -1,3 +1,10 @@
+/**
+ * @lineup-lite/hooks
+ * https://github.com/sgratzl/lineup-lite
+ *
+ * Copyright (c) 2021 Samuel Gratzl <sam@sgratzl.com>
+ */
+
 import { Histogram, FilterBinHistogram, ICategoricalStats } from '@lineup-lite/components';
 import React, { useContext } from 'react';
 import type { Renderer } from 'react-table';

@@ -1,3 +1,10 @@
+/**
+ * @lineup-lite/table
+ * https://github.com/sgratzl/lineup-lite
+ *
+ * Copyright (c) 2021 Samuel Gratzl <sam@sgratzl.com>
+ */
+
 import React, { memo, useContext, Ref, forwardRef, RefAttributes, ReactElement } from 'react';
 import type { Row, UseExpandedRowProps, UseGroupByRowProps, UseRowSelectRowProps } from 'react-table';
 import { LineUpLiteContext } from './contexts';

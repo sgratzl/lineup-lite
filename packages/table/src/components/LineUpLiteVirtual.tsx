@@ -1,3 +1,10 @@
+/**
+ * @lineup-lite/table
+ * https://github.com/sgratzl/lineup-lite
+ *
+ * Copyright (c) 2021 Samuel Gratzl <sam@sgratzl.com>
+ */
+
 import type { ActionIcons } from '../icons';
 import React, { forwardRef, ReactElement, Ref, RefAttributes, useRef } from 'react';
 import type { LineUpLiteProps } from './interfaces';

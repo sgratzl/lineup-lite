@@ -26,17 +26,19 @@
     "fix": "yarn run prettier:write && yarn workspaces foreach -v --topological-dev run fix",
     "clear": "yarn workspaces foreach -v -p --topological-dev run clear && shx rm -rf docs",
     "test": "yarn workspaces foreach -v -p --topological-dev run test",
-    "libs": "yarn workspaces foreach -v -p --topological-dev --include \"@lineup-lite/(hooks|components|table)\" run build",
+    "libs": "yarn workspaces foreach -v -p --topological-dev --include \"packages/.*\" run build",
+    "build:website": "yarn workspaces foreach -v -p --topological-dev --include \"@lineup-lite/(hooks|components|table|docs)\" run build",
     "build": "yarn workspaces foreach -v -p --topological-dev run build",
     "compile": "yarn workspaces foreach -v -p --topological-dev run compile",
     "libs:watch": "yarn workspace @lineup-lite/table compile -w",
     "docs": "yarn workspaces foreach -v --topological-dev run docs",
     "copy_docs": "shx rm -rf docs && shx cp -r packages/docs/build/ docs/ && shx cp -r packages/hooks/docs/ docs/api/hooks/ && shx cp -r packages/table/docs/ docs/api/table/ && shx cp -r packages/components/docs/ docs/api/components/",
-    "website": "yarn build && yarn docs && yarn copy_docs",
+    "website": "yarn build:website && yarn docs && yarn copy_docs",
     "start": "yarn workspace @lineup-lite/docs run start",
     "prettier": "prettier .eslintrc.js .prettierrc.js *.json .yarnrc_patch.yml \".github/**\"",
     "prettier:write": "yarn run prettier --write",
-    "prettier:check": "yarn run prettier --check"
+    "prettier:check": "yarn run prettier --check",
+    "release:npm": "yarn workspaces foreach --verbose --no-private npm publish --access public"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^4.14.0",

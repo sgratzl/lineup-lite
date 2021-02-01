@@ -1,3 +1,10 @@
+/**
+ * @lineup-lite/table
+ * https://github.com/sgratzl/lineup-lite
+ *
+ * Copyright (c) 2021 Samuel Gratzl <sam@sgratzl.com>
+ */
+
 import { USE_EXPAND_COLUMN_I18N_EN, USE_ROW_SELECT_COLUMN_I18N_EN } from '@lineup-lite/hooks';
 import {
   BOXPLOT_I18N_EN,

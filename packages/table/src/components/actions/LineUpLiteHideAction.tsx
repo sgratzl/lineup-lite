@@ -1,3 +1,10 @@
+/**
+ * @lineup-lite/table
+ * https://github.com/sgratzl/lineup-lite
+ *
+ * Copyright (c) 2021 Samuel Gratzl <sam@sgratzl.com>
+ */
+
 import React, { ComponentType, useCallback, useContext } from 'react';
 import type { ColumnInstance } from 'react-table';
 import { LINEUP_LITE_I18N_EN } from '../../i18n';

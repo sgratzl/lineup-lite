@@ -1,3 +1,10 @@
+/**
+ * @lineup-lite/hooks
+ * https://github.com/sgratzl/lineup-lite
+ *
+ * Copyright (c) 2021 Samuel Gratzl <sam@sgratzl.com>
+ */
+
 import React, { forwardRef, HTMLAttributes, RefObject, useEffect, useRef } from 'react';
 
 const IndeterminateCheckbox = /*!#__PURE__*/ forwardRef<

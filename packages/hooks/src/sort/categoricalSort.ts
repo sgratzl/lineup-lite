@@ -1,3 +1,10 @@
+/**
+ * @lineup-lite/hooks
+ * https://github.com/sgratzl/lineup-lite
+ *
+ * Copyright (c) 2021 Samuel Gratzl <sam@sgratzl.com>
+ */
+
 import type { RowCompareFunction } from './interfaces';
 import type { Row } from 'react-table';
 import { ICategoricalStats, isCategoricalStats } from '@lineup-lite/components';

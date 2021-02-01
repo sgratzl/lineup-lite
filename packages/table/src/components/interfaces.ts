@@ -1,3 +1,10 @@
+/**
+ * @lineup-lite/table
+ * https://github.com/sgratzl/lineup-lite
+ *
+ * Copyright (c) 2021 Samuel Gratzl <sam@sgratzl.com>
+ */
+
 import type { HeaderGroup } from 'react-table';
 import type { ActionIcons } from '../icons';
 import type { LineUpLiteI18N } from '../i18n';

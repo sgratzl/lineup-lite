@@ -1,3 +1,10 @@
+/**
+ * @lineup-lite/table
+ * https://github.com/sgratzl/lineup-lite
+ *
+ * Copyright (c) 2021 Samuel Gratzl <sam@sgratzl.com>
+ */
+
 import { useEffect, useMemo } from 'react';
 import type { TableInstance } from 'react-table';
 import type { CustomizeLineUpProps } from './interfaces';

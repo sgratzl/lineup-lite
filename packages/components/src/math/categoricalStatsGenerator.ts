@@ -1,3 +1,10 @@
+/**
+ * @lineup-lite/components
+ * https://github.com/sgratzl/lineup-lite
+ *
+ * Copyright (c) 2021 Samuel Gratzl <sam@sgratzl.com>
+ */
+
 import { defaultCategoricalColorScale } from './defaults';
 import { IHistStats, maxHistBin, toHistString } from './common';
 

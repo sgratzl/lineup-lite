@@ -1,6 +1,10 @@
 /**
- * simple scale option clamping between 0 and 1
+ * @lineup-lite/components
+ * https://github.com/sgratzl/lineup-lite
+ *
+ * Copyright (c) 2021 Samuel Gratzl <sam@sgratzl.com>
  */
+
 export function defaultScale(v: number): number {
   return Math.max(Math.min(v, 1), 0);
 }

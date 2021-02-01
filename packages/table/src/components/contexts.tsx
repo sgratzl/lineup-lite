@@ -1,3 +1,10 @@
+/**
+ * @lineup-lite/table
+ * https://github.com/sgratzl/lineup-lite
+ *
+ * Copyright (c) 2021 Samuel Gratzl <sam@sgratzl.com>
+ */
+
 import { createContext, PropsWithChildren } from 'react';
 import React from 'react';
 import type { TableDispatch, TableInstance } from 'react-table';

@@ -1,3 +1,10 @@
+/**
+ * @lineup-lite/components
+ * https://github.com/sgratzl/lineup-lite
+ *
+ * Copyright (c) 2021 Samuel Gratzl <sam@sgratzl.com>
+ */
+
 import React, { useCallback } from 'react';
 import type { INumberStats } from '../math/numberStatsGenerator';
 import type { IBoxPlot } from '@sgratzl/boxplots';

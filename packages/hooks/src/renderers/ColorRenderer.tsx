@@ -1,3 +1,10 @@
+/**
+ * @lineup-lite/hooks
+ * https://github.com/sgratzl/lineup-lite
+ *
+ * Copyright (c) 2021 Samuel Gratzl <sam@sgratzl.com>
+ */
+
 import React, { useContext } from 'react';
 import type { CellProps, Renderer } from 'react-table';
 import type { BarRendererOptions } from './BarRenderer';

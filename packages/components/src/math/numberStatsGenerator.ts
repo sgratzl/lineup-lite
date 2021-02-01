@@ -1,3 +1,10 @@
+/**
+ * @lineup-lite/components
+ * https://github.com/sgratzl/lineup-lite
+ *
+ * Copyright (c) 2021 Samuel Gratzl <sam@sgratzl.com>
+ */
+
 import boxplot, { BoxplotStatsOptions, IBoxPlot } from '@sgratzl/boxplots';
 import { defaultColorScale } from './defaults';
 import { INumericStats, IBin, toHistString, maxHistBin } from './common';

@@ -1,3 +1,10 @@
+/**
+ * @lineup-lite/table
+ * https://github.com/sgratzl/lineup-lite
+ *
+ * Copyright (c) 2021 Samuel Gratzl <sam@sgratzl.com>
+ */
+
 import React, { forwardRef, ReactElement, Ref, RefAttributes } from 'react';
 import type { LineUpLiteProps } from './interfaces';
 import { LineUpLiteTHead } from './LineUpLiteTHead';

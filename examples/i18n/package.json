@@ -1,8 +1,22 @@
 {
   "name": "@lineup-lite/example-i18n",
+  "description": "LineUp-lite example project",
   "version": "1.1.0",
   "private": true,
-  "description": "LineUp-lite example project",
+  "license": "MPL-2.0",
+  "author": {
+    "name": "Samuel Gratzl",
+    "email": "sam@sgratzl.com",
+    "url": "https://wwww.sgratzl.com"
+  },
+  "homepage": "https://github.com/sgratzl/lineup-lite",
+  "bugs": {
+    "url": "https://github.com/sgratzl/lineup-lite/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sgratzl/lineup-lite.git"
+  },
   "keywords": [
     "typescript",
     "react",

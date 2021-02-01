@@ -1,3 +1,10 @@
+/**
+ * @lineup-lite/hooks
+ * https://github.com/sgratzl/lineup-lite
+ *
+ * Copyright (c) 2021 Samuel Gratzl <sam@sgratzl.com>
+ */
+
 import type { BarRendererOptions } from './BarRenderer';
 import type { CellProps } from 'react-table';
 import type { UseStatsColumnProps } from '../hooks';
