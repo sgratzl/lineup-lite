@@ -41,15 +41,22 @@ function generatePath(
   stats: Pick<IBoxPlot, 'q1' | 'q3' | 'whiskerHigh' | 'whiskerLow' | 'median'>,
   s: (v: number) => number,
   h: number,
-  padding: number
+  padding: number,
+  hor = true
 ) {
   const cy = h / 2;
   const q1 = s(stats.q1);
   const q3 = s(stats.q3);
   const boxHeight = h - padding * 2;
-  const whiskerLow = `M ${s(stats.whiskerLow)} 0 l 0 ${h} l 0 -${cy} L ${q1} ${cy}`;
-  const whiskerHigh = `M ${s(stats.whiskerHigh)} 0 l 0 ${h} l 0 -${cy} L ${q3} ${cy}`;
-  const median = `M ${s(stats.median)} ${padding} l 0 ${boxHeight}`;
+  const whiskerLow = hor
+    ? `M ${s(stats.whiskerLow)} 0 l 0 ${h} l 0 -${cy} L ${q1} ${cy}`
+    : `M 0 ${s(stats.whiskerLow)} l ${h} 0 l -${cy} 0 L ${cy} ${q1}`;
+  const whiskerHigh = hor
+    ? `M ${s(stats.whiskerHigh)} 0 l 0 ${h} l 0 -${cy} L ${q3} ${cy}`
+    : `M 0 ${s(stats.whiskerHigh)} l ${h} 0 l -${cy} 0 L ${cy} ${q3}`;
+  const median = hor
+    ? `M ${s(stats.median)} ${padding} l 0 ${boxHeight}`
+    : `M ${padding} ${s(stats.median)} l ${boxHeight} 0`;
 
   return `${whiskerLow} ${whiskerHigh} ${median}`;
 }
@@ -73,6 +80,73 @@ ${i18n.boxplotNrItems(`${s.count.toLocaleString()}${pre ? `/${pre.count.toLocale
  * renders a boxplot as a SVG chart
  */
 export function BoxPlotChart(props: BoxPlotChartProps) {
+  const s = props.s;
+  const pre = props.preFilter;
+  const i18n = useI18N(BOXPLOT_I18N_EN, props.i18n);
+  const boxPadding = 2;
+  const scale = useCallback((v: number) => Math.round(s.scale(v) * 1000) / 10, [s]);
+  const outlierRadius = 4;
+  const width = 20;
+
+  const generateBoxPlot = (b: Omit<IBoxPlot, 'items'>) => {
+    const cx = width / 2;
+    const path = generatePath(b, scale, width, boxPadding, false);
+    return (
+      <>
+        <rect
+          y={scale(b.q1)}
+          x={boxPadding}
+          width={width - boxPadding * 2}
+          height={scale(b.median) - scale(b.q1)}
+          className="lt-boxplot-box"
+          style={{ fill: s.color(s.scale((b.median + b.q1) / 2)) }}
+        />
+        <rect
+          y={scale(b.median)}
+          x={boxPadding}
+          width={width - boxPadding * 2}
+          height={scale(b.q3) - scale(b.median)}
+          style={{ fill: s.color(s.scale((b.median + b.q3) / 2)) }}
+          className="lt-boxplot-box"
+        />
+        <path d={`M ${boxPadding} ${scale(b.mean)} l ${width - boxPadding * 2} 0`} className="lt-boxplot-mean" />
+        <path d={path} className="lt-boxplot-frame" />
+        {b.outlier.map((o) => (
+          <path
+            className="lt-boxplot-outlier"
+            key={o}
+            d={`M ${cx - outlierRadius} ${scale(o)} l ${2 * outlierRadius} 0`}
+          >
+            <title>{s.format(o)}</title>
+          </path>
+        ))}
+      </>
+    );
+  };
+
+  const offset = pre != null ? width * 0.1 : 0;
+  return (
+    <svg
+      viewBox={`0 0 ${width + offset} 100`}
+      className={props.className}
+      style={props.style}
+      preserveAspectRatio="none"
+    >
+      <title>{generateTitle(s, pre, i18n)}</title>
+      {pre != null && pre.count > s.count && (
+        <g className="lt-boxplot-pre" transform={`translate(${offset},0)`}>
+          {generateBoxPlot(pre)}
+        </g>
+      )}
+      {generateBoxPlot(s)}
+    </svg>
+  );
+}
+
+/**
+ * renders a boxplot as a SVG chart
+ */
+export function BoxPlotChartVertical(props: BoxPlotChartProps) {
   const s = props.s;
   const pre = props.preFilter;
   const i18n = useI18N(BOXPLOT_I18N_EN, props.i18n);
