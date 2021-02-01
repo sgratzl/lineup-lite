@@ -265,6 +265,9 @@ function createFlat(arr: readonly DateLike[]) {
       v.forEach((vi) => push(vi));
       continue;
     }
+    if (!Array.isArray(v)) {
+      continue;
+    }
     const vClean: Date[] = [];
     for (const vi of v) {
       if (vi == null) {

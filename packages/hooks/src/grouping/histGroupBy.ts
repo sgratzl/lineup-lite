@@ -8,6 +8,7 @@
 import type { INumericStats } from '@lineup-lite/components';
 import { ColumnInstance, defaultGroupByFn, Row } from 'react-table';
 import type { UseStatsColumnProps } from '../hooks';
+import { computeArrayNumberStats } from '../stats';
 
 export const MISSING_GROUP = 'Missing Values';
 
@@ -29,7 +30,16 @@ export function histGroupBy<D extends object, T extends number | Date>(
   stats.hist.forEach((bin, i) => {
     const key = bin.label;
     const group = rows.filter((row) => {
-      const v = row.values[column.id];
+      let v = row.values[column.id];
+      if (v == null) {
+        return false;
+      }
+      // support group by variants
+      if (Array.isArray(v)) {
+        // TODO support dates, too
+        const stats = computeArrayNumberStats(v, column)!;
+        v = stats.median;
+      }
       return (
         v != null &&
         ((bin.x0 <= v && v < bin.x1) || (v < bin.x1 && i === 0) || (i === stats.hist.length - 1 && v >= bin.x0))

@@ -21,6 +21,7 @@ module.exports = {
         'components/number',
         'components/date',
         'components/set',
+        'components/numbers',
         {
           type: 'link',
           label: 'API',
@@ -65,11 +66,14 @@ module.exports = {
       label: 'Examples',
       items: [
         'examples/_index',
+        'examples/animation',
         'examples/virtualized-rows',
         'examples/pagination',
         'examples/controlled-state',
         'examples/multi-sorting',
         'examples/i18n',
+        'examples/sets',
+        'examples/numbers',
       ],
     },
     {

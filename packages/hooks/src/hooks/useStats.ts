@@ -57,10 +57,38 @@ export interface StatsType {
   (values: readonly any[], preFilterStats?: any): any;
 }
 
+export type StatsAggregateArray<T> = T[] & { _aggregate?: <V>(gen: (vs: T[], preFilter?: V) => V, stats?: V) => any };
+
+function isStatsAggregateArray(v: any): v is StatsAggregateArray<any> {
+  return Array.isArray(v) && typeof (v as StatsAggregateArray<any>)._aggregate === 'function';
+}
+
 export function statsAggregate<T>(v: T[]): T[] {
+  // combine into an array
   if (Array.isArray(v)) {
-    const copy: T[] & { _agg?: boolean } = v.slice();
-    copy._agg = true;
+    const copy: StatsAggregateArray<T> = v.slice();
+    copy._aggregate = (gen, stats) => gen(copy, stats);
+    return copy;
+  }
+  return v;
+}
+
+export function statsAggregateArray<T>(v: T[]): T[] {
+  // combine into an array
+  if (Array.isArray(v)) {
+    const copy: StatsAggregateArray<T> = v.slice();
+    copy._aggregate = (gen, stats) => {
+      // aggregate by column
+      const maxLength = copy.reduce((acc, v) => Math.max(acc, Array.isArray(v) ? v.length : 0), 0);
+      return Array(maxLength)
+        .fill(0)
+        .map((_, i) =>
+          gen(
+            copy.map((d) => (Array.isArray(d) ? d[i] : null)),
+            stats
+          )
+        );
+    };
     return copy;
   }
   return v;
@@ -111,12 +139,10 @@ function useInstance<D extends object>(instance: TableInstance<D>) {
     const grouped = extendedInstance.onlyGroupedFlatRows ?? [];
     grouped.forEach((group) => {
       const value = group.values[col.id];
-      // not an array or the grouped row
-      if (!Array.isArray(value) || !(value as { _agg?: boolean })._agg || col.id === (group as any).groupByID) {
-        return;
+      // compute group value for stats
+      if (isStatsAggregateArray(value)) {
+        group.values[col.id] = value._aggregate!(extended.stats!, extended.statsValue);
       }
-      // compute stats
-      group.values[col.id] = extended.stats!(value, extended.statsValue);
     });
   });
 }

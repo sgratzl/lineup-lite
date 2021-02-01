@@ -6,7 +6,6 @@
  */
 
 import React, { useCallback } from 'react';
-import type { INumberStats } from '../math/numberStatsGenerator';
 import type { IBoxPlot } from '@sgratzl/boxplots';
 import { NumberStatsWrapper } from './NumberStatsWrapper';
 import { FilterRangeWrapper, FilterRangeSliderProps } from './FilterRange';
@@ -23,11 +22,17 @@ export const BOXPLOT_I18N_EN = {
   boxplotNrItems: '# Items: {0}',
 };
 
+export type BoxPlotScaled = Omit<IBoxPlot, 'items'> & {
+  scale: (v: number) => number;
+  format: (v: number) => string;
+  color: (v: number) => string;
+};
+
 export interface BoxPlotChartProps extends CommonProps {
   /**
    * the number boxplot statistics
    */
-  s: INumberStats;
+  s: BoxPlotScaled;
   /**
    * the optional stats containing the unfiltered stats in case of filtering operation applied
    * to the regular one
@@ -62,7 +67,7 @@ function generatePath(
 }
 
 function generateTitle(
-  s: INumberStats,
+  s: BoxPlotScaled,
   pre: Omit<IBoxPlot, 'items'> | undefined,
   i18n: Record<keyof typeof BOXPLOT_I18N_EN, (...args: any[]) => string>
 ) {
@@ -86,76 +91,12 @@ export function BoxPlotChart(props: BoxPlotChartProps) {
   const boxPadding = 2;
   const scale = useCallback((v: number) => Math.round(s.scale(v) * 1000) / 10, [s]);
   const outlierRadius = 4;
-  const width = 20;
-
-  const generateBoxPlot = (b: Omit<IBoxPlot, 'items'>) => {
-    const cx = width / 2;
-    const path = generatePath(b, scale, width, boxPadding, false);
-    return (
-      <>
-        <rect
-          y={scale(b.q1)}
-          x={boxPadding}
-          width={width - boxPadding * 2}
-          height={scale(b.median) - scale(b.q1)}
-          className="lt-boxplot-box"
-          style={{ fill: s.color(s.scale((b.median + b.q1) / 2)) }}
-        />
-        <rect
-          y={scale(b.median)}
-          x={boxPadding}
-          width={width - boxPadding * 2}
-          height={scale(b.q3) - scale(b.median)}
-          style={{ fill: s.color(s.scale((b.median + b.q3) / 2)) }}
-          className="lt-boxplot-box"
-        />
-        <path d={`M ${boxPadding} ${scale(b.mean)} l ${width - boxPadding * 2} 0`} className="lt-boxplot-mean" />
-        <path d={path} className="lt-boxplot-frame" />
-        {b.outlier.map((o) => (
-          <path
-            className="lt-boxplot-outlier"
-            key={o}
-            d={`M ${cx - outlierRadius} ${scale(o)} l ${2 * outlierRadius} 0`}
-          >
-            <title>{s.format(o)}</title>
-          </path>
-        ))}
-      </>
-    );
-  };
-
-  const offset = pre != null ? width * 0.1 : 0;
-  return (
-    <svg
-      viewBox={`0 0 ${width + offset} 100`}
-      className={props.className}
-      style={props.style}
-      preserveAspectRatio="none"
-    >
-      <title>{generateTitle(s, pre, i18n)}</title>
-      {pre != null && pre.count > s.count && (
-        <g className="lt-boxplot-pre" transform={`translate(${offset},0)`}>
-          {generateBoxPlot(pre)}
-        </g>
-      )}
-      {generateBoxPlot(s)}
-    </svg>
-  );
-}
-
-/**
- * renders a boxplot as a SVG chart
- */
-export function BoxPlotChartVertical(props: BoxPlotChartProps) {
-  const s = props.s;
-  const pre = props.preFilter;
-  const i18n = useI18N(BOXPLOT_I18N_EN, props.i18n);
-  const boxPadding = 2;
-  const scale = useCallback((v: number) => Math.round(s.scale(v) * 1000) / 10, [s]);
-  const outlierRadius = 4;
   const height = 20;
 
   const generateBoxPlot = (b: Omit<IBoxPlot, 'items'>) => {
+    if (Number.isNaN(b.median)) {
+      return null;
+    }
     const cy = height / 2;
     const path = generatePath(b, scale, height, boxPadding);
     return (
@@ -210,11 +151,81 @@ export function BoxPlotChartVertical(props: BoxPlotChartProps) {
   );
 }
 
+/**
+ * renders a boxplot as a SVG chart
+ */
+export function BoxPlotChartVertical(props: BoxPlotChartProps) {
+  const s = props.s;
+  const pre = props.preFilter;
+  const i18n = useI18N(BOXPLOT_I18N_EN, props.i18n);
+  const boxPadding = 2;
+  const scale = useCallback((v: number) => Math.round(s.scale(v) * 1000) / 10, [s]);
+  const outlierRadius = 4;
+  const width = 20;
+
+  const generateBoxPlot = (b: Omit<IBoxPlot, 'items'>) => {
+    if (Number.isNaN(b.median)) {
+      return null;
+    }
+    const cx = width / 2;
+    const path = generatePath(b, scale, width, boxPadding, false);
+    return (
+      <>
+        <rect
+          y={scale(b.q1)}
+          x={boxPadding}
+          width={width - boxPadding * 2}
+          height={scale(b.median) - scale(b.q1)}
+          className="lt-boxplot-box"
+          style={{ fill: s.color(s.scale((b.median + b.q1) / 2)) }}
+        />
+        <rect
+          y={scale(b.median)}
+          x={boxPadding}
+          width={width - boxPadding * 2}
+          height={scale(b.q3) - scale(b.median)}
+          style={{ fill: s.color(s.scale((b.median + b.q3) / 2)) }}
+          className="lt-boxplot-box"
+        />
+        <path d={`M ${boxPadding} ${scale(b.mean)} l ${width - boxPadding * 2} 0`} className="lt-boxplot-mean" />
+        <path d={path} className="lt-boxplot-frame" />
+        {b.outlier.map((o) => (
+          <path
+            className="lt-boxplot-outlier"
+            key={o}
+            d={`M ${cx - outlierRadius} ${scale(o)} l ${2 * outlierRadius} 0`}
+          >
+            <title>{s.format(o)}</title>
+          </path>
+        ))}
+      </>
+    );
+  };
+
+  const offset = pre != null ? width * 0.1 : 0;
+  return (
+    <svg
+      viewBox={`0 0 ${width + offset} 100`}
+      className={props.className}
+      style={props.style}
+      preserveAspectRatio="none"
+    >
+      <title>{generateTitle(s, pre, i18n)}</title>
+      {pre != null && pre.count > s.count && (
+        <g className="lt-boxplot-pre" transform={`translate(${offset},0)`}>
+          {generateBoxPlot(pre)}
+        </g>
+      )}
+      {generateBoxPlot(s)}
+    </svg>
+  );
+}
+
 export interface BoxPlotProps extends CommonProps {
   /**
    * the stats to render
    */
-  s: INumberStats;
+  s: BoxPlotScaled;
   /**
    * the optional stats containing the unfiltered stats in case of filtering operation applied
    * to the regular one

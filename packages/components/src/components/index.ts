@@ -17,4 +17,5 @@ export * from './TextSummary';
 export * from './TextLabel';
 export * from './UpSetLine';
 export * from './HeatMap1D';
+export * from './BoxPlotArray';
 export { clsx, mergeStyles, format, useI18N } from './utils';

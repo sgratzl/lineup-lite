@@ -90,6 +90,9 @@ export function categoricalStatsGenerator(
         v.forEach((vi) => pushValue(vi));
         continue;
       }
+      if (!Array.isArray(v)) {
+        continue;
+      }
       const vClean: string[] = [];
       for (const vi of v) {
         if (vi == null) {

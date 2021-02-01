@@ -24,6 +24,8 @@ import {
   TextSummaryRenderer,
   CategoricalSetRenderer,
   CategoricalSetHistogramRenderer,
+  HeatMap1DRenderer,
+  BoxPlotArrayRenderer,
 } from './renderers';
 import { textStats, categoricalStats, dateStats, numberStats } from './stats';
 import { rangeFilter, categoricalFilter, categoricalSetFilter } from './filters';
@@ -38,9 +40,10 @@ import {
   dateGroupCompare,
   categoricalSetCompare,
   categoricalSetGroupCompare,
+  numbersCompare,
 } from './sort';
 import { categoricalGroupBy, dateGroupBy, numberGroupBy, textGroupBy, categoricalSetGroupBy } from './grouping';
-import { statsAggregate } from './hooks';
+import { statsAggregate, statsAggregateArray } from './hooks';
 
 function guessName(acc: string) {
   return acc
@@ -102,6 +105,32 @@ export function asNumberColumn<D extends object, C extends Column<D> = Column<D>
     filter: rangeFilter,
     stats: numberStats(options),
     sortType: sortSplitter(sortCompare, numberGroupCompare),
+    sortDescFirst: true,
+    defaultCanGroupBy: false,
+    groupBy: numberGroupBy,
+    canHide: false,
+    ...asColumn<D, C>(col),
+  } as unknown) as LineUpLiteColumn<D>;
+}
+
+/**
+ * defines a number array column, each value is a number array
+ * @param col property key or partial column Header and accessor
+ * @param options additional options for statistics
+ */
+export function asNumbersColumn<D extends object, C extends Column<D> = Column<D>>(
+  col: C | keyof D,
+  options?: NumberStatsOptions
+): LineUpLiteColumn<D> {
+  return ({
+    Cell: HeatMap1DRenderer,
+    Summary: NumberHistogramRenderer,
+    Group: GroupValueRenderer,
+    Aggregated: BoxPlotArrayRenderer,
+    aggregate: statsAggregateArray,
+    filter: rangeFilter,
+    stats: numberStats(options),
+    sortType: sortSplitter(numbersCompare, numberGroupCompare),
     sortDescFirst: true,
     defaultCanGroupBy: false,
     groupBy: numberGroupBy,

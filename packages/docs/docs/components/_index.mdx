@@ -8,10 +8,11 @@ The `@lineup-lite/components` package is a collection of basic React visualizati
 
 LineUp-lite supports thes different attribute types:
 
-- [text](components/text),
-- [categorical](components/categorical),
+- [text](components/text)
+- [categorical](components/categorical)
 - [categorical set](components/set)
-- [number](components/number),
+- [number](components/number)
+- [number array](components/numbers)
 - [date](components/date)
 
 ## Example
@@ -26,6 +27,7 @@ function Example() {
     shirtSize: 'S',
     birthday: new Date(2011, 1, 1),
     hobbies: ['running', 'cooking'],
+    runningTimes: [10, 20, 40, 30, 15],
   };
 
   return (
@@ -35,6 +37,7 @@ function Example() {
       <CategoricalColor value={row.shirtSize} color="red" />
       <DateLabel value={row.birthday} />
       <UpSetLine value={row.hobbies} sets={['running', 'reading', 'cooking']} />
+      <HeatMap1D value={row.runningTimes} />
     </div>
   );
 }

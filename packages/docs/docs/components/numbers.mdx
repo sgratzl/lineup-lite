@@ -1,0 +1,152 @@
+---
+title: Numbers
+---
+
+## Statistics
+
+LineUp-lite computes the following statistics for a numerical attribute:
+
+```tsx
+export interface INumberStats extends IBoxPlot, INumericStats<number> {}
+```
+
+see [INumberStats API Docs](/api/components/interfaces/inumberstats.html)
+
+### Generator Function
+
+The statistics are the same as the number attribute ones.
+
+see [numberStatsGenerator API Docs](/api/components/modules.html#numberstatsgenerator)
+
+### Example
+
+```jsx live
+// import { numberStatsGenerator } from '@lineup-lite/components';
+
+function Example() {
+  const compute = numberStatsGenerator();
+  const data = [
+    [10, 20, 40, 30, 15],
+    [21, 39, 25, 42, 18],
+    [16, 44, 30, 32, 31],
+    [39, 50, 43, 32, 24],
+    [36, 19, 37, 38, 17],
+  ];
+  const stats = compute(data);
+
+  return <pre>{JSON.stringify(stats, null, 2)}</pre>;
+}
+```
+
+## Visualization
+
+### Cell
+
+[`HeatMap1D`](/api/components/modules.html#heatmap1d) React component
+
+```jsx live
+// import { numberStatsGenerator, NumberBar, NumberColor, NumberSymbol } from '@lineup-lite/components';
+
+function Example() {
+  const compute = numberStatsGenerator();
+  const data = [
+    [10, 20, 40, 30, 15],
+    [21, 39, 25, 42, 18],
+    [16, 44, 30, 32, 31],
+    [39, 50, 43, 32, 24],
+    [36, 19, 37, 38, 17],
+  ];
+  const stats = compute(data);
+
+  return (
+    <div>
+      <HeatMap1D value={data[0]} scale={stats.scale} color={stats.color} format={stats.format} />
+      <HeatMap1D value={data[1]} scale={stats.scale} color={stats.color} format={stats.format} />
+      <HeatMap1D value={data[2]} scale={stats.scale} color={stats.color} format={stats.format} />
+    </div>
+  );
+}
+```
+
+### Aggregation
+
+[`BoxPlotArray`](/api/components/modules.html#boxplotarray) React component
+
+```jsx live
+// import { numberStatsGenerator, Histogram, BoxPlot } from '@lineup-lite/components';
+
+function Example() {
+  const compute = numberStatsGenerator();
+  const data = [
+    [10, 20, 40, 30, 15],
+    [21, 39, 25, 42, 18],
+    [16, 44, 30, 32, 31],
+    [39, 50, 43, 32, 24],
+    [36, 19, 37, 38, 17],
+  ];
+  const stats = compute(data);
+
+  const vs = data[0].map((_, i) => compute(data.map((d) => d[i])));
+
+  return (
+    <div>
+      <BoxPlotArray value={vs} format={stats.format} scale={stats.scale} color={stats.color} style={{ height: 100 }} />
+    </div>
+  );
+}
+```
+
+### Interactive Summary
+
+[`FilterRangeHistogram`](/api/components/modules.html#filterrangehistogram) React component or
+[`FilterRangeBoxPlot`](/api/components/modules.html#filterrangeboxplot) React component
+
+```jsx live
+// import { numberStatsGenerator, FilterRangeHistogram, FilterRangeBoxPlot } from '@lineup-lite/components';
+
+function Example() {
+  const compute = numberStatsGenerator();
+  const data = [
+    [10, 20, 40, 30, 15],
+    [21, 39, 25, 42, 18],
+    [16, 44, 30, 32, 31],
+    [39, 50, 43, 32, 24],
+    [36, 19, 37, 38, 17],
+  ];
+  const stats = compute(data);
+  console.log(stats.min, stats.max);
+
+  const [filterValue, setFilter] = React.useState(null);
+  const filtered = filterValue
+    ? data.filter((vs) =>
+        vs.every(
+          (d) => (filterValue[0] == null || filterValue[0] <= d) && (filterValue[1] == null || d <= filterValue[1])
+        )
+      )
+    : data;
+  const filteredStats = numberStatsGenerator({ min: stats.min, max: stats.max, numberOfBins: stats.hist.length })(
+    filtered
+  );
+
+  return (
+    <div>
+      <FilterRangeHistogram
+        s={filteredStats}
+        preFilter={stats}
+        filterValue={filterValue}
+        setFilter={setFilter}
+        summary
+        style={{ height: 100 }}
+      />
+      <FilterRangeBoxPlot
+        s={filteredStats}
+        preFilter={stats}
+        filterValue={filterValue}
+        setFilter={setFilter}
+        summary
+        style={{ height: 100 }}
+      />
+    </div>
+  );
+}
+```

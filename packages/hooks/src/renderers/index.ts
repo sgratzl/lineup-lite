@@ -18,3 +18,5 @@ export * from './TextSummaryRenderer';
 export * from './GroupValueRenderer';
 export * from './CategoricalSetRenderer';
 export * from './CategoricalSetHistogramRenderer';
+export * from './HeatMap1DRenderer';
+export * from './BoxPlotArrayRenderer';

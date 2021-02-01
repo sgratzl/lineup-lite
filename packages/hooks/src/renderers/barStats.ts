@@ -11,7 +11,7 @@ import type { UseStatsColumnProps } from '../hooks';
 import { INumberStats, defaultScale, defaultConstantColorScale, resolveNumberFormatter } from '@lineup-lite/components';
 import { resolve } from './utils';
 
-export function deriveNumberOptions<D extends object, P extends CellProps<D, number>>(
+export function deriveNumberOptions<D extends object, P extends CellProps<D, any>>(
   props: P,
   options: BarRendererOptions = {}
 ) {

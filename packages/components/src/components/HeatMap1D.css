@@ -15,6 +15,6 @@
   flex: 1 1 0;
 }
 
-.lt-heatmap-1d-cell > [aria-hidden="false"] {
+.lt-heatmap-1d-cell > [aria-hidden='false'] {
   display: none;
 }

@@ -14,6 +14,7 @@ export {
   asCategoricalSetColumn,
   asDateColumn,
   asNumberBoxPlotColumn,
+  asNumbersColumn,
   asTextColumn,
   asNumberColumn,
   deriveColumn,

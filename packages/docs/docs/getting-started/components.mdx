@@ -11,6 +11,7 @@ LineUp-lite supports multiple different attribute types:
 - [number](/docs/components/number)
 - [date](/docs/components/date)
 - [set](/docs/components/set)
+- [number array](/docs/components/numbers)
 
 ## Install LineUp-lite Components
 
@@ -35,6 +36,8 @@ function Example() {
     age: 10,
     shirtSize: 'S',
     birthday: new Date(2011, 1, 1),
+    hobbies: ['running', 'cooking'],
+    runningTimes: [10, 20, 40, 30, 15],
   };
 
   return (
@@ -43,6 +46,8 @@ function Example() {
       <NumberBar value={row.age} scale={normalize(0, 50)} />
       <CategoricalColor value={row.shirtSize} color="red" />
       <DateLabel value={row.birthday} />
+      <UpSetLine value={row.hobbies} sets={['running', 'reading', 'cooking']} />
+      <HeatMap1D value={row.runningTimes} scale={normalize(10, 50)} />
     </div>
   );
 }

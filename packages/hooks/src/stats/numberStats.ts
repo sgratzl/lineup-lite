@@ -6,6 +6,8 @@
  */
 
 import { numberStatsGenerator, NumberStatsOptions, INumberStats } from '@lineup-lite/components';
+import type { ColumnInstance } from 'react-table';
+import type { UseStatsColumnOptions, UseStatsColumnProps } from '../hooks';
 
 function compute(
   gen: ReturnType<typeof numberStatsGenerator>,
@@ -31,4 +33,21 @@ export function numberStats(
 ): (arr: readonly number[], preFilter?: INumberStats) => INumberStats {
   const gen = numberStatsGenerator(options);
   return compute.bind(undefined, gen, options);
+}
+
+export type NumberArrayWithStats = number[] & { _stats?: INumberStats };
+
+export function computeArrayNumberStats(
+  arr: NumberArrayWithStats,
+  column?: ColumnInstance<any> & Partial<UseStatsColumnOptions<any> & UseStatsColumnProps>
+): INumberStats | null {
+  if (arr == null) {
+    return null;
+  }
+  if (arr._stats) {
+    return arr._stats;
+  }
+  // cache stats to avoid recomputing
+  arr._stats = (column?.stats ?? numberStatsGenerator())(arr, column?.preFilterStatsValue ?? column?.statsValue);
+  return arr._stats!;
 }

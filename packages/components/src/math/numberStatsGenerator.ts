@@ -146,6 +146,9 @@ function createFlat(arr: readonly NumberLike[] | Float32Array | Float64Array) {
       v.forEach((vi) => flatItems.push(vi));
       continue;
     }
+    if (!Array.isArray(v)) {
+      continue;
+    }
     const vClean: number[] = [];
     for (const vi of v) {
       if (vi == null) {

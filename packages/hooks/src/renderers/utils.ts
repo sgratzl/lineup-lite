@@ -48,7 +48,8 @@ function deriveStats<S extends ICommonStats<T>, T>(
 
 export function extractStats<S extends ICommonStats<T>, T>(
   props: StatsPropsLike<T>,
-  statsGen: (arr: readonly T[], preFilterValues?: S) => S
+  statsGen: (arr: readonly T[], preFilterValues?: S) => S,
+  expectArray = false
 ) {
   const { s, preFilter } = deriveStats(props, statsGen);
   const cellProps = (props as unknown) as CellProps<any, any>;
@@ -56,9 +57,10 @@ export function extractStats<S extends ICommonStats<T>, T>(
 
   if (cell) {
     return {
-      s: isValueArray(props) ? statsGen(props.value, s) : (cellProps.value as S),
+      s: isValueArray(props) && !expectArray ? statsGen(props.value, s) : (cellProps.value as S),
       preFilter,
       cell,
+      base: s,
     };
   }
   return {
@@ -66,6 +68,7 @@ export function extractStats<S extends ICommonStats<T>, T>(
     preFilter,
     cell,
     isAggregated: false,
+    base: null as null | S,
   };
 }
 
