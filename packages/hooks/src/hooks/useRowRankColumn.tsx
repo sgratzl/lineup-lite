@@ -16,6 +16,7 @@ import {
   UseGroupByInstanceProps,
   UseTableCellProps,
   UseGroupByRowProps,
+  MetaBase,
 } from 'react-table';
 import type { LineUpLiteColumn } from '../interfaces';
 
@@ -57,16 +58,25 @@ function Header() {
   return <div> </div>;
 }
 
-function generateColumn<D extends object = {}>(columns: ColumnInstance<D>[]) {
+export interface UseRowRankColumnTableOptions {
+  /**
+   * width of the rank column
+   * @default 40
+   */
+  rankColumnWidth?: number;
+}
+
+function generateColumn<D extends object = {}>(columns: ColumnInstance<D>[], meta: MetaBase<D>) {
+  const width = (meta.instance as UseRowRankColumnTableOptions).rankColumnWidth ?? 40;
   const rankColumn: LineUpLiteColumn<D> = {
     id: 'rank',
     Header,
     Summary,
     Aggregated,
     Cell,
-    minWidth: 30,
-    width: 40,
-    maxWidth: 50,
+    minWidth: width - 10,
+    width,
+    maxWidth: width + 10,
     disableFilters: true,
     disableSortBy: true,
     disableGroupBy: true,

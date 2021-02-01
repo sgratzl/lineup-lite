@@ -6,7 +6,7 @@
  */
 
 import React, { useCallback, MouseEvent } from 'react';
-import type { ColumnInstance, Hooks, Row, UseRowSelectRowProps } from 'react-table';
+import type { ColumnInstance, Hooks, MetaBase, Row, UseRowSelectRowProps } from 'react-table';
 import type { LineUpLiteColumn } from '../interfaces';
 import IndeterminateCheckbox from './IndeterminateCheckbox';
 
@@ -25,7 +25,15 @@ export const USE_ROW_SELECT_COLUMN_I18N_EN = {
 };
 
 export interface UseSelectColumnTableOptions {
+  /**
+   * i18n customizations
+   */
   i18n?: Partial<typeof USE_ROW_SELECT_COLUMN_I18N_EN>;
+  /**
+   * width of the select column
+   * @default 20
+   */
+  selectColumnWidth?: number;
 }
 
 function Cell(props: any) {
@@ -87,15 +95,16 @@ function Header() {
   return <div> </div>;
 }
 
-function generateColumn<D extends object = {}>(columns: ColumnInstance<D>[]) {
+function generateColumn<D extends object = {}>(columns: ColumnInstance<D>[], meta: MetaBase<D>) {
+  const width = (meta.instance as UseSelectColumnTableOptions).selectColumnWidth ?? 20;
   const selectionColumn: LineUpLiteColumn<D> = {
     id: 'selection',
     Header,
     Summary,
     Cell,
-    minWidth: 20,
-    width: 20,
-    maxWidth: 20,
+    minWidth: width,
+    width,
+    maxWidth: width,
     disableFilters: true,
     disableSortBy: true,
     disableGroupBy: true,

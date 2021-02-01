@@ -13,6 +13,8 @@ import {
   useStats,
   useRowRankColumn,
   LineUpLiteColumn,
+  UseSelectColumnTableOptions,
+  UseRankColumnTableOptions,
 } from '@lineup-lite/hooks';
 import {
   PluginHook,
@@ -46,7 +48,10 @@ export type UseLineUpLiteTableOptions<D extends object> = TableOptions<D> &
   UseExpandedOptions<D> &
   UseGroupByOptions<D> &
   UseRowSelectOptions<D> &
-  UseSortByOptions<D>;
+  UseSortByOptions<D> &
+  UseRowExpandColumnTableOptions &
+  UseSelectColumnTableOptions &
+  UseRankColumnTableOptions;
 
 export interface UseLineUpLiteOptions<D extends object> extends UseLineUpLiteTableOptions<D> {
   defaultColumn?: Partial<LineUpLiteColumn<D>>;

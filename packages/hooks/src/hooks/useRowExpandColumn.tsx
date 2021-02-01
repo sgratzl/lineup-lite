@@ -9,6 +9,7 @@ import React, { ComponentType } from 'react';
 import type {
   ColumnInstance,
   Hooks,
+  MetaBase,
   Row,
   TableCellProps,
   UseExpandedRowProps,
@@ -26,10 +27,22 @@ export const USE_EXPAND_COLUMN_I18N_EN = {
 };
 
 export interface UseRowExpandColumnTableOptions {
+  /**
+   * icon to use for the expand icon
+   * @default '▸'
+   */
   icons?: {
     expandGroup?: ComponentType;
   };
+  /**
+   * i18n customizations
+   */
   i18n?: Partial<typeof USE_EXPAND_COLUMN_I18N_EN>;
+  /**
+   * width of the expand column
+   * @default 20
+   */
+  expandColumnWidth?: number;
 }
 
 export function useRowExpandColumn<D extends object = {}>(hooks: Hooks<D>) {
@@ -96,16 +109,17 @@ function Header() {
   return <div> </div>;
 }
 
-function generateColumn<D extends object = {}>(columns: ColumnInstance<D>[]) {
+function generateColumn<D extends object = {}>(columns: ColumnInstance<D>[], meta: MetaBase<D>) {
+  const width = (meta.instance as UseRowExpandColumnTableOptions).expandColumnWidth ?? 20;
   const expandColumn: LineUpLiteColumn<D> = {
     id: 'expand',
     Header,
     Summary,
     Aggregated,
     Cell,
-    minWidth: 20,
-    width: 20,
-    maxWidth: 20,
+    minWidth: width,
+    width,
+    maxWidth: width,
     disableFilters: true,
     disableSortBy: true,
     disableGroupBy: true,
