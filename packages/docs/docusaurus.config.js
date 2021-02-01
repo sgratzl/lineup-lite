@@ -111,6 +111,18 @@ module.exports = {
       ],
       copyright: `Copyright © ${new Date().getFullYear()} <a href="https://www.sgratzl.com">Samuel Gratzl</a>. All rights reserved. Built with Docusaurus.`,
     },
+    // algolia: {
+    //   apiKey: 'YOUR_API_KEY',
+    //   indexName: 'YOUR_INDEX_NAME',
+
+    //   // Optional: see doc section bellow
+    //   contextualSearch: false,
+
+    //   // Optional: Algolia search parameters
+    //   searchParameters: {},
+
+    //   //... other Algolia params
+    // },
   },
   themes: ['@docusaurus/theme-live-codeblock'],
   presets: [
