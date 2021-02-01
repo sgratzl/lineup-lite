@@ -16,6 +16,7 @@ export * from './LineUpLiteTR';
 export * from './LineUpLiteToolbar';
 export * from './LineUpLitePaginated';
 export * from './LineUpLitePagination';
+export * from './LineUpLiteSidePanel';
 export * from './actions';
 export * from './contexts';
 export * from './hooks';
