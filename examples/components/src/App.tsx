@@ -7,7 +7,7 @@
 
 import React from 'react';
 import './styles.css';
-import { UpSetLine } from '@lineup-lite/components';
+import { UpSetLine, HeatMap1D } from '@lineup-lite/components';
 import '@lineup-lite/components/dist/components.css';
 
 export default function App() {
@@ -22,6 +22,10 @@ export default function App() {
         <UpSetLine value={['b']} sets={['a', 'b', 'c']} style={{ flex: '1 1 0' }} />
         <UpSetLine value={['b', 'c']} sets={['a', 'b', 'c']} style={{ flex: '1 1 0' }} />
         <UpSetLine value={['b', 'c', 'g']} sets={['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']} style={{ flex: '1 1 0' }} />
+      </div>
+      <div style={{ display: 'flex', flexDirection: 'column' }}>
+        <HeatMap1D value={[0, 0.5, 1]} style={{ flex: '1 1 0' }} />
+        <HeatMap1D value={[0.1, 0.2, 0.1, 0.7, 0.3, 0.5, 1]} style={{ flex: '1 1 0' }} />
       </div>
     </div>
   );
