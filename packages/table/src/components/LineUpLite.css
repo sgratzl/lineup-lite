@@ -6,15 +6,18 @@
  */
 
 .lt-table {
-  --current-color: currentColor;
-  --current-color-rgb: 0, 0, 0;
-  --current-inverted-color-rgb: 255, 255, 255;
-  --current-inverted-color: rgb(var(--current-inverted-color-rgb));
+  --current-color: currentcolor;
+  /** has to be in Hex notation **/
+  --current-color-hex: #000000;
+  /** has to be in Hex notation **/
+  --current-inverted-color-hex: #FFFFFF;
+  --current-inverted-color: var(--current-inverted-color-hex, white);
+  /** has to be in Hex notation **/
   --select-color: #ffa500;
 }
 .lt-dark {
-  --current-color-rgb: 255, 255, 255;
-  --current-inverted-color-rgb: 0, 0, 0;
+  --current-color-hex: #FFFFFF;
+  --current-inverted-color-hex: #000000;
   --select-color: #ff8c00;
 }
 
@@ -32,6 +35,10 @@
 }
 
 .lt-th {
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  overflow: hidden;
 }
 
 .lt-th-group {
@@ -61,6 +68,8 @@
 .lt-th,
 .lt-td {
   margin: 0 0.25em;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .lt-td {

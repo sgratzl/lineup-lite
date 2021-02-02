@@ -14,7 +14,7 @@
 
 .lt-upset-dot {
   opacity: 0.2;
-  fill: var(--current-color, currentColor);
+  fill: var(--current-color, currentcolor);
 }
 
 .lt-upset-dot-enabled {
@@ -32,6 +32,6 @@
 
 .lt-upset-line-line > path {
   fill: none;
-  stroke: var(--current-color, currentColor);
+  stroke: var(--current-color, currentcolor);
   stroke-width: 0.5;
 }

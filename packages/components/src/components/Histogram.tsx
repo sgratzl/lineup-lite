@@ -87,7 +87,7 @@ function Bin<T>({
   if (raw) {
     const rawP = toPercent(raw.count / maxBin);
     if (raw.count > h.count) {
-      const semi = `rgba(var(--current-inverted-color-rgb, 255,255,255), 0.7)`;
+      const semi = `var(--current-inverted-color-hex, #FFFFFF)BD`; // BD = 0.7
       gradient = `linear-gradient(to top, ${h.color} ${p}, ${semi} ${p}, ${semi} ${rawP}, transparent ${rawP}), linear-gradient(to top, ${h.color} ${rawP}, transparent ${rawP})`;
     }
   }

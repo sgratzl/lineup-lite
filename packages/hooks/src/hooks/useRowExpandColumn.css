@@ -13,14 +13,14 @@
   text-align: center;
   transition: transform 0.25s ease;
   opacity: 0.25;
-  color: var(--current-color, currentColor);
+  color: var(--current-color, currentcolor);
   border: none;
   background: none;
   padding: 0;
 }
 
 .lt-expand-agg > svg {
-  fill: var(--current-color, currentColor);
+  fill: var(--current-color, currentcolor);
 }
 
 .lt-expand-agg:hover,

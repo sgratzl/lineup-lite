@@ -20,7 +20,7 @@
   border: none;
   background: none;
   padding: 0;
-  color: var(--current-color, currentColor);
+  color: var(--current-color, currentcolor);
 }
 
 .lt-action[data-index]::before {
@@ -33,7 +33,7 @@
 }
 
 .lt-action > svg {
-  fill: var(--current-color, currentColor);
+  fill: var(--current-color, currentcolor);
 }
 
 .lt-action:hover,

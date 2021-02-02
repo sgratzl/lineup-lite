@@ -17,20 +17,23 @@
   margin-bottom: 0;
 }
 
-.lt-summary[data-min]::before {
-  content: attr(data-min);
+.lt-summary::before {
+  content: attr(data-min) '';
   white-space: nowrap;
   position: absolute;
   top: 100%;
   left: 0;
-  width: 50%;
+  width: 100%;
   overflow: hidden;
   text-align: left;
+  padding-left: 0.1em;
   line-height: 1.2;
+  border-top: 1px solid var(--current-color, currentcolor);
 }
 
-.lt-summary[data-min]:not([data-max])::before {
-  width: 100%;
+.lt-summary[data-max]::before {
+  width: 50%;
+  border-left: 1px solid var(--current-color, currentcolor);
 }
 
 .lt-summary[data-max]::after {
@@ -42,5 +45,8 @@
   width: 50%;
   overflow: hidden;
   text-align: right;
+  padding-right: 0.1em;
   line-height: 1.2;
+  border-top: 1px solid var(--current-color, currentcolor);
+  border-right: 1px solid var(--current-color, currentcolor);
 }

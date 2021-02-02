@@ -66,7 +66,7 @@ function Cell(props: any) {
   );
 
   return (
-    <div className="le-selection">
+    <div className="lt-selection">
       <IndeterminateCheckbox
         {...props.row.getToggleRowSelectedProps()}
         onClick={onClick}
@@ -82,7 +82,7 @@ function Summary(props: any) {
     ...(props.i18n ?? {}),
   };
   return (
-    <div className="le-selection le-summary">
+    <div className="lt-selection lt-summary">
       <IndeterminateCheckbox
         {...props.getToggleAllRowsSelectedProps()}
         title={props.isAllRowsSelected ? i18n.unselectAll : i18n.selectAll}
