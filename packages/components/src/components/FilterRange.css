@@ -9,13 +9,12 @@
   position: absolute;
   top: 0;
   height: 100%;
-  /** 0xBD = 0.7, 0x33 = 0.2 **/
   background: repeating-linear-gradient(
     -45deg,
-    var(--current-inverted-color-hex, #FFFFFF)BD,
-    var(--current-inverted-color-hex, #FFFFFF)BD 7px,
-    var(--current-color-hex, #000000)33 7px,
-    var(--current-color-hex, #000000)33 10px
+    rgba(var(--current-inverted-color-rgb, 255, 255, 255), 0.7),
+    rgba(var(--current-inverted-color-rgb, 255, 255, 255), 0.7) 7px,
+    rgba(var(--current-color-rgb, 0, 0, 0), 0.2) 7px,
+    rgba(var(--current-color-rgb, 0, 0, 0), 0.2) 10px
   );
 }
 

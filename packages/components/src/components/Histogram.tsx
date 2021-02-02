@@ -59,7 +59,7 @@ function computeBinGradient<T>(
     return { backgroundColor: h.color };
   }
   if (raw && raw.count > h.count) {
-    const semi = `var(--current-inverted-color-hex, #FFFFFF)BD`; // BD = 0.7
+    const semi = `rgba(var(--current-inverted-color-rgb, 255,255,255), 0.7)`;
     const rawP = toPercent(raw.count / maxBin);
     if (h.count > 0) {
       return {

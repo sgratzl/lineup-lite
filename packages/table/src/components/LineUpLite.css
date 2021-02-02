@@ -7,20 +7,16 @@
 
 .lt-table {
   --current-color: currentcolor;
-  /** has to be in Hex notation **/
-  --current-color-hex: #000000;
-  /** has to be in Hex notation **/
-  --current-inverted-color-hex: #FFFFFF;
-  --current-inverted-color: var(--current-inverted-color-hex, white);
-  /** has to be in Hex notation **/
+  --current-color-rgb: 0, 0, 0;
+  --current-inverted-color-rgb: 255, 255, 255;
+  --current-inverted-color: rgb(var(--current-inverted-color-rgb));
   --select-color: #ffa500;
 }
 .lt-dark {
-  --current-color-hex: #FFFFFF;
-  --current-inverted-color-hex: #000000;
+  --current-color-rgb: 255, 255, 255;
+  --current-inverted-color-rgb: 0, 0, 0;
   --select-color: #ff8c00;
 }
-
 .lt-table-virtual {
   display: flex;
   flex-direction: column;
@@ -38,7 +34,6 @@
   display: inline-flex;
   flex-direction: column;
   justify-content: space-between;
-  overflow: hidden;
 }
 
 .lt-th-group {
