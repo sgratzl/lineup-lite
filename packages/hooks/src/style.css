@@ -5,6 +5,5 @@
  * Copyright (c) 2021 Samuel Gratzl <sam@sgratzl.com>
  */
 
-import './style.css';
-
-export * from '.';
+@import './hooks/useRowExpandColumn.css';
+@import './hooks/useRowRankColumn.css';

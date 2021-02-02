@@ -1,10 +1,9 @@
 /**
- * @lineup-lite/hooks
+ * @lineup-lite/table
  * https://github.com/sgratzl/lineup-lite
  *
  * Copyright (c) 2021 Samuel Gratzl <sam@sgratzl.com>
  */
 
-import './style.css';
-
-export * from '.';
+@import './components/LineUpLite.css';
+@import './components/LineUpLiteToolbar.css';
