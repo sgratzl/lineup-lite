@@ -86,12 +86,15 @@ function Aggregated(
 }
 
 function Summary(props: any) {
-  if (props.allColumns.some((d: any) => d.isGrouped)) {
-    const i18n = {
-      ...USE_EXPAND_COLUMN_I18N_EN,
-      ...(props.i18n ?? {}),
-    };
-    return (
+  if (!props.allColumns.some((d: any) => d.isGrouped)) {
+    return <div className="lt-summary" />;
+  }
+  const i18n = {
+    ...USE_EXPAND_COLUMN_I18N_EN,
+    ...(props.i18n ?? {}),
+  };
+  return (
+    <div className="lt-summary">
       <button
         {...props.getToggleAllRowsExpandedProps({
           className: clsx('lt-expand-agg', props.isAllRowsExpanded && 'lt-expanded'),
@@ -100,13 +103,12 @@ function Summary(props: any) {
       >
         {props.expandIcon ? <props.expandIcon /> : <ArrowDropRightLine />}
       </button>
-    );
-  }
-  return null;
+    </div>
+  );
 }
 
 function Header() {
-  return <div> </div>;
+  return null;
 }
 
 function generateColumn<D extends object = {}>(columns: ColumnInstance<D>[], meta: MetaBase<D>) {

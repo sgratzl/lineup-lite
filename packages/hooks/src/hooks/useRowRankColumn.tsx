@@ -51,11 +51,11 @@ function Aggregated(props: TableCellProps & UseTableCellProps<any, any>) {
 }
 
 function Summary() {
-  return null;
+  return <div className="lt-summary" />;
 }
 
 function Header() {
-  return <div> </div>;
+  return <div>#</div>;
 }
 
 export interface UseRowRankColumnTableOptions {

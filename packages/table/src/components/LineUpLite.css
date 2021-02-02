@@ -37,7 +37,7 @@
 .lt-th {
   display: inline-flex;
   flex-direction: column;
-  justify-content: flex-end;
+  justify-content: space-between;
   overflow: hidden;
 }
 
@@ -111,4 +111,19 @@
 
 .lt-th-support {
   padding-top: 2em;
+}
+
+.lt-summary::before {
+  /** always have a content */
+  content: attr(data-min) '';
+  border-top: 1px solid var(--current-color, currentcolor);
+}
+
+.lt-summary[data-max]::before {
+  border-left: 1px solid var(--current-color, currentcolor);
+}
+
+.lt-summary[data-max]::after {
+  border-top: 1px solid var(--current-color, currentcolor);
+  border-right: 1px solid var(--current-color, currentcolor);
 }
