@@ -108,7 +108,7 @@ function Summary(props: any) {
 }
 
 function Header() {
-  return null;
+  return <></>;
 }
 
 function generateColumn<D extends object = {}>(columns: ColumnInstance<D>[], meta: MetaBase<D>) {

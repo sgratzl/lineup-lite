@@ -20,6 +20,7 @@
 
 .lt-rank-agg-spacer {
   flex-grow: 1;
+  flex-basis: 0.2em;
   border-right: 1px solid var(--current-color, currentcolor);
   margin-right: 0.4em;
 }

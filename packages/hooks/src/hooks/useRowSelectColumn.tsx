@@ -76,23 +76,23 @@ function Cell(props: any) {
   );
 }
 
-function Summary(props: any) {
+function Summary() {
+  return <div className="lt-summary " />;
+}
+
+function Header(props: any) {
   const i18n = {
     ...USE_ROW_SELECT_COLUMN_I18N_EN,
     ...(props.i18n ?? {}),
   };
   return (
-    <div className="lt-selection lt-summary">
+    <div className="lt-selection">
       <IndeterminateCheckbox
         {...props.getToggleAllRowsSelectedProps()}
         title={props.isAllRowsSelected ? i18n.unselectAll : i18n.selectAll}
       />
     </div>
   );
-}
-
-function Header() {
-  return <div> </div>;
 }
 
 function generateColumn<D extends object = {}>(columns: ColumnInstance<D>[], meta: MetaBase<D>) {
