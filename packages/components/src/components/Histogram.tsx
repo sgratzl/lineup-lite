@@ -68,7 +68,7 @@ function computeBinGradient<T>(
     }
     // just hidden
     return {
-      backgroundImage: `linear-gradient(to top, ${h.color} ${p}, ${semi} ${p}, ${semi} ${rawP}, transparent ${rawP}), linear-gradient(to top, ${h.color} ${rawP}, transparent ${rawP})`,
+      backgroundImage: `linear-gradient(to top, ${semi} ${rawP}, transparent ${rawP}), linear-gradient(to top, ${h.color} ${rawP}, transparent ${rawP})`,
     };
   }
   if (h.count <= 0) {
