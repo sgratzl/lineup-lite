@@ -10,8 +10,20 @@ import type { ActionIcons } from '../icons';
 import type { LineUpLiteI18N } from '../i18n';
 import type { UseLineUpLiteOptions } from './useLineUpLite';
 import type { ComponentType, CSSProperties, DetailedHTMLProps, HTMLAttributes, ReactNode } from 'react';
+import type { LineUpLiteDataSummaryProps } from './panel';
 
-export type MultiCustomizeKeys = 'tbody' | 'tr' | 'thead' | 'th' | 'thGroup' | 'td' | 'header' | 'sidePanel';
+export type MultiCustomizeKeys =
+  | 'tbody'
+  | 'tr'
+  | 'thead'
+  | 'th'
+  | 'thGroup'
+  | 'td'
+  | 'header'
+  | 'sidePanel'
+  | 'dataSummary'
+  | 'sortHierarchy'
+  | 'groupHierarchy';
 
 export type LineUpLiteComponentLike = ComponentType<DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement>>;
 
@@ -25,7 +37,7 @@ export interface CustomizeLineUpProps {
    */
   styles?: Partial<Record<MultiCustomizeKeys, CSSProperties>>;
 
-  i18n?: Partial<LineUpLiteI18N>;
+  i18n?: Partial<LineUpLiteI18N> & LineUpLiteDataSummaryProps['i18n'];
 
   components?: Partial<Record<MultiCustomizeKeys | 'table', LineUpLiteComponentLike>>;
 }

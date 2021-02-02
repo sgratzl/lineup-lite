@@ -10,13 +10,11 @@ import React from 'react';
 import type { TableDispatch, TableInstance } from 'react-table';
 import type { CustomizeLineUpProps } from './interfaces';
 import { useLineUpLiteContext } from './hooks';
-import type { LineUpLiteI18N } from '../i18n';
 
 export interface LineUpLiteContextProps extends Required<CustomizeLineUpProps> {
   dispatch: TableDispatch;
   dark: boolean;
 
-  i18n: LineUpLiteI18N;
   sortByColumnCount: number;
   groupByColumnCount: number;
 }

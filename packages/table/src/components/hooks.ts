@@ -9,7 +9,6 @@ import { useEffect, useMemo } from 'react';
 import type { TableInstance } from 'react-table';
 import type { CustomizeLineUpProps } from './interfaces';
 import type { LineUpLiteContextProps } from './contexts';
-import { LINEUP_LITE_I18N_EN } from '../i18n';
 import { EMPTY_OBJ } from './utils';
 
 export function useLineUpLiteContext<D extends object>(
@@ -40,10 +39,7 @@ export function useLineUpLiteContext<D extends object>(
       styles,
       classNames,
       components,
-      i18n: {
-        ...LINEUP_LITE_I18N_EN,
-        ...(i18n ?? {}),
-      },
+      i18n: i18n ?? {},
       dispatch,
       dark,
       sortByColumnCount,

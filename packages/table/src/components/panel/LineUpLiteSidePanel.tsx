@@ -6,12 +6,13 @@
  */
 
 import React, { forwardRef, memo, ReactElement, Ref, RefAttributes, useContext } from 'react';
-import type { HeaderGroup } from 'react-table';
-import { LineUpLiteContext } from './contexts';
-import { clsx } from './utils';
+import type { TableInstance } from 'react-table';
+import { LineUpLiteContext } from '../contexts';
+import { clsx } from '../utils';
+import { LineUpLiteDataSummary } from './LineUpLiteDataSummary';
 
 export interface LineUpLiteSidePanelProps<D extends object> {
-  headerGroups: HeaderGroup<D>[];
+  instance: TableInstance<D>;
   state: any;
 }
 
@@ -21,9 +22,12 @@ const LineUpLiteSidePanelImpl = /*!#__PURE__*/ forwardRef(function LineUpLiteSid
 ) {
   const c = useContext(LineUpLiteContext);
   const p = { c: c?.components.sidePanel ?? 'div' };
+
+  const count = props.instance.flatRows.length;
+
   return (
     <p.c ref={ref} className={clsx('lt-side-panel', c?.classNames.sidePanel)} style={c?.styles.sidePanel}>
-      Side Panel
+      <LineUpLiteDataSummary count={count} i18n={c?.i18n} />
     </p.c>
   );
 });

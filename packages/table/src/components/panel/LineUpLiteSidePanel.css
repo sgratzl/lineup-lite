@@ -1,0 +1,18 @@
+/**
+ * @lineup-lite/table
+ * https://github.com/sgratzl/lineup-lite
+ *
+ * Copyright (c) 2021 Samuel Gratzl <sam@sgratzl.com>
+ */
+
+.lt-side-panel {
+}
+
+.lt-data-summary {
+  text-align: left;
+  margin: 0.5em;
+}
+
+.lt-data-summary-selected {
+  box-shadow: 0 0 0 2px var(--select-color, #ffa500);
+}
