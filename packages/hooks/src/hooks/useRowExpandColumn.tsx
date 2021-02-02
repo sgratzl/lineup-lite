@@ -101,7 +101,7 @@ function Summary(props: any) {
         })}
         title={props.isAllRowsExpanded ? i18n.collapseAllGroups : i18n.expandAllGroups}
       >
-        {props.expandIcon ? <props.expandIcon /> : <ArrowDropRightLine />}
+        {props.icons?.expandGroup ? <props.icons.expandGroup /> : <ArrowDropRightLine />}
       </button>
     </div>
   );
