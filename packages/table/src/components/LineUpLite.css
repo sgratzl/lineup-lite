@@ -61,9 +61,9 @@
   top: 0;
 }
 
-.lt-tr-selected {
+/* .lt-tr-selected {
   box-shadow: 0 0 0 2px var(--select-color, #ffa500);
-}
+} */
 
 .lt-th,
 .lt-td {
