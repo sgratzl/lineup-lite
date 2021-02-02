@@ -5,7 +5,7 @@
  * Copyright (c) 2021 Samuel Gratzl <sam@sgratzl.com>
  */
 
-import React, { useCallback, useMemo, MouseEvent } from 'react';
+import React, { useCallback, useMemo, MouseEvent, CSSProperties } from 'react';
 import type { IHistStats, IBin } from '../math/common';
 import { toPercent, clsx, i18n, EMPTY_ARR } from './utils';
 import { FilterRangeSliderProps, FilterRangeWrapper } from './FilterRange';
@@ -46,6 +46,37 @@ function generateBinTitle<T>(h: IBin<T>, raw?: IBin<T>, title?: string) {
   return base;
 }
 
+function computeBinGradient<T>(
+  h: IBin<T>,
+  maxBin: number,
+  preFilter: IHistStats<T> | undefined,
+  i: number
+): CSSProperties | undefined {
+  const raw = preFilter?.hist[i];
+  const p = toPercent(h.count / maxBin);
+  if (maxBin <= 0 || (h.count > 0 && h.count >= maxBin)) {
+    // full
+    return { backgroundColor: h.color };
+  }
+  if (raw && raw.count > h.count) {
+    const semi = `var(--current-inverted-color-hex, #FFFFFF)BD`; // BD = 0.7
+    const rawP = toPercent(raw.count / maxBin);
+    if (h.count > 0) {
+      return {
+        backgroundImage: `linear-gradient(to top, ${h.color} ${p}, ${semi} ${p}, ${semi} ${rawP}, transparent ${rawP}), linear-gradient(to top, ${h.color} ${rawP}, transparent ${rawP})`,
+      };
+    }
+    // just hidden
+    return {
+      backgroundImage: `linear-gradient(to top, ${h.color} ${p}, ${semi} ${p}, ${semi} ${rawP}, transparent ${rawP}), linear-gradient(to top, ${h.color} ${rawP}, transparent ${rawP})`,
+    };
+  }
+  if (h.count <= 0) {
+    return undefined;
+  }
+  return { backgroundImage: `linear-gradient(to top, ${h.color} ${p}, transparent ${p})` };
+}
+
 /**
  * renders a number or date histogram
  */
@@ -81,26 +112,15 @@ function Bin<T>({
   const maxBin = props.maxBin ?? preFilter?.maxBin.count ?? props.s.maxBin.count;
   const lastBin = props.s.hist.length - 1;
   const dense = props.s.hist.length > DENSE || i === lastBin;
-  const p = toPercent(h.count / maxBin);
-  let gradient = `linear-gradient(to top, ${h.color} ${p}, transparent ${p})`;
-  const raw = preFilter?.hist[i];
-  if (raw) {
-    const rawP = toPercent(raw.count / maxBin);
-    if (raw.count > h.count) {
-      const semi = `var(--current-inverted-color-hex, #FFFFFF)BD`; // BD = 0.7
-      gradient = `linear-gradient(to top, ${h.color} ${p}, ${semi} ${p}, ${semi} ${rawP}, transparent ${rawP}), linear-gradient(to top, ${h.color} ${rawP}, transparent ${rawP})`;
-    }
-  }
+  const style = computeBinGradient<T>(h, maxBin, preFilter, i);
   return (
     <div
       className={clsx('lt-histogram-bin', dense && 'lt-histogram-bin-dense', onClick && 'lt-histogram-bin-interactive')}
-      style={{
-        backgroundImage: gradient,
-      }}
+      style={style}
       data-i={i}
       onClick={onClick}
       data-label={props.label ? h.label : null}
-      title={generateBinTitle<T>(h, raw, title)}
+      title={generateBinTitle<T>(h, preFilter?.hist[i], title)}
     />
   );
 }

@@ -109,7 +109,7 @@
   opacity: 0.1;
 }
 
-.lt-summary::before {
+.lt-summary:not(.lt-group)::before {
   /** always have a content */
   content: attr(data-min) '';
   border-top: 1px solid var(--current-color, currentcolor);

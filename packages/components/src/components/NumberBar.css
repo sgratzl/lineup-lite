@@ -7,5 +7,6 @@
 
 .lt-bar {
   text-align: right;
+  padding-right: 0.2em;
   text-shadow: 0 0 2px var(--current-inverted-color, white);
 }

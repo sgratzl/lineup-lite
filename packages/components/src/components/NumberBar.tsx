@@ -29,8 +29,16 @@ export interface NumberBarProps extends CommonProps {
   format?: string | ((v: number) => string);
 }
 
-function barProps(value: number, color: string | ((v: number) => string)): CSSProperties {
+function barProps(value: number, color: string | ((v: number) => string)): CSSProperties | null {
+  if (value == null || Number.isNaN(value) || value <= 0) {
+    return null;
+  }
   const c = typeof color === 'string' ? color : color(value);
+  if (value >= 1) {
+    return {
+      backgroundColor: c,
+    };
+  }
   const p = toPercent(value);
   return {
     backgroundImage: `linear-gradient(to right, ${c} ${p}, transparent ${p})`,
