@@ -134,7 +134,7 @@ export interface FilterBinHistogramProps<T> extends HistogramProps<T> {
   /**
    * sets the current filter
    */
-  setFilter: (value: T[]) => void;
+  setFilter: (value?: T[]) => void;
   /**
    * current filter value
    */
@@ -161,7 +161,7 @@ export function FilterBinHistogram<T>(props: FilterBinHistogramProps<T>) {
       const bin = hist[Number.parseInt(evt.currentTarget.dataset.i!, 10)];
       const value = bin.x0;
       const next = current.includes(value) ? current.filter((d) => d !== value) : current.concat([value]);
-      setFilter(next);
+      setFilter(next.length === 0 ? undefined : next);
     },
     [setFilter, hist, filterValue]
   );
@@ -211,7 +211,7 @@ export interface FilterSetHistogramProps<T> extends HistogramProps<T> {
   /**
    * sets the current filter
    */
-  setFilter: (value: FilterSetValue<T>[]) => void;
+  setFilter: (value?: FilterSetValue<T>[]) => void;
   /**
    * current filter value
    */
@@ -246,7 +246,7 @@ export function FilterSetHistogram<T>(props: FilterSetHistogramProps<T>) {
       } else {
         const next = current.slice();
         next.splice(index, 1);
-        setFilter(next);
+        setFilter(next.length === 0 ? undefined : next);
       }
     },
     [setFilter, hist, filterValue]

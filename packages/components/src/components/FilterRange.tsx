@@ -32,7 +32,7 @@ export interface FilterRangeSliderProps<T> {
   /**
    * set the filter
    */
-  setFilter: (value: [T | null, T | null]) => void;
+  setFilter: (value?: [T | null, T | null]) => void;
   /**
    * get current filter value
    */
@@ -73,7 +73,7 @@ function FilterRangeSlider<T>(props: FilterRangeSliderProps<T> & { refData: Muta
       const ratio = Math.min(1, Math.max(0, (evt.clientX - base) / width));
       const v = [ratio <= 0 ? null : invert(ratio), filterRef.current[1]] as [T | null, T | null];
       setLocalFilter(v);
-      setFilter(v);
+      setFilter(v[0] == null && v[1] == null ? undefined : v);
     };
     const onMinMouseUp = () => {
       ueber!.removeEventListener('mousemove', onMinMouseMove);
@@ -102,7 +102,7 @@ function FilterRangeSlider<T>(props: FilterRangeSliderProps<T> & { refData: Muta
       const ratio = Math.min(1, Math.max(0, (evt.clientX - base) / width));
       const v = [filterRef.current[0], ratio >= 1 ? null : invert(ratio)] as [T | null, T | null];
       setLocalFilter(v);
-      setFilter(v);
+      setFilter(v[0] == null && v[1] == null ? undefined : v);
     };
     const onMinMouseUp = () => {
       ueber!.removeEventListener('mousemove', onMinMouseMove);
@@ -124,7 +124,7 @@ function FilterRangeSlider<T>(props: FilterRangeSliderProps<T> & { refData: Muta
 
   const clearFilter = useCallback(() => {
     setLocalFilter([null, null]);
-    setFilter([null, null]);
+    setFilter(undefined);
   }, [setFilter, setLocalFilter]);
 
   const setShortCutFilter = useCallback(
