@@ -12,7 +12,7 @@ import { LineUpLiteTHead } from './LineUpLiteTHead';
 import { LineUpLiteTVirtualBody } from './LineUpLiteTVirtualBody';
 import { useLineUpLite } from './useLineUpLite';
 import { clsx } from './utils';
-import { LineUpLiteTableContextProvider, useStateListener } from './contexts';
+import { LineUpLiteTableContextProvider } from './contexts';
 
 export type SizeEstimator = number | [number, number] | ((index: number) => number);
 
@@ -28,7 +28,6 @@ const LineUpLiteVirtualImpl = /*!#__PURE__*/ forwardRef(function LineUpLiteVirtu
   ref: Ref<HTMLElement>
 ) {
   const instance = useLineUpLite<D>(props);
-  useStateListener(props, instance);
   const { getTableProps, getTableBodyProps, headerGroups, prepareRow, rows } = instance;
 
   const theadRef = useRef<HTMLElement>(null);

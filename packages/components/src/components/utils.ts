@@ -48,7 +48,7 @@ export function useI18N<T extends Record<string, string>>(
   return useMemo(() => {
     const r: Record<keyof T, (...args: any[]) => string> = {} as any;
     for (const key of Object.keys(original) as (keyof T)[]) {
-      const v = (overrides ? overrides[key] : original[key]) as string;
+      const v = (overrides && overrides[key] != null ? overrides[key] : original[key]) as string;
       r[key] = i18n.bind(null, v);
     }
     return r;

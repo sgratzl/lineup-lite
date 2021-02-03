@@ -47,11 +47,7 @@ export const LineUpLiteDataSummary = /*!#__PURE__*/ forwardRef(function LineUpLi
         </>
       )}
       {props.unfiltered != null && props.unfiltered > props.count && props.onResetFilter && (
-        <button
-          className={clsx('lt-action', 'lt-action-filter')}
-          onClick={props.onResetFilter}
-          title={i18n.dataSummaryResetFilter()}
-        >
+        <button className={clsx('lt-action', 'lt-action-filter')} onClick={props.onResetFilter}>
           {i18n.dataSummaryResetFilter()}
         </button>
       )}

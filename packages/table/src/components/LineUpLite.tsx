@@ -11,15 +11,13 @@ import { LineUpLiteTHead } from './LineUpLiteTHead';
 import { LineUpLiteTR } from './LineUpLiteTR';
 import { useLineUpLite } from './useLineUpLite';
 import { clsx } from './utils';
-import { LineUpLiteTableContextProvider, useStateListener } from './contexts';
+import { LineUpLiteTableContextProvider } from './contexts';
 
 export const LineUpLite = /*!#__PURE__*/ forwardRef(function LineUpLite<D extends object>(
   props: LineUpLiteProps<D>,
   ref: Ref<HTMLElement>
 ) {
-  console.log('render impl');
   const instance = useLineUpLite<D>(props);
-  useStateListener(props, instance);
   const { getTableProps, getTableBodyProps, headerGroups, prepareRow, rows } = instance;
 
   const p = { c: props.components?.table ?? 'div', b: props.components?.tbody ?? 'div' };

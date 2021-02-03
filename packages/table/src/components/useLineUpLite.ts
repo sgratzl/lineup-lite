@@ -16,7 +16,6 @@ import {
   UseSelectColumnTableOptions,
   useStats,
 } from '@lineup-lite/hooks';
-import { useEffect } from 'react';
 import {
   PluginHook,
   TableInstance,
@@ -36,7 +35,7 @@ import {
   UseSortByOptions,
   useTable,
 } from 'react-table';
-import { useLineUpLiteStateContext } from './contexts';
+import { useStateListener } from './contexts';
 
 export { useRowRankColumn as featureRowRank } from '@lineup-lite/hooks';
 export {
@@ -103,27 +102,6 @@ export function useLineUpLite<D extends object>(
     .map((r) => r[0]);
   const instance = useTable<D>(tableProps, ...allPlugins) as TableInstance<D> & UseFiltersInstanceProps<D>;
 
-  const { onStateChange } = props;
-  const { state } = instance;
-
-  useEffect(() => {
-    if (onStateChange) {
-      onStateChange(state);
-    }
-  }, [onStateChange, state]);
-
-  // update state context
-  const stateContext = useLineUpLiteStateContext<D>();
-  useEffect(() => {
-    if (stateContext) {
-      stateContext.setState(state);
-    }
-  }, [stateContext, state]);
-  useEffect(() => {
-    if (stateContext) {
-      stateContext.setInstance(instance);
-    }
-  }, [stateContext, instance]);
-
+  useStateListener(props, instance);
   return instance;
 }

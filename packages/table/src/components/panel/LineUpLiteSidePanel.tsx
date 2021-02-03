@@ -5,18 +5,18 @@
  * Copyright (c) 2021 Samuel Gratzl <sam@sgratzl.com>
  */
 
-import React, { forwardRef, Ref } from 'react';
+import React, { forwardRef, ReactElement, Ref, RefAttributes } from 'react';
 import { useLineUpLiteStateContext } from '../contexts';
 import { clsx } from '../utils';
 import { LineUpLiteSidePanelContextProvider } from './contexts';
 import type { LineUpLiteSidePanelProps } from './interfaces';
 import { LineUpLiteDataSummary } from './LineUpLiteDataSummary';
 
-export const LineUpLiteSidePanel = /*!#__PURE__*/ forwardRef(function LineUpLiteSidePanel(
+const LineUpLiteSidePanelImpl = /*!#__PURE__*/ forwardRef(function LineUpLiteSidePanel<D extends object>(
   props: LineUpLiteSidePanelProps,
   ref: Ref<HTMLElement>
 ) {
-  const c = useLineUpLiteStateContext();
+  const c = useLineUpLiteStateContext<D>();
   if (!c || !c.instance) {
     return null;
   }
@@ -33,3 +33,7 @@ export const LineUpLiteSidePanel = /*!#__PURE__*/ forwardRef(function LineUpLite
     </p.c>
   );
 });
+
+export const LineUpLiteSidePanel = LineUpLiteSidePanelImpl as (
+  p: LineUpLiteSidePanelProps & RefAttributes<HTMLElement>
+) => ReactElement;

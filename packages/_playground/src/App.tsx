@@ -5,38 +5,26 @@
  * Copyright (c) 2021 Samuel Gratzl <sam@sgratzl.com>
  */
 
-import React, { useCallback, useMemo, useRef, Ref, PropsWithChildren, useEffect, useState } from 'react';
-import './styles.css';
+import { defaultColorScale, defaultDarkColorScale } from '@lineup-lite/components';
+import '@lineup-lite/components/src/style.css';
+import { ColorRenderer, ProportionalSymbolRenderer } from '@lineup-lite/hooks';
+import '@lineup-lite/hooks/src/style.css';
 import LineUpLite, {
-  asTextColumn,
-  asNumberColumn,
+  actionIconsRemixicon,
   asCategoricalColumn,
   asCategoricalSetColumn,
+  asNumberColumn,
   asNumbersColumn,
-  LineUpLiteColumn,
+  asTextColumn,
   featureDefault,
-  actionIconsRemixicon,
-  TableInstance,
+  LineUpLiteColumn,
   LineUpLiteSidePanel,
   LineUpLiteStateContextProvider,
 } from '@lineup-lite/table';
-import { defaultDarkColorScale, defaultColorScale } from '@lineup-lite/components';
-import { ColorRenderer, ProportionalSymbolRenderer } from '@lineup-lite/hooks';
-import '@lineup-lite/components/src/style.css';
-import '@lineup-lite/hooks/src/style.css';
 import '@lineup-lite/table/src/style.css';
+import React, { useMemo } from 'react';
 import { data, Row } from './data';
-import { createPortal } from 'react-dom';
-
-// function PortalRenderer(props: PropsWithChildren<{ portalRef: Ref<HTMLDivElement> }>) {
-//   const ref = useRef(document.createElement('div'));
-
-//   useEffect(() => {
-
-//   } port)
-
-//   return createPortal(props.children, ref.current!);
-// }
+import './styles.css';
 
 function Table({ isDarkTheme }: { isDarkTheme: boolean }) {
   const columns: LineUpLiteColumn<Row>[] = useMemo(
@@ -81,21 +69,6 @@ function Table({ isDarkTheme }: { isDarkTheme: boolean }) {
   const features = useMemo(() => featureDefault<Row>(), []);
   const icons = useMemo(() => actionIconsRemixicon(), []);
 
-  const [instance, setInstance] = useState<TableInstance<any>>();
-  const panelRef = useRef<HTMLDivElement>(null);
-
-  const renderInSidePanel = useCallback(
-    (props: TableInstance<Row>) => {
-      return <div />;
-    },
-    [panelRef]
-  );
-
-  useEffect(() => {
-    console.log('instance changed', instance);
-  }, [instance]);
-
-  console.log('render main');
   return (
     <LineUpLiteStateContextProvider>
       <div className="root">
@@ -106,10 +79,9 @@ function Table({ isDarkTheme }: { isDarkTheme: boolean }) {
           features={features}
           icons={icons}
           dark={isDarkTheme}
-          addons={renderInSidePanel}
           // onStateChange={setInstance}
         />
-        
+        <LineUpLiteSidePanel className="side-panel" icons={icons} dark={isDarkTheme} />
       </div>
     </LineUpLiteStateContextProvider>
   );

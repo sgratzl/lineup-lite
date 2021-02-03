@@ -61,11 +61,14 @@ export function useLineUpLiteTableContext(): LineUpLiteTableContextProps | undef
 export interface LineUpLiteStateContextProps<D extends object> {
   state?: any;
   instance?: TableInstance<D>;
+}
 
+export interface LineUpLiteStateContextSetter<D extends object> {
   setState(state: any): void;
   setInstance(instance: TableInstance<D>): void;
 }
 export const LineUpLiteStateContext = createContext(undefined as LineUpLiteStateContextProps<any> | undefined);
+export const LineUpLiteStateSetterContext = createContext(undefined as LineUpLiteStateContextSetter<any> | undefined);
 
 export function useStateListener<D extends object>(
   props: {
@@ -83,7 +86,7 @@ export function useStateListener<D extends object>(
   }, [onStateChange, state]);
 
   // update state context
-  const { setState, setInstance } = useContext(LineUpLiteStateContext) ?? {};
+  const { setState, setInstance } = useContext(LineUpLiteStateSetterContext) ?? {};
   useEffect(() => {
     if (setState) {
       setState(state);
@@ -99,11 +102,19 @@ export function useStateListener<D extends object>(
 export function LineUpLiteStateContextProvider<D extends object = {}>(props: PropsWithChildren<{}>) {
   const [state, setState] = useState(undefined);
   const [instance, setInstance] = useState(undefined as undefined | TableInstance<D>);
-  const value = useMemo(() => {
-    console.log('produce state');
-    return { state, setState, instance, setInstance };
-  }, [state, setState, instance, setInstance]);
-  return <LineUpLiteStateContext.Provider value={value}>{props.children}</LineUpLiteStateContext.Provider>;
+  // have a context which are just the values which will change
+  const read = useMemo(() => {
+    return { state, instance };
+  }, [state, instance]);
+  // have a context that won't change and are just setters
+  const set = useMemo(() => {
+    return { setState, setInstance };
+  }, [setState, setInstance]);
+  return (
+    <LineUpLiteStateContext.Provider value={read}>
+      <LineUpLiteStateSetterContext.Provider value={set}>{props.children}</LineUpLiteStateSetterContext.Provider>
+    </LineUpLiteStateContext.Provider>
+  );
 }
 
 export function useLineUpLiteStateContext<D extends object = {}>(): LineUpLiteStateContextProps<D> | undefined {
