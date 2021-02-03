@@ -18,6 +18,7 @@ import LineUpLite, {
   actionIconsRemixicon,
 } from '@lineup-lite/table';
 import { defaultDarkColorScale, defaultColorScale } from '@lineup-lite/components';
+import { ColorRenderer, ProportionalSymbolRenderer } from '@lineup-lite/hooks';
 import '@lineup-lite/components/src/style.css';
 import '@lineup-lite/hooks/src/style.css';
 import '@lineup-lite/table/src/style.css';
@@ -30,6 +31,28 @@ function Table({ isDarkTheme }: { isDarkTheme: boolean }) {
       asNumberColumn<Row>('age', {
         color: isDarkTheme ? defaultDarkColorScale : defaultColorScale,
       }),
+      asNumberColumn<Row>(
+        {
+          Header: 'Age',
+          id: 'age2',
+          accessor: (row) => row.age,
+          Cell: ColorRenderer,
+        },
+        {
+          color: isDarkTheme ? defaultDarkColorScale : defaultColorScale,
+        }
+      ),
+      asNumberColumn<Row>(
+        {
+          Header: 'Age',
+          id: 'age3',
+          accessor: (row) => row.age,
+          Cell: ProportionalSymbolRenderer,
+        },
+        {
+          color: isDarkTheme ? defaultDarkColorScale : defaultColorScale,
+        }
+      ),
       asCategoricalColumn<Row>('shirtSize', {
         categories: ['S', 'M', 'L'],
       }),

@@ -8,14 +8,14 @@
 import React, { useContext } from 'react';
 import type { Renderer, CellProps } from 'react-table';
 import type { BarRendererOptions } from './BarRenderer';
-import { optionContext } from './utils';
+import { missingClass, optionContext } from './utils';
 import { deriveNumberOptions } from './barStats';
 import { NumberSymbol } from '@lineup-lite/components';
 
 export function ProportionalSymbolRenderer<D extends object, P extends CellProps<D, number>>(props: P) {
   const options = useContext(optionContext) as BarRendererOptions;
   const p = deriveNumberOptions<D, P>(props, options);
-  return <NumberSymbol {...p} value={props.value} />;
+  return <NumberSymbol {...p} value={props.value} className={missingClass(props.value)} />;
 }
 
 export function ProportionalSymbolRendererFactory<D extends object, P extends CellProps<D, number>>(

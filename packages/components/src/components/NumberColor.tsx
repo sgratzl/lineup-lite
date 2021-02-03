@@ -14,14 +14,18 @@ import { clsx, format, mergeStyles, toLocaleString } from './utils';
  * renders a numeric value along with a colored rect
  */
 export function NumberColor(props: NumberBarProps) {
-  const v = props.scale ? props.scale(props.value) : props.value;
+  const v = props.scale && props.value != null && !Number.isNaN(props.value) ? props.scale(props.value) : props.value;
   const label = format(props.value, props.format ?? toLocaleString);
   return (
     <div
       className={clsx('lt-color', props.className)}
-      style={mergeStyles(props.style, {
-        borderLeftColor: typeof props.color === 'string' ? props.color : (props.color ?? defaultColorScale)(v),
-      })}
+      style={mergeStyles(
+        props.style,
+        props.value != null &&
+          !Number.isNaN(props.value) && {
+            borderLeftColor: typeof props.color === 'string' ? props.color : (props.color ?? defaultColorScale)(v),
+          }
+      )}
       title={label}
     >
       {label}
