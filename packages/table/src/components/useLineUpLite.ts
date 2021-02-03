@@ -54,12 +54,24 @@ export type UseLineUpLiteTableOptions<D extends object> = TableOptions<D> &
   UseSelectColumnTableOptions &
   UseRowRankColumnTableOptions;
 
+export interface LineUpLiteState {
+  selectedRowIds?: Record<string, true>;
+  expanded?: Record<string, true>;
+  sortBy?: readonly { id: string; desc: boolean }[];
+  groupBy?: readonly string[];
+  filters?: readonly { id: string; value: any }[];
+  columnResizing?: {
+    columnWidths: Record<string, number>;
+  };
+  hiddenColumns?: readonly string[];
+}
+
 export interface UseLineUpLiteOptions<D extends object> extends UseLineUpLiteTableOptions<D> {
   defaultColumn?: Partial<LineUpLiteColumn<D>>;
   columns: LineUpLiteColumn<D>[];
   features: readonly (PluginHook<D> | PluginHook<D>[])[];
 
-  onStateChange?: (state: any) => void;
+  onStateChange?: (state: LineUpLiteState) => void;
 }
 
 export function featureRowSelect<D extends object>(): PluginHook<D>[] {

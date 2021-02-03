@@ -10,6 +10,7 @@ import React from 'react';
 import type { TableDispatch, TableInstance } from 'react-table';
 import type { CustomizeLineUpProps } from './interfaces';
 import { EMPTY_OBJ } from './utils';
+import type { LineUpLiteState } from './useLineUpLite';
 
 export interface LineUpLiteTableContextProps extends Required<CustomizeLineUpProps> {
   dispatch: TableDispatch;
@@ -59,12 +60,12 @@ export function useLineUpLiteTableContext(): LineUpLiteTableContextProps | undef
 }
 
 export interface LineUpLiteStateContextProps<D extends object> {
-  state?: any;
+  state?: LineUpLiteState;
   instance?: TableInstance<D>;
 }
 
 export interface LineUpLiteStateContextSetter<D extends object> {
-  setState(state: any): void;
+  setState(state: LineUpLiteState): void;
   setInstance(instance: TableInstance<D>): void;
 }
 export const LineUpLiteStateContext = createContext(undefined as LineUpLiteStateContextProps<any> | undefined);
@@ -72,7 +73,7 @@ export const LineUpLiteStateSetterContext = createContext(undefined as LineUpLit
 
 export function useStateListener<D extends object>(
   props: {
-    onStateChange?: (state: any) => void;
+    onStateChange?: (state: LineUpLiteState) => void;
   },
   instance: TableInstance<D>
 ): void {
@@ -100,7 +101,7 @@ export function useStateListener<D extends object>(
 }
 
 export function LineUpLiteStateContextProvider<D extends object = {}>(props: PropsWithChildren<{}>) {
-  const [state, setState] = useState(undefined);
+  const [state, setState] = useState(undefined as undefined | LineUpLiteState);
   const [instance, setInstance] = useState(undefined as undefined | TableInstance<D>);
   // have a context which are just the values which will change
   const read = useMemo(() => {

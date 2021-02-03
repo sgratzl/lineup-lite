@@ -6,6 +6,7 @@
  */
 
 import React, { forwardRef, ReactElement, Ref, RefAttributes } from 'react';
+import type { TableInstance, UseFiltersInstanceProps } from 'react-table';
 import { useLineUpLiteStateContext } from '../contexts';
 import { clsx } from '../utils';
 import { LineUpLiteSidePanelContextProvider } from './contexts';
@@ -16,19 +17,24 @@ const LineUpLiteSidePanelImpl = /*!#__PURE__*/ forwardRef(function LineUpLiteSid
   props: LineUpLiteSidePanelProps,
   ref: Ref<HTMLElement>
 ) {
-  const c = useLineUpLiteStateContext<D>();
-  if (!c || !c.instance) {
+  const { instance, state } = useLineUpLiteStateContext<D>() ?? {};
+  if (!instance) {
     return null;
   }
+  const typedInstance = instance as TableInstance<D> & UseFiltersInstanceProps<D>;
 
-  const count = c.instance.flatRows.length;
+  const count = typedInstance.flatRows.length;
+  const unfiltered = typedInstance.preFilteredFlatRows?.length ?? count;
+
+  console.log(state);
+  const selected = Object.keys(state?.selectedRowIds ?? {}).length;
 
   const p = { c: props.components?.sidePanel ?? 'div' };
 
   return (
     <p.c ref={ref} className={clsx('lt-side-panel', props.className)} style={props.style}>
-      <LineUpLiteSidePanelContextProvider instance={c.instance} props={props}>
-        <LineUpLiteDataSummary count={count} />
+      <LineUpLiteSidePanelContextProvider instance={typedInstance} props={props}>
+        <LineUpLiteDataSummary count={count} selected={selected} unfiltered={unfiltered} />
       </LineUpLiteSidePanelContextProvider>
     </p.c>
   );

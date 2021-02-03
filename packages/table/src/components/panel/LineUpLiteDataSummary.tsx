@@ -11,7 +11,7 @@ import { useLineUpLiteSidePanelContext } from './contexts';
 
 export const SIDE_PANEL_I18N_EN = {
   dataSummary: 'Showing {0} items',
-  dataSummaryFiltered: 'Showing {0} of {0} items',
+  dataSummaryFiltered: 'Showing {0} of {1} items',
   dataSummaryResetFilter: 'Reset Filter',
   dataSummarySelected: '{0} selected',
 };
