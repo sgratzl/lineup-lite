@@ -2578,7 +2578,7 @@ __metadata:
     prettier: ^2.2.1
     react: ^16.13.0
     rollup: ^2.36.2
-    rollup-plugin-css-only: ^3.1.0
+    rollup-plugin-css-only: "github:sgratzl/rollup-plugin-css-only#sgratzl/imports"
     rollup-plugin-dts: ^2.0.1
     rollup-plugin-terser: ^7.0.2
     shx: ^0.3.3
@@ -2889,7 +2889,7 @@ __metadata:
     react: ^17.0.1
     react-table: ^7.6.3
     rollup: ^2.36.2
-    rollup-plugin-css-only: ^3.1.0
+    rollup-plugin-css-only: "github:sgratzl/rollup-plugin-css-only#sgratzl/imports"
     rollup-plugin-dts: ^2.0.1
     rollup-plugin-terser: ^7.0.2
     shx: ^0.3.3
@@ -2943,7 +2943,7 @@ __metadata:
     react-table: ^7.6.3
     react-virtual: ^2.3.2
     rollup: ^2.36.2
-    rollup-plugin-css-only: ^3.1.0
+    rollup-plugin-css-only: "github:sgratzl/rollup-plugin-css-only#sgratzl/imports"
     rollup-plugin-dts: ^2.0.1
     rollup-plugin-terser: ^7.0.2
     shx: ^0.3.3
@@ -17347,14 +17347,14 @@ resolve@1.18.1:
   languageName: node
   linkType: hard
 
-"rollup-plugin-css-only@npm:^3.1.0":
+"rollup-plugin-css-only@github:sgratzl/rollup-plugin-css-only#sgratzl/imports":
   version: 3.1.0
-  resolution: "rollup-plugin-css-only@npm:3.1.0"
+  resolution: "rollup-plugin-css-only@https://github.com/sgratzl/rollup-plugin-css-only.git#commit=31293297160812301a38aa3292659bbfbfd6695b"
   dependencies:
     "@rollup/pluginutils": 4
   peerDependencies:
     rollup: 1 || 2
-  checksum: 8a7d81d583bb3d2e0ccc29ddec4af94328e72f79421474613aafdf1363de7bb8ea0d5498b21f01b8db69c881db903310142397e60dd919e57a7bd6f2a889e20d
+  checksum: 4a0a7398c1cde0c26f0e7f730b39922e69f4770655031b660980482303578b54e27f302585f3eca95091a295e5bb24d0f84c3c175e5abceb357ff923959badbf
   languageName: node
   linkType: hard
 

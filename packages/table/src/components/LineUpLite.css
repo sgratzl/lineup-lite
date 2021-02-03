@@ -112,13 +112,23 @@
 
 .lt-summary[data-max]::before {
   border-left: 1px solid var(--current-color, currentcolor);
-  border-image: linear-gradient(to bottom, var(--current-color, currentcolor) 0%, var(--current-color, currentcolor) 50%, transparent 50%);
+  border-image: linear-gradient(
+    to bottom,
+    var(--current-color, currentcolor) 0%,
+    var(--current-color, currentcolor) 50%,
+    transparent 50%
+  );
   border-image-slice: 1 1;
 }
 
 .lt-summary[data-max]::after {
   border-top: 1px solid var(--current-color, currentcolor);
   border-right: 1px solid var(--current-color, currentcolor);
-  border-image: linear-gradient(to bottom, var(--current-color, currentcolor) 0%, var(--current-color, currentcolor) 50%, transparent 50%);
+  border-image: linear-gradient(
+    to bottom,
+    var(--current-color, currentcolor) 0%,
+    var(--current-color, currentcolor) 50%,
+    transparent 50%
+  );
   border-image-slice: 1 1;
 }
