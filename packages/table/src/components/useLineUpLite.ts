@@ -20,19 +20,26 @@ import {
   PluginHook,
   TableInstance,
   TableOptions,
+  TableState,
   useBlockLayout,
   useExpanded,
   UseExpandedOptions,
+  UseExpandedState,
   useFilters,
   UseFiltersInstanceProps,
   UseFiltersOptions,
+  UseFiltersState,
   useGroupBy as useGroupByImpl,
   UseGroupByOptions,
+  UseGroupByState,
   useResizeColumns,
+  UseResizeColumnsState,
   useRowSelect as useRowSelectImpl,
   UseRowSelectOptions,
+  UseRowSelectState,
   useSortBy,
   UseSortByOptions,
+  UseSortByState,
   useTable,
 } from 'react-table';
 import { useStateListener } from './contexts';
@@ -54,17 +61,15 @@ export type UseLineUpLiteTableOptions<D extends object> = TableOptions<D> &
   UseSelectColumnTableOptions &
   UseRowRankColumnTableOptions;
 
-export interface LineUpLiteState {
-  selectedRowIds?: Record<string, true>;
-  expanded?: Record<string, true>;
-  sortBy?: readonly { id: string; desc: boolean }[];
-  groupBy?: readonly string[];
-  filters?: readonly { id: string; value: any }[];
-  columnResizing?: {
-    columnWidths: Record<string, number>;
-  };
-  hiddenColumns?: readonly string[];
-}
+export interface LineUpLiteState<D extends object = {}>
+  extends TableState<D>,
+    UseFiltersState<D>,
+    UseExpandedState<D>,
+    UseGroupByState<D>,
+    UseRowSelectState<D>,
+    UseRowSelectState<D>,
+    UseSortByState<D>,
+    UseResizeColumnsState<D> {}
 
 export interface UseLineUpLiteOptions<D extends object> extends UseLineUpLiteTableOptions<D> {
   defaultColumn?: Partial<LineUpLiteColumn<D>>;
