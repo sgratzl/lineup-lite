@@ -5,7 +5,7 @@
  * Copyright (c) 2021 Samuel Gratzl <sam@sgratzl.com>
  */
 
-import React, { useMemo } from 'react';
+import React, { useCallback, useMemo, useRef, Ref, PropsWithChildren, useEffect, useState } from 'react';
 import './styles.css';
 import LineUpLite, {
   asTextColumn,
@@ -16,6 +16,9 @@ import LineUpLite, {
   LineUpLiteColumn,
   featureDefault,
   actionIconsRemixicon,
+  TableInstance,
+  LineUpLiteSidePanel,
+  LineUpLiteStateContextProvider,
 } from '@lineup-lite/table';
 import { defaultDarkColorScale, defaultColorScale } from '@lineup-lite/components';
 import { ColorRenderer, ProportionalSymbolRenderer } from '@lineup-lite/hooks';
@@ -23,6 +26,17 @@ import '@lineup-lite/components/src/style.css';
 import '@lineup-lite/hooks/src/style.css';
 import '@lineup-lite/table/src/style.css';
 import { data, Row } from './data';
+import { createPortal } from 'react-dom';
+
+// function PortalRenderer(props: PropsWithChildren<{ portalRef: Ref<HTMLDivElement> }>) {
+//   const ref = useRef(document.createElement('div'));
+
+//   useEffect(() => {
+
+//   } port)
+
+//   return createPortal(props.children, ref.current!);
+// }
 
 function Table({ isDarkTheme }: { isDarkTheme: boolean }) {
   const columns: LineUpLiteColumn<Row>[] = useMemo(
@@ -67,7 +81,38 @@ function Table({ isDarkTheme }: { isDarkTheme: boolean }) {
   const features = useMemo(() => featureDefault<Row>(), []);
   const icons = useMemo(() => actionIconsRemixicon(), []);
 
-  return <LineUpLite<Row> data={data} columns={columns} features={features} icons={icons} dark={isDarkTheme} />;
+  const [instance, setInstance] = useState<TableInstance<any>>();
+  const panelRef = useRef<HTMLDivElement>(null);
+
+  const renderInSidePanel = useCallback(
+    (props: TableInstance<Row>) => {
+      return <div />;
+    },
+    [panelRef]
+  );
+
+  useEffect(() => {
+    console.log('instance changed', instance);
+  }, [instance]);
+
+  console.log('render main');
+  return (
+    <LineUpLiteStateContextProvider>
+      <div className="root">
+        <LineUpLite<Row>
+          className="lineup"
+          data={data}
+          columns={columns}
+          features={features}
+          icons={icons}
+          dark={isDarkTheme}
+          addons={renderInSidePanel}
+          // onStateChange={setInstance}
+        />
+        
+      </div>
+    </LineUpLiteStateContextProvider>
+  );
 }
 
 export default function App() {

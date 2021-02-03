@@ -20,7 +20,7 @@ import {
 } from 'react-table';
 import { LineUpLitePagination } from './LineUpLitePagination';
 import type { ActionIcons, PaginationIcons } from '../icons';
-import { LineUpLiteContextProvider } from './contexts';
+import { LineUpLiteTableContextProvider, useStateListener } from './contexts';
 
 export interface LineUpLitePaginatedProps<D extends object> extends LineUpLiteProps<D>, UsePaginationOptions<D> {
   icons: PaginationIcons & ActionIcons;
@@ -28,6 +28,7 @@ export interface LineUpLitePaginatedProps<D extends object> extends LineUpLitePr
 
 export function LineUpLitePaginated<D extends object>(props: LineUpLitePaginatedProps<D>) {
   const instance = useLineUpLite<D>(props, usePagination);
+  useStateListener(props, instance);
   const {
     getTableProps,
     getTableBodyProps,
@@ -52,7 +53,7 @@ export function LineUpLitePaginated<D extends object>(props: LineUpLitePaginated
         style: props.style,
       })}
     >
-      <LineUpLiteContextProvider instance={instance} props={props}>
+      <LineUpLiteTableContextProvider instance={instance} props={props}>
         <LineUpLiteTHead headerGroups={headerGroups} icons={props.icons} actions={props.actions} />
         <p.b
           {...getTableBodyProps({
@@ -73,7 +74,7 @@ export function LineUpLitePaginated<D extends object>(props: LineUpLitePaginated
           pageIndex={pageIndex}
           pageSize={pageSize}
         />
-      </LineUpLiteContextProvider>
+      </LineUpLiteTableContextProvider>
     </p.c>
   );
 }

@@ -12,7 +12,7 @@ import { LineUpLiteTHead } from './LineUpLiteTHead';
 import { LineUpLiteTVirtualBody } from './LineUpLiteTVirtualBody';
 import { useLineUpLite } from './useLineUpLite';
 import { clsx } from './utils';
-import { LineUpLiteContextProvider } from './contexts';
+import { LineUpLiteTableContextProvider, useStateListener } from './contexts';
 
 export type SizeEstimator = number | [number, number] | ((index: number) => number);
 
@@ -28,6 +28,7 @@ const LineUpLiteVirtualImpl = /*!#__PURE__*/ forwardRef(function LineUpLiteVirtu
   ref: Ref<HTMLElement>
 ) {
   const instance = useLineUpLite<D>(props);
+  useStateListener(props, instance);
   const { getTableProps, getTableBodyProps, headerGroups, prepareRow, rows } = instance;
 
   const theadRef = useRef<HTMLElement>(null);
@@ -42,7 +43,7 @@ const LineUpLiteVirtualImpl = /*!#__PURE__*/ forwardRef(function LineUpLiteVirtu
         style: props.style,
       })}
     >
-      <LineUpLiteContextProvider instance={instance} props={props}>
+      <LineUpLiteTableContextProvider instance={instance} props={props}>
         <LineUpLiteTHead headerGroups={headerGroups} ref={theadRef} icons={props.icons} actions={props.actions} />
         <LineUpLiteTVirtualBody
           getTableBodyProps={getTableBodyProps}
@@ -53,7 +54,7 @@ const LineUpLiteVirtualImpl = /*!#__PURE__*/ forwardRef(function LineUpLiteVirtu
           overscan={props.overscan}
           prepareRow={prepareRow}
         />
-      </LineUpLiteContextProvider>
+      </LineUpLiteTableContextProvider>
     </p.c>
   );
 });

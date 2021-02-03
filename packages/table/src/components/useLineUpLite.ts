@@ -7,15 +7,16 @@
 
 import {
   columnSpecificGroupByFn,
+  LineUpLiteColumn,
   useRowExpandColumn,
   UseRowExpandColumnTableOptions,
-  useRowSelectColumn,
-  useStats,
   useRowRankColumn,
-  LineUpLiteColumn,
-  UseSelectColumnTableOptions,
   UseRowRankColumnTableOptions,
+  useRowSelectColumn,
+  UseSelectColumnTableOptions,
+  useStats,
 } from '@lineup-lite/hooks';
+import { useEffect } from 'react';
 import {
   PluginHook,
   TableInstance,
@@ -35,13 +36,14 @@ import {
   UseSortByOptions,
   useTable,
 } from 'react-table';
+import { useLineUpLiteStateContext } from './contexts';
 
-export {
-  useSortBy as featureSortBy,
-  useResizeColumns as featureResizeColumns,
-  useFilters as featureFilterColumns,
-} from 'react-table';
 export { useRowRankColumn as featureRowRank } from '@lineup-lite/hooks';
+export {
+  useFilters as featureFilterColumns,
+  useResizeColumns as featureResizeColumns,
+  useSortBy as featureSortBy,
+} from 'react-table';
 
 export type UseLineUpLiteTableOptions<D extends object> = TableOptions<D> &
   UseFiltersOptions<D> &
@@ -57,6 +59,8 @@ export interface UseLineUpLiteOptions<D extends object> extends UseLineUpLiteTab
   defaultColumn?: Partial<LineUpLiteColumn<D>>;
   columns: LineUpLiteColumn<D>[];
   features: readonly (PluginHook<D> | PluginHook<D>[])[];
+
+  onStateChange?: (state: any) => void;
 }
 
 export function featureRowSelect<D extends object>(): PluginHook<D>[] {
@@ -97,6 +101,29 @@ export function useLineUpLite<D extends object>(
     .map((d, i) => [d, i] as [PluginHook<D>, number])
     .sort(sortByPriority)
     .map((r) => r[0]);
+  const instance = useTable<D>(tableProps, ...allPlugins) as TableInstance<D> & UseFiltersInstanceProps<D>;
 
-  return useTable<D>(tableProps, ...allPlugins) as TableInstance<D> & UseFiltersInstanceProps<D>;
+  const { onStateChange } = props;
+  const { state } = instance;
+
+  useEffect(() => {
+    if (onStateChange) {
+      onStateChange(state);
+    }
+  }, [onStateChange, state]);
+
+  // update state context
+  const stateContext = useLineUpLiteStateContext<D>();
+  useEffect(() => {
+    if (stateContext) {
+      stateContext.setState(state);
+    }
+  }, [stateContext, state]);
+  useEffect(() => {
+    if (stateContext) {
+      stateContext.setInstance(instance);
+    }
+  }, [stateContext, instance]);
+
+  return instance;
 }

@@ -24,3 +24,15 @@ code {
     background:  #333; color: white; 
   }
 }
+
+.root {
+  display: flex;
+}
+
+.lineup {
+  flex-grow: 1
+}
+
+.side-panel {
+  flex-basis: 30em;
+}

@@ -6,8 +6,8 @@
  */
 
 import { clsx, CommonProps, mergeStyles, useI18N, toLocaleString } from '@lineup-lite/components';
-import React, { forwardRef, Ref, useContext } from 'react';
-import { LineUpLiteContext } from '../contexts';
+import React, { forwardRef, Ref } from 'react';
+import { useLineUpLiteSidePanelContext } from './contexts';
 
 export const SIDE_PANEL_I18N_EN = {
   dataSummary: 'Showing {0} items',
@@ -22,17 +22,15 @@ export interface LineUpLiteDataSummaryProps extends CommonProps {
   selected?: number;
   format?: (v: number) => string;
   onResetFilter?: () => void;
-
-  i18n?: Partial<typeof SIDE_PANEL_I18N_EN>;
 }
 
 export const LineUpLiteDataSummary = /*!#__PURE__*/ forwardRef(function LineUpLiteDataSummary(
   props: LineUpLiteDataSummaryProps,
   ref: Ref<HTMLElement>
 ) {
-  const c = useContext(LineUpLiteContext);
+  const c = useLineUpLiteSidePanelContext();
   const p = { c: c?.components.dataSummary ?? 'div' };
-  const i18n = useI18N(SIDE_PANEL_I18N_EN, props.i18n);
+  const i18n = useI18N(SIDE_PANEL_I18N_EN, c?.i18n);
   const format = props.format ?? toLocaleString;
   return (
     <p.c

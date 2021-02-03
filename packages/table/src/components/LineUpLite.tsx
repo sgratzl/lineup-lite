@@ -11,13 +11,15 @@ import { LineUpLiteTHead } from './LineUpLiteTHead';
 import { LineUpLiteTR } from './LineUpLiteTR';
 import { useLineUpLite } from './useLineUpLite';
 import { clsx } from './utils';
-import { LineUpLiteContextProvider } from './contexts';
+import { LineUpLiteTableContextProvider, useStateListener } from './contexts';
 
 export const LineUpLite = /*!#__PURE__*/ forwardRef(function LineUpLite<D extends object>(
   props: LineUpLiteProps<D>,
   ref: Ref<HTMLElement>
 ) {
+  console.log('render impl');
   const instance = useLineUpLite<D>(props);
+  useStateListener(props, instance);
   const { getTableProps, getTableBodyProps, headerGroups, prepareRow, rows } = instance;
 
   const p = { c: props.components?.table ?? 'div', b: props.components?.tbody ?? 'div' };
@@ -30,7 +32,7 @@ export const LineUpLite = /*!#__PURE__*/ forwardRef(function LineUpLite<D extend
       })}
       ref={ref}
     >
-      <LineUpLiteContextProvider instance={instance} props={props}>
+      <LineUpLiteTableContextProvider instance={instance} props={props}>
         <LineUpLiteTHead headerGroups={headerGroups} actions={props.actions} icons={props.icons} />
         <p.b
           {...getTableBodyProps({
@@ -43,7 +45,7 @@ export const LineUpLite = /*!#__PURE__*/ forwardRef(function LineUpLite<D extend
             return <LineUpLiteTR key={row.id} row={row} />;
           })}
         </p.b>
-      </LineUpLiteContextProvider>
+      </LineUpLiteTableContextProvider>
     </p.c>
   );
 });

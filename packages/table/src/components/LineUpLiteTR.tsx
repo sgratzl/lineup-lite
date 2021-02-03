@@ -5,9 +5,9 @@
  * Copyright (c) 2021 Samuel Gratzl <sam@sgratzl.com>
  */
 
-import React, { memo, useContext, Ref, forwardRef, RefAttributes, ReactElement } from 'react';
+import React, { memo, Ref, forwardRef, RefAttributes, ReactElement } from 'react';
 import type { Row, UseExpandedRowProps, UseGroupByRowProps, UseRowSelectRowProps } from 'react-table';
-import { LineUpLiteContext } from './contexts';
+import { useLineUpLiteTableContext } from './contexts';
 import { LineUpLiteTD } from './LineUpLiteTD';
 import { clsx, mergeStyles } from './utils';
 
@@ -21,7 +21,7 @@ const LineUpLiteTRImpl = /*!#__PURE__*/ forwardRef(function LineUpLiteTR<D exten
   props: LineUpLiteTRProps<D>,
   ref: Ref<HTMLElement>
 ) {
-  const c = useContext(LineUpLiteContext);
+  const c = useLineUpLiteTableContext();
   const rowTyped = (props.row as unknown) as Row<D> &
     UseExpandedRowProps<D> &
     UseGroupByRowProps<D> &

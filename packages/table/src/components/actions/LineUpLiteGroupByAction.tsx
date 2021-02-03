@@ -5,16 +5,16 @@
  * Copyright (c) 2021 Samuel Gratzl <sam@sgratzl.com>
  */
 
-import React, { ComponentType, useCallback, useContext, MouseEvent } from 'react';
+import React, { ComponentType, useCallback, MouseEvent } from 'react';
 import type { ColumnInstance, UseGroupByColumnProps } from 'react-table';
 import { LINEUP_LITE_I18N_EN } from '../../i18n';
-import { LineUpLiteContext } from '../contexts';
+import { useLineUpLiteTableContext } from '../contexts';
 import { clsx } from '../utils';
 
 export function LineUpLiteGroupByAction(
   props: UseGroupByColumnProps<any> & ColumnInstance<any> & { icon: ComponentType }
 ) {
-  const c = useContext(LineUpLiteContext);
+  const c = useLineUpLiteTableContext();
   const dispatch = c?.dispatch;
   const { toggleGroupBy, isGrouped, id } = props;
   const group = useCallback(

@@ -5,9 +5,9 @@
  * Copyright (c) 2021 Samuel Gratzl <sam@sgratzl.com>
  */
 
-import React, { forwardRef, ReactElement, Ref, RefAttributes, useContext } from 'react';
+import React, { forwardRef, ReactElement, Ref, RefAttributes } from 'react';
 import type { HeaderGroup } from 'react-table';
-import { LineUpLiteContext } from './contexts';
+import { useLineUpLiteTableContext } from './contexts';
 import type { ActionLineUpProps } from './interfaces';
 import { LineUpLiteTH } from './LineUpLiteTH';
 import { clsx } from './utils';
@@ -20,7 +20,7 @@ const LineUpLiteTHeadImpl = /*!#__PURE__*/ forwardRef(function LineUpLiteTHead<D
   { headerGroups, icons, actions }: LineUpLiteTHeadProps<D>,
   ref: Ref<HTMLElement>
 ) {
-  const c = useContext(LineUpLiteContext);
+  const c = useLineUpLiteTableContext();
   const p = { c: c?.components.thead ?? 'div', g: c?.components.thGroup ?? 'div' };
   return (
     <p.c

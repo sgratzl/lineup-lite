@@ -5,12 +5,12 @@
  * Copyright (c) 2021 Samuel Gratzl <sam@sgratzl.com>
  */
 
-import React, { forwardRef, ReactElement, Ref, RefAttributes, useContext } from 'react';
+import React, { forwardRef, ReactElement, Ref, RefAttributes } from 'react';
 import type { HeaderGroup, Renderer, UseGroupByColumnProps, UseResizeColumnsColumnProps } from 'react-table';
 import { clsx, mergeStyles } from './utils';
 import { LineUpLiteToolbar } from './LineUpLiteToolbar';
 import type { ActionLineUpProps } from './interfaces';
-import { LineUpLiteContext } from './contexts';
+import { useLineUpLiteTableContext } from './contexts';
 
 export interface LineUpLiteTHProps<D extends object> extends ActionLineUpProps<D> {
   col: HeaderGroup<D>;
@@ -23,7 +23,7 @@ const LineUpLiteTHImpl = /*!#__PURE__*/ forwardRef(function LineUpLiteTH<D exten
   const column = (col as unknown) as HeaderGroup<D> &
     UseGroupByColumnProps<D> &
     UseResizeColumnsColumnProps<D> & { tooltip?: string; Summary?: Renderer<any> };
-  const c = useContext(LineUpLiteContext);
+  const c = useLineUpLiteTableContext();
   const p = { c: c?.components.th ?? 'div' };
   return (
     <p.c
