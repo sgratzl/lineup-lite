@@ -135,3 +135,19 @@ export function useAsyncDebounce<F extends (...args: any[]) => void>(f: F, timeo
   );
   return b as F;
 }
+
+/**
+ * checks whether the given value is missing
+ * @param v value to check
+ */
+export function isMissing(v: number | string | null | Date | undefined | readonly any[] | Set<any>): boolean {
+  return (
+    v == null || (typeof v === 'number' && Number.isNaN(v)) || (typeof v === 'string' && ['NaN', 'N/A', ''].includes(v))
+  );
+}
+
+export function missingClass(
+  v: number | string | null | Date | undefined | readonly any[] | Set<any>
+): string | undefined {
+  return isMissing(v) ? 'lt-missing' : undefined;
+}

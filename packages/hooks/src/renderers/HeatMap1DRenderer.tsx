@@ -9,7 +9,7 @@ import { HeatMap1D, NumberFormatter } from '@lineup-lite/components';
 import React, { useContext } from 'react';
 import type { CellProps, Renderer } from 'react-table';
 import { deriveNumberOptions } from './barStats';
-import { optionContext } from './utils';
+import { missingClass, optionContext } from './utils';
 
 export interface HeatMap1DRendererOptions {
   scale?: (v: number) => number;
@@ -23,7 +23,7 @@ export interface HeatMap1DRendererOptions {
 export function HeatMap1DRenderer<D extends object, P extends CellProps<D, number[]>>(props: P) {
   const options = useContext(optionContext) as HeatMap1DRendererOptions;
   const p = deriveNumberOptions<D, P>(props, options);
-  return <HeatMap1D {...p} value={props.value} />;
+  return <HeatMap1D {...p} value={props.value} className={missingClass(props.value)} />;
 }
 
 /**

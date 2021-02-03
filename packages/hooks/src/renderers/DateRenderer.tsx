@@ -9,7 +9,7 @@ import React, { useContext } from 'react';
 import type { Renderer, CellProps } from 'react-table';
 import { IDateStats, DateFormatter, resolveDateFormatter } from '@lineup-lite/components';
 import type { UseStatsColumnProps } from '../hooks';
-import { optionContext, resolve } from './utils';
+import { missingClass, optionContext, resolve } from './utils';
 import { DateLabel } from '@lineup-lite/components';
 
 export interface DateRendererOptions {
@@ -33,7 +33,7 @@ export function DateRenderer<D extends object, P extends CellProps<D, Date>>(pro
     return <div className="lt-date">{props.value}</div>;
   }
   const p = deriveDateOptions<D, P>(props, options);
-  return <DateLabel {...p} value={props.value} />;
+  return <DateLabel {...p} value={props.value} className={missingClass(props.value)} />;
 }
 
 export function DateRendererFactory<D extends object, P extends CellProps<D, Date>>(

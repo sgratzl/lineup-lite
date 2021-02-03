@@ -120,15 +120,19 @@ export function UpSetLine(props: UpSetLineProps) {
   const i18n = useI18N(UPSET_LINE_I18N_EN, props.i18n);
   return (
     <div className={clsx('lt-upset-line', props.className)} style={props.style}>
-      {sets.map((s) => (
-        <UpSetDot
-          key={s}
-          mode={has.has(s)}
-          title={(has.has(s) ? i18n.upsetHas : i18n.upsetHasNot)(format(s, props.format))}
-          color={typeof props.color === 'string' ? props.color : props.color ? props.color(s) : undefined}
-        />
-      ))}
-      <UpSetLineLine first={first} last={last} sets={sets} color={props.color} />
+      {props.value != null && (
+        <>
+          {sets.map((s) => (
+            <UpSetDot
+              key={s}
+              mode={has.has(s)}
+              title={(has.has(s) ? i18n.upsetHas : i18n.upsetHasNot)(format(s, props.format))}
+              color={typeof props.color === 'string' ? props.color : props.color ? props.color(s) : undefined}
+            />
+          ))}
+          <UpSetLineLine first={first} last={last} sets={sets} color={props.color} />
+        </>
+      )}
     </div>
   );
 }

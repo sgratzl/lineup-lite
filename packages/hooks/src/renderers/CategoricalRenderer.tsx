@@ -9,7 +9,7 @@ import { CategoricalColor, ICategoricalStats } from '@lineup-lite/components';
 import React, { useContext } from 'react';
 import type { CellProps, Renderer } from 'react-table';
 import type { UseStatsColumnProps } from '../hooks';
-import { generateColor, generateIdentity, optionContext, resolve } from './utils';
+import { generateColor, generateIdentity, missingClass, optionContext, resolve } from './utils';
 
 export interface CategoricalRendererOptions {
   color?: (v: string) => string;
@@ -31,7 +31,7 @@ function deriveCategoricalOptions<D extends object, P extends CellProps<D, strin
 export function CategoricalRenderer<D extends object, P extends CellProps<D, string>>(props: P) {
   const options = useContext(optionContext) as CategoricalRendererOptions;
   const p = deriveCategoricalOptions<D, P>(props, options);
-  return <CategoricalColor {...p} value={props.value} />;
+  return <CategoricalColor {...p} value={props.value} className={missingClass(props.value)} />;
 }
 
 export function CategoricalRendererFactory<D extends object, P extends CellProps<D, string>>(

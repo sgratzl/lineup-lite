@@ -20,3 +20,5 @@ export * from './CategoricalSetRenderer';
 export * from './CategoricalSetHistogramRenderer';
 export * from './HeatMap1DRenderer';
 export * from './BoxPlotArrayRenderer';
+export * from './TextRenderer';
+export { isMissing } from './utils';

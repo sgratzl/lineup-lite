@@ -26,6 +26,7 @@ import {
   CategoricalSetHistogramRenderer,
   HeatMap1DRenderer,
   BoxPlotArrayRenderer,
+  TextRenderer,
 } from './renderers';
 import { textStats, categoricalStats, dateStats, numberStats } from './stats';
 import { rangeFilter, categoricalFilter, categoricalSetFilter } from './filters';
@@ -73,6 +74,7 @@ export function asTextColumn<D extends object, C extends Column<D> = Column<D>>(
   options?: TextStatsOptions
 ): LineUpLiteColumn<D> {
   return ({
+    Cell: TextRenderer,
     Summary: TextSummaryRenderer,
     Aggregated: TextSummaryRenderer,
     Group: GroupValueRenderer,

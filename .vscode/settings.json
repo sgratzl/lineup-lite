@@ -1,6 +1,5 @@
 {
   "editor.formatOnSave": true,
-  "editor.formatOnType": true,
   "[javascript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
@@ -35,5 +34,8 @@
     "**/.pnp.*": true
   },
   "prettier.packageManager": "yarn",
-  "typescript.preferences.importModuleSpecifier": "relative"
+  "typescript.preferences.importModuleSpecifier": "relative",
+  "editor.formatOnPaste": true,
+  "editor.formatOnType": true,
+  "eslint.packageManager": "yarn"
 }

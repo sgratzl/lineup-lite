@@ -11,6 +11,8 @@ import LineUpLite, {
   asTextColumn,
   asNumberColumn,
   asCategoricalColumn,
+  asCategoricalSetColumn,
+  asNumbersColumn,
   LineUpLiteColumn,
   featureDefault,
   actionIconsRemixicon,
@@ -31,6 +33,10 @@ function Table({ isDarkTheme }: { isDarkTheme: boolean }) {
       asCategoricalColumn<Row>('shirtSize', {
         categories: ['S', 'M', 'L'],
       }),
+      asCategoricalSetColumn<Row>('hobbies', {
+        categories: ['running', 'cooking', 'reading'],
+      }),
+      asNumbersColumn<Row>('runningTimes'),
     ],
     [isDarkTheme]
   );

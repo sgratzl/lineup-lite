@@ -52,7 +52,7 @@ export function resolveNumberFormatter(format?: NumberFormatter): (v: number) =>
     return format;
   }
   const f = new Intl.NumberFormat(format ? format.locales : undefined, format ? format.options : undefined);
-  return f.format.bind(f);
+  return (v) => (v == null ? '' : f.format(v));
 }
 
 export interface NumberStatsOptions extends BoxplotStatsOptions {

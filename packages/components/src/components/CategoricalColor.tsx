@@ -29,9 +29,14 @@ export function CategoricalColor(props: CategoricalColorProps) {
   return (
     <div
       className={clsx('lt-categorical', props.className)}
-      style={mergeStyles(props.style, {
-        borderLeftColor: typeof props.color === 'string' ? props.color : props.color(props.value),
-      })}
+      style={mergeStyles(
+        props.style,
+        props.value != null
+          ? {
+              borderLeftColor: typeof props.color === 'string' ? props.color : props.color(props.value),
+            }
+          : null
+      )}
       title={title}
     >
       {title}

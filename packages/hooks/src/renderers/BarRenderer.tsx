@@ -9,7 +9,7 @@ import { NumberBar, NumberFormatter } from '@lineup-lite/components';
 import React, { useContext } from 'react';
 import type { CellProps, Renderer } from 'react-table';
 import { deriveNumberOptions } from './barStats';
-import { optionContext } from './utils';
+import { missingClass, optionContext } from './utils';
 
 export interface BarRendererOptions {
   scale?: (v: number) => number;
@@ -23,7 +23,7 @@ export interface BarRendererOptions {
 export function BarRenderer<D extends object, P extends CellProps<D, number>>(props: P) {
   const options = useContext(optionContext) as BarRendererOptions;
   const p = deriveNumberOptions<D, P>(props, options);
-  return <NumberBar {...p} value={props.value} />;
+  return <NumberBar {...p} value={props.value} className={missingClass(props.value)} />;
 }
 
 /**
