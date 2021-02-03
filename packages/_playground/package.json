@@ -46,7 +46,7 @@
   "scripts": {
     "start": "rescripts start",
     "build": "rescripts build",
-    "test": "rescripts test --env=jsdom",
+    "test:d": "rescripts test --env=jsdom",
     "eject": "rescripts eject"
   },
   "browserslist": [
