@@ -8,7 +8,7 @@
 import React, { CSSProperties, PropsWithChildren, useMemo } from 'react';
 import { clsx } from '../utils';
 import type {
-  HeaderGroup,
+  ColumnInstance,
   UseFiltersColumnProps,
   UseGroupByColumnProps,
   UseResizeColumnsColumnProps,
@@ -17,14 +17,14 @@ import type {
 import { ActionIcons, LINEUP_LITE_TEXT_ICONS } from '../../icons';
 import { LineUpLiteSortByAction, LineUpLiteGroupByAction, LineUpLiteHideAction } from '.';
 
-export interface LineUpLiteToolbarProps<D extends object = {}> extends HeaderGroup<D> {
+export interface LineUpLiteToolbarProps<D extends object = {}> extends ColumnInstance<D> {
   className?: string;
   style?: CSSProperties;
   icons?: Partial<ActionIcons>;
 }
 
 export function LineUpLiteToolbar(props: PropsWithChildren<LineUpLiteToolbarProps<any>>) {
-  const column = (props as unknown) as HeaderGroup<any> &
+  const column = (props as unknown) as ColumnInstance<any> &
     UseGroupByColumnProps<any> &
     UseResizeColumnsColumnProps<any> &
     UseFiltersColumnProps<any> &

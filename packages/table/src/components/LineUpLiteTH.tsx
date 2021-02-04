@@ -6,9 +6,10 @@
  */
 
 import React, { forwardRef, ReactElement, Ref, RefAttributes } from 'react';
-import type { HeaderGroup, Renderer, UseGroupByColumnProps, UseResizeColumnsColumnProps } from 'react-table';
+import type { HeaderGroup, UseGroupByColumnProps, UseResizeColumnsColumnProps } from 'react-table';
 import { clsx, mergeStyles } from './utils';
 import { LineUpLiteToolbar } from './toolbar/LineUpLiteToolbar';
+import type { LineUpLiteColumn } from '@lineup-lite/hooks';
 import type { ActionLineUpProps } from './interfaces';
 import { useLineUpLiteTableContext } from './contexts';
 
@@ -22,7 +23,8 @@ const LineUpLiteTHImpl = /*!#__PURE__*/ forwardRef(function LineUpLiteTH<D exten
 ) {
   const column = (col as unknown) as HeaderGroup<D> &
     UseGroupByColumnProps<D> &
-    UseResizeColumnsColumnProps<D> & { tooltip?: string; Summary?: Renderer<any> };
+    UseResizeColumnsColumnProps<D> &
+    LineUpLiteColumn<D>;
   const c = useLineUpLiteTableContext();
   const p = { c: c?.components.th ?? 'div' };
   return (
@@ -31,7 +33,7 @@ const LineUpLiteTHImpl = /*!#__PURE__*/ forwardRef(function LineUpLiteTH<D exten
       {...column.getHeaderProps({
         className: clsx(
           'lt-th',
-          !column.canResize && 'lt-th-support',
+          column.isSupport && 'lt-th-support',
           c?.classNames?.th,
           clsx(column.isResizing && 'lt-column-resizing')
         ),

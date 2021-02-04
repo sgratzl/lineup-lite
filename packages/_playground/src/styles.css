@@ -45,4 +45,5 @@ code {
 
 .side-panel {
   min-width: 15em;
+  border-left: 1px solid currentcolor;
 }

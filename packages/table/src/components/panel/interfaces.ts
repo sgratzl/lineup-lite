@@ -10,7 +10,7 @@ import type { CommonProps } from '@lineup-lite/components';
 import type { ActionLineUpProps, LineUpLiteComponentLike } from '../interfaces';
 import type { DATA_SUMMARY_I18N_EN } from './LineUpLiteDataSummary';
 
-export type MultiCustomizePanelKeys = 'dataSummary' | 'tableSummary';
+export type MultiCustomizePanelKeys = 'dataSummary' | 'tableSummary' | 'th' | 'header';
 
 export interface CustomizeLineUpPanelProps {
   /**

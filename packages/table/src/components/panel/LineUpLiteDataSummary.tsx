@@ -23,7 +23,7 @@ export interface LineUpLiteDataSummaryProps extends CommonProps {
   instance: LineUpLiteTableInstance<any>;
   state?: LineUpLiteState<any>;
   format?: (v: number) => string;
-  icons?: Pick<ActionIcons, 'clearSelection' | 'resetFilter'>;
+  icons?: Partial<Pick<ActionIcons, 'clearSelection' | 'resetFilter'>>;
 }
 
 export const LineUpLiteDataSummary = /*!#__PURE__*/ forwardRef(function LineUpLiteDataSummary(
