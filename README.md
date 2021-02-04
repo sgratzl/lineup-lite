@@ -133,11 +133,11 @@ yarn start ... starts playground
 yarn workspaces foreach --verbose version X.X.X --deferred
 yarn version apply --all
 git commit -am 'release vX.X.X'
+yarn clear
+yarn build
 git push
 git tag vX.X.X
 git push --tags
-yarn clear
-yarn build
 yarn workspaces foreach --verbose npm publish --access public
 ```
 
