@@ -2,12 +2,11 @@
 title: Side Panel
 ---
 
-LineUp-lite ships with an [`LineUpLitePanel`](/api/table/modules.html#lineuplitepanel) component. 
-The side panel is usually rendered next to the LineUp-lite table and shows a summary of the displayed rows including a vertical representation of all shown columns. 
+LineUp-lite ships with an [`LineUpLitePanel`](/api/table/modules.html#lineuplitepanel) component.
+The side panel is usually rendered next to the LineUp-lite table and shows a summary of the displayed rows including a vertical representation of all shown columns.
 
 In order to `LineUpLitePanel` to work, both `LineUpLite` and `LineUpLitePanel` component has to be under the same [`LineUpLiteStateContextProvider`](/api/table/modules.html#lineuplitestatecontextprovider).
 This component will be updated with the current react-table instance and state and is used to synchronize the both compnents.
-
 
 ```jsx live
 // import React from 'react';
@@ -62,11 +61,11 @@ function GettingStarted() {
 
   return (
     <LineUpLiteStateContextProvider>
-      <div style={{display: 'flex', minHeight: '25em'}}>
-        <div style={{flexGrow: 1}}>
+      <div style={{ display: 'flex', minHeight: '25em' }}>
+        <div style={{ flexGrow: 1 }}>
           <LineUpLite data={data} columns={columns} features={features} />
         </div>
-        <LineUpLitePanel style={{minWidth: '15em'}} />
+        <LineUpLitePanel style={{ minWidth: '15em' }} />
       </div>
     </LineUpLiteStateContextProvider>
   );

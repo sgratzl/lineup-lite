@@ -72,8 +72,8 @@ export interface LineUpLiteState<D extends object = {}>
     UseGroupByState<D>,
     UseRowSelectState<D>,
     UseSortByState<D>,
-  UseResizeColumnsState<D> { }
-    
+    UseResizeColumnsState<D> {}
+
 export interface LineUpLiteTableInstance<D extends object = {}>
   extends TableInstance<D>,
     UseFiltersInstanceProps<D>,

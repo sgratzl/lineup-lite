@@ -59,8 +59,8 @@ const data = React.useMemo(
 
 ## Defining your columns
 
-LineUp-lite provides four basic column types with automatic summary and filtering capabilities:
-`text`, `number`, `categorial`, and `date`. Each type comes with a `as<type>Column` builder function,
+LineUp-lite provides multiple basic column types with automatic summary and filtering capabilities:
+`text`, `number`, `categorial`, `date`, `categorical set`, and `number array`. Each type comes with a `as<type>Column` builder function,
 defining the basic attributes of a column, such as which renderer to use and how the summary should be computed.
 
 ```js
@@ -154,5 +154,73 @@ function GettingStarted() {
   const features = React.useMemo(() => featureDefault(), []);
 
   return <LineUpLite data={data} columns={columns} features={features} />;
+}
+```
+
+## Optional: add side panel
+
+In addition to the main LineUp-lite table, LineUp-lite ships with an optional side panel (`LineUpLitePanel`) that provides an overview over the table in a vertical form.
+
+```jsx live
+// import React from 'react';
+// import LineUpLite, {
+//   asTextColumn,
+//   asNumberColumn,
+//   asCategoricalColumn,
+//   LineUpLiteColumn,
+//   featureDefault,
+//   LineUpLiteStateContextProvider,
+//   LineUpLitePanel,
+// } from '@lineup-lite/table';
+// import '@lineup-lite/table/dist/table.css';
+
+function GettingStarted() {
+  const data = React.useMemo(
+    () => [
+      {
+        name: 'Panchito Green',
+        age: 10,
+        shirtSize: 'S',
+      },
+      {
+        name: 'Rubia Robker',
+        age: 25,
+        shirtSize: 'M',
+      },
+      {
+        name: 'Micheil Sappell',
+        age: 50,
+        shirtSize: 'L',
+      },
+      {
+        name: 'Geoffrey Sprason',
+        age: 30,
+      },
+      {
+        name: 'Grissel Rounsefull',
+        age: 21,
+        shirtSize: 'S',
+      },
+    ],
+    []
+  );
+
+  const columns = React.useMemo(
+    () => [asTextColumn('name'), asNumberColumn('age'), asCategoricalColumn('shirtSize')],
+    []
+  );
+
+  const features = React.useMemo(() => featureDefault(), []);
+
+  return (
+    <LineUpLiteStateContextProvider>
+      <div style={{ display: 'flex', minHeight: '25em' }}>
+        <div style={{ flexGrow: 1 }}>
+          <LineUpLite data={data} columns={columns} features={features} />
+        </div>
+        <LineUpLitePanel style={{ minWidth: '15em' }} />
+      </div>
+    </LineUpLiteStateContextProvider>
+  );
 }
 ```
