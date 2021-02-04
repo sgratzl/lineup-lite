@@ -21,7 +21,9 @@ This monorepo contains following packages:
 
 - [@lineup-lite/docs](https://github.com/sgratzl/lineup-lite/tree/main/packages/docs) Docusaurus based documentation
 
-- [@lineup-lite/playground](https://github.com/sgratzl/lineup-lite/tree/main/packages/playground) Playground setup for testing lineup-lite
+- [@lineup-lite/\_playground](https://github.com/sgratzl/lineup-lite/tree/main/packages/_playground) Playground setup for testing lineup-lite
+
+In addition there are numerous [example projects](https://github.com/sgratzl/lineup-lite/tree/main/examples/).
 
 ## Installation and Usage
 
@@ -42,12 +44,12 @@ yarn add @lineup-lite/table
 ```jsx
 import React from 'react';
 import LineUpLite, {
-   asTextColumn,
-   asNumberColumn,
-   asCategoricalColumn,
-   asDateColumn,
-   LineUpLiteColumn,
-   featureDefault,
+  asTextColumn,
+  asNumberColumn,
+  asCategoricalColumn,
+  asDateColumn,
+  LineUpLiteColumn,
+  featureDefault,
 } from '@lineup-lite/table';
 import '@lineup-lite/table/dist/table.css';
 
@@ -101,7 +103,6 @@ function GettingStarted() {
 
 ![Getting Started Result](https://user-images.githubusercontent.com/4129778/105834355-a74ff600-5fca-11eb-8e3b-5374c2511682.png)
 
-
 ## Dev Environment
 
 ```sh
@@ -122,7 +123,8 @@ yarn build
 yarn test
 yarn lint
 yarn fix
-yarn start ... starts docusaurus
+yarn watch ... compiles and watches table/components/hooks
+yarn start ... starts playground
 ```
 
 ### Release
