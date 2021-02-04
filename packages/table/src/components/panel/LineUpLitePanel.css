@@ -69,9 +69,22 @@
 }
 
 .lt-panel-th {
-  margin: 0.5em;
+  margin: 0.5em 0.5em 0.5em 0.5em;
+  padding-top: 1em;
+  border-top: 1px solid var(--current-color, currentColor);
 }
 
-.lt-panel-th > .lt-summary {
+.lt-panel-th > .lt-summary.lt-histogram {
   min-height: 5em;
+}
+
+.lt-panel-th-container {
+  display: flex;
+  align-items: flex-start;
+}
+
+.lt-panel-header {
+  flex: 1 1 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
