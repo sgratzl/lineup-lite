@@ -5,10 +5,10 @@
  * Copyright (c) 2021 Samuel Gratzl <sam@sgratzl.com>
  */
 
-import React, { ComponentType, useCallback, useContext, MouseEvent } from 'react';
+import React, { ComponentType, useCallback, MouseEvent } from 'react';
 import type { UseSortByColumnProps } from 'react-table';
 import { LINEUP_LITE_I18N_EN } from '../../i18n';
-import { LineUpLiteContext } from '../contexts';
+import { useLineUpLiteTableContext } from '../contexts';
 import { clsx } from '../utils';
 
 export function LineUpLiteSortByAction(
@@ -19,7 +19,7 @@ export function LineUpLiteSortByAction(
     (e: MouseEvent<HTMLElement>) => toggleSortBy(undefined, e.shiftKey || e.ctrlKey || isSorted),
     [toggleSortBy, isSorted]
   );
-  const c = useContext(LineUpLiteContext);
+  const c = useLineUpLiteTableContext();
   const i18n = c?.i18n ?? LINEUP_LITE_I18N_EN;
   const sortBys = c?.sortByColumnCount ?? 0;
   const descFirst = (props as any).sortDescFirst as boolean;
@@ -43,6 +43,7 @@ export function LineUpLiteSortByAction(
           props.isSortedDesc && 'lt-action-desc'
         ),
       })}
+      type="button"
       onClick={sort}
       data-index={props.isSorted && (c?.sortByColumnCount ?? 0) > 1 ? props.sortedIndex + 1 : null}
       title={title}

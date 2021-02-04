@@ -81,11 +81,12 @@ function generateColumn<D extends object = {}>(columns: ColumnInstance<D>[], met
     disableSortBy: true,
     disableGroupBy: true,
     canHide: false,
+    isSupport: true,
   };
   return [rankColumn, ...columns];
 }
 
-function useInstance<D extends object>(instance: TableInstance<D>) {
+function useInstance<D extends object = {}>(instance: TableInstance<D>) {
   ensurePluginOrder(instance.plugins, ['useFilters', 'useGroupBy', 'useSortBy'], 'useRowRankColumn');
 
   const extendedInstance = (instance as unknown) as TableInstance<D> &

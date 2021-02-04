@@ -10,7 +10,7 @@ import { identity } from '../renderers/utils';
 import { compareAsc } from '../sort/internal';
 import { MISSING_GROUP } from './histGroupBy';
 
-export function baseGroupBy<D extends object>(
+export function baseGroupBy<D extends object = {}>(
   rows: Row<D>[],
   column: ColumnInstance<D>,
   acc: (v: any) => string | null = identity

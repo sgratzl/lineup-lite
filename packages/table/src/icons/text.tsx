@@ -16,7 +16,7 @@ function SortDesc() {
   return <>↓</>;
 }
 
-function DeleteBinLine() {
+function Delete() {
   return <>×</>;
 }
 
@@ -49,7 +49,9 @@ export const LINEUP_LITE_TEXT_ICONS: PaginationIcons & ActionIcons = {
   expandGroup: ArrowDropRightLine,
   sortAsc: SortAsc,
   sortDesc: SortDesc,
-  hideColumn: DeleteBinLine,
+  hideColumn: Delete,
+  resetFilter: Delete,
+  clearSelection: Delete,
   firstPage: FirstPage,
   previousPage: PreviousPage,
   nextPage: NextPage,

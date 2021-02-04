@@ -110,6 +110,7 @@ function generateColumn<D extends object = {}>(columns: ColumnInstance<D>[], met
     disableGroupBy: true,
     disableResizing: true,
     canHide: false,
+    isSupport: true,
   };
   return [selectionColumn, ...columns];
 }

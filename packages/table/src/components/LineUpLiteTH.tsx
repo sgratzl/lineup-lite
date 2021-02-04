@@ -5,25 +5,27 @@
  * Copyright (c) 2021 Samuel Gratzl <sam@sgratzl.com>
  */
 
-import React, { forwardRef, ReactElement, Ref, RefAttributes, useContext } from 'react';
-import type { HeaderGroup, Renderer, UseGroupByColumnProps, UseResizeColumnsColumnProps } from 'react-table';
+import React, { forwardRef, ReactElement, Ref, RefAttributes } from 'react';
+import type { HeaderGroup, UseGroupByColumnProps, UseResizeColumnsColumnProps } from 'react-table';
 import { clsx, mergeStyles } from './utils';
-import { LineUpLiteToolbar } from './LineUpLiteToolbar';
+import { LineUpLiteToolbar } from './toolbar/LineUpLiteToolbar';
+import type { LineUpLiteColumn } from '@lineup-lite/hooks';
 import type { ActionLineUpProps } from './interfaces';
-import { LineUpLiteContext } from './contexts';
+import { useLineUpLiteTableContext } from './contexts';
 
-export interface LineUpLiteTHProps<D extends object> extends ActionLineUpProps<D> {
+export interface LineUpLiteTHProps<D extends object = {}> extends ActionLineUpProps<D> {
   col: HeaderGroup<D>;
 }
 
-const LineUpLiteTHImpl = /*!#__PURE__*/ forwardRef(function LineUpLiteTH<D extends object>(
+const LineUpLiteTHImpl = /*!#__PURE__*/ forwardRef(function LineUpLiteTH<D extends object = {}>(
   { col, actions, icons }: LineUpLiteTHProps<D>,
   ref: Ref<HTMLElement>
 ) {
   const column = (col as unknown) as HeaderGroup<D> &
     UseGroupByColumnProps<D> &
-    UseResizeColumnsColumnProps<D> & { tooltip?: string; Summary?: Renderer<any> };
-  const c = useContext(LineUpLiteContext);
+    UseResizeColumnsColumnProps<D> &
+    LineUpLiteColumn<D>;
+  const c = useLineUpLiteTableContext();
   const p = { c: c?.components.th ?? 'div' };
   return (
     <p.c
@@ -31,7 +33,7 @@ const LineUpLiteTHImpl = /*!#__PURE__*/ forwardRef(function LineUpLiteTH<D exten
       {...column.getHeaderProps({
         className: clsx(
           'lt-th',
-          !column.canResize && 'lt-th-support',
+          column.isSupport && 'lt-th-support',
           c?.classNames?.th,
           clsx(column.isResizing && 'lt-column-resizing')
         ),
@@ -56,6 +58,6 @@ const LineUpLiteTHImpl = /*!#__PURE__*/ forwardRef(function LineUpLiteTH<D exten
   );
 });
 
-export const LineUpLiteTH = LineUpLiteTHImpl as <D extends object>(
+export const LineUpLiteTH = LineUpLiteTHImpl as <D extends object = {}>(
   p: LineUpLiteTHProps<D> & RefAttributes<HTMLElement>
 ) => ReactElement;

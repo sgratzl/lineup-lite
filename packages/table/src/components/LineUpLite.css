@@ -6,7 +6,10 @@
  */
 
 .lt-table {
-  --current-color: currentcolor;
+}
+
+.lt-colors {
+  --current-color: currentColor;
   --current-color-rgb: 0, 0, 0;
   --current-inverted-color-rgb: 255, 255, 255;
   --current-inverted-color: rgb(var(--current-inverted-color-rgb));
@@ -107,27 +110,27 @@
 .lt-summary:not(.lt-group)::before {
   /** always have a content */
   content: attr(data-min) '';
-  border-top: 1px solid var(--current-color, currentcolor);
+  border-top: 1px solid var(--current-color, currentColor);
 }
 
 .lt-summary[data-max]::before {
-  border-left: 1px solid var(--current-color, currentcolor);
+  border-left: 1px solid var(--current-color, currentColor);
   border-image: linear-gradient(
     to bottom,
-    var(--current-color, currentcolor) 0%,
-    var(--current-color, currentcolor) 50%,
+    var(--current-color, currentColor) 0%,
+    var(--current-color, currentColor) 50%,
     transparent 50%
   );
   border-image-slice: 1 1;
 }
 
 .lt-summary[data-max]::after {
-  border-top: 1px solid var(--current-color, currentcolor);
-  border-right: 1px solid var(--current-color, currentcolor);
+  border-top: 1px solid var(--current-color, currentColor);
+  border-right: 1px solid var(--current-color, currentColor);
   border-image: linear-gradient(
     to bottom,
-    var(--current-color, currentcolor) 0%,
-    var(--current-color, currentcolor) 50%,
+    var(--current-color, currentColor) 0%,
+    var(--current-color, currentColor) 50%,
     transparent 50%
   );
   border-image-slice: 1 1;

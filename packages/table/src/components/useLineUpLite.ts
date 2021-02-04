@@ -7,43 +7,55 @@
 
 import {
   columnSpecificGroupByFn,
+  LineUpLiteColumn,
   useRowExpandColumn,
   UseRowExpandColumnTableOptions,
-  useRowSelectColumn,
-  useStats,
   useRowRankColumn,
-  LineUpLiteColumn,
-  UseSelectColumnTableOptions,
   UseRowRankColumnTableOptions,
+  useRowSelectColumn,
+  UseSelectColumnTableOptions,
+  useStats,
 } from '@lineup-lite/hooks';
 import {
   PluginHook,
   TableInstance,
   TableOptions,
+  TableState,
   useBlockLayout,
   useExpanded,
+  UseExpandedInstanceProps,
   UseExpandedOptions,
+  UseExpandedState,
   useFilters,
   UseFiltersInstanceProps,
   UseFiltersOptions,
+  UseFiltersState,
   useGroupBy as useGroupByImpl,
+  UseGroupByInstanceProps,
   UseGroupByOptions,
+  UseGroupByState,
   useResizeColumns,
+  UseResizeColumnsState,
   useRowSelect as useRowSelectImpl,
+  UseRowSelectInstanceProps,
   UseRowSelectOptions,
+  UseRowSelectState,
   useSortBy,
+  UseSortByInstanceProps,
   UseSortByOptions,
+  UseSortByState,
   useTable,
 } from 'react-table';
+import { useStateListener } from './contexts';
 
-export {
-  useSortBy as featureSortBy,
-  useResizeColumns as featureResizeColumns,
-  useFilters as featureFilterColumns,
-} from 'react-table';
 export { useRowRankColumn as featureRowRank } from '@lineup-lite/hooks';
+export {
+  useFilters as featureFilterColumns,
+  useResizeColumns as featureResizeColumns,
+  useSortBy as featureSortBy,
+} from 'react-table';
 
-export type UseLineUpLiteTableOptions<D extends object> = TableOptions<D> &
+export type UseLineUpLiteTableOptions<D extends object = {}> = TableOptions<D> &
   UseFiltersOptions<D> &
   UseExpandedOptions<D> &
   UseGroupByOptions<D> &
@@ -53,25 +65,44 @@ export type UseLineUpLiteTableOptions<D extends object> = TableOptions<D> &
   UseSelectColumnTableOptions &
   UseRowRankColumnTableOptions;
 
-export interface UseLineUpLiteOptions<D extends object> extends UseLineUpLiteTableOptions<D> {
+export interface LineUpLiteState<D extends object = {}>
+  extends TableState<D>,
+    UseFiltersState<D>,
+    UseExpandedState<D>,
+    UseGroupByState<D>,
+    UseRowSelectState<D>,
+    UseSortByState<D>,
+    UseResizeColumnsState<D> {}
+
+export interface LineUpLiteTableInstance<D extends object = {}>
+  extends TableInstance<D>,
+    UseFiltersInstanceProps<D>,
+    UseExpandedInstanceProps<D>,
+    UseGroupByInstanceProps<D>,
+    UseRowSelectInstanceProps<D>,
+    UseSortByInstanceProps<D> {}
+
+export interface UseLineUpLiteOptions<D extends object = {}> extends UseLineUpLiteTableOptions<D> {
   defaultColumn?: Partial<LineUpLiteColumn<D>>;
   columns: LineUpLiteColumn<D>[];
   features: readonly (PluginHook<D> | PluginHook<D>[])[];
+
+  onStateChange?: (state: LineUpLiteState) => void;
 }
 
-export function featureRowSelect<D extends object>(): PluginHook<D>[] {
+export function featureRowSelect<D extends object = {}>(): PluginHook<D>[] {
   return [useRowSelectImpl, useRowSelectColumn];
 }
 
-export function featureSortAndGroupBy<D extends object>(): PluginHook<D>[] {
+export function featureSortAndGroupBy<D extends object = {}>(): PluginHook<D>[] {
   return [useGroupByImpl, useSortBy, useExpanded, useRowExpandColumn];
 }
 
-export function featureDefault<D extends object>(): PluginHook<D>[] {
+export function featureDefault<D extends object = {}>(): PluginHook<D>[] {
   return [useResizeColumns, useFilters, ...featureSortAndGroupBy<D>(), ...featureRowSelect<D>(), useRowRankColumn];
 }
 
-function sortByPriority<D extends object>(a: [PluginHook<D>, number], b: [PluginHook<D>, number]) {
+function sortByPriority<D extends object = {}>(a: [PluginHook<D>, number], b: [PluginHook<D>, number]) {
   const specialOrders = ['useRowSelect', 'useRowRankColumn', 'useRowExpandColumn'];
   // ensure useRowExpandColumn is after useRowSelectColumn
   const isASpecial = specialOrders.indexOf(a[0].pluginName!);
@@ -85,10 +116,10 @@ function sortByPriority<D extends object>(a: [PluginHook<D>, number], b: [Plugin
   return a[1] - b[1];
 }
 
-export function useLineUpLite<D extends object>(
+export function useLineUpLite<D extends object = {}>(
   { features, ...props }: UseLineUpLiteOptions<D>,
   ...extraPlugins: PluginHook<D>[]
-) {
+): LineUpLiteTableInstance<D> {
   const tableProps: UseLineUpLiteTableOptions<D> & UseRowExpandColumnTableOptions = {
     groupByFn: columnSpecificGroupByFn,
     ...props,
@@ -97,6 +128,8 @@ export function useLineUpLite<D extends object>(
     .map((d, i) => [d, i] as [PluginHook<D>, number])
     .sort(sortByPriority)
     .map((r) => r[0]);
+  const instance = useTable<D>(tableProps, ...allPlugins) as LineUpLiteTableInstance<D>;
 
-  return useTable<D>(tableProps, ...allPlugins) as TableInstance<D> & UseFiltersInstanceProps<D>;
+  useStateListener(props, instance);
+  return instance;
 }

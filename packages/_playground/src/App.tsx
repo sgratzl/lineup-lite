@@ -5,24 +5,26 @@
  * Copyright (c) 2021 Samuel Gratzl <sam@sgratzl.com>
  */
 
-import React, { useMemo } from 'react';
-import './styles.css';
+import { defaultColorScale, defaultDarkColorScale } from '@lineup-lite/components';
+import '@lineup-lite/components/src/style.css';
+import { ColorRenderer, ProportionalSymbolRenderer } from '@lineup-lite/hooks';
+import '@lineup-lite/hooks/src/style.css';
 import LineUpLite, {
-  asTextColumn,
-  asNumberColumn,
+  actionIconsRemixicon,
   asCategoricalColumn,
   asCategoricalSetColumn,
+  asNumberColumn,
   asNumbersColumn,
-  LineUpLiteColumn,
+  asTextColumn,
   featureDefault,
-  actionIconsRemixicon,
+  LineUpLiteColumn,
+  LineUpLitePanel,
+  LineUpLiteStateContextProvider,
 } from '@lineup-lite/table';
-import { defaultDarkColorScale, defaultColorScale } from '@lineup-lite/components';
-import { ColorRenderer, ProportionalSymbolRenderer } from '@lineup-lite/hooks';
-import '@lineup-lite/components/src/style.css';
-import '@lineup-lite/hooks/src/style.css';
 import '@lineup-lite/table/src/style.css';
+import React, { useMemo } from 'react';
 import { data, Row } from './data';
+import './styles.css';
 
 function Table({ isDarkTheme }: { isDarkTheme: boolean }) {
   const columns: LineUpLiteColumn<Row>[] = useMemo(
@@ -67,7 +69,23 @@ function Table({ isDarkTheme }: { isDarkTheme: boolean }) {
   const features = useMemo(() => featureDefault<Row>(), []);
   const icons = useMemo(() => actionIconsRemixicon(), []);
 
-  return <LineUpLite<Row> data={data} columns={columns} features={features} icons={icons} dark={isDarkTheme} />;
+  return (
+    <LineUpLiteStateContextProvider>
+      <div className="root">
+        <div className="lineup">
+          <LineUpLite<Row>
+            data={data}
+            columns={columns}
+            features={features}
+            icons={icons}
+            dark={isDarkTheme}
+            // onStateChange={setInstance}
+          />
+        </div>
+        <LineUpLitePanel className="side-panel" icons={icons} dark={isDarkTheme} />
+      </div>
+    </LineUpLiteStateContextProvider>
+  );
 }
 
 export default function App() {

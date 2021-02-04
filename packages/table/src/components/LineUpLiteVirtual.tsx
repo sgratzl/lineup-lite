@@ -12,18 +12,18 @@ import { LineUpLiteTHead } from './LineUpLiteTHead';
 import { LineUpLiteTVirtualBody } from './LineUpLiteTVirtualBody';
 import { useLineUpLite } from './useLineUpLite';
 import { clsx } from './utils';
-import { LineUpLiteContextProvider } from './contexts';
+import { LineUpLiteTableContextProvider } from './contexts';
 
 export type SizeEstimator = number | [number, number] | ((index: number) => number);
 
-export interface LineUpLiteVirtualProps<D extends object> extends LineUpLiteProps<D> {
+export interface LineUpLiteVirtualProps<D extends object = {}> extends LineUpLiteProps<D> {
   estimatedSize: SizeEstimator;
   rowSpacing?: number;
   overscan?: number;
   icons?: Partial<ActionIcons>;
 }
 
-const LineUpLiteVirtualImpl = /*!#__PURE__*/ forwardRef(function LineUpLiteVirtual<D extends object>(
+const LineUpLiteVirtualImpl = /*!#__PURE__*/ forwardRef(function LineUpLiteVirtual<D extends object = {}>(
   props: LineUpLiteVirtualProps<D>,
   ref: Ref<HTMLElement>
 ) {
@@ -38,11 +38,11 @@ const LineUpLiteVirtualImpl = /*!#__PURE__*/ forwardRef(function LineUpLiteVirtu
     <p.c
       ref={ref}
       {...getTableProps({
-        className: clsx('lt-table', 'lt-table-virtual', props.dark && 'lt-dark', props.className),
+        className: clsx('lt-table', 'lt-colors', 'lt-table-virtual', props.dark && 'lt-dark', props.className),
         style: props.style,
       })}
     >
-      <LineUpLiteContextProvider instance={instance} props={props}>
+      <LineUpLiteTableContextProvider instance={instance} props={props}>
         <LineUpLiteTHead headerGroups={headerGroups} ref={theadRef} icons={props.icons} actions={props.actions} />
         <LineUpLiteTVirtualBody
           getTableBodyProps={getTableBodyProps}
@@ -53,11 +53,11 @@ const LineUpLiteVirtualImpl = /*!#__PURE__*/ forwardRef(function LineUpLiteVirtu
           overscan={props.overscan}
           prepareRow={prepareRow}
         />
-      </LineUpLiteContextProvider>
+      </LineUpLiteTableContextProvider>
     </p.c>
   );
 });
 
-export const LineUpLiteVirtual = LineUpLiteVirtualImpl as <D extends object>(
+export const LineUpLiteVirtual = LineUpLiteVirtualImpl as <D extends object = {}>(
   p: LineUpLiteVirtualProps<D> & RefAttributes<HTMLElement>
 ) => ReactElement;

@@ -5,15 +5,15 @@
  * Copyright (c) 2021 Samuel Gratzl <sam@sgratzl.com>
  */
 
-import React, { useRef, useCallback, useLayoutEffect, useMemo, useContext, RefObject } from 'react';
+import React, { useRef, useCallback, useLayoutEffect, useMemo, RefObject } from 'react';
 import type { Row, TableInstance, UseExpandedRowProps, UseGroupByRowProps } from 'react-table';
 import { clsx } from './utils';
 import { useVirtual } from 'react-virtual';
 import { LineUpLiteTRMemo } from './LineUpLiteTR';
 import type { SizeEstimator } from './LineUpLiteVirtual';
-import { LineUpLiteContext } from './contexts';
+import { useLineUpLiteTableContext } from './contexts';
 
-export function LineUpLiteTVirtualBody<D extends object>({
+export function LineUpLiteTVirtualBody<D extends object = {}>({
   rows,
   prepareRow,
   getTableBodyProps,
@@ -30,7 +30,7 @@ export function LineUpLiteTVirtualBody<D extends object>({
   rowSpacing: number;
   overscan?: number;
 }) {
-  const c = useContext(LineUpLiteContext);
+  const c = useLineUpLiteTableContext();
   const ref = useRef<HTMLDivElement>(null);
   const givenEstimate = estimatedSize;
   const estimateSize = useCallback(

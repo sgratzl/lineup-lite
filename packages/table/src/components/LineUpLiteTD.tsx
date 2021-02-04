@@ -5,23 +5,23 @@
  * Copyright (c) 2021 Samuel Gratzl <sam@sgratzl.com>
  */
 
-import React, { forwardRef, ReactElement, Ref, RefAttributes, useContext } from 'react';
+import React, { forwardRef, ReactElement, Ref, RefAttributes } from 'react';
 import type { Cell, ColumnInstance, UseGroupByCellProps, UseResizeColumnsColumnProps } from 'react-table';
 import type { LineUpLiteColumn } from '@lineup-lite/hooks';
 import { clsx } from './utils';
-import { LineUpLiteContext } from './contexts';
+import { useLineUpLiteTableContext } from './contexts';
 
-export interface LineUpLiteTDProps<D extends object> {
+export interface LineUpLiteTDProps<D extends object = {}> {
   cell: Cell<D, any>;
 }
 
-const LineUpLiteTDImpl = /*!#__PURE__*/ forwardRef(function LineUpLiteTD<D extends object>(
+const LineUpLiteTDImpl = /*!#__PURE__*/ forwardRef(function LineUpLiteTD<D extends object = {}>(
   { cell }: LineUpLiteTDProps<D>,
   ref: Ref<HTMLElement>
 ) {
   const cellTyped = (cell as unknown) as Cell<D> & UseGroupByCellProps<D>;
   const column = cellTyped.column as LineUpLiteColumn<D> & ColumnInstance<D> & UseResizeColumnsColumnProps<D>;
-  const c = useContext(LineUpLiteContext);
+  const c = useLineUpLiteTableContext();
   const p = { c: c?.components.td ?? 'div' };
   return (
     <p.c
@@ -40,6 +40,6 @@ const LineUpLiteTDImpl = /*!#__PURE__*/ forwardRef(function LineUpLiteTD<D exten
   );
 });
 
-export const LineUpLiteTD = LineUpLiteTDImpl as <D extends object>(
+export const LineUpLiteTD = LineUpLiteTDImpl as <D extends object = {}>(
   p: LineUpLiteTDProps<D> & RefAttributes<HTMLElement>
 ) => ReactElement;

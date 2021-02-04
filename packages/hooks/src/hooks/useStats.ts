@@ -24,11 +24,11 @@ export type UseStatsOptions = Partial<{
   autoResetStats?: boolean;
 }>;
 
-export interface UseStatsState<D extends object> {
+export interface UseStatsState<D extends object = {}> {
   Stats: Stats<D>;
 }
 
-export type UseStatsColumnOptions<D extends object> = Partial<{
+export type UseStatsColumnOptions<D extends object = {}> = Partial<{
   Summary: Renderer<StatsProps<D>>;
   stats: StatsType;
   // grouper:
@@ -42,16 +42,16 @@ export interface UseStatsColumnProps {
   preFilterStatsValue?: StatsValue;
 }
 
-export type StatsProps<D extends object> = HeaderProps<D> & {
+export type StatsProps<D extends object = {}> = HeaderProps<D> & {
   column: UseStatsColumnProps;
   i18n?: Record<string, string>;
 };
-export type StatsCellProps<D extends object> = CellProps<D> & {
+export type StatsCellProps<D extends object = {}> = CellProps<D> & {
   column: UseStatsColumnProps;
   i18n?: Record<string, string>;
 };
 export type StatsValue = any;
-export type Stats<D extends object> = Array<{ id: IdType<D>; value: StatsValue }>;
+export type Stats<D extends object = {}> = Array<{ id: IdType<D>; value: StatsValue }>;
 
 export interface StatsType {
   (values: readonly any[], preFilterStats?: any): any;
@@ -103,7 +103,7 @@ export function useStats<D extends object = {}>(hooks: Hooks<D>) {
 }
 useStats.pluginName = 'useStats';
 
-function useInstance<D extends object>(instance: TableInstance<D>) {
+function useInstance<D extends object = {}>(instance: TableInstance<D>) {
   ensurePluginOrder(instance.plugins, ['useFilters', 'useGroupBy'], 'useStats');
 
   const extendedInstance = (instance as unknown) as TableInstance<D> &

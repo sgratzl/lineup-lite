@@ -10,6 +10,7 @@ import type { ActionIcons } from '../icons';
 import type { LineUpLiteI18N } from '../i18n';
 import type { UseLineUpLiteOptions } from './useLineUpLite';
 import type { ComponentType, CSSProperties, DetailedHTMLProps, HTMLAttributes, ReactNode } from 'react';
+import type { CommonProps } from '@lineup-lite/components';
 
 export type MultiCustomizeKeys = 'tbody' | 'tr' | 'thead' | 'th' | 'thGroup' | 'td' | 'header';
 
@@ -28,9 +29,11 @@ export interface CustomizeLineUpProps {
   i18n?: Partial<LineUpLiteI18N>;
 
   components?: Partial<Record<MultiCustomizeKeys | 'table', LineUpLiteComponentLike>>;
+
+  dark?: boolean;
 }
 
-export interface ActionLineUpProps<D extends object> {
+export interface ActionLineUpProps<D extends object = {}> {
   /**
    * customize the icons to use
    */
@@ -42,20 +45,11 @@ export interface ActionLineUpProps<D extends object> {
   actions?: (column: HeaderGroup<D>) => ReactNode;
 }
 
-export interface LineUpLiteProps<D extends object>
+export interface LineUpLiteProps<D extends object = {}>
   extends UseLineUpLiteOptions<D>,
     ActionLineUpProps<D>,
-    CustomizeLineUpProps {
-  className?: string;
-  style?: CSSProperties;
-  dark?: boolean;
+    CustomizeLineUpProps,
+    CommonProps {
   icons?: Partial<ActionIcons>;
   i18n?: UseLineUpLiteOptions<D>['i18n'] & CustomizeLineUpProps['i18n'];
-  onStateChange?: (state: any) => void;
-}
-
-export interface LineUpLiteStateInfo {
-  visibleColumnCount: number;
-  sortedColumnCount: number;
-  groupedColumnCount: number;
 }

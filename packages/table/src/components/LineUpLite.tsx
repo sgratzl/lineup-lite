@@ -11,9 +11,9 @@ import { LineUpLiteTHead } from './LineUpLiteTHead';
 import { LineUpLiteTR } from './LineUpLiteTR';
 import { useLineUpLite } from './useLineUpLite';
 import { clsx } from './utils';
-import { LineUpLiteContextProvider } from './contexts';
+import { LineUpLiteTableContextProvider } from './contexts';
 
-export const LineUpLite = /*!#__PURE__*/ forwardRef(function LineUpLite<D extends object>(
+export const LineUpLite = /*!#__PURE__*/ forwardRef(function LineUpLite<D extends object = {}>(
   props: LineUpLiteProps<D>,
   ref: Ref<HTMLElement>
 ) {
@@ -25,12 +25,12 @@ export const LineUpLite = /*!#__PURE__*/ forwardRef(function LineUpLite<D extend
   return (
     <p.c
       {...getTableProps({
-        className: clsx('lt-table', props.dark && 'lt-dark', props.className),
+        className: clsx('lt-table', 'lt-colors', props.dark && 'lt-dark', props.className),
         style: props.style,
       })}
       ref={ref}
     >
-      <LineUpLiteContextProvider instance={instance} props={props}>
+      <LineUpLiteTableContextProvider instance={instance} props={props}>
         <LineUpLiteTHead headerGroups={headerGroups} actions={props.actions} icons={props.icons} />
         <p.b
           {...getTableBodyProps({
@@ -43,9 +43,11 @@ export const LineUpLite = /*!#__PURE__*/ forwardRef(function LineUpLite<D extend
             return <LineUpLiteTR key={row.id} row={row} />;
           })}
         </p.b>
-      </LineUpLiteContextProvider>
+      </LineUpLiteTableContextProvider>
     </p.c>
   );
 });
 
-export default LineUpLite as <D extends object>(p: LineUpLiteProps<D> & RefAttributes<HTMLElement>) => ReactElement;
+export default LineUpLite as <D extends object = {}>(
+  p: LineUpLiteProps<D> & RefAttributes<HTMLElement>
+) => ReactElement;

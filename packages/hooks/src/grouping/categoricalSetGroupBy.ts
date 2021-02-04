@@ -10,7 +10,7 @@ import type { ICategoricalStats } from '@lineup-lite/components';
 import { baseGroupBy } from './internal';
 import { categoricalSortFunc, compareAsc } from '../sort/internal';
 
-export function categoricalSetGroupBy<D extends object>(
+export function categoricalSetGroupBy<D extends object = {}>(
   rows: Row<D>[],
   column: ColumnInstance<D>
 ): Record<string, Row<D>[]> {

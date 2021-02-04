@@ -22,3 +22,5 @@ export {
   LineUpLiteColumn,
   asColumn,
 } from '@lineup-lite/hooks';
+
+export type { TableInstance, Cell, Row } from 'react-table';

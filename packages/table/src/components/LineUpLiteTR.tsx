@@ -5,23 +5,23 @@
  * Copyright (c) 2021 Samuel Gratzl <sam@sgratzl.com>
  */
 
-import React, { memo, useContext, Ref, forwardRef, RefAttributes, ReactElement } from 'react';
+import React, { memo, Ref, forwardRef, RefAttributes, ReactElement } from 'react';
 import type { Row, UseExpandedRowProps, UseGroupByRowProps, UseRowSelectRowProps } from 'react-table';
-import { LineUpLiteContext } from './contexts';
+import { useLineUpLiteTableContext } from './contexts';
 import { LineUpLiteTD } from './LineUpLiteTD';
 import { clsx, mergeStyles } from './utils';
 
-export interface LineUpLiteTRProps<D extends object> {
+export interface LineUpLiteTRProps<D extends object = {}> {
   row: Row<D>;
   virtualStart?: number;
   virtualSize?: number;
 }
 
-const LineUpLiteTRImpl = /*!#__PURE__*/ forwardRef(function LineUpLiteTR<D extends object>(
+const LineUpLiteTRImpl = /*!#__PURE__*/ forwardRef(function LineUpLiteTR<D extends object = {}>(
   props: LineUpLiteTRProps<D>,
   ref: Ref<HTMLElement>
 ) {
-  const c = useContext(LineUpLiteContext);
+  const c = useLineUpLiteTableContext();
   const rowTyped = (props.row as unknown) as Row<D> &
     UseExpandedRowProps<D> &
     UseGroupByRowProps<D> &
@@ -59,7 +59,7 @@ const LineUpLiteTRImpl = /*!#__PURE__*/ forwardRef(function LineUpLiteTR<D exten
   );
 });
 
-export const LineUpLiteTR = LineUpLiteTRImpl as <D extends object>(
+export const LineUpLiteTR = LineUpLiteTRImpl as <D extends object = {}>(
   p: LineUpLiteTRProps<D> & RefAttributes<HTMLElement>
 ) => ReactElement;
 

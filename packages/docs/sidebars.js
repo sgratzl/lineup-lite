@@ -53,6 +53,7 @@ module.exports = {
         'table/_index',
         'table/LineUpLite',
         'table/LineUpLiteVirtual',
+        'table/SidePanel',
         'table/IconPacks',
         {
           type: 'link',
@@ -67,6 +68,7 @@ module.exports = {
       items: [
         'examples/_index',
         'examples/animation',
+        'examples/sidepanel',
         'examples/virtualized-rows',
         'examples/pagination',
         'examples/controlled-state',

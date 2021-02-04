@@ -8,7 +8,10 @@
 import type { ColumnInstance, Row } from 'react-table';
 import { baseGroupBy } from './internal';
 
-export function textGroupBy<D extends object>(rows: Row<D>[], column: ColumnInstance<D>): Record<string, Row<D>[]> {
+export function textGroupBy<D extends object = {}>(
+  rows: Row<D>[],
+  column: ColumnInstance<D>
+): Record<string, Row<D>[]> {
   const base = baseGroupBy(rows, column);
 
   // sort groups by value not by first come first ordered

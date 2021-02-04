@@ -101,7 +101,7 @@ export function resolve<T>(directValue: T | undefined, globalValue: T | undefine
   return defaultValue();
 }
 
-export function isFilterAble<D extends object>(props: any): props is { column: UseFiltersColumnProps<D> } {
+export function isFilterAble<D extends object = {}>(props: any): props is { column: UseFiltersColumnProps<D> } {
   return typeof (props.column as UseFiltersColumnProps<D>).setFilter === 'function';
 }
 

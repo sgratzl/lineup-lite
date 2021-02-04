@@ -1,0 +1,90 @@
+/**
+ * @lineup-lite/table
+ * https://github.com/sgratzl/lineup-lite
+ *
+ * Copyright (c) 2021 Samuel Gratzl <sam@sgratzl.com>
+ */
+
+.lt-panel {
+  display: flex;
+  flex-direction: column;
+}
+
+.lt-data-summary {
+  text-align: left;
+  margin: 0.5em;
+}
+
+.lt-data-summary-selected {
+  /*box-shadow: 0 0 0 2px var(--select-color, #ffa500);*/
+}
+
+.lt-text-action {
+  display: inline-block;
+  text-align: left;
+  font: inherit;
+  font-size: inherit;
+  box-sizing: border-box;
+  border: none;
+  background: none;
+  padding: 0;
+  color: var(--current-color, currentColor);
+  cursor: pointer;
+}
+
+.lt-text-action > svg {
+  margin-left: 0.2em;
+  fill: var(--current-color, currentColor);
+  width: 0.8em;
+  height: auto;
+  opacity: 0.25;
+  transition: opacity 0.25s ease;
+}
+
+.lt-text-action:hover,
+.lt-text-action:active,
+.lt-text-action:focus {
+  background: none;
+}
+
+.lt-text-action:hover > svg,
+.lt-text-action-active > svg {
+  opacity: 1;
+}
+
+.lt-table-summary {
+  flex: 1 1 0;
+  position: relative;
+}
+
+.lt-table-summary > div {
+  position: absolute;
+  overflow: auto;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.lt-panel-th {
+  margin: 0.5em 0.5em 0.5em 0.5em;
+  padding-top: 1em;
+  border-top: 1px solid var(--current-color, currentColor);
+}
+
+.lt-panel-th > .lt-summary.lt-histogram {
+  min-height: 5em;
+}
+
+.lt-panel-th-container {
+  display: flex;
+  align-items: flex-start;
+}
+
+.lt-panel-header {
+  flex: 1 1 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
