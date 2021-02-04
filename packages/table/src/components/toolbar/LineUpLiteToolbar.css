@@ -21,6 +21,7 @@
   background: none;
   padding: 0;
   color: var(--current-color, currentcolor);
+  cursor: pointer;
 }
 
 .lt-action[data-index]::before {

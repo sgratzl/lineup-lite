@@ -16,3 +16,36 @@
 .lt-data-summary-selected {
   /*box-shadow: 0 0 0 2px var(--select-color, #ffa500);*/
 }
+
+.lt-text-action {
+  display: inline-block;
+  text-align: left;
+  font: inherit;
+  font-size: inherit;
+  box-sizing: border-box;
+  border: none;
+  background: none;
+  padding: 0;
+  color: var(--current-color, currentcolor);
+  cursor: pointer;
+}
+
+.lt-text-action > svg {
+  margin-left: 0.2em;
+  fill: var(--current-color, currentcolor);
+  width: 0.8em;
+  height: auto;
+  opacity: 0.25;
+  transition: opacity 0.25s ease;
+}
+
+.lt-text-action:hover,
+.lt-text-action:active,
+.lt-text-action:focus {
+  background: none;
+}
+
+.lt-text-action:hover > svg,
+.lt-text-action-active > svg {
+  opacity: 1;
+}

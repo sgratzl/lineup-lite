@@ -5,7 +5,8 @@
  * Copyright (c) 2021 Samuel Gratzl <sam@sgratzl.com>
  */
 
-import React, { forwardRef, ReactElement, Ref, RefAttributes } from 'react';
+import React, { forwardRef, ReactElement, Ref, RefAttributes, useMemo } from 'react';
+import { LINEUP_LITE_TEXT_ICONS } from '../../icons';
 import { useLineUpLiteStateContext } from '../contexts';
 import { clsx } from '../utils';
 import { LineUpLitePanelContextProvider } from './contexts';
@@ -17,11 +18,21 @@ const LineUpLitePanelImpl = /*!#__PURE__*/ forwardRef(function LineUpLitePanel<D
   ref: Ref<HTMLElement>
 ) {
   const { instance, state } = useLineUpLiteStateContext<D>() ?? {};
+
+  const p = { c: props.components?.panel ?? 'div' };
+
+  const pIcons = props.icons;
+  const icons = useMemo(
+    () => ({
+      ...LINEUP_LITE_TEXT_ICONS,
+      ...(pIcons ?? {}),
+    }),
+    [pIcons]
+  );
+
   if (!instance) {
     return null;
   }
-
-  const p = { c: props.components?.panel ?? 'div' };
 
   return (
     <p.c
@@ -30,7 +41,7 @@ const LineUpLitePanelImpl = /*!#__PURE__*/ forwardRef(function LineUpLitePanel<D
       style={props.style}
     >
       <LineUpLitePanelContextProvider instance={instance} props={props}>
-        <LineUpLiteDataSummary instance={instance} state={state} />
+        <LineUpLiteDataSummary instance={instance} state={state} icons={icons} />
       </LineUpLitePanelContextProvider>
     </p.c>
   );

@@ -11,8 +11,10 @@ export interface ActionIcons {
   groupBy: ComponentType;
   sortAsc: ComponentType;
   sortDesc: ComponentType;
-  hideColumn: ComponentType;
   expandGroup: ComponentType;
+  hideColumn: ComponentType;
+  resetFilter: ComponentType;
+  clearSelection: ComponentType;
 }
 
 export interface PaginationIcons {
