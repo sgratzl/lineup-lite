@@ -14,6 +14,7 @@ import LineUpLite, {
   LineUpLiteColumn,
   featureDefault,
   actionIconsRemixicon,
+  LineUpLiteState,
 } from '@lineup-lite/table';
 import { defaultDarkColorScale, defaultColorScale } from '@lineup-lite/components';
 import '@lineup-lite/table/dist/table.css';
@@ -34,7 +35,7 @@ function Table({ isDarkTheme }: { isDarkTheme: boolean }) {
   const features = useMemo(() => featureDefault<Row>(), []);
   const icons = useMemo(() => actionIconsRemixicon(), []);
 
-  const [state, setState] = useState(null);
+  const [state, setState] = useState(null as null | LineUpLiteState<Row>);
 
   return (
     <div>
