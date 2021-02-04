@@ -15,7 +15,9 @@ import type {
   UseSortByColumnProps,
 } from 'react-table';
 import { ActionIcons, LINEUP_LITE_TEXT_ICONS } from '../../icons';
-import { LineUpLiteSortByAction, LineUpLiteGroupByAction, LineUpLiteHideAction } from '.';
+import { LineUpLiteSortByAction } from './LineUpLiteSortByAction';
+import { LineUpLiteGroupByAction } from './LineUpLiteGroupByAction';
+import { LineUpLiteHideAction } from './LineUpLiteHideAction';
 
 export interface LineUpLiteToolbarProps<D extends object = {}> extends ColumnInstance<D> {
   className?: string;
