@@ -8,19 +8,19 @@
 import { createContext, PropsWithChildren, useContext, useMemo } from 'react';
 import React from 'react';
 import type { TableDispatch, TableInstance } from 'react-table';
-import type { CustomizeLineUpSidePanelProps } from './interfaces';
+import type { CustomizeLineUpPanelProps } from './interfaces';
 import { EMPTY_OBJ } from '../utils';
 
-export interface LineUpLiteSidePanelContextProps extends Required<CustomizeLineUpSidePanelProps> {
+export interface LineUpLitePanelContextProps extends Required<CustomizeLineUpPanelProps> {
   dispatch: TableDispatch;
   dark: boolean;
 }
-export const LineUpLiteSidePanelContext = createContext(undefined as LineUpLiteSidePanelContextProps | undefined);
+export const LineUpLitePanelContext = createContext(undefined as LineUpLitePanelContextProps | undefined);
 
-export function LineUpLiteSidePanelContextProvider<D extends object>(
+export function LineUpLitePanelContextProvider<D extends object>(
   props: PropsWithChildren<{
     instance: TableInstance<D>;
-    props: CustomizeLineUpSidePanelProps;
+    props: CustomizeLineUpPanelProps;
   }>
 ) {
   const {
@@ -43,9 +43,9 @@ export function LineUpLiteSidePanelContextProvider<D extends object>(
     }),
     [styles, classNames, components, dispatch, dark, i18n]
   );
-  return <LineUpLiteSidePanelContext.Provider value={value}>{props.children}</LineUpLiteSidePanelContext.Provider>;
+  return <LineUpLitePanelContext.Provider value={value}>{props.children}</LineUpLitePanelContext.Provider>;
 }
 
-export function useLineUpLiteSidePanelContext(): LineUpLiteSidePanelContextProps | undefined {
-  return useContext(LineUpLiteSidePanelContext);
+export function useLineUpLitePanelContext(): LineUpLitePanelContextProps | undefined {
+  return useContext(LineUpLitePanelContext);
 }

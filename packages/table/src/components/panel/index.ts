@@ -5,7 +5,7 @@
  * Copyright (c) 2021 Samuel Gratzl <sam@sgratzl.com>
  */
 
-export * from './LineUpLiteSidePanel';
+export * from './LineUpLitePanel';
 export * from './LineUpLiteDataSummary';
 export * from './interfaces';
 export * from './contexts';

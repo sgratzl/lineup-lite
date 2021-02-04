@@ -10,26 +10,26 @@ import type { ActionIcons } from '../../icons';
 import type { LineUpLiteComponentLike } from '../interfaces';
 import type { SIDE_PANEL_I18N_EN } from './LineUpLiteDataSummary';
 
-export type MultiCustomizeSidePanelKeys = 'dataSummary';
+export type MultiCustomizePanelKeys = 'dataSummary';
 
-export interface CustomizeLineUpSidePanelProps {
+export interface CustomizeLineUpPanelProps {
   /**
    * hook for adding extra CSS classnames
    */
-  classNames?: Partial<Record<MultiCustomizeSidePanelKeys, string>>;
+  classNames?: Partial<Record<MultiCustomizePanelKeys, string>>;
   /**
    * hoop for adding extra styles
    */
-  styles?: Partial<Record<MultiCustomizeSidePanelKeys, CSSProperties>>;
+  styles?: Partial<Record<MultiCustomizePanelKeys, CSSProperties>>;
 
   i18n?: Partial<typeof SIDE_PANEL_I18N_EN>;
 
-  components?: Partial<Record<MultiCustomizeSidePanelKeys | 'sidePanel', LineUpLiteComponentLike>>;
+  components?: Partial<Record<MultiCustomizePanelKeys | 'sidePanel', LineUpLiteComponentLike>>;
 
   dark?: boolean;
 }
 
-export interface LineUpLiteSidePanelProps extends CustomizeLineUpSidePanelProps {
+export interface LineUpLitePanelProps extends CustomizeLineUpPanelProps {
   className?: string;
   style?: CSSProperties;
   icons?: Partial<ActionIcons>;

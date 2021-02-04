@@ -18,7 +18,7 @@ import LineUpLite, {
   asTextColumn,
   featureDefault,
   LineUpLiteColumn,
-  LineUpLiteSidePanel,
+  LineUpLitePanel,
   LineUpLiteStateContextProvider,
 } from '@lineup-lite/table';
 import '@lineup-lite/table/src/style.css';
@@ -81,7 +81,7 @@ function Table({ isDarkTheme }: { isDarkTheme: boolean }) {
           dark={isDarkTheme}
           // onStateChange={setInstance}
         />
-        <LineUpLiteSidePanel className="side-panel" icons={icons} dark={isDarkTheme} />
+        <LineUpLitePanel className="side-panel" icons={icons} dark={isDarkTheme} />
       </div>
     </LineUpLiteStateContextProvider>
   );

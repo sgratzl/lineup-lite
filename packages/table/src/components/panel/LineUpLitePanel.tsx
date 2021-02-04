@@ -9,12 +9,12 @@ import React, { forwardRef, ReactElement, Ref, RefAttributes } from 'react';
 import type { TableInstance, UseFiltersInstanceProps } from 'react-table';
 import { useLineUpLiteStateContext } from '../contexts';
 import { clsx } from '../utils';
-import { LineUpLiteSidePanelContextProvider } from './contexts';
-import type { LineUpLiteSidePanelProps } from './interfaces';
+import { LineUpLitePanelContextProvider } from './contexts';
+import type { LineUpLitePanelProps } from './interfaces';
 import { LineUpLiteDataSummary } from './LineUpLiteDataSummary';
 
-const LineUpLiteSidePanelImpl = /*!#__PURE__*/ forwardRef(function LineUpLiteSidePanel<D extends object>(
-  props: LineUpLiteSidePanelProps,
+const LineUpLitePanelImpl = /*!#__PURE__*/ forwardRef(function LineUpLitePanel<D extends object>(
+  props: LineUpLitePanelProps,
   ref: Ref<HTMLElement>
 ) {
   const { instance, state } = useLineUpLiteStateContext<D>() ?? {};
@@ -26,20 +26,19 @@ const LineUpLiteSidePanelImpl = /*!#__PURE__*/ forwardRef(function LineUpLiteSid
   const count = typedInstance.flatRows.length;
   const unfiltered = typedInstance.preFilteredFlatRows?.length ?? count;
 
-  console.log(state);
   const selected = Object.keys(state?.selectedRowIds ?? {}).length;
 
   const p = { c: props.components?.sidePanel ?? 'div' };
 
   return (
     <p.c ref={ref} className={clsx('lt-side-panel', props.className)} style={props.style}>
-      <LineUpLiteSidePanelContextProvider instance={typedInstance} props={props}>
+      <LineUpLitePanelContextProvider instance={typedInstance} props={props}>
         <LineUpLiteDataSummary count={count} selected={selected} unfiltered={unfiltered} />
-      </LineUpLiteSidePanelContextProvider>
+      </LineUpLitePanelContextProvider>
     </p.c>
   );
 });
 
-export const LineUpLiteSidePanel = LineUpLiteSidePanelImpl as (
-  p: LineUpLiteSidePanelProps & RefAttributes<HTMLElement>
+export const LineUpLitePanel = LineUpLitePanelImpl as (
+  p: LineUpLitePanelProps & RefAttributes<HTMLElement>
 ) => ReactElement;
