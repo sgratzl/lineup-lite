@@ -39,5 +39,6 @@ export type LineUpLiteColumn<D extends object = {}> = Column<D> &
   UseResizeColumnsColumnOptions<D> &
   UseColumnGroupByColumnOptions<D> & {
     canHide?: boolean;
+    isSupport?: boolean;
     tooltip?: string;
   };
