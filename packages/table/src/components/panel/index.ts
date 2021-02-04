@@ -7,5 +7,6 @@
 
 export * from './LineUpLitePanel';
 export * from './LineUpLiteDataSummary';
+export * from './LineUpLiteTableSummary';
 export * from './interfaces';
 export * from './contexts';

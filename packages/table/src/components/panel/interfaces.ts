@@ -6,11 +6,11 @@
  */
 
 import type { CSSProperties } from 'react';
-import type { ActionIcons } from '../../icons';
-import type { LineUpLiteComponentLike } from '../interfaces';
+import type { CommonProps } from '@lineup-lite/components';
+import type { ActionLineUpProps, LineUpLiteComponentLike } from '../interfaces';
 import type { DATA_SUMMARY_I18N_EN } from './LineUpLiteDataSummary';
 
-export type MultiCustomizePanelKeys = 'dataSummary';
+export type MultiCustomizePanelKeys = 'dataSummary' | 'tableSummary';
 
 export interface CustomizeLineUpPanelProps {
   /**
@@ -29,8 +29,7 @@ export interface CustomizeLineUpPanelProps {
   dark?: boolean;
 }
 
-export interface LineUpLitePanelProps extends CustomizeLineUpPanelProps {
-  className?: string;
-  style?: CSSProperties;
-  icons?: Partial<ActionIcons>;
-}
+export interface LineUpLitePanelProps<D extends object>
+  extends CustomizeLineUpPanelProps,
+    ActionLineUpProps<D>,
+    CommonProps {}
