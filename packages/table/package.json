@@ -57,7 +57,7 @@
     "docs": "typedoc src/index.ts"
   },
   "peerDependencies": {
-    "@types/react": "^17.0.0",
+    "@types/react": ">=17",
     "react": ">=17"
   },
   "devDependencies": {
