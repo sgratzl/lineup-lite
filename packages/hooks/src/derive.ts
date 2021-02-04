@@ -31,28 +31,28 @@ export function cleanCategories(categories: Set<string>): string[] {
   return [...categories].map(String).sort();
 }
 
-export interface DeriveCategoricalColumnResult<D extends object> {
+export interface DeriveCategoricalColumnResult<D extends object = {}> {
   type: 'categorical';
   column: Column<D>;
   options?: CategoricalStatsOptions;
 }
-export interface DeriveNumberColumnResult<D extends object> {
+export interface DeriveNumberColumnResult<D extends object = {}> {
   type: 'number';
   column: Column<D>;
   options?: NumberStatsOptions;
 }
-export interface DeriveTextColumnResult<D extends object> {
+export interface DeriveTextColumnResult<D extends object = {}> {
   type: 'text';
   column: Column<D>;
   options?: TextStatsOptions;
 }
-export interface DeriveDateColumnResult<D extends object> {
+export interface DeriveDateColumnResult<D extends object = {}> {
   type: 'date';
   column: Column<D>;
   options?: DateStatsOptions;
 }
 
-export type DeriveColumnResult<D extends object> =
+export type DeriveColumnResult<D extends object = {}> =
   | DeriveCategoricalColumnResult<D>
   | DeriveDateColumnResult<D>
   | DeriveNumberColumnResult<D>
@@ -61,7 +61,7 @@ export type DeriveColumnResult<D extends object> =
 /**
  * guesses the column type based on the values
  */
-export function deriveColumn<D extends object>(data: D[], accessor: keyof D): DeriveColumnResult<D> {
+export function deriveColumn<D extends object = {}>(data: D[], accessor: keyof D): DeriveColumnResult<D> {
   const column = {
     Header: accessor.toString(),
     accessor,
@@ -123,7 +123,7 @@ export function deriveColumn<D extends object>(data: D[], accessor: keyof D): De
  * @param data the data array
  * @param columns optional list of column names to generate
  */
-export function deriveColumns<D extends object>(
+export function deriveColumns<D extends object = {}>(
   data: D[],
   columns?: (keyof D)[]
 ): (Column<D> & Partial<LineUpLiteColumn<D>>)[] {

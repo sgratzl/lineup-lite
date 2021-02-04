@@ -11,13 +11,13 @@ import { useLineUpLiteTableContext } from './contexts';
 import { LineUpLiteTD } from './LineUpLiteTD';
 import { clsx, mergeStyles } from './utils';
 
-export interface LineUpLiteTRProps<D extends object> {
+export interface LineUpLiteTRProps<D extends object = {}> {
   row: Row<D>;
   virtualStart?: number;
   virtualSize?: number;
 }
 
-const LineUpLiteTRImpl = /*!#__PURE__*/ forwardRef(function LineUpLiteTR<D extends object>(
+const LineUpLiteTRImpl = /*!#__PURE__*/ forwardRef(function LineUpLiteTR<D extends object = {}>(
   props: LineUpLiteTRProps<D>,
   ref: Ref<HTMLElement>
 ) {
@@ -59,7 +59,7 @@ const LineUpLiteTRImpl = /*!#__PURE__*/ forwardRef(function LineUpLiteTR<D exten
   );
 });
 
-export const LineUpLiteTR = LineUpLiteTRImpl as <D extends object>(
+export const LineUpLiteTR = LineUpLiteTRImpl as <D extends object = {}>(
   p: LineUpLiteTRProps<D> & RefAttributes<HTMLElement>
 ) => ReactElement;
 

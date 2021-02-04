@@ -12,11 +12,11 @@ import type { ActionLineUpProps } from './interfaces';
 import { LineUpLiteTH } from './LineUpLiteTH';
 import { clsx } from './utils';
 
-export interface LineUpLiteTHeadProps<D extends object> extends ActionLineUpProps<D> {
+export interface LineUpLiteTHeadProps<D extends object = {}> extends ActionLineUpProps<D> {
   headerGroups: HeaderGroup<D>[];
 }
 
-const LineUpLiteTHeadImpl = /*!#__PURE__*/ forwardRef(function LineUpLiteTHead<D extends object>(
+const LineUpLiteTHeadImpl = /*!#__PURE__*/ forwardRef(function LineUpLiteTHead<D extends object = {}>(
   { headerGroups, icons, actions }: LineUpLiteTHeadProps<D>,
   ref: Ref<HTMLElement>
 ) {
@@ -46,6 +46,6 @@ const LineUpLiteTHeadImpl = /*!#__PURE__*/ forwardRef(function LineUpLiteTHead<D
   );
 });
 
-export const LineUpLiteTHead = LineUpLiteTHeadImpl as <D extends object>(
+export const LineUpLiteTHead = LineUpLiteTHeadImpl as <D extends object = {}>(
   p: LineUpLiteTHeadProps<D> & RefAttributes<HTMLElement>
 ) => ReactElement;

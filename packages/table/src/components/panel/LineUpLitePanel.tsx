@@ -14,7 +14,7 @@ import type { LineUpLitePanelProps } from './interfaces';
 import { LineUpLiteDataSummary } from './LineUpLiteDataSummary';
 import { LineUpLiteTableSummary } from './LineUpLiteTableSummary';
 
-const LineUpLitePanelImpl = /*!#__PURE__*/ forwardRef(function LineUpLitePanel<D extends object>(
+const LineUpLitePanelImpl = /*!#__PURE__*/ forwardRef(function LineUpLitePanel<D extends object = {}>(
   props: LineUpLitePanelProps<D>,
   ref: Ref<HTMLElement>
 ) {

@@ -13,7 +13,7 @@ import { useLineUpLite } from './useLineUpLite';
 import { clsx } from './utils';
 import { LineUpLiteTableContextProvider } from './contexts';
 
-export const LineUpLite = /*!#__PURE__*/ forwardRef(function LineUpLite<D extends object>(
+export const LineUpLite = /*!#__PURE__*/ forwardRef(function LineUpLite<D extends object = {}>(
   props: LineUpLiteProps<D>,
   ref: Ref<HTMLElement>
 ) {
@@ -48,4 +48,6 @@ export const LineUpLite = /*!#__PURE__*/ forwardRef(function LineUpLite<D extend
   );
 });
 
-export default LineUpLite as <D extends object>(p: LineUpLiteProps<D> & RefAttributes<HTMLElement>) => ReactElement;
+export default LineUpLite as <D extends object = {}>(
+  p: LineUpLiteProps<D> & RefAttributes<HTMLElement>
+) => ReactElement;

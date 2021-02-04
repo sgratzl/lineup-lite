@@ -14,7 +14,7 @@ import type { FilterSetValue } from '@lineup-lite/components';
  * @param ids
  * @param filterValue
  */
-export function categoricalSetFilter<D extends object>(
+export function categoricalSetFilter<D extends object = {}>(
   rows: readonly Row<D>[],
   ids: readonly IdType<D>[],
   filterValue: readonly FilterSetValue<string>[]

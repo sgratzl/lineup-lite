@@ -17,7 +17,7 @@ import type {
 } from 'react-table';
 import type { UseStatsColumnOptions } from './hooks/useStats';
 
-export interface UseColumnGroupByColumnOptions<D extends object> {
+export interface UseColumnGroupByColumnOptions<D extends object = {}> {
   /**
    * renderer used to render the group cell
    */
@@ -31,7 +31,7 @@ export interface UseColumnGroupByColumnOptions<D extends object> {
 /**
  * a lineup lite column description
  */
-export type LineUpLiteColumn<D extends object> = Column<D> &
+export type LineUpLiteColumn<D extends object = {}> = Column<D> &
   UseFiltersColumnOptions<D> &
   UseGroupByColumnOptions<D> &
   UseSortByColumnOptions<D> &

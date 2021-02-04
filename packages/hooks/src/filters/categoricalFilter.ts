@@ -13,7 +13,7 @@ import type { IdType, Row } from 'react-table';
  * @param ids
  * @param filterValue
  */
-export function categoricalFilter<D extends object>(
+export function categoricalFilter<D extends object = {}>(
   rows: readonly Row<D>[],
   ids: readonly IdType<D>[],
   filterValue: readonly string[]

@@ -16,14 +16,14 @@ import { LineUpLiteTableContextProvider } from './contexts';
 
 export type SizeEstimator = number | [number, number] | ((index: number) => number);
 
-export interface LineUpLiteVirtualProps<D extends object> extends LineUpLiteProps<D> {
+export interface LineUpLiteVirtualProps<D extends object = {}> extends LineUpLiteProps<D> {
   estimatedSize: SizeEstimator;
   rowSpacing?: number;
   overscan?: number;
   icons?: Partial<ActionIcons>;
 }
 
-const LineUpLiteVirtualImpl = /*!#__PURE__*/ forwardRef(function LineUpLiteVirtual<D extends object>(
+const LineUpLiteVirtualImpl = /*!#__PURE__*/ forwardRef(function LineUpLiteVirtual<D extends object = {}>(
   props: LineUpLiteVirtualProps<D>,
   ref: Ref<HTMLElement>
 ) {
@@ -58,6 +58,6 @@ const LineUpLiteVirtualImpl = /*!#__PURE__*/ forwardRef(function LineUpLiteVirtu
   );
 });
 
-export const LineUpLiteVirtual = LineUpLiteVirtualImpl as <D extends object>(
+export const LineUpLiteVirtual = LineUpLiteVirtualImpl as <D extends object = {}>(
   p: LineUpLiteVirtualProps<D> & RefAttributes<HTMLElement>
 ) => ReactElement;

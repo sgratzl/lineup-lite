@@ -55,7 +55,7 @@ export {
   useSortBy as featureSortBy,
 } from 'react-table';
 
-export type UseLineUpLiteTableOptions<D extends object> = TableOptions<D> &
+export type UseLineUpLiteTableOptions<D extends object = {}> = TableOptions<D> &
   UseFiltersOptions<D> &
   UseExpandedOptions<D> &
   UseGroupByOptions<D> &
@@ -82,7 +82,7 @@ export interface LineUpLiteTableInstance<D extends object = {}>
     UseRowSelectInstanceProps<D>,
     UseSortByInstanceProps<D> {}
 
-export interface UseLineUpLiteOptions<D extends object> extends UseLineUpLiteTableOptions<D> {
+export interface UseLineUpLiteOptions<D extends object = {}> extends UseLineUpLiteTableOptions<D> {
   defaultColumn?: Partial<LineUpLiteColumn<D>>;
   columns: LineUpLiteColumn<D>[];
   features: readonly (PluginHook<D> | PluginHook<D>[])[];
@@ -90,19 +90,19 @@ export interface UseLineUpLiteOptions<D extends object> extends UseLineUpLiteTab
   onStateChange?: (state: LineUpLiteState) => void;
 }
 
-export function featureRowSelect<D extends object>(): PluginHook<D>[] {
+export function featureRowSelect<D extends object = {}>(): PluginHook<D>[] {
   return [useRowSelectImpl, useRowSelectColumn];
 }
 
-export function featureSortAndGroupBy<D extends object>(): PluginHook<D>[] {
+export function featureSortAndGroupBy<D extends object = {}>(): PluginHook<D>[] {
   return [useGroupByImpl, useSortBy, useExpanded, useRowExpandColumn];
 }
 
-export function featureDefault<D extends object>(): PluginHook<D>[] {
+export function featureDefault<D extends object = {}>(): PluginHook<D>[] {
   return [useResizeColumns, useFilters, ...featureSortAndGroupBy<D>(), ...featureRowSelect<D>(), useRowRankColumn];
 }
 
-function sortByPriority<D extends object>(a: [PluginHook<D>, number], b: [PluginHook<D>, number]) {
+function sortByPriority<D extends object = {}>(a: [PluginHook<D>, number], b: [PluginHook<D>, number]) {
   const specialOrders = ['useRowSelect', 'useRowRankColumn', 'useRowExpandColumn'];
   // ensure useRowExpandColumn is after useRowSelectColumn
   const isASpecial = specialOrders.indexOf(a[0].pluginName!);
@@ -116,7 +116,7 @@ function sortByPriority<D extends object>(a: [PluginHook<D>, number], b: [Plugin
   return a[1] - b[1];
 }
 
-export function useLineUpLite<D extends object>(
+export function useLineUpLite<D extends object = {}>(
   { features, ...props }: UseLineUpLiteOptions<D>,
   ...extraPlugins: PluginHook<D>[]
 ): LineUpLiteTableInstance<D> {

@@ -17,7 +17,7 @@ export interface LineUpLitePanelContextProps extends Required<CustomizeLineUpPan
 }
 export const LineUpLitePanelContext = createContext(undefined as LineUpLitePanelContextProps | undefined);
 
-export function LineUpLitePanelContextProvider<D extends object>(
+export function LineUpLitePanelContextProvider<D extends object = {}>(
   props: PropsWithChildren<{
     instance: TableInstance<D>;
     props: CustomizeLineUpPanelProps;

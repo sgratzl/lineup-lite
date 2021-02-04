@@ -33,7 +33,7 @@ export interface CustomizeLineUpProps {
   dark?: boolean;
 }
 
-export interface ActionLineUpProps<D extends object> {
+export interface ActionLineUpProps<D extends object = {}> {
   /**
    * customize the icons to use
    */
@@ -45,7 +45,7 @@ export interface ActionLineUpProps<D extends object> {
   actions?: (column: HeaderGroup<D>) => ReactNode;
 }
 
-export interface LineUpLiteProps<D extends object>
+export interface LineUpLiteProps<D extends object = {}>
   extends UseLineUpLiteOptions<D>,
     ActionLineUpProps<D>,
     CustomizeLineUpProps,

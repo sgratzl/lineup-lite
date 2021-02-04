@@ -16,11 +16,11 @@ import { LineUpLitePagination } from './LineUpLitePagination';
 import type { ActionIcons, PaginationIcons } from '../icons';
 import { LineUpLiteTableContextProvider } from './contexts';
 
-export interface LineUpLitePaginatedProps<D extends object> extends LineUpLiteProps<D>, UsePaginationOptions<D> {
+export interface LineUpLitePaginatedProps<D extends object = {}> extends LineUpLiteProps<D>, UsePaginationOptions<D> {
   icons: PaginationIcons & ActionIcons;
 }
 
-export function LineUpLitePaginated<D extends object>(props: LineUpLitePaginatedProps<D>) {
+export function LineUpLitePaginated<D extends object = {}>(props: LineUpLitePaginatedProps<D>) {
   const instance = useLineUpLite<D>(props, usePagination);
   const {
     getTableProps,

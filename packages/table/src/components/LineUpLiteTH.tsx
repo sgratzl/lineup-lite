@@ -12,11 +12,11 @@ import { LineUpLiteToolbar } from './toolbar/LineUpLiteToolbar';
 import type { ActionLineUpProps } from './interfaces';
 import { useLineUpLiteTableContext } from './contexts';
 
-export interface LineUpLiteTHProps<D extends object> extends ActionLineUpProps<D> {
+export interface LineUpLiteTHProps<D extends object = {}> extends ActionLineUpProps<D> {
   col: HeaderGroup<D>;
 }
 
-const LineUpLiteTHImpl = /*!#__PURE__*/ forwardRef(function LineUpLiteTH<D extends object>(
+const LineUpLiteTHImpl = /*!#__PURE__*/ forwardRef(function LineUpLiteTH<D extends object = {}>(
   { col, actions, icons }: LineUpLiteTHProps<D>,
   ref: Ref<HTMLElement>
 ) {
@@ -56,6 +56,6 @@ const LineUpLiteTHImpl = /*!#__PURE__*/ forwardRef(function LineUpLiteTH<D exten
   );
 });
 
-export const LineUpLiteTH = LineUpLiteTHImpl as <D extends object>(
+export const LineUpLiteTH = LineUpLiteTHImpl as <D extends object = {}>(
   p: LineUpLiteTHProps<D> & RefAttributes<HTMLElement>
 ) => ReactElement;

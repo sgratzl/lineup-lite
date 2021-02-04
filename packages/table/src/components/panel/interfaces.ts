@@ -29,7 +29,7 @@ export interface CustomizeLineUpPanelProps {
   dark?: boolean;
 }
 
-export interface LineUpLitePanelProps<D extends object>
+export interface LineUpLitePanelProps<D extends object = {}>
   extends CustomizeLineUpPanelProps,
     ActionLineUpProps<D>,
     CommonProps {}

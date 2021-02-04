@@ -21,7 +21,7 @@ export interface LineUpLiteTableContextProps extends Required<CustomizeLineUpPro
 }
 export const LineUpLiteTableContext = createContext(undefined as LineUpLiteTableContextProps | undefined);
 
-export function LineUpLiteTableContextProvider<D extends object>(
+export function LineUpLiteTableContextProvider<D extends object = {}>(
   props: PropsWithChildren<{
     instance: LineUpLiteTableInstance<D>;
     props: CustomizeLineUpProps;
@@ -59,19 +59,19 @@ export function useLineUpLiteTableContext(): LineUpLiteTableContextProps | undef
   return useContext(LineUpLiteTableContext);
 }
 
-export interface LineUpLiteStateContextProps<D extends object> {
+export interface LineUpLiteStateContextProps<D extends object = {}> {
   state?: LineUpLiteState;
   instance?: LineUpLiteTableInstance<D>;
 }
 
-export interface LineUpLiteStateContextSetter<D extends object> {
+export interface LineUpLiteStateContextSetter<D extends object = {}> {
   setState(state: LineUpLiteState): void;
   setInstance(instance: LineUpLiteTableInstance<D>): void;
 }
 export const LineUpLiteStateContext = createContext(undefined as LineUpLiteStateContextProps<any> | undefined);
 export const LineUpLiteStateSetterContext = createContext(undefined as LineUpLiteStateContextSetter<any> | undefined);
 
-export function useStateListener<D extends object>(
+export function useStateListener<D extends object = {}>(
   props: {
     onStateChange?: (state: LineUpLiteState) => void;
   },

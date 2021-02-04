@@ -13,7 +13,7 @@ import { LineUpLiteTRMemo } from './LineUpLiteTR';
 import type { SizeEstimator } from './LineUpLiteVirtual';
 import { useLineUpLiteTableContext } from './contexts';
 
-export function LineUpLiteTVirtualBody<D extends object>({
+export function LineUpLiteTVirtualBody<D extends object = {}>({
   rows,
   prepareRow,
   getTableBodyProps,

@@ -9,7 +9,7 @@ import type { ColumnInstance, Row } from 'react-table';
 import type { ICategoricalStats } from '@lineup-lite/components';
 import { baseGroupBy } from './internal';
 
-export function categoricalGroupBy<D extends object>(
+export function categoricalGroupBy<D extends object = {}>(
   rows: Row<D>[],
   column: ColumnInstance<D>
 ): Record<string, Row<D>[]> {
