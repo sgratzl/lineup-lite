@@ -28,13 +28,13 @@
   border: none;
   background: none;
   padding: 0;
-  color: var(--current-color, currentcolor);
+  color: var(--current-color, currentColor);
   cursor: pointer;
 }
 
 .lt-text-action > svg {
   margin-left: 0.2em;
-  fill: var(--current-color, currentcolor);
+  fill: var(--current-color, currentColor);
   width: 0.8em;
   height: auto;
   opacity: 0.25;

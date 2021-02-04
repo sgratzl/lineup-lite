@@ -20,7 +20,7 @@
   border: none;
   background: none;
   padding: 0;
-  color: var(--current-color, currentcolor);
+  color: var(--current-color, currentColor);
   cursor: pointer;
 }
 
@@ -34,7 +34,7 @@
 }
 
 .lt-action > svg {
-  fill: var(--current-color, currentcolor);
+  fill: var(--current-color, currentColor);
 }
 
 .lt-action:hover,
