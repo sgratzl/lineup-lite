@@ -38,7 +38,7 @@ const LineUpLiteVirtualImpl = /*!#__PURE__*/ forwardRef(function LineUpLiteVirtu
     <p.c
       ref={ref}
       {...getTableProps({
-        className: clsx('lt-table', 'lt-table-virtual', props.dark && 'lt-dark', props.className),
+        className: clsx('lt-table', 'lt-colors', 'lt-table-virtual', props.dark && 'lt-dark', props.className),
         style: props.style,
       })}
     >

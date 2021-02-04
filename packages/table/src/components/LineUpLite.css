@@ -6,6 +6,10 @@
  */
 
 .lt-table {
+  
+}
+
+.lt-colors {
   --current-color: currentcolor;
   --current-color-rgb: 0, 0, 0;
   --current-inverted-color-rgb: 255, 255, 255;

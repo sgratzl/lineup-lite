@@ -78,6 +78,7 @@ function Aggregated(
       {...row.getToggleRowExpandedProps({
         className: clsx('lt-expand-agg', `lt-expand-${row.depth}`, row.isExpanded && 'lt-expanded'),
       })}
+      type="button"
       title={row.isExpanded ? i18n.collapseGroup : i18n.expandGroup}
     >
       {props.icons?.expandGroup ? <props.icons.expandGroup /> : <ArrowDropRightLine />}
@@ -99,6 +100,7 @@ function Summary(props: any) {
         {...props.getToggleAllRowsExpandedProps({
           className: clsx('lt-expand-agg', props.isAllRowsExpanded && 'lt-expanded'),
         })}
+        type="button"
         title={props.isAllRowsExpanded ? i18n.collapseAllGroups : i18n.expandAllGroups}
       >
         {props.icons?.expandGroup ? <props.icons.expandGroup /> : <ArrowDropRightLine />}

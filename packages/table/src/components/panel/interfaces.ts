@@ -8,7 +8,7 @@
 import type { CSSProperties } from 'react';
 import type { ActionIcons } from '../../icons';
 import type { LineUpLiteComponentLike } from '../interfaces';
-import type { SIDE_PANEL_I18N_EN } from './LineUpLiteDataSummary';
+import type { DATA_SUMMARY_I18N_EN } from './LineUpLiteDataSummary';
 
 export type MultiCustomizePanelKeys = 'dataSummary';
 
@@ -22,9 +22,9 @@ export interface CustomizeLineUpPanelProps {
    */
   styles?: Partial<Record<MultiCustomizePanelKeys, CSSProperties>>;
 
-  i18n?: Partial<typeof SIDE_PANEL_I18N_EN>;
+  i18n?: Partial<typeof DATA_SUMMARY_I18N_EN>;
 
-  components?: Partial<Record<MultiCustomizePanelKeys | 'sidePanel', LineUpLiteComponentLike>>;
+  components?: Partial<Record<MultiCustomizePanelKeys | 'panel', LineUpLiteComponentLike>>;
 
   dark?: boolean;
 }

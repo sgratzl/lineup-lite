@@ -5,7 +5,7 @@
  * Copyright (c) 2021 Samuel Gratzl <sam@sgratzl.com>
  */
 
-.lt-side-panel {
+.lt-panel {
 }
 
 .lt-data-summary {
@@ -14,5 +14,5 @@
 }
 
 .lt-data-summary-selected {
-  box-shadow: 0 0 0 2px var(--select-color, #ffa500);
+  /*box-shadow: 0 0 0 2px var(--select-color, #ffa500);*/
 }

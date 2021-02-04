@@ -23,6 +23,7 @@ import {
   TableState,
   useBlockLayout,
   useExpanded,
+  UseExpandedInstanceProps,
   UseExpandedOptions,
   UseExpandedState,
   useFilters,
@@ -30,14 +31,17 @@ import {
   UseFiltersOptions,
   UseFiltersState,
   useGroupBy as useGroupByImpl,
+  UseGroupByInstanceProps,
   UseGroupByOptions,
   UseGroupByState,
   useResizeColumns,
   UseResizeColumnsState,
   useRowSelect as useRowSelectImpl,
+  UseRowSelectInstanceProps,
   UseRowSelectOptions,
   UseRowSelectState,
   useSortBy,
+  UseSortByInstanceProps,
   UseSortByOptions,
   UseSortByState,
   useTable,
@@ -67,9 +71,16 @@ export interface LineUpLiteState<D extends object = {}>
     UseExpandedState<D>,
     UseGroupByState<D>,
     UseRowSelectState<D>,
-    UseRowSelectState<D>,
     UseSortByState<D>,
-    UseResizeColumnsState<D> {}
+  UseResizeColumnsState<D> { }
+    
+export interface LineUpLiteTableInstance<D extends object = {}>
+  extends TableInstance<D>,
+    UseFiltersInstanceProps<D>,
+    UseExpandedInstanceProps<D>,
+    UseGroupByInstanceProps<D>,
+    UseRowSelectInstanceProps<D>,
+    UseSortByInstanceProps<D> {}
 
 export interface UseLineUpLiteOptions<D extends object> extends UseLineUpLiteTableOptions<D> {
   defaultColumn?: Partial<LineUpLiteColumn<D>>;
@@ -108,7 +119,7 @@ function sortByPriority<D extends object>(a: [PluginHook<D>, number], b: [Plugin
 export function useLineUpLite<D extends object>(
   { features, ...props }: UseLineUpLiteOptions<D>,
   ...extraPlugins: PluginHook<D>[]
-) {
+): LineUpLiteTableInstance<D> {
   const tableProps: UseLineUpLiteTableOptions<D> & UseRowExpandColumnTableOptions = {
     groupByFn: columnSpecificGroupByFn,
     ...props,
@@ -117,7 +128,7 @@ export function useLineUpLite<D extends object>(
     .map((d, i) => [d, i] as [PluginHook<D>, number])
     .sort(sortByPriority)
     .map((r) => r[0]);
-  const instance = useTable<D>(tableProps, ...allPlugins) as TableInstance<D> & UseFiltersInstanceProps<D>;
+  const instance = useTable<D>(tableProps, ...allPlugins) as LineUpLiteTableInstance<D>;
 
   useStateListener(props, instance);
   return instance;

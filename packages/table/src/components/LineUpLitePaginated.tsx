@@ -8,16 +8,10 @@
 import React from 'react';
 import type { LineUpLiteProps } from './interfaces';
 import { LineUpLiteTHead } from './LineUpLiteTHead';
-import { useLineUpLite } from './useLineUpLite';
+import { LineUpLiteTableInstance, useLineUpLite } from './useLineUpLite';
 import { LineUpLiteTR } from './LineUpLiteTR';
 import { clsx } from './utils';
-import {
-  usePagination,
-  UsePaginationOptions,
-  UsePaginationInstanceProps,
-  UseFiltersInstanceProps,
-  TableInstance,
-} from 'react-table';
+import { usePagination, UsePaginationOptions, UsePaginationInstanceProps } from 'react-table';
 import { LineUpLitePagination } from './LineUpLitePagination';
 import type { ActionIcons, PaginationIcons } from '../icons';
 import { LineUpLiteTableContextProvider } from './contexts';
@@ -39,7 +33,7 @@ export function LineUpLitePaginated<D extends object>(props: LineUpLitePaginated
     gotoPage,
     setPageSize,
     state,
-  } = instance as TableInstance<D> & UseFiltersInstanceProps<D> & UsePaginationInstanceProps<D>;
+  } = instance as LineUpLiteTableInstance<D> & UsePaginationInstanceProps<D>;
 
   const { pageIndex, pageSize } = state as any;
 
@@ -48,7 +42,7 @@ export function LineUpLitePaginated<D extends object>(props: LineUpLitePaginated
   return (
     <p.c
       {...getTableProps({
-        className: clsx('lt-table', props.dark && 'lt-dark', props.className),
+        className: clsx('lt-table', 'lt-colors', props.dark && 'lt-dark', props.className),
         style: props.style,
       })}
     >

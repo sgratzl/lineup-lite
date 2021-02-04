@@ -6,7 +6,6 @@
  */
 
 import React, { forwardRef, ReactElement, Ref, RefAttributes } from 'react';
-import type { TableInstance, UseFiltersInstanceProps } from 'react-table';
 import { useLineUpLiteStateContext } from '../contexts';
 import { clsx } from '../utils';
 import { LineUpLitePanelContextProvider } from './contexts';
@@ -21,19 +20,17 @@ const LineUpLitePanelImpl = /*!#__PURE__*/ forwardRef(function LineUpLitePanel<D
   if (!instance) {
     return null;
   }
-  const typedInstance = instance as TableInstance<D> & UseFiltersInstanceProps<D>;
 
-  const count = typedInstance.flatRows.length;
-  const unfiltered = typedInstance.preFilteredFlatRows?.length ?? count;
-
-  const selected = Object.keys(state?.selectedRowIds ?? {}).length;
-
-  const p = { c: props.components?.sidePanel ?? 'div' };
+  const p = { c: props.components?.panel ?? 'div' };
 
   return (
-    <p.c ref={ref} className={clsx('lt-side-panel', props.className)} style={props.style}>
-      <LineUpLitePanelContextProvider instance={typedInstance} props={props}>
-        <LineUpLiteDataSummary count={count} selected={selected} unfiltered={unfiltered} />
+    <p.c
+      ref={ref}
+      className={clsx('lt-panel', 'lt-colors', props.dark && 'lt-dark', props.className)}
+      style={props.style}
+    >
+      <LineUpLitePanelContextProvider instance={instance} props={props}>
+        <LineUpLiteDataSummary instance={instance} state={state} />
       </LineUpLitePanelContextProvider>
     </p.c>
   );

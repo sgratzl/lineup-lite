@@ -42,6 +42,7 @@ export function LineUpLiteGroupByAction(
         className: clsx('lt-action', 'lt-action-group', props.isGrouped && 'lt-action-active'),
       })}
       onClick={group}
+      type="button"
       data-index={props.isGrouped && groupBys > 1 ? props.groupedIndex + 1 : null}
       title={title}
     >

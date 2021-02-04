@@ -7,10 +7,10 @@
 
 import { createContext, PropsWithChildren, useContext, useEffect, useMemo, useState } from 'react';
 import React from 'react';
-import type { TableDispatch, TableInstance } from 'react-table';
+import type { TableDispatch } from 'react-table';
 import type { CustomizeLineUpProps } from './interfaces';
 import { EMPTY_OBJ } from './utils';
-import type { LineUpLiteState } from './useLineUpLite';
+import type { LineUpLiteState, LineUpLiteTableInstance } from './useLineUpLite';
 
 export interface LineUpLiteTableContextProps extends Required<CustomizeLineUpProps> {
   dispatch: TableDispatch;
@@ -23,7 +23,7 @@ export const LineUpLiteTableContext = createContext(undefined as LineUpLiteTable
 
 export function LineUpLiteTableContextProvider<D extends object>(
   props: PropsWithChildren<{
-    instance: TableInstance<D>;
+    instance: LineUpLiteTableInstance<D>;
     props: CustomizeLineUpProps;
   }>
 ) {
@@ -61,12 +61,12 @@ export function useLineUpLiteTableContext(): LineUpLiteTableContextProps | undef
 
 export interface LineUpLiteStateContextProps<D extends object> {
   state?: LineUpLiteState;
-  instance?: TableInstance<D>;
+  instance?: LineUpLiteTableInstance<D>;
 }
 
 export interface LineUpLiteStateContextSetter<D extends object> {
   setState(state: LineUpLiteState): void;
-  setInstance(instance: TableInstance<D>): void;
+  setInstance(instance: LineUpLiteTableInstance<D>): void;
 }
 export const LineUpLiteStateContext = createContext(undefined as LineUpLiteStateContextProps<any> | undefined);
 export const LineUpLiteStateSetterContext = createContext(undefined as LineUpLiteStateContextSetter<any> | undefined);
@@ -75,7 +75,7 @@ export function useStateListener<D extends object>(
   props: {
     onStateChange?: (state: LineUpLiteState) => void;
   },
-  instance: TableInstance<D>
+  instance: LineUpLiteTableInstance<D>
 ): void {
   const { onStateChange } = props;
   const { state } = instance;
@@ -102,7 +102,7 @@ export function useStateListener<D extends object>(
 
 export function LineUpLiteStateContextProvider<D extends object = {}>(props: PropsWithChildren<{}>) {
   const [state, setState] = useState(undefined as undefined | LineUpLiteState);
-  const [instance, setInstance] = useState(undefined as undefined | TableInstance<D>);
+  const [instance, setInstance] = useState(undefined as undefined | LineUpLiteTableInstance<D>);
   // have a context which are just the values which will change
   const read = useMemo(() => {
     return { state, instance };

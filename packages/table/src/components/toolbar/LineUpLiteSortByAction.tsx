@@ -43,6 +43,7 @@ export function LineUpLiteSortByAction(
           props.isSortedDesc && 'lt-action-desc'
         ),
       })}
+      type="button"
       onClick={sort}
       data-index={props.isSorted && (c?.sortByColumnCount ?? 0) > 1 ? props.sortedIndex + 1 : null}
       title={title}

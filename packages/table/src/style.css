@@ -6,5 +6,5 @@
  */
 
 @import './components/LineUpLite.css';
-@import './components/LineUpLiteToolbar.css';
+@import './components/toolbar/LineUpLiteToolbar.css';
 @import './components/panel/LineUpLitePanel.css';

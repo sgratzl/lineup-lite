@@ -6,7 +6,7 @@
  */
 
 import React, { CSSProperties, PropsWithChildren, useMemo } from 'react';
-import { clsx } from './utils';
+import { clsx } from '../utils';
 import type {
   HeaderGroup,
   UseFiltersColumnProps,
@@ -14,8 +14,8 @@ import type {
   UseResizeColumnsColumnProps,
   UseSortByColumnProps,
 } from 'react-table';
-import { ActionIcons, LINEUP_LITE_TEXT_ICONS } from '../icons';
-import { LineUpLiteSortByAction, LineUpLiteGroupByAction, LineUpLiteHideAction } from './actions';
+import { ActionIcons, LINEUP_LITE_TEXT_ICONS } from '../../icons';
+import { LineUpLiteSortByAction, LineUpLiteGroupByAction, LineUpLiteHideAction } from '.';
 
 export interface LineUpLiteToolbarProps<D extends object> extends HeaderGroup<D> {
   className?: string;

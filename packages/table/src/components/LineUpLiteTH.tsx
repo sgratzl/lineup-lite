@@ -8,7 +8,7 @@
 import React, { forwardRef, ReactElement, Ref, RefAttributes } from 'react';
 import type { HeaderGroup, Renderer, UseGroupByColumnProps, UseResizeColumnsColumnProps } from 'react-table';
 import { clsx, mergeStyles } from './utils';
-import { LineUpLiteToolbar } from './LineUpLiteToolbar';
+import { LineUpLiteToolbar } from './toolbar/LineUpLiteToolbar';
 import type { ActionLineUpProps } from './interfaces';
 import { useLineUpLiteTableContext } from './contexts';
 

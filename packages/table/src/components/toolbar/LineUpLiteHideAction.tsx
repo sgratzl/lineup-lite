@@ -23,6 +23,7 @@ export function LineUpLiteHideAction(
       {...props.getToggleHiddenProps({
         className: clsx('lt-action', 'lt-action-hide', !props.isVisible && 'lt-action-active'),
       })}
+      type="button"
       onClick={hide}
       title={i18n.hideColumn}
     >
