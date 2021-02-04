@@ -72,15 +72,16 @@ function Table({ isDarkTheme }: { isDarkTheme: boolean }) {
   return (
     <LineUpLiteStateContextProvider>
       <div className="root">
-        <LineUpLite<Row>
-          className="lineup"
-          data={data}
-          columns={columns}
-          features={features}
-          icons={icons}
-          dark={isDarkTheme}
-          // onStateChange={setInstance}
-        />
+        <div className="lineup">
+          <LineUpLite<Row>
+            data={data}
+            columns={columns}
+            features={features}
+            icons={icons}
+            dark={isDarkTheme}
+            // onStateChange={setInstance}
+          />
+        </div>
         <LineUpLitePanel className="side-panel" icons={icons} dark={isDarkTheme} />
       </div>
     </LineUpLiteStateContextProvider>
