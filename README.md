@@ -129,16 +129,10 @@ yarn start ... starts playground
 
 ### Release
 
+[Release-it](https://github.com/release-it/release-it/) is used:
+
 ```sh
-yarn workspaces foreach --verbose version X.X.X --deferred
-yarn version apply --all
-git commit -am 'release vX.X.X'
-yarn clear
-yarn build
-git push
-git tag vX.X.X
-git push --tags
-yarn workspaces foreach --verbose npm publish --access public
+yarn release
 ```
 
 ### Release Policy
@@ -146,12 +140,6 @@ yarn workspaces foreach --verbose npm publish --access public
 to simplify this monorepo together with its siblings the following strategy for versioning is used:
 Major and Minor versions should be in sync. Patch version are independent except the 10 potent.
 Thus, a next unified patch release should be increased to the next 10 potent.
-
-e.g.,
-
-```
-
-```
 
 ## Privacy Policy
 
