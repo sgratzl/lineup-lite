@@ -4,20 +4,20 @@
 
 LineUp-lite is an extension of the excellent [react-table](https://react-table.tanstack.com/) library for rendering beautiful interactive table visualizations based on the [LineUp](https://jku-vds-lab.at/tools/lineup/) ranking visualization technique.
 
-see more at [https://lineup-lite.netlify.app](https://lineup-lite.netlify.app).
+see more at [https://lineup-lite.js.org](https://lineup-lite.js.org).
 
 ## Mono Repo structure
 
 This monorepo contains following packages:
 
 - [@lineup-lite/table](https://github.com/sgratzl/lineup-lite/tree/main/packages/table) higher level table component based on react-table and hooks
-  [![Quick Start][quick-start]](https://lineup-lite.netlify.app/docs/getting-started) [![API Docs][docs]](https://lineup-lite.netlify.app/api/table)
+  [![Quick Start][quick-start]](https://lineup-lite.js.org/docs/getting-started) [![API Docs][docs]](https://lineup-lite.js.org/api/table)
 
 - [@lineup-lite/hooks](https://github.com/sgratzl/lineup-lite/tree/main/packages/hooks) hooks and renderers for react-table
-  [![Quick Start][quick-start]](https://lineup-lite.netlify.app/docs/getting-started/hooks) [![API Docs][docs]](https://lineup-lite.netlify.app/api/hooks)
+  [![Quick Start][quick-start]](https://lineup-lite.js.org/docs/getting-started/hooks) [![API Docs][docs]](https://lineup-lite.js.org/api/hooks)
 
 - [@lineup-lite/components](https://github.com/sgratzl/lineup-lite/tree/main/packages/components) basic React components and statistic utils
-  [![Quick Start][quick-start]](https://lineup-lite.netlify.app/docs/getting-started/components) [![API Docs][docs]](https://lineup-lite.netlify.app/api/components)
+  [![Quick Start][quick-start]](https://lineup-lite.js.org/docs/getting-started/components) [![API Docs][docs]](https://lineup-lite.js.org/api/components)
 
 - [@lineup-lite/docs](https://github.com/sgratzl/lineup-lite/tree/main/packages/docs) Docusaurus based documentation
 
@@ -27,7 +27,7 @@ In addition there are numerous [example projects](https://github.com/sgratzl/lin
 
 ## Installation and Usage
 
-see also [Getting Started](https://lineup-lite.netlify.app/docs/getting-started) in the docs.
+see also [Getting Started](https://lineup-lite.js.org/docs/getting-started) in the docs.
 
 ```sh
 npm install @lineup-lite/table

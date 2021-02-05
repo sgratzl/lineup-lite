@@ -6,7 +6,7 @@ function resolveGitBranch() {
 module.exports = {
   title: 'LineUp-lite',
   tagline: 'a LineUp implementation based on react-table',
-  url: 'https://lineup-lite.netlify.app',
+  url: 'https://lineup-lite.js.org',
   baseUrl: '/',
   onBrokenLinks: 'warn',
   onBrokenMarkdownLinks: 'warn',
