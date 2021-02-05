@@ -109,6 +109,9 @@ export default function Config(options) {
       },
       plugins: [
         dts({
+          compilerOptions: {
+            removeComments: false,
+          },
           respectExternal: true,
         }),
         pkg.style &&
