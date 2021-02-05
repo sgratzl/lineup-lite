@@ -52,6 +52,11 @@ module.exports = {
           label: 'GitHub',
           position: 'right',
         },
+        {
+          label: '@sgratzl',
+          href: 'https://github.com/sgratzl',
+          position: 'right',
+        },
       ],
     },
     footer: {
