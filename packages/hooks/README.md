@@ -16,5 +16,5 @@ This library is released under the `MPL-2.0` license.
 [license-url]: https://opensource.org/licenses/MPL-2.0
 [npm-image]: https://badge.fury.io/js/%40lineup-lite%2Fhooks.svg
 [npm-url]: https://npmjs.org/package/@lineup-lite/hooks
-[github-actions-image]: https://github.com/sgratzl/lineup-lite/workflows/nodeci/badge.svg
+[github-actions-image]: https://github.com/sgratzl/lineup-lite/workflows/ci/badge.svg
 [github-actions-url]: https://github.com/sgratzl/lineup-lite/actions

@@ -16,5 +16,5 @@ This library is released under the `MPL-2.0` license.
 
 [license-image]: https://img.shields.io/badge/License-MPL%202.0-brightgreen.svg
 [license-url]: https://opensource.org/licenses/MPL-2.0
-[github-actions-image]: https://github.com/sgratzl/lineup-lite/workflows/nodeci/badge.svg
+[github-actions-image]: https://github.com/sgratzl/lineup-lite/workflows/ci/badge.svg
 [github-actions-url]: https://github.com/sgratzl/lineup-lite/actions
