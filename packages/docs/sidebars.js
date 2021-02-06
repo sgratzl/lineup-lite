@@ -25,7 +25,7 @@ module.exports = {
         {
           type: 'link',
           label: 'API',
-          href: '/api/components',
+          href: 'https://lineup-lite.js.org/api/components',
         },
       ],
     },
@@ -42,7 +42,7 @@ module.exports = {
         {
           type: 'link',
           label: 'API',
-          href: '/api/components',
+          href: 'https://lineup-lite.js.org/api/components',
         },
       ],
     },
@@ -58,7 +58,7 @@ module.exports = {
         {
           type: 'link',
           label: 'API',
-          href: '/api/table',
+          href: 'https://lineup-lite.js.org/api/table',
         },
       ],
     },
@@ -85,17 +85,17 @@ module.exports = {
         {
           type: 'link',
           label: 'Table',
-          href: '/api/table',
+          href: 'https://lineup-lite.js.org/api/table',
         },
         {
           type: 'link',
           label: 'Hooks',
-          href: '/api/hooks',
+          href: 'https://lineup-lite.js.org/api/hooks',
         },
         {
           type: 'link',
           label: 'Components',
-          href: '/api/components',
+          href: 'https://lineup-lite.js.org/api/components',
         },
       ],
     },
