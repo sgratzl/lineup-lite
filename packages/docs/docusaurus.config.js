@@ -17,6 +17,7 @@ module.exports = {
     branch: resolveGitBranch(),
   },
   themeConfig: {
+    hideableSidebar: true,
     image: 'img/preview.png',
     metadatas: [{ name: 'twitter:card', content: 'summary' }],
     colorMode: {
@@ -29,6 +30,7 @@ module.exports = {
     },
     navbar: {
       title: 'LineUp Lite',
+      hideOnScroll: true,
       logo: {
         alt: 'LineUp Lite',
         src: 'img/logo.svg',
