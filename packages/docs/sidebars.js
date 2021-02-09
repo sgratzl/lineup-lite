@@ -71,6 +71,7 @@ module.exports = {
         'examples/sidepanel',
         'examples/virtualized-rows',
         'examples/pagination',
+        'examples/fontawesome',
         'examples/controlled-state',
         'examples/multi-sorting',
         'examples/i18n',

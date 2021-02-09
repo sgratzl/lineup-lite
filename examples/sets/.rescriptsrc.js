@@ -2,7 +2,7 @@ const { removeWebpackPlugin } = require('@rescripts/utilities');
 const fs = require('fs');
 const path = require('path');
 
-function isUpSetJSWorkspace() {
+function isWorkspace() {
   return (
     fs.existsSync('../../package.json') && JSON.parse(fs.readFileSync('../../package.json')).name === 'lineup-lite'
   );
@@ -12,7 +12,7 @@ module.exports = [
   (config) => {
     config.resolve = removeWebpackPlugin('ModuleScopePlugin', config.resolve);
 
-    if (isUpSetJSWorkspace()) {
+    if (isWorkspace()) {
       // create a shared cache directory
       for (const loader of config.module.rules[1].oneOf) {
         if (loader.options && loader.options.cacheDirectory) {
