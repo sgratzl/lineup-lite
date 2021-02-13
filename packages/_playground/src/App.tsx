@@ -26,6 +26,10 @@ import React, { useMemo } from 'react';
 import { data, Row } from './data';
 import './styles.css';
 
+function MyCheckBox(props: any) {
+  return <input type="checkbox" {...props} style={{ color: 'blue' }} />;
+}
+
 function Table({ isDarkTheme }: { isDarkTheme: boolean }) {
   const columns: LineUpLiteColumn<Row>[] = useMemo(
     () => [
@@ -79,6 +83,7 @@ function Table({ isDarkTheme }: { isDarkTheme: boolean }) {
             features={features}
             icons={icons}
             dark={isDarkTheme}
+            selectCheckboxComponent={MyCheckBox}
             // onStateChange={setInstance}
           />
         </div>

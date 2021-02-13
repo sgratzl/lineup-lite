@@ -6,9 +6,18 @@
  */
 
 import React, { useCallback, MouseEvent } from 'react';
-import type { ColumnInstance, Hooks, MetaBase, Row, UseRowSelectRowProps } from 'react-table';
+import type {
+  ColumnInstance,
+  Hooks,
+  MetaBase,
+  Row,
+  UseRowSelectRowProps,
+  TableToggleAllRowsSelectedProps,
+} from 'react-table';
 import type { LineUpLiteColumn } from '../interfaces';
 import IndeterminateCheckbox from './IndeterminateCheckbox';
+
+export type { TableToggleAllRowsSelectedProps } from 'react-table';
 
 export function useRowSelectColumn<D extends object = {}>(hooks: Hooks<D>) {
   hooks.visibleColumns.push(generateColumn);
@@ -34,6 +43,8 @@ export interface UseSelectColumnTableOptions {
    * @default 20
    */
   selectColumnWidth?: number;
+
+  selectCheckboxComponent?: React.ComponentType<TableToggleAllRowsSelectedProps>;
 }
 
 function Cell(props: any) {
@@ -43,6 +54,7 @@ function Cell(props: any) {
     ...USE_ROW_SELECT_COLUMN_I18N_EN,
     ...(props.i18n ?? {}),
   };
+  const p = { c: props.selectCheckboxComponent ?? IndeterminateCheckbox };
   const onClick = useCallback(
     (e: MouseEvent<HTMLInputElement>) => {
       if (!e.shiftKey) {
@@ -67,7 +79,7 @@ function Cell(props: any) {
 
   return (
     <div className="lt-selection">
-      <IndeterminateCheckbox
+      <p.c
         {...props.row.getToggleRowSelectedProps()}
         onClick={onClick}
         title={props.row.isSelected ? i18n.unselectRow : i18n.selectRow}
@@ -85,9 +97,10 @@ function Header(props: any) {
     ...USE_ROW_SELECT_COLUMN_I18N_EN,
     ...(props.i18n ?? {}),
   };
+  const p = { c: props.selectCheckboxComponent ?? IndeterminateCheckbox };
   return (
     <div className="lt-selection">
-      <IndeterminateCheckbox
+      <p.c
         {...props.getToggleAllRowsSelectedProps()}
         title={props.isAllRowsSelected ? i18n.unselectAll : i18n.selectAll}
       />
