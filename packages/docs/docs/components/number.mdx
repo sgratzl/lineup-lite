@@ -137,3 +137,38 @@ function Example() {
   );
 }
 ```
+
+### Stacked Bar
+
+
+[`StackedBar`](https://lineup-lite.js.org/api/components/modules.html#stackedbar) React component
+
+```jsx live
+// import { StackedBar } from '@lineup-lite/components';
+
+function Example() {
+  return (
+    <div>
+      <StackedBar
+        value={0.5}
+        stack={[{weight: 0.5, color: 'darkgreen'}, {weight: 0.5, color: 'darkblue'}]}
+      />
+      <StackedBar
+        value={0.5}
+        stack={[{weight: 0.2, color: 'darkgreen'}, {weight: 0.8, color: 'darkblue'}]}
+      />
+      <StackedBar
+        value={0.7}
+        stack={[{weight: 0.5, color: 'darkgreen'}, {weight: 0.5, color: 'darkblue'}]}
+      />
+      <StackedBar
+        stack={[{value: 0.2, color: 'darkgreen'}, {value: 0.8, color: 'darkblue'}]}
+      />
+      <StackedBar
+        scale={normalize(0, 8)}
+        stack={[{value: 2, color: 'darkgreen'}, {value: 4, color: 'darkblue'}]}
+      />
+    </div>
+  );
+}
+```
