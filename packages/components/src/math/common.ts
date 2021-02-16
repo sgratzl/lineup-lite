@@ -60,19 +60,19 @@ export interface ICommonStats<T> {
   readonly flatItems: readonly T[];
 
   /**
-   * Converts a Date object to a string.
+   * Converts a Stats object to a string.
    */
   [Symbol.toPrimitive](hint: 'default'): string;
   /**
-   * Converts a Date object to a string.
+   * Converts a Stats object to a string.
    */
   [Symbol.toPrimitive](hint: 'string'): string;
   /**
-   * Converts a Date object to a number.
+   * Converts a Stats object to a number.
    */
   [Symbol.toPrimitive](hint: 'number'): number;
   /**
-   * Converts a Date object to a string or number.
+   * Converts a Stats object to a string or number.
    *
    * @param hint The strings "number", "string", or "default" to specify what primitive to return.
    *

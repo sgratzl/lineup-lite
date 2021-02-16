@@ -6,11 +6,103 @@
  */
 
 import React, { CSSProperties } from 'react';
-import { defaultScale, normalize } from '../math';
+import { defaultScale } from '../math';
 import type { CommonProps } from './common';
 import { clsx, format, mergeStyles, toLocaleString, toPercent } from './utils';
 
-export interface StackedCommonBarProps extends CommonProps {
+/**
+ * a stacked value is a number wrapper that also contains information about its stack
+ */
+export interface StackedValue {
+  /**
+   * the stacked bar value
+   */
+  readonly value: number;
+
+  /**
+   * the individual ratios (percentages) and their colors
+   */
+  readonly stack: readonly { ratio: number; color: string }[];
+  /**
+   * Converts a StackedValue object to a string.
+   */
+  [Symbol.toPrimitive](hint: 'default'): string;
+  /**
+   * Converts a StackedValue object to a string.
+   */
+  [Symbol.toPrimitive](hint: 'string'): string;
+  /**
+   * Converts a StackedValue object to a number.
+   */
+  [Symbol.toPrimitive](hint: 'number'): number;
+  /**
+   * Converts a StackedValue object to a string or number.
+   *
+   * @param hint The strings "number", "string", or "default" to specify what primitive to return.
+   *
+   * @throws {TypeError} If 'hint' was given something other than "number", "string", or "default".
+   * @returns A number if 'hint' was "number", a string if 'hint' was "string" or "default".
+   */
+  [Symbol.toPrimitive](hint: string): string | number;
+
+  valueOf(): number;
+  toString(): string;
+}
+
+function toStackedValuePrimitive(this: StackedValue, hint: 'string' | 'default'): string;
+function toStackedValuePrimitive(this: StackedValue, hint: 'number'): number;
+function toStackedValuePrimitive(this: StackedValue, hint: 'number' | 'string' | 'default') {
+  if (hint === 'string' || hint === 'default') {
+    return this.value.toString();
+  }
+  if (hint === 'number') {
+    return this.value;
+  }
+  throw new TypeError('invalid hint');
+}
+
+/**
+ * wraps the given information as a StackedValue
+ * @param value the value of the stacked bar
+ * @param stack the ratios and colors of the stacked bar
+ */
+export function asStackedValue(value: number, stack: readonly { ratio: number; color: string }[]): StackedValue {
+  return {
+    value,
+    stack,
+    valueOf: () => value,
+    toString: () => value.toString(),
+    [Symbol.toPrimitive]: toStackedValuePrimitive,
+  };
+}
+
+/**
+ * computes the StackedValue of the given parameters
+ * @param stack the stack to compute the value
+ */
+export function computeWeightedSum(stack: readonly { value: number; weight?: number; color: string }[]): StackedValue {
+  const weights = stack.map((d) => d.weight ?? 1);
+  const weightSum = weights.reduce((acc, v) => acc + v, 0);
+  const value = stack.reduce((acc, v, i) => acc + v.value * weights[i], 0) / weightSum;
+  const ratios = stack.map((v, i) => ({ color: v.color, ratio: (v.value * weights[i]) / (value * weightSum) }));
+  return asStackedValue(value, ratios);
+}
+/**
+ * returns a compute function for StackedValues
+ * @param stack the stack to compute the value
+ */
+export function computeWeightedSumFactory(
+  stack: readonly { weight: number; color: string }[]
+): (vs: readonly number[]) => StackedValue {
+  const weightSum = stack.reduce((acc, v) => acc + v.weight, 0);
+  return (vs) => {
+    const value = stack.reduce((acc, v, i) => acc + vs[i] * v.weight, 0) / weightSum;
+    const ratios = stack.map((v, i) => ({ color: v.color, ratio: (vs[i] * v.weight) / (value * weightSum) }));
+    return asStackedValue(value, ratios);
+  };
+}
+
+export interface StackedBarProps extends CommonProps {
   /**
    * optional scale to convert the number in the 0..1 range
    */
@@ -19,44 +111,29 @@ export interface StackedCommonBarProps extends CommonProps {
    * label for value to label function
    */
   format?: string | ((v: number) => string);
-}
-
-export interface StackedGivenBarProps extends StackedCommonBarProps {
-  stack: readonly { weight: number; color: string }[];
   /**
    * the value to render
    */
-  value: number;
+  value: StackedValue;
 }
 
-export interface StackedComputeBarProps extends StackedCommonBarProps {
-  stack: readonly { value: number; color: string }[];
-}
-
-export type StackedBarProps = StackedComputeBarProps | StackedGivenBarProps;
-
-function isGiven(props: StackedBarProps): props is StackedGivenBarProps {
-  return typeof (props as StackedGivenBarProps).value === 'number';
-}
-
-function stackedBarProps(value: number, rawValue: number, props: StackedBarProps): CSSProperties | null {
+function stackedBarProps(value: number, stack: StackedValue): CSSProperties | null {
   if (value == null || Number.isNaN(value) || value <= 0) {
     return null;
   }
   const p = toPercent(value);
-  const weights = isGiven(props) ? props.stack : props.stack.map((d) => ({ ...d, weight: d.value / rawValue }));
 
-  const preSum = weights.reduce(
+  const preSum = stack.stack.reduce(
     (acc, v) => {
-      acc.push(acc[acc.length - 1]! + v.weight);
+      acc.push(acc[acc.length - 1]! + v.ratio);
       return acc;
     },
     [0]
   );
-  const parts = weights
+  const parts = stack.stack
     .map((w, i) => {
       const pi = toPercent(preSum[i] * value);
-      const pi2 = toPercent((preSum[i] + w.weight) * value);
+      const pi2 = toPercent((preSum[i] + w.ratio) * value);
       if (pi === pi2) {
         return '';
       }
@@ -72,13 +149,12 @@ function stackedBarProps(value: number, rawValue: number, props: StackedBarProps
  * renders a numeric value along with a bar
  */
 export function StackedBar(props: StackedBarProps) {
-  const value = isGiven(props) ? props.value : props.stack.reduce((acc, v) => acc + v.value, 0);
-  const label = format(value, props.format ?? toLocaleString);
-  const scale = props.scale ?? (isGiven(props) ? defaultScale : normalize(0, props.stack.length));
+  const label = format(+props.value, props.format ?? toLocaleString);
+  const scale = props.scale ?? defaultScale;
   return (
     <div
       className={clsx('lt-bar', props.className)}
-      style={mergeStyles(props.style, stackedBarProps(scale(value), value, props))}
+      style={mergeStyles(props.style, stackedBarProps(scale(+props.value), props.value))}
       title={label}
     >
       {label}
