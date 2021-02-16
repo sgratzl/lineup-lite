@@ -52,6 +52,18 @@ function toCategoricalString(this: ICategoricalStats) {
   return `CategoricalStats(count=${this.count}, hist=${toHistString(this.hist)})`;
 }
 
+function toCategoricalPrimitive(this: ICategoricalStats, hint: 'string' | 'default'): string;
+function toCategoricalPrimitive(this: ICategoricalStats, hint: 'number'): number;
+function toCategoricalPrimitive(this: ICategoricalStats, hint: 'number' | 'string' | 'default') {
+  if (hint === 'string' || hint === 'default') {
+    return toCategoricalString.call(this);
+  }
+  if (hint === 'number') {
+    return this.maxBin.count;
+  }
+  throw new TypeError('invalid hint');
+}
+
 export type CategoricalValueLike = string | null | undefined | readonly (string | null | undefined)[] | Set<string>;
 
 export function categoricalStatsGenerator(
@@ -80,14 +92,15 @@ export function categoricalStatsGenerator(
         flatMissing++;
         continue;
       }
-      if (typeof v === 'string') {
-        items.push(v);
-        pushValue(v);
+      if (typeof v === 'string' || (!Array.isArray(v) && !(v instanceof Set))) {
+        const vs = v + '';
+        items.push(vs);
+        pushValue(vs);
         continue;
       }
       if (v instanceof Set) {
         items.push(v);
-        v.forEach((vi) => pushValue(vi));
+        v.forEach((vi) => pushValue(vi + ''));
         continue;
       }
       if (!Array.isArray(v)) {
@@ -98,8 +111,9 @@ export function categoricalStatsGenerator(
         if (vi == null) {
           flatMissing++;
         } else {
-          pushValue(vi);
-          vClean.push(vi);
+          const vs = vi + '';
+          pushValue(vs);
+          vClean.push(vs);
         }
       }
       if (vClean.length === v.length) {
@@ -135,8 +149,8 @@ export function categoricalStatsGenerator(
       flatMissing,
       flatItems,
       flatCount: flatItems.length + flatMissing,
+      [Symbol.toPrimitive]: toCategoricalPrimitive,
     };
-    r.toString = toCategoricalString;
     return r;
   };
 }

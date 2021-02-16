@@ -44,6 +44,19 @@ function toNumberString(this: INumberStats) {
     this.max
   )}, hist=${toHistString(this.hist)})`;
 }
+
+function toNumberPrimitive(this: INumberStats, hint: 'string' | 'default'): string;
+function toNumberPrimitive(this: INumberStats, hint: 'number'): number;
+function toNumberPrimitive(this: INumberStats, hint: 'number' | 'string' | 'default') {
+  if (hint === 'string' || hint === 'default') {
+    return toNumberString.call(this);
+  }
+  if (hint === 'number') {
+    return this.median;
+  }
+  throw new TypeError('invalid hint');
+}
+
 /**
  * helper function to resolve the number formatter
  */
@@ -107,7 +120,7 @@ function createHist(
 
   // sorted
   for (let i = 0; i < b.items.length; i++) {
-    const v = b.items[i];
+    const v = +b.items[i];
     const bin = hist.find((d) => v < d.x1) || hist[hist.length - 1];
     bin.count++;
     (bin.items as number[]).push(v);
@@ -136,14 +149,14 @@ function createFlat(arr: readonly NumberLike[] | Float32Array | Float64Array) {
       flatMissing++;
       continue;
     }
-    if (typeof v === 'number') {
-      items.push(v);
-      flatItems.push(v);
+    if (typeof v === 'number' || (!Array.isArray(v) && !(v instanceof Set))) {
+      items.push(+v);
+      flatItems.push(+v);
       continue;
     }
     if (v instanceof Set) {
       items.push(v);
-      v.forEach((vi) => flatItems.push(vi));
+      v.forEach((vi) => flatItems.push(+vi));
       continue;
     }
     if (!Array.isArray(v)) {
@@ -154,8 +167,8 @@ function createFlat(arr: readonly NumberLike[] | Float32Array | Float64Array) {
       if (vi == null) {
         flatMissing++;
       } else {
-        flatItems.push(vi);
-        vClean.push(vi);
+        flatItems.push(+vi);
+        vClean.push(+vi);
       }
     }
     if (vClean.length === v.length) {
@@ -198,8 +211,8 @@ export function numberStatsGenerator(
       invert: deNormalize(min, max),
       format,
       color,
+      [Symbol.toPrimitive]: toNumberPrimitive,
     });
-    r.toString = toNumberString;
     return r;
   };
 }

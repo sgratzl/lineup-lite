@@ -37,6 +37,18 @@ function toTextString(this: ITextStats) {
     .join(', ')}))`;
 }
 
+function toTextPrimitive(this: ITextStats, hint: 'string' | 'default'): string;
+function toTextPrimitive(this: ITextStats, hint: 'number'): number;
+function toTextPrimitive(this: ITextStats, hint: 'number' | 'string' | 'default') {
+  if (hint === 'string' || hint === 'default') {
+    return toTextString.call(this);
+  }
+  if (hint === 'number') {
+    return this.mostFrequent[0]?.count ?? this.unique;
+  }
+  throw new TypeError('invalid hint');
+}
+
 export interface TextStatsOptions {
   /**
    * number of most frequent items to include in the stats
@@ -87,6 +99,7 @@ export function textStatsGenerator(options: TextStatsOptions = {}): (arr: readon
       flatCount: arr.length,
       flatItems: items,
       flatMissing: missing,
+      [Symbol.toPrimitive]: toTextPrimitive,
     };
     r.toString = toTextString;
     return r;
