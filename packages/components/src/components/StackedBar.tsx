@@ -6,7 +6,7 @@
  */
 
 import React, { CSSProperties } from 'react';
-import { defaultScale } from '../math';
+import { defaultScale, schemeTableau10 } from '../math';
 import type { CommonProps } from './common';
 import { clsx, format, mergeStyles, toLocaleString, toPercent } from './utils';
 
@@ -80,24 +80,61 @@ export function asStackedValue(value: number, stack: readonly { ratio: number; c
  * computes the StackedValue of the given parameters
  * @param stack the stack to compute the value
  */
-export function computeWeightedSum(stack: readonly { value: number; weight?: number; color: string }[]): StackedValue {
-  const weights = stack.map((d) => d.weight ?? 1);
-  const weightSum = weights.reduce((acc, v) => acc + v, 0);
-  const value = stack.reduce((acc, v, i) => acc + v.value * weights[i], 0) / weightSum;
-  const ratios = stack.map((v, i) => ({ color: v.color, ratio: (v.value * weights[i]) / (value * weightSum) }));
+export function computeWeightedSum(stack: readonly number[]): StackedValue;
+export function computeWeightedSum(stack: readonly number[], colors: readonly string[]): StackedValue;
+export function computeWeightedSum(
+  stack: readonly { value: number; weight?: number; color?: string }[],
+  colors?: readonly string[]
+): StackedValue;
+export function computeWeightedSum(
+  stack: readonly (number | { value: number; weight?: number; color?: string })[],
+  colors?: readonly string[]
+): StackedValue {
+  const weights = stack.map((v) => (typeof v === 'number' ? 1 : v.weight ?? 1));
+  const cs = resolveColor(stack, colors);
+  const weightSum = weights.reduce((acc, w) => acc + w, 0);
+  const vs = stack.map((v) => (typeof v === 'number' ? v : v.value));
+  const value = vs.reduce((acc, v, i) => acc + v * weights[i], 0) / weightSum;
+  const ratios = stack.map((v, i) => ({
+    color: cs[i],
+    ratio: ((typeof v === 'number' ? v : v.value) * weights[i]) / (value * weightSum),
+  }));
   return asStackedValue(value, ratios);
 }
+
+function resolveColor(stack: readonly (number | { color?: string })[], colors?: readonly string[]) {
+  const cs = colors ?? schemeTableau10;
+  return stack.map((v, i) => {
+    if (typeof v !== 'number' && typeof v.color === 'string') {
+      return v.color;
+    }
+    return cs[i];
+  });
+}
+
 /**
  * returns a compute function for StackedValues
- * @param stack the stack to compute the value
+ * @param weights the stack to compute the value
  */
+export function computeWeightedSumFactory(weights: readonly number[]): (vs: readonly number[]) => StackedValue;
+export function computeWeightedSumFactory(weights: readonly number[]): (vs: readonly number[]) => StackedValue;
 export function computeWeightedSumFactory(
-  stack: readonly { weight: number; color: string }[]
+  weights: readonly number[],
+  colors: readonly string[]
+): (vs: readonly number[]) => StackedValue;
+export function computeWeightedSumFactory(
+  stack: readonly { weight: number; color?: string }[]
+): (vs: readonly number[]) => StackedValue;
+export function computeWeightedSumFactory(
+  stack: readonly (number | { weight: number; color?: string })[],
+  colors?: readonly string[]
 ): (vs: readonly number[]) => StackedValue {
-  const weightSum = stack.reduce((acc, v) => acc + v.weight, 0);
+  const weights = stack.map((v) => (typeof v === 'number' ? v : v.weight), 0);
+  const cs = resolveColor(stack, colors);
+  const weightSum = weights.reduce((acc, w) => acc + w, 0);
   return (vs) => {
-    const value = stack.reduce((acc, v, i) => acc + vs[i] * v.weight, 0) / weightSum;
-    const ratios = stack.map((v, i) => ({ color: v.color, ratio: (vs[i] * v.weight) / (value * weightSum) }));
+    const value = weights.reduce((acc, w, i) => acc + vs[i] * w, 0) / weightSum;
+    const ratios = weights.map((w, i) => ({ color: cs[i], ratio: (vs[i] * w) / (value * weightSum) }));
     return asStackedValue(value, ratios);
   };
 }

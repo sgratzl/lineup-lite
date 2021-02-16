@@ -77,6 +77,7 @@ module.exports = {
         'examples/i18n',
         'examples/sets',
         'examples/numbers',
+        'examples/stackedbar',
       ],
     },
     {
