@@ -28,7 +28,7 @@ import {
   faTrash,
 } from '@fortawesome/free-solid-svg-icons';
 
-const icons: ActionIcons = {
+const icons: Partial<ActionIcons> = {
   sortAsc: () => <FontAwesomeIcon icon={faSortAmountUp} />,
   sortDesc: () => <FontAwesomeIcon icon={faSortAmountDown} />,
   clearSelection: () => <FontAwesomeIcon icon={faTimes} />,
