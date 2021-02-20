@@ -16,13 +16,17 @@ import LineUpLite, {
   asNumberColumn,
   asNumbersColumn,
   asTextColumn,
-  featureDefault,
   LineUpLiteColumn,
   LineUpLitePanel,
   LineUpLiteStateContextProvider,
   ColumnInstance,
   LineUpLiteFilterAction,
   UseFiltersColumnProps,
+  featureFlexLayout,
+  featureFilterColumns,
+  featureRowRank,
+  featureSortAndGroupBy,
+  featureRowSelect,
   ActionIcons,
 } from '@lineup-lite/table';
 import '@lineup-lite/table/src/style.css';
@@ -95,7 +99,16 @@ function Table({ isDarkTheme }: { isDarkTheme: boolean }) {
     [isDarkTheme]
   );
 
-  const features = useMemo(() => featureDefault<Row>(), []);
+  const features = useMemo(
+    () => [
+      featureFilterColumns,
+      featureSortAndGroupBy<Row>(),
+      featureRowSelect<Row>(),
+      featureRowRank,
+      featureFlexLayout,
+    ],
+    []
+  );
   const icons = useMemo(() => actionIconsRemixicon(), []);
 
   const filterAction = useCallback((col: ColumnInstance<Row>, icons: ActionIcons) => {
