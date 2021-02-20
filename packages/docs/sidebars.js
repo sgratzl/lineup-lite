@@ -69,6 +69,7 @@ module.exports = {
         'examples/_index',
         'examples/animation',
         'examples/sidepanel',
+        'examples/filter-action',
         'examples/virtualized-rows',
         'examples/pagination',
         'examples/fontawesome',
@@ -79,6 +80,7 @@ module.exports = {
         'examples/numbers',
         'examples/stackedbar',
         'examples/column-resizing',
+        'examples/flex-layout',
       ],
     },
     {
