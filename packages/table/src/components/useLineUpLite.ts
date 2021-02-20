@@ -34,7 +34,6 @@ import {
   UseGroupByInstanceProps,
   UseGroupByOptions,
   UseGroupByState,
-  useResizeColumns,
   UseResizeColumnsState,
   useRowSelect as useRowSelectImpl,
   UseRowSelectInstanceProps,
@@ -99,7 +98,7 @@ export function featureSortAndGroupBy<D extends object = {}>(): PluginHook<D>[] 
 }
 
 export function featureDefault<D extends object = {}>(): PluginHook<D>[] {
-  return [useResizeColumns, useFilters, ...featureSortAndGroupBy<D>(), ...featureRowSelect<D>(), useRowRankColumn];
+  return [useFilters, ...featureSortAndGroupBy<D>(), ...featureRowSelect<D>(), useRowRankColumn];
 }
 
 function sortByPriority<D extends object = {}>(a: [PluginHook<D>, number], b: [PluginHook<D>, number]) {

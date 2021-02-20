@@ -78,6 +78,7 @@ module.exports = {
         'examples/sets',
         'examples/numbers',
         'examples/stackedbar',
+        'examples/column-resizing',
       ],
     },
     {
