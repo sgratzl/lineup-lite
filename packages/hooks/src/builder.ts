@@ -5,13 +5,14 @@
  * Copyright (c) 2021 Samuel Gratzl <sam@sgratzl.com>
  */
 
-import type {
+import {
   CategoricalStatsOptions,
   DateStatsOptions,
   NumberStatsOptions,
   TextStatsOptions,
+  defaultConstantColorScale,
 } from '@lineup-lite/components';
-import type { Column } from 'react-table';
+import type { Accessor, Column } from 'react-table';
 import {
   BarRenderer,
   BoxPlotRenderer,
@@ -27,6 +28,8 @@ import {
   HeatMap1DRenderer,
   BoxPlotArrayRenderer,
   TextRenderer,
+  StackedBarRenderer,
+  computeStackedValue,
 } from './renderers';
 import { textStats, categoricalStats, dateStats, numberStats } from './stats';
 import { rangeFilter, categoricalFilter, categoricalSetFilter } from './filters';
@@ -245,5 +248,34 @@ export function asDateColumn<D extends object, C extends Column<D> = Column<D>>(
     groupBy: dateGroupBy,
     canHide: false,
     ...asColumn<D, C>(col),
+  } as unknown) as LineUpLiteColumn<D>;
+}
+
+/**
+ * defines a number column
+ * @param col property key or partial column Header and accessor
+ * @param options additional options for statistics
+ */
+export function asStackedNumberColumn<D extends object, C extends Column<D> = Column<D>>(
+  col: C | string,
+  stack: readonly { col: keyof D | Accessor<D>; weight: number; color?: string }[],
+  options?: NumberStatsOptions & { colors?: (v: string) => string }
+): LineUpLiteColumn<D> {
+  return ({
+    Cell: StackedBarRenderer,
+    Summary: NumberHistogramRenderer,
+    Group: GroupValueRenderer,
+    Aggregated: NumberHistogramRenderer,
+    aggregate: statsAggregate,
+    filter: rangeFilter,
+    stats: numberStats({ color: defaultConstantColorScale, ...(options ?? {}) }),
+    sortType: sortSplitter(sortCompare, numberGroupCompare),
+    sortDescFirst: true,
+    defaultCanGroupBy: false,
+    groupBy: numberGroupBy,
+    canHide: false,
+    id: typeof col == 'string' ? col : col.id ?? col.Header!,
+    ...(typeof col === 'string' ? { Header: col } : col),
+    accessor: computeStackedValue(stack, options?.colors),
   } as unknown) as LineUpLiteColumn<D>;
 }

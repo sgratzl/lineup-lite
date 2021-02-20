@@ -58,6 +58,28 @@ export interface ICommonStats<T> {
    * the items in this stats
    */
   readonly flatItems: readonly T[];
+
+  /**
+   * Converts a Stats object to a string.
+   */
+  [Symbol.toPrimitive](hint: 'default'): string;
+  /**
+   * Converts a Stats object to a string.
+   */
+  [Symbol.toPrimitive](hint: 'string'): string;
+  /**
+   * Converts a Stats object to a number.
+   */
+  [Symbol.toPrimitive](hint: 'number'): number;
+  /**
+   * Converts a Stats object to a string or number.
+   *
+   * @param hint The strings "number", "string", or "default" to specify what primitive to return.
+   *
+   * @throws {TypeError} If 'hint' was given something other than "number", "string", or "default".
+   * @returns A number if 'hint' was "number", a string if 'hint' was "string" or "default".
+   */
+  [Symbol.toPrimitive](hint: string): string | number;
 }
 
 export interface IHistStats<T> extends ICommonStats<T> {
@@ -92,6 +114,10 @@ export interface INumericStats<T> extends IHistStats<T> {
    * maximum value in the array
    */
   readonly max: T;
+  /**
+   * median value in the array
+   */
+  readonly median: T;
   /**
    * converts the given value to a value between 0 and 1
    */

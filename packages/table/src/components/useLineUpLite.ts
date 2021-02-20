@@ -34,7 +34,6 @@ import {
   UseGroupByInstanceProps,
   UseGroupByOptions,
   UseGroupByState,
-  useResizeColumns,
   UseResizeColumnsState,
   useRowSelect as useRowSelectImpl,
   UseRowSelectInstanceProps,
@@ -53,6 +52,8 @@ export {
   useFilters as featureFilterColumns,
   useResizeColumns as featureResizeColumns,
   useSortBy as featureSortBy,
+  useBlockLayout as featureDefaultLayout,
+  useFlexLayout as featureFlexLayout,
 } from 'react-table';
 
 export type UseLineUpLiteTableOptions<D extends object = {}> = TableOptions<D> &
@@ -98,8 +99,11 @@ export function featureSortAndGroupBy<D extends object = {}>(): PluginHook<D>[] 
   return [useGroupByImpl, useSortBy, useExpanded, useRowExpandColumn];
 }
 
+/**
+ * default feature set including: filters, sorting, grouping, row select, row rank, and default layout
+ */
 export function featureDefault<D extends object = {}>(): PluginHook<D>[] {
-  return [useResizeColumns, useFilters, ...featureSortAndGroupBy<D>(), ...featureRowSelect<D>(), useRowRankColumn];
+  return [useFilters, ...featureSortAndGroupBy<D>(), ...featureRowSelect<D>(), useRowRankColumn, useBlockLayout];
 }
 
 function sortByPriority<D extends object = {}>(a: [PluginHook<D>, number], b: [PluginHook<D>, number]) {
@@ -124,7 +128,7 @@ export function useLineUpLite<D extends object = {}>(
     groupByFn: columnSpecificGroupByFn,
     ...props,
   };
-  const allPlugins = [...features.flat(), useStats, useBlockLayout, ...extraPlugins]
+  const allPlugins = [...features.flat(), useStats, ...extraPlugins]
     .map((d, i) => [d, i] as [PluginHook<D>, number])
     .sort(sortByPriority)
     .map((r) => r[0]);

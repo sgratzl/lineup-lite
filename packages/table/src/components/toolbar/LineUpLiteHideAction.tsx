@@ -5,14 +5,21 @@
  * Copyright (c) 2021 Samuel Gratzl <sam@sgratzl.com>
  */
 
-import React, { ComponentType, useCallback } from 'react';
+import React, { ComponentType, ReactNode, useCallback } from 'react';
 import type { ColumnInstance } from 'react-table';
 import { LINEUP_LITE_I18N_EN } from '../../i18n';
 import { useLineUpLiteTableContext } from '../contexts';
 import { clsx } from '../utils';
+import type { CommonProps } from '@lineup-lite/components';
 
 export function LineUpLiteHideAction(
-  props: ColumnInstance<any> & { canHide?: boolean; canResize?: boolean; icon: ComponentType }
+  props: ColumnInstance<any> &
+    CommonProps & {
+      children?: ReactNode;
+      canHide?: boolean;
+      canResize?: boolean;
+      icon: ComponentType;
+    }
 ) {
   const c = useLineUpLiteTableContext();
   const i18n = c?.i18n ?? LINEUP_LITE_I18N_EN;
@@ -21,13 +28,15 @@ export function LineUpLiteHideAction(
   return props.canResize && props.canHide !== false ? (
     <button
       {...props.getToggleHiddenProps({
-        className: clsx('lt-action', 'lt-action-hide', !props.isVisible && 'lt-action-active'),
+        className: clsx('lt-action', 'lt-action-hide', !props.isVisible && 'lt-action-active', props.className),
+        style: props.style,
       })}
       type="button"
       onClick={hide}
       title={i18n.hideColumn}
     >
-      {<props.icon />}
+      <props.icon />
+      {props.children}
     </button>
   ) : null;
 }

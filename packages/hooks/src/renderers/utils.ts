@@ -140,14 +140,12 @@ export function useAsyncDebounce<F extends (...args: any[]) => void>(f: F, timeo
  * checks whether the given value is missing
  * @param v value to check
  */
-export function isMissing(v: number | string | null | Date | undefined | readonly any[] | Set<any>): boolean {
+export function isMissing(v: null | undefined | unknown): boolean {
   return (
     v == null || (typeof v === 'number' && Number.isNaN(v)) || (typeof v === 'string' && ['NaN', 'N/A', ''].includes(v))
   );
 }
 
-export function missingClass(
-  v: number | string | null | Date | undefined | readonly any[] | Set<any>
-): string | undefined {
+export function missingClass(v: null | undefined | unknown): string | undefined {
   return isMissing(v) ? 'lt-missing' : undefined;
 }

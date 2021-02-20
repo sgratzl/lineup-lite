@@ -5,14 +5,22 @@
  * Copyright (c) 2021 Samuel Gratzl <sam@sgratzl.com>
  */
 
-import React, { ComponentType, useCallback, MouseEvent } from 'react';
+import React, { ComponentType, useCallback, MouseEvent, ReactNode } from 'react';
 import type { UseSortByColumnProps } from 'react-table';
 import { LINEUP_LITE_I18N_EN } from '../../i18n';
 import { useLineUpLiteTableContext } from '../contexts';
 import { clsx } from '../utils';
+import type { CommonProps } from '@lineup-lite/components';
+
+export type { UseSortByColumnProps } from 'react-table';
 
 export function LineUpLiteSortByAction(
-  props: UseSortByColumnProps<any> & { iconAsc: ComponentType; iconDesc: ComponentType }
+  props: UseSortByColumnProps<any> &
+    CommonProps & {
+      children?: ReactNode;
+      iconAsc: ComponentType;
+      iconDesc: ComponentType;
+    }
 ) {
   const { toggleSortBy, isSorted } = props;
   const sort = useCallback(
@@ -40,8 +48,10 @@ export function LineUpLiteSortByAction(
           'lt-action',
           'lt-action-sort',
           props.isSorted && 'lt-action-active',
-          props.isSortedDesc && 'lt-action-desc'
+          props.isSortedDesc && 'lt-action-desc',
+          props.className
         ),
+        style: props.style,
       })}
       type="button"
       onClick={sort}
@@ -49,6 +59,7 @@ export function LineUpLiteSortByAction(
       title={title}
     >
       {props.isSortedDesc || (!props.isSorted && descFirst) ? <props.iconDesc /> : <props.iconAsc />}
+      {props.children}
     </button>
   ) : null;
 }

@@ -21,4 +21,5 @@ export * from './CategoricalSetHistogramRenderer';
 export * from './HeatMap1DRenderer';
 export * from './BoxPlotArrayRenderer';
 export * from './TextRenderer';
+export * from './StackedBarRenderer';
 export { isMissing } from './utils';

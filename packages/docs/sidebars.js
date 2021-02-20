@@ -25,7 +25,7 @@ module.exports = {
         {
           type: 'link',
           label: 'API',
-          href: 'https://lineup-lite.js.org/api/components',
+          href: 'https://lineup-lite.js.org/api/components/modules.html',
         },
       ],
     },
@@ -42,7 +42,7 @@ module.exports = {
         {
           type: 'link',
           label: 'API',
-          href: 'https://lineup-lite.js.org/api/components',
+          href: 'https://lineup-lite.js.org/api/components/modules.html',
         },
       ],
     },
@@ -58,7 +58,7 @@ module.exports = {
         {
           type: 'link',
           label: 'API',
-          href: 'https://lineup-lite.js.org/api/table',
+          href: 'https://lineup-lite.js.org/api/table/modules.html',
         },
       ],
     },
@@ -71,11 +71,14 @@ module.exports = {
         'examples/sidepanel',
         'examples/virtualized-rows',
         'examples/pagination',
+        'examples/fontawesome',
         'examples/controlled-state',
         'examples/multi-sorting',
         'examples/i18n',
         'examples/sets',
         'examples/numbers',
+        'examples/stackedbar',
+        'examples/column-resizing',
       ],
     },
     {
@@ -85,17 +88,17 @@ module.exports = {
         {
           type: 'link',
           label: 'Table',
-          href: 'https://lineup-lite.js.org/api/table',
+          href: 'https://lineup-lite.js.org/api/table/modules.html',
         },
         {
           type: 'link',
           label: 'Hooks',
-          href: 'https://lineup-lite.js.org/api/hooks',
+          href: 'https://lineup-lite.js.org/api/hooks/modules.html',
         },
         {
           type: 'link',
           label: 'Components',
-          href: 'https://lineup-lite.js.org/api/components',
+          href: 'https://lineup-lite.js.org/api/components/modules.html',
         },
       ],
     },

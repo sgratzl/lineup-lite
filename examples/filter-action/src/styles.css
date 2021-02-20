@@ -1,0 +1,47 @@
+/**
+ * @lineup-lite/example-basic
+ * https://github.com/sgratzl/lineup-lite
+ *
+ * Copyright (c) 2021 Samuel Gratzl <sam@sgratzl.com>
+ */
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+@media (prefers-color-scheme: dark) {
+  body {
+    background:  #333; color: white; 
+  }
+}
+
+.filter-dialog {
+  position: absolute;
+  width: 12em;
+  height: 7em;
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid currentColor;
+  border-radius: 3px;
+  z-index: 100;
+  top: 100%;
+  right: 0;
+  display: flex;
+  flex-direction: column
+}
+
+.filter-dialog .lt-summary {
+  margin-left: 0.25em;
+  margin-right: 0.25em;
+  margin-top: 0.5em;
+  flex-grow: 1;
+}

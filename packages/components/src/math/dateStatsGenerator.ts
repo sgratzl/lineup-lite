@@ -26,7 +26,19 @@ export function isDateStats(obj: any): obj is IDateStats {
 
 function toDateString(this: IDateStats) {
   const f = (v: Date) => this.format(v);
-  return `NumberStats(count=${this.count}, min=${f(this.min)}, max=${f(this.max)}, hist=${toHistString(this.hist)})`;
+  return `DateStats(count=${this.count}, min=${f(this.min)}, max=${f(this.max)}, hist=${toHistString(this.hist)})`;
+}
+
+function toDatePrimitive(this: IDateStats, hint: 'string' | 'default'): string;
+function toDatePrimitive(this: IDateStats, hint: 'number'): number;
+function toDatePrimitive(this: IDateStats, hint: 'number' | 'string' | 'default') {
+  if (hint === 'string' || hint === 'default') {
+    return toDateString.call(this);
+  }
+  if (hint === 'number') {
+    return this.median.valueOf();
+  }
+  throw new TypeError('invalid hint');
 }
 
 /**
@@ -270,7 +282,7 @@ function createFlat(arr: readonly DateLike[]) {
     }
     const vClean: Date[] = [];
     for (const vi of v) {
-      if (vi == null) {
+      if (vi == null || !(vi instanceof Date)) {
         flatMissing++;
       } else {
         push(vi);
@@ -291,6 +303,18 @@ function createFlat(arr: readonly DateLike[]) {
     min,
     max,
   };
+}
+
+function computeMedian(items: readonly Date[]): Date {
+  const sorted = items.slice().sort((a, b) => a.valueOf() - b.valueOf());
+  if (items.length % 2 === 1) {
+    return sorted[(items.length + 1) / 2];
+  }
+  // average
+  const i = items.length / 2;
+  const a = sorted[i];
+  const b = sorted[i + 1];
+  return new Date((a.valueOf() + b.valueOf()) / 2);
 }
 
 export function dateStatsGenerator(options: DateStatsOptions = {}): (arr: readonly DateLike[]) => IDateStats {
@@ -321,11 +345,12 @@ export function dateStatsGenerator(options: DateStatsOptions = {}): (arr: readon
       flatCount: flatMissing + flatItems.length,
       hist,
       histGranularity,
+      median: computeMedian(flatItems),
       maxBin: maxHistBin(hist)!,
       ...normalizeDate(minD, maxD),
       ...base,
+      [Symbol.toPrimitive]: toDatePrimitive,
     };
-    r.toString = toDateString;
     return r;
   };
 }

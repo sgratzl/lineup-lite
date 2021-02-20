@@ -5,7 +5,7 @@
  * Copyright (c) 2021 Samuel Gratzl <sam@sgratzl.com>
  */
 
-import React, { forwardRef, ReactElement, Ref, RefAttributes } from 'react';
+import React, { forwardRef, ReactElement, ReactNode, Ref, RefAttributes } from 'react';
 import type { Cell, ColumnInstance, UseGroupByCellProps, UseResizeColumnsColumnProps } from 'react-table';
 import type { LineUpLiteColumn } from '@lineup-lite/hooks';
 import { clsx } from './utils';
@@ -13,10 +13,11 @@ import { useLineUpLiteTableContext } from './contexts';
 
 export interface LineUpLiteTDProps<D extends object = {}> {
   cell: Cell<D, any>;
+  children?: ReactNode;
 }
 
 const LineUpLiteTDImpl = /*!#__PURE__*/ forwardRef(function LineUpLiteTD<D extends object = {}>(
-  { cell }: LineUpLiteTDProps<D>,
+  { cell, children }: LineUpLiteTDProps<D>,
   ref: Ref<HTMLElement>
 ) {
   const cellTyped = (cell as unknown) as Cell<D> & UseGroupByCellProps<D>;
@@ -36,6 +37,7 @@ const LineUpLiteTDImpl = /*!#__PURE__*/ forwardRef(function LineUpLiteTD<D exten
         : cellTyped.isAggregated
         ? cellTyped.render(column.Aggregated ? 'Aggregated' : 'Cell')
         : cellTyped.render('Cell')}
+      {children}
     </p.c>
   );
 });

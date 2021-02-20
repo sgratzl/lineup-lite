@@ -14,15 +14,15 @@ import type {
   UseResizeColumnsColumnProps,
   UseSortByColumnProps,
 } from 'react-table';
-import { ActionIcons, LINEUP_LITE_TEXT_ICONS } from '../../icons';
+import { LINEUP_LITE_TEXT_ICONS } from '../../icons';
 import { LineUpLiteSortByAction } from './LineUpLiteSortByAction';
 import { LineUpLiteGroupByAction } from './LineUpLiteGroupByAction';
 import { LineUpLiteHideAction } from './LineUpLiteHideAction';
+import type { ActionLineUpProps } from '../interfaces';
 
-export interface LineUpLiteToolbarProps<D extends object = {}> extends ColumnInstance<D> {
+export interface LineUpLiteToolbarProps<D extends object = {}> extends ColumnInstance<D>, ActionLineUpProps<D> {
   className?: string;
   style?: CSSProperties;
-  icons?: Partial<ActionIcons>;
 }
 
 export function LineUpLiteToolbar(props: PropsWithChildren<LineUpLiteToolbarProps<any>>) {
@@ -45,6 +45,7 @@ export function LineUpLiteToolbar(props: PropsWithChildren<LineUpLiteToolbarProp
     <div className={clsx('lt-toolbar', props.className)} style={props.style}>
       <LineUpLiteSortByAction {...column} iconAsc={icons.sortAsc} iconDesc={icons.sortDesc} />
       <LineUpLiteGroupByAction {...column} icon={icons.groupBy} />
+      {props.actions && props.actions(column, icons)}
       {props.children}
       <LineUpLiteHideAction {...column} icon={icons.hideColumn} />
     </div>

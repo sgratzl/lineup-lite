@@ -16,15 +16,48 @@ import LineUpLite, {
   asNumberColumn,
   asNumbersColumn,
   asTextColumn,
-  featureDefault,
   LineUpLiteColumn,
   LineUpLitePanel,
   LineUpLiteStateContextProvider,
+  ColumnInstance,
+  LineUpLiteFilterAction,
+  UseFiltersColumnProps,
+  featureFlexLayout,
+  featureFilterColumns,
+  featureRowRank,
+  featureSortAndGroupBy,
+  featureRowSelect,
+  ActionIcons,
 } from '@lineup-lite/table';
 import '@lineup-lite/table/src/style.css';
-import React, { useMemo } from 'react';
+import React, { useMemo, useCallback, useState } from 'react';
 import { data, Row } from './data';
 import './styles.css';
+
+function MyCheckBox({ indeterminate, ...rest }: any) {
+  return <input type="checkbox" {...rest} style={{ color: 'blue' }} />;
+}
+
+function MyFilterAction(props: { col: ColumnInstance<Row>; icons: ActionIcons }) {
+  const col = (props.col as unknown) as ColumnInstance<Row> & UseFiltersColumnProps<Row>;
+
+  const [visible, setVisible] = useState(false);
+  const showFilterDialog = useCallback(() => {
+    setVisible(!visible);
+  }, [visible, setVisible]);
+
+  return (
+    <>
+      <LineUpLiteFilterAction {...col} iconFilter={props.icons.filterColumn} toggleFilterColumn={showFilterDialog} />
+      {visible && (
+        <div className="filter-dialog">
+          {col.render('Summary')}
+          <button onClick={showFilterDialog}>Close</button>
+        </div>
+      )}
+    </>
+  );
+}
 
 function Table({ isDarkTheme }: { isDarkTheme: boolean }) {
   const columns: LineUpLiteColumn<Row>[] = useMemo(
@@ -66,8 +99,25 @@ function Table({ isDarkTheme }: { isDarkTheme: boolean }) {
     [isDarkTheme]
   );
 
-  const features = useMemo(() => featureDefault<Row>(), []);
+  const features = useMemo(
+    () => [
+      featureFilterColumns,
+      featureSortAndGroupBy<Row>(),
+      featureRowSelect<Row>(),
+      featureRowRank,
+      featureFlexLayout,
+    ],
+    []
+  );
   const icons = useMemo(() => actionIconsRemixicon(), []);
+
+  const filterAction = useCallback((col: ColumnInstance<Row>, icons: ActionIcons) => {
+    return (
+      <>
+        <MyFilterAction col={col} icons={icons} />
+      </>
+    );
+  }, []);
 
   return (
     <LineUpLiteStateContextProvider>
@@ -79,10 +129,12 @@ function Table({ isDarkTheme }: { isDarkTheme: boolean }) {
             features={features}
             icons={icons}
             dark={isDarkTheme}
+            selectCheckboxComponent={MyCheckBox}
+            actions={filterAction}
             // onStateChange={setInstance}
           />
         </div>
-        <LineUpLitePanel className="side-panel" icons={icons} dark={isDarkTheme} />
+        <LineUpLitePanel className="side-panel" icons={icons} dark={isDarkTheme} actions={filterAction} />
       </div>
     </LineUpLiteStateContextProvider>
   );
