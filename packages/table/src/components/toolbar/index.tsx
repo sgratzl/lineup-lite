@@ -9,3 +9,4 @@ export * from './LineUpLiteToolbar';
 export * from './LineUpLiteSortByAction';
 export * from './LineUpLiteGroupByAction';
 export * from './LineUpLiteHideAction';
+export * from './LineUpLiteFilterAction';

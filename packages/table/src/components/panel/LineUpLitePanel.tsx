@@ -31,6 +31,7 @@ const LineUpLitePanelImpl = /*!#__PURE__*/ forwardRef(function LineUpLitePanel<D
         <LineUpLitePanelContextProvider instance={instance} props={props}>
           <LineUpLiteDataSummary instance={instance} state={state} icons={props.icons} />
           <LineUpLiteTableSummary<D> instance={instance} state={state} icons={props.icons} actions={props.actions} />
+          {props.children}
         </LineUpLitePanelContextProvider>
       )}
     </p.c>

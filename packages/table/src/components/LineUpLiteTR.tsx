@@ -5,7 +5,7 @@
  * Copyright (c) 2021 Samuel Gratzl <sam@sgratzl.com>
  */
 
-import React, { memo, Ref, forwardRef, RefAttributes, ReactElement } from 'react';
+import React, { memo, Ref, forwardRef, RefAttributes, ReactElement, ReactNode } from 'react';
 import type { Row, UseExpandedRowProps, UseGroupByRowProps, UseRowSelectRowProps } from 'react-table';
 import { useLineUpLiteTableContext } from './contexts';
 import { LineUpLiteTD } from './LineUpLiteTD';
@@ -15,6 +15,7 @@ export interface LineUpLiteTRProps<D extends object = {}> {
   row: Row<D>;
   virtualStart?: number;
   virtualSize?: number;
+  children?: ReactNode;
 }
 
 const LineUpLiteTRImpl = /*!#__PURE__*/ forwardRef(function LineUpLiteTR<D extends object = {}>(
@@ -55,6 +56,7 @@ const LineUpLiteTRImpl = /*!#__PURE__*/ forwardRef(function LineUpLiteTR<D exten
         .map((cell) => (
           <LineUpLiteTD key={cell.column.id} cell={cell} />
         ))}
+      {props.children}
     </p.c>
   );
 });

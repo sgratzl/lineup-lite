@@ -17,6 +17,7 @@ export const LINEUP_LITE_I18N_EN = {
     'Click to solely sort by this column in ascending order or use Shift-Click to also by this column',
   sortByAnotherColumnDesc:
     'Click to solely sort by this column in descending order or use Shift-Click to also by this column',
+  filterColumn: 'Click to edit filter the values in this column',
 };
 
 export type LineUpLiteI18N = typeof LINEUP_LITE_I18N_EN;

@@ -15,6 +15,7 @@ export interface ActionIcons {
   hideColumn: ComponentType;
   resetFilter: ComponentType;
   clearSelection: ComponentType;
+  filterColumn: ComponentType;
 }
 
 export interface PaginationIcons {

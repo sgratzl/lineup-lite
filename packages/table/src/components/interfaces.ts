@@ -5,13 +5,14 @@
  * Copyright (c) 2021 Samuel Gratzl <sam@sgratzl.com>
  */
 
-import type { HeaderGroup } from 'react-table';
+import type { ColumnInstance } from 'react-table';
 import type { ActionIcons } from '../icons';
 import type { LineUpLiteI18N } from '../i18n';
 import type { UseLineUpLiteOptions } from './useLineUpLite';
 import type { ComponentType, CSSProperties, DetailedHTMLProps, HTMLAttributes, ReactNode } from 'react';
 import type { CommonProps } from '@lineup-lite/components';
 
+export type { ColumnInstance, HeaderGroup, Row, Column } from 'react-table';
 export type MultiCustomizeKeys = 'tbody' | 'tr' | 'thead' | 'th' | 'thGroup' | 'td' | 'header';
 
 export type LineUpLiteComponentLike = ComponentType<DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement>>;
@@ -42,7 +43,7 @@ export interface ActionLineUpProps<D extends object = {}> {
   /**
    * callback for generating extra toolbar actions for a column
    */
-  actions?: (column: HeaderGroup<D>) => ReactNode;
+  actions?: (column: ColumnInstance<D>, icons: ActionIcons) => ReactNode;
 }
 
 export interface LineUpLiteProps<D extends object = {}>
@@ -52,4 +53,5 @@ export interface LineUpLiteProps<D extends object = {}>
     CommonProps {
   icons?: Partial<ActionIcons>;
   i18n?: UseLineUpLiteOptions<D>['i18n'] & CustomizeLineUpProps['i18n'];
+  children?: ReactNode;
 }

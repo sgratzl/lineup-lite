@@ -5,7 +5,7 @@
  * Copyright (c) 2021 Samuel Gratzl <sam@sgratzl.com>
  */
 
-import React, { forwardRef, ReactElement, Ref, RefAttributes } from 'react';
+import React, { forwardRef, ReactElement, ReactNode, Ref, RefAttributes } from 'react';
 import type { HeaderGroup } from 'react-table';
 import { useLineUpLiteTableContext } from './contexts';
 import type { ActionLineUpProps } from './interfaces';
@@ -14,10 +14,11 @@ import { clsx } from './utils';
 
 export interface LineUpLiteTHeadProps<D extends object = {}> extends ActionLineUpProps<D> {
   headerGroups: HeaderGroup<D>[];
+  children?: ReactNode;
 }
 
 const LineUpLiteTHeadImpl = /*!#__PURE__*/ forwardRef(function LineUpLiteTHead<D extends object = {}>(
-  { headerGroups, icons, actions }: LineUpLiteTHeadProps<D>,
+  { headerGroups, icons, actions, children }: LineUpLiteTHeadProps<D>,
   ref: Ref<HTMLElement>
 ) {
   const c = useLineUpLiteTableContext();
@@ -42,6 +43,7 @@ const LineUpLiteTHeadImpl = /*!#__PURE__*/ forwardRef(function LineUpLiteTHead<D
             ))}
         </p.g>
       ))}
+      {children}
     </p.c>
   );
 });

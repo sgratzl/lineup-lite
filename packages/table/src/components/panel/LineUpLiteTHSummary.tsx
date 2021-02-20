@@ -5,7 +5,7 @@
  * Copyright (c) 2021 Samuel Gratzl <sam@sgratzl.com>
  */
 
-import React, { forwardRef, ReactElement, Ref, RefAttributes } from 'react';
+import React, { forwardRef, ReactElement, ReactNode, Ref, RefAttributes } from 'react';
 import type { ColumnInstance, HeaderGroup, UseGroupByColumnProps, UseResizeColumnsColumnProps } from 'react-table';
 import { clsx } from '../utils';
 import { LineUpLiteToolbar } from '../toolbar/LineUpLiteToolbar';
@@ -15,10 +15,11 @@ import type { LineUpLiteColumn } from '@lineup-lite/hooks';
 
 export interface LineUpLiteTHSummaryProps<D extends object = {}> extends ActionLineUpProps<D> {
   col: ColumnInstance<D>;
+  children?: ReactNode;
 }
 
 const LineUpLiteTHSummaryImpl = /*!#__PURE__*/ forwardRef(function LineUpLiteTHSummary<D extends object = {}>(
-  { col, actions, icons }: LineUpLiteTHSummaryProps<D>,
+  { col, actions, icons, children }: LineUpLiteTHSummaryProps<D>,
   ref: Ref<HTMLElement>
 ) {
   const column = (col as unknown) as HeaderGroup<D> &
@@ -41,11 +42,10 @@ const LineUpLiteTHSummaryImpl = /*!#__PURE__*/ forwardRef(function LineUpLiteTHS
         >
           {column.render('Header')}
         </div>
-        <LineUpLiteToolbar {...col} icons={icons}>
-          {actions && actions(column)}
-        </LineUpLiteToolbar>
+        <LineUpLiteToolbar {...col} icons={icons} actions={actions} />
       </div>
       {column.Summary && column.render('Summary')}
+      {children}
     </p.c>
   );
 });

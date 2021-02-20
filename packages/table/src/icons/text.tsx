@@ -44,6 +44,10 @@ function PreviousPage() {
   return <>‹</>;
 }
 
+function Filter() {
+  return <>#</>;
+}
+
 export const LINEUP_LITE_TEXT_ICONS: PaginationIcons & ActionIcons = {
   groupBy: GroupBy,
   expandGroup: ArrowDropRightLine,
@@ -56,4 +60,5 @@ export const LINEUP_LITE_TEXT_ICONS: PaginationIcons & ActionIcons = {
   previousPage: PreviousPage,
   nextPage: NextPage,
   lastPage: LastPage,
+  filterColumn: Filter,
 };

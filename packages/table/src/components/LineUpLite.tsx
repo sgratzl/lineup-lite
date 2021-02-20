@@ -43,6 +43,7 @@ export const LineUpLite = /*!#__PURE__*/ forwardRef(function LineUpLite<D extend
             return <LineUpLiteTR key={row.id} row={row} />;
           })}
         </p.b>
+        {props.children}
       </LineUpLiteTableContextProvider>
     </p.c>
   );
