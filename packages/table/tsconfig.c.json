@@ -7,8 +7,5 @@
     "noEmit": false,
     "composite": true
   },
-  "references": [
-    { "path": "../components/tsconfig.c.json" },
-    { "path": "../hooks/tsconfig.c.json" },
-  ]
+  "references": [{ "path": "../components/tsconfig.c.json" }, { "path": "../hooks/tsconfig.c.json" }]
 }

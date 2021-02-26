@@ -12,3 +12,5 @@ coverage
 /.vscode
 *.map
 .browserslistrc
+*.tsbuildinfo
+*.tgz

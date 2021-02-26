@@ -6,6 +6,8 @@ labels: 'bug'
 assignees: ''
 ---
 
+<!-- ⭐ If you like and use this repository, please give it a star, to show your appreciation ⭐️! -->
+
 <!--A clear and concise description of what the bug is.-->
 
 When I...

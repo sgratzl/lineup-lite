@@ -5,9 +5,7 @@
     "declaration": true,
     "declarationMap": true,
     "noEmit": false,
-    "composite": true,
+    "composite": true
   },
-  "references": [
-    { "path": "../components/tsconfig.c.json" }
-  ]
+  "references": [{ "path": "../components/tsconfig.c.json" }]
 }

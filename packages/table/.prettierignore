@@ -4,3 +4,5 @@
 /coverage
 /.prettierignore
 .browserslistrc
+*.tsbuildinfo
+*.tgz

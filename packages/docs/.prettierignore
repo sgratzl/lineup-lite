@@ -3,5 +3,8 @@
 /coverage
 /.prettierignore
 .browserslistrc
+.gitignore
 /.docusaurus
 /static
+*.tsbuildinfo
+*.tgz

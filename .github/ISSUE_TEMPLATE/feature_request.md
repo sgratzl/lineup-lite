@@ -6,6 +6,8 @@ labels: 'enhancement'
 assignees: ''
 ---
 
+<!-- ⭐ If you like and use this repository, please give it a star, to show your appreciation ⭐️! -->
+
 <!--A clear and concise description of what feature you are missing.-->
 
 It would be great if ...
