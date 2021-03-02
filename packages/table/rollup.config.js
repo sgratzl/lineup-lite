@@ -55,9 +55,9 @@ export default function Config(options) {
         'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV) || 'production',
         __VERSION__: JSON.stringify(pkg.version),
       }),
-      pkg.style &&
+      pkg.styles &&
         css({
-          output: relativeToMain(pkg.style),
+          output: relativeToMain(pkg.styles),
         }),
     ].filter(Boolean),
   };
@@ -114,7 +114,7 @@ export default function Config(options) {
           },
           respectExternal: true,
         }),
-        pkg.style &&
+        pkg.styles &&
           css({
             output: false,
           }),

@@ -55,7 +55,7 @@ export default function Config(options) {
         __VERSION__: JSON.stringify(pkg.version),
       }),
       css({
-        output: relativeToMain(pkg.style),
+        output: relativeToMain(pkg.styles),
       }),
     ],
   };
