@@ -4,7 +4,6 @@
  *
  * Copyright (c) 2021 Samuel Gratzl <sam@sgratzl.com>
  */
-/* eslint-disable @typescript-eslint/ban-types */
 
 import {
   CategoricalStatsOptions,

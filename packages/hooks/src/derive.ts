@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-types */
 /**
  * @lineup-lite/hooks
  * https://github.com/sgratzl/lineup-lite

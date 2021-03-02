@@ -4,7 +4,6 @@
  *
  * Copyright (c) 2021 Samuel Gratzl <sam@sgratzl.com>
  */
-/* eslint-disable @typescript-eslint/ban-types */
 
 import type {
   Column,
@@ -16,9 +15,10 @@ import type {
   UseResizeColumnsColumnOptions,
   UseSortByColumnOptions,
 } from 'react-table';
-import type { UseStatsColumnOptions, AnyObject, UnknownObject } from './hooks/useStats';
+import type { UseStatsColumnOptions } from './hooks/useStats';
+import type { AnyObject, UnknownObject } from './types';
 
-export type { AnyObject, UnknownObject } from './hooks/useStats';
+export type { AnyObject, UnknownObject } from './types';
 
 export interface UseColumnGroupByColumnOptions<D extends AnyObject = UnknownObject> {
   /**

@@ -4,7 +4,6 @@
  *
  * Copyright (c) 2021 Samuel Gratzl <sam@sgratzl.com>
  */
-/* eslint-disable @typescript-eslint/ban-types */
 
 import React, { useContext } from 'react';
 import type { Renderer, CellProps } from 'react-table';
@@ -12,12 +11,13 @@ import type { ITextStats } from '@lineup-lite/components';
 import { TextLabel } from '@lineup-lite/components';
 import type { UseStatsColumnProps } from '../hooks';
 import { missingClass, optionContext, resolve } from './utils';
+import type { AnyObject } from '../types';
 
 export interface TextRendererOptions {
   format?: (v: string) => string;
 }
 
-function deriveTextOptions<D extends object, P extends CellProps<D, string>>(
+function deriveTextOptions<D extends AnyObject, P extends CellProps<D, string>>(
   props: P,
   options: TextRendererOptions = {}
 ) {
@@ -28,7 +28,7 @@ function deriveTextOptions<D extends object, P extends CellProps<D, string>>(
   };
 }
 
-export function TextRenderer<D extends object, P extends CellProps<D, string>>(props: P): JSX.Element {
+export function TextRenderer<D extends AnyObject, P extends CellProps<D, string>>(props: P): JSX.Element {
   const options = useContext(optionContext) as TextRendererOptions;
   if (typeof props.value === 'string') {
     return <div className="lt-date">{props.value}</div>;
@@ -37,7 +37,7 @@ export function TextRenderer<D extends object, P extends CellProps<D, string>>(p
   return <TextLabel {...p} value={props.value} className={missingClass(props.value)} />;
 }
 
-export function TextRendererFactory<D extends object, P extends CellProps<D, string>>(
+export function TextRendererFactory<D extends AnyObject, P extends CellProps<D, string>>(
   options: TextRendererOptions = {}
 ): Renderer<P> {
   return (props: P) => (

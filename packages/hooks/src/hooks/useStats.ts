@@ -18,9 +18,7 @@ import {
   UseGroupByColumnProps,
   UseFiltersColumnProps,
 } from 'react-table';
-
-export type UnknownObject = { [key: string]: unknown };
-export type AnyObject = object;
+import type { AnyObject, UnknownObject } from '../types';
 
 export type UseStatsOptions = Partial<{
   manualStats: boolean;

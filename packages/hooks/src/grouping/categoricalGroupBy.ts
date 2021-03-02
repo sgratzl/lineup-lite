@@ -11,7 +11,6 @@ import baseGroupBy from './baseGroupBy';
 import type { UseStatsColumnProps } from '../hooks';
 import type { AnyObject, UnknownObject } from '../interfaces';
 
-// eslint-disable-next-line @typescript-eslint/ban-types
 export default function categoricalGroupBy<D extends AnyObject = UnknownObject>(
   rows: Row<D>[],
   column: ColumnInstance<D>
