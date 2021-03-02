@@ -63,10 +63,10 @@ function Table({ isDarkTheme }: { isDarkTheme: boolean }) {
   const features = useMemo(() => featureDefault<Row>(), []);
   const icons = useMemo(() => actionIconsRemixicon(), []);
 
-  const filterAction = useCallback((col: ColumnInstance<Row>, icons: ActionIcons) => {
+  const filterAction = useCallback((col: ColumnInstance<Row>, givenIcons: ActionIcons) => {
     return (
       <>
-        <MyFilterAction col={col} icons={icons} />
+        <MyFilterAction col={col} icons={givenIcons} />
       </>
     );
   }, []);

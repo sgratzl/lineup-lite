@@ -124,7 +124,7 @@ export function asNumberColumn<D extends AnyObject = UnknownObject, C extends Co
  * @param col property key or partial column Header and accessor
  * @param options additional options for statistics
  */
-export function asNumbersColumn<D extends UnknownObject, C extends Column<D> = Column<D>>(
+export function asNumbersColumn<D extends AnyObject = UnknownObject, C extends Column<D> = Column<D>>(
   col: C | keyof D,
   options?: NumberStatsOptions
 ): LineUpLiteColumn<D> {

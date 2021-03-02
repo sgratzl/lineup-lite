@@ -34,6 +34,7 @@ import React, { useMemo, useCallback, useState } from 'react';
 import { data, Row } from './data';
 import './styles.css';
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function MyCheckBox({ indeterminate, ...rest }: any) {
   return <input type="checkbox" {...rest} style={{ color: 'blue' }} />;
 }
@@ -52,7 +53,9 @@ function MyFilterAction(props: { col: ColumnInstance<Row>; icons: ActionIcons })
       {visible && (
         <div className="filter-dialog">
           {col.render('Summary')}
-          <button onClick={showFilterDialog}>Close</button>
+          <button onClick={showFilterDialog} type="button">
+            Close
+          </button>
         </div>
       )}
     </>
@@ -111,10 +114,10 @@ function Table({ isDarkTheme }: { isDarkTheme: boolean }) {
   );
   const icons = useMemo(() => actionIconsRemixicon(), []);
 
-  const filterAction = useCallback((col: ColumnInstance<Row>, icons: ActionIcons) => {
+  const filterAction = useCallback((col: ColumnInstance<Row>, givenIcons: ActionIcons) => {
     return (
       <>
-        <MyFilterAction col={col} icons={icons} />
+        <MyFilterAction col={col} icons={givenIcons} />
       </>
     );
   }, []);
@@ -140,7 +143,7 @@ function Table({ isDarkTheme }: { isDarkTheme: boolean }) {
   );
 }
 
-export default function App() {
+export default function App(): JSX.Element {
   const isDarkTheme = window.matchMedia != null && window.matchMedia('(prefers-color-scheme: dark)').matches;
   return (
     <div className="App">

@@ -16,10 +16,9 @@ import type {
   UseResizeColumnsColumnOptions,
   UseSortByColumnOptions,
 } from 'react-table';
-import type { UseStatsColumnOptions } from './hooks/useStats';
+import type { UseStatsColumnOptions, AnyObject, UnknownObject } from './hooks/useStats';
 
-export type UnknownObject = { [key: string]: unknown };
-export type AnyObject = object;
+export type { AnyObject, UnknownObject } from './hooks/useStats';
 
 export interface UseColumnGroupByColumnOptions<D extends AnyObject = UnknownObject> {
   /**

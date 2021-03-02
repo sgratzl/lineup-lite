@@ -5,7 +5,7 @@
  * Copyright (c) 2021 Samuel Gratzl <sam@sgratzl.com>
  */
 
-import React, { useMemo } from 'react';
+import React, { CSSProperties, Ref, ReactNode, useMemo } from 'react';
 import './styles.css';
 import LineUpLite, {
   asTextColumn,
@@ -18,11 +18,21 @@ import LineUpLite, {
 } from '@lineup-lite/table';
 import { defaultDarkColorScale, defaultColorScale } from '@lineup-lite/components';
 import '@lineup-lite/table/dist/table.css';
-import { data, Row } from './data';
 import FlipMove from 'react-flip-move';
+import { data, Row } from './data';
 
-const BodyWrapper: LineUpLiteComponentLike = ({ children, style, ref, ...rest }) => {
+const BodyWrapper: LineUpLiteComponentLike = ({
+  children,
+  style,
+  ref,
+  ...rest
+}: {
+  children?: ReactNode;
+  style?: CSSProperties;
+  ref?: string | Ref<HTMLElement>;
+}) => {
   return (
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     <FlipMove enterAnimation="fade" leaveAnimation="fade" {...rest} ref={ref as any} style={style as any}>
       {children}
     </FlipMove>

@@ -42,6 +42,7 @@ function Table({ isDarkTheme }: { isDarkTheme: boolean }) {
             desc: true,
           },
         ],
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } as any),
     []
   );

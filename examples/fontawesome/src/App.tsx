@@ -17,7 +17,6 @@ import LineUpLite, {
 } from '@lineup-lite/table';
 import { defaultDarkColorScale, defaultColorScale } from '@lineup-lite/components';
 import '@lineup-lite/table/dist/table.css';
-import { data, Row } from './data';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faSortAmountUp,
@@ -27,6 +26,7 @@ import {
   faChevronRight,
   faTrash,
 } from '@fortawesome/free-solid-svg-icons';
+import { data, Row } from './data';
 
 const icons: Partial<ActionIcons> = {
   sortAsc: () => <FontAwesomeIcon icon={faSortAmountUp} />,
