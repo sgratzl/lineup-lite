@@ -6,5 +6,6 @@
  */
 
 import type { Row } from 'react-table';
+import type { UnknownObject } from '../interfaces';
 
-export type RowCompareFunction = (a: Row<any>, b: Row<any>, columnId: string) => number;
+export type RowCompareFunction = (a: Row<UnknownObject>, b: Row<UnknownObject>, columnId: string) => number;

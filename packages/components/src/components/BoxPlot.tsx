@@ -12,6 +12,8 @@ import { FilterRangeWrapper, FilterRangeSliderProps } from './FilterRange';
 import type { CommonProps } from './common';
 import { clsx, useI18N } from './utils';
 
+export type { IBoxPlot } from '@sgratzl/boxplots';
+
 export const BOXPLOT_I18N_EN = {
   boxplotMinimum: 'Minimum: {0}',
   boxplot25Quantile: '25% Quantile: {0}',
@@ -69,7 +71,7 @@ function generatePath(
 function generateTitle(
   s: BoxPlotScaled,
   pre: Omit<IBoxPlot, 'items'> | undefined,
-  i18n: Record<keyof typeof BOXPLOT_I18N_EN, (...args: any[]) => string>
+  i18n: Record<keyof typeof BOXPLOT_I18N_EN, (...args: unknown[]) => string>
 ) {
   const p = (v: number) => `/${s.format(v)}`;
   return `${i18n.boxplotMinimum(`${s.format(s.min)}${pre ? p(pre.min) : ''}`)}
@@ -84,9 +86,8 @@ ${i18n.boxplotNrItems(`${s.count.toLocaleString()}${pre ? `/${pre.count.toLocale
 /**
  * renders a boxplot as a SVG chart
  */
-export function BoxPlotChart(props: BoxPlotChartProps) {
-  const s = props.s;
-  const pre = props.preFilter;
+export function BoxPlotChart(props: BoxPlotChartProps): JSX.Element {
+  const { s, preFilter: pre } = props;
   const i18n = useI18N(BOXPLOT_I18N_EN, props.i18n);
   const boxPadding = 2;
   const scale = useCallback((v: number) => Math.round(s.scale(v) * 1000) / 10, [s]);
@@ -154,8 +155,8 @@ export function BoxPlotChart(props: BoxPlotChartProps) {
 /**
  * renders a boxplot as a SVG chart
  */
-export function BoxPlotChartVertical(props: BoxPlotChartProps) {
-  const s = props.s;
+export function BoxPlotChartVertical(props: BoxPlotChartProps): JSX.Element {
+  const { s } = props;
   const pre = props.preFilter;
   const i18n = useI18N(BOXPLOT_I18N_EN, props.i18n);
   const boxPadding = 2;
@@ -242,7 +243,7 @@ export interface BoxPlotProps extends CommonProps {
 /**
  * renders a boxplot
  */
-export function BoxPlot(props: BoxPlotProps) {
+export function BoxPlot(props: BoxPlotProps): JSX.Element {
   return (
     <NumberStatsWrapper
       className={clsx('lt-boxplot', props.className)}
@@ -263,7 +264,7 @@ export type FilterRangeBoxPlotProps = BoxPlotProps &
 /**
  * renders a boxplot along with a range filter
  */
-export function FilterRangeBoxPlot(props: FilterRangeBoxPlotProps) {
+export function FilterRangeBoxPlot(props: FilterRangeBoxPlotProps): JSX.Element {
   return (
     <FilterRangeWrapper summary={props.summary} {...props} className={clsx('lt-boxplot', props.className)}>
       <BoxPlotChart {...props} className={clsx('lt-boxplot-wrapper', props.className)} />

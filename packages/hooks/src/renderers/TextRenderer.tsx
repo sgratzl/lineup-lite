@@ -4,13 +4,14 @@
  *
  * Copyright (c) 2021 Samuel Gratzl <sam@sgratzl.com>
  */
+/* eslint-disable @typescript-eslint/ban-types */
 
 import React, { useContext } from 'react';
 import type { Renderer, CellProps } from 'react-table';
 import type { ITextStats } from '@lineup-lite/components';
+import { TextLabel } from '@lineup-lite/components';
 import type { UseStatsColumnProps } from '../hooks';
 import { missingClass, optionContext, resolve } from './utils';
-import { TextLabel } from '@lineup-lite/components';
 
 export interface TextRendererOptions {
   format?: (v: string) => string;
@@ -27,7 +28,7 @@ function deriveTextOptions<D extends object, P extends CellProps<D, string>>(
   };
 }
 
-export function TextRenderer<D extends object, P extends CellProps<D, string>>(props: P) {
+export function TextRenderer<D extends object, P extends CellProps<D, string>>(props: P): JSX.Element {
   const options = useContext(optionContext) as TextRendererOptions;
   if (typeof props.value === 'string') {
     return <div className="lt-date">{props.value}</div>;

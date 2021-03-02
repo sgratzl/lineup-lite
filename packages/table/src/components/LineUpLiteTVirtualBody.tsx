@@ -7,13 +7,14 @@
 
 import React, { useRef, useCallback, useLayoutEffect, useMemo, RefObject } from 'react';
 import type { Row, TableInstance, UseExpandedRowProps, UseGroupByRowProps } from 'react-table';
-import { clsx } from './utils';
 import { useVirtual } from 'react-virtual';
+import { clsx } from './utils';
 import { LineUpLiteTRMemo } from './LineUpLiteTR';
 import type { SizeEstimator } from './LineUpLiteVirtual';
 import { useLineUpLiteTableContext } from './contexts';
+import type { UnknownObject } from './interfaces';
 
-export function LineUpLiteTVirtualBody<D extends object = {}>({
+export default function LineUpLiteTVirtualBody<D extends UnknownObject = UnknownObject>({
   rows,
   prepareRow,
   getTableBodyProps,
@@ -29,7 +30,7 @@ export function LineUpLiteTVirtualBody<D extends object = {}>({
   estimatedSize: SizeEstimator;
   rowSpacing: number;
   overscan?: number;
-}) {
+}): JSX.Element {
   const c = useLineUpLiteTableContext();
   const ref = useRef<HTMLDivElement>(null);
   const givenEstimate = estimatedSize;
@@ -60,10 +61,10 @@ export function LineUpLiteTVirtualBody<D extends object = {}>({
     const thead = theadRef.current;
 
     if (!elem || !thead) {
-      return;
+      return undefined;
     }
     const scrollListener = (e: Event) => {
-      const scrollLeft = (e.currentTarget as HTMLDivElement).scrollLeft;
+      const { scrollLeft } = e.currentTarget as HTMLDivElement;
       if (Math.abs(thead.scrollLeft - scrollLeft) > 0) {
         thead.scrollLeft = scrollLeft;
       }

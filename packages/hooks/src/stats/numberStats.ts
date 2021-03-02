@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 /**
  * @lineup-lite/hooks
  * https://github.com/sgratzl/lineup-lite
@@ -8,6 +9,9 @@
 import { numberStatsGenerator, NumberStatsOptions, INumberStats } from '@lineup-lite/components';
 import type { ColumnInstance } from 'react-table';
 import type { UseStatsColumnOptions, UseStatsColumnProps } from '../hooks';
+import type { UnknownObject } from '../interfaces';
+
+export type { NumberStatsOptions, INumberStats } from '@lineup-lite/components';
 
 function compute(
   gen: ReturnType<typeof numberStatsGenerator>,
@@ -39,7 +43,7 @@ export type NumberArrayWithStats = number[] & { _stats?: INumberStats };
 
 export function computeArrayNumberStats(
   arr: NumberArrayWithStats,
-  column?: ColumnInstance<any> & Partial<UseStatsColumnOptions<any> & UseStatsColumnProps>
+  column?: ColumnInstance<UnknownObject> & Partial<UseStatsColumnOptions<UnknownObject> & UseStatsColumnProps>
 ): INumberStats | null {
   if (arr == null) {
     return null;
@@ -48,6 +52,11 @@ export function computeArrayNumberStats(
     return arr._stats;
   }
   // cache stats to avoid recomputing
-  arr._stats = (column?.stats ?? numberStatsGenerator())(arr, column?.preFilterStatsValue ?? column?.statsValue);
-  return arr._stats!;
+  const stats = (column?.stats ?? numberStatsGenerator())(
+    arr,
+    column?.preFilterStatsValue ?? column?.statsValue
+  ) as INumberStats;
+  // eslint-disable-next-line no-param-reassign
+  arr._stats = stats;
+  return stats;
 }

@@ -5,8 +5,8 @@
  * Copyright (c) 2021 Samuel Gratzl <sam@sgratzl.com>
  */
 
-import type { PaginationIcons } from '../icons';
 import React, { useCallback, MouseEvent, ChangeEvent } from 'react';
+import type { PaginationIcons } from '../icons';
 
 export interface LineUpLitePaginationProps {
   pageIndex: number;
@@ -24,10 +24,10 @@ export function LineUpLitePagination({
   pageSize,
   setPageSize,
   icons,
-}: LineUpLitePaginationProps) {
+}: LineUpLitePaginationProps): JSX.Element {
   const changePage = useCallback(
     (e: MouseEvent<HTMLElement>) => {
-      const page = Number.parseInt(e.currentTarget.dataset.page!, 10);
+      const page = Number.parseInt(e.currentTarget.dataset.page ?? '0', 10);
       gotoPage(page);
     },
     [gotoPage]
@@ -48,16 +48,16 @@ export function LineUpLitePagination({
   const lastPage = pageCount - 1;
   return (
     <div className="lt-footer lt-pagination">
-      <button onClick={changePage} data-page={0} disabled={pageIndex <= 0}>
+      <button onClick={changePage} data-page={0} disabled={pageIndex <= 0} type="button">
         <icons.firstPage />
       </button>
-      <button onClick={changePage} data-page={pageIndex - 1} disabled={pageIndex <= 0}>
+      <button onClick={changePage} data-page={pageIndex - 1} disabled={pageIndex <= 0} type="button">
         <icons.previousPage />
       </button>
-      <button onClick={changePage} data-page={pageIndex + 1} disabled={pageIndex >= lastPage}>
+      <button onClick={changePage} data-page={pageIndex + 1} disabled={pageIndex >= lastPage} type="button">
         <icons.nextPage />
       </button>
-      <button onClick={changePage} data-page={lastPage} disabled={pageIndex >= lastPage}>
+      <button onClick={changePage} data-page={lastPage} disabled={pageIndex >= lastPage} type="button">
         <icons.lastPage />
       </button>
       <span>
@@ -71,9 +71,9 @@ export function LineUpLitePagination({
         <input type="number" className="lt-pagination-select" value={pageIndex + 1} onChange={gotoPageHandler} />
       </span>
       <select value={pageSize} onChange={setPageSizeHandler} className="lt-pagination-page-size">
-        {[10, 20, 30, 40, 50].map((pageSize) => (
-          <option key={pageSize} value={pageSize}>
-            Show {pageSize}
+        {[10, 20, 30, 40, 50].map((currentPage) => (
+          <option key={currentPage} value={currentPage}>
+            Show {currentPage}
           </option>
         ))}
       </select>

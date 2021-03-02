@@ -6,22 +6,23 @@
  */
 
 import type { ColumnInstance, Row } from 'react-table';
-import { identity } from '../renderers/utils';
+import type { UnknownObject } from '../interfaces';
 import { compareAsc } from '../sort/internal';
 import { MISSING_GROUP } from './histGroupBy';
 
-export function baseGroupBy<D extends object = {}>(
+export default function baseGroupBy<D extends UnknownObject = UnknownObject>(
   rows: Row<D>[],
   column: ColumnInstance<D>,
-  acc: (v: any) => string | null = identity
+  acc: (v: unknown) => string | null = (v) => (v ? String(v) : null)
 ): Record<string, Row<D>[]> {
   const r: Record<string, Row<D>[]> = {};
   for (const row of rows) {
     const value = acc(row.values[column.id]) ?? MISSING_GROUP;
-    if (!r[value]) {
+    const rValue = r[value];
+    if (!rValue) {
       r[value] = [row];
     } else {
-      r[value]!.push(row);
+      rValue.push(row);
     }
   }
   // sort by key asc

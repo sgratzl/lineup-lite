@@ -34,8 +34,8 @@ export interface TextSummaryProps extends CommonProps {
   i18n?: Partial<typeof TEXT_SUMMARY_I18N_EN>;
 }
 
-export function TextSummary(props: TextSummaryProps) {
-  const s = props.s;
+export function TextSummary(props: TextSummaryProps): JSX.Element {
+  const { s } = props;
   const i18n = useI18N(TEXT_SUMMARY_I18N_EN, props.i18n);
   return (
     <div className={clsx('lt-text-summary', !props.summary && 'lt-group', props.className)} style={props.style}>
@@ -61,7 +61,7 @@ export interface FilterTextSummaryProps extends TextSummaryProps {
   filterValue?: string;
 }
 
-export function FilterTextSummary(props: FilterTextSummaryProps) {
+export function FilterTextSummary(props: FilterTextSummaryProps): JSX.Element {
   const { setFilter, filterValue, s, preFilter } = props;
   const unique = `${s.count.toLocaleString()}${preFilter ? `/${preFilter.count.toLocaleString()}` : ''} items`;
 
@@ -84,16 +84,15 @@ export function FilterTextSummary(props: FilterTextSummaryProps) {
         size={3}
         className="lt-text-summary-input"
       />
-      {
-        <button
-          className="lt-text-summary-clear"
-          aria-label="clear filter"
-          disabled={!Boolean(filterValue)}
-          onClick={clearFilter}
-        >
-          &times;
-        </button>
-      }
+      <button
+        type="button"
+        className="lt-text-summary-clear"
+        aria-label="clear filter"
+        disabled={!filterValue}
+        onClick={clearFilter}
+      >
+        &times;
+      </button>
     </div>
   );
 }

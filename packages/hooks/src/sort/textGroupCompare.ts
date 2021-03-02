@@ -8,8 +8,9 @@
 import type { Row } from 'react-table';
 import { ITextStats, isTextStats } from '@lineup-lite/components';
 import { compareAsc } from './internal';
+import type { UnknownObject } from '../interfaces';
 
-export function textGroupCompare(a: Row<any>, b: Row<any>, columnId: string): number {
+export default function textGroupCompare(a: Row<UnknownObject>, b: Row<UnknownObject>, columnId: string): number {
   const av: ITextStats = a.values[columnId];
   const bv: ITextStats = b.values[columnId];
   if (isTextStats(av) && isTextStats(bv)) {

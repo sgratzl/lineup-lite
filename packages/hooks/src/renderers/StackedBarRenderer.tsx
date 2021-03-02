@@ -14,14 +14,15 @@ import {
 } from '@lineup-lite/components';
 import React, { useContext } from 'react';
 import type { Accessor, CellProps, Renderer } from 'react-table';
-import { deriveNumberOptions } from './barStats';
+import type { UnknownObject } from '../interfaces';
+import deriveNumberOptions from './deriveNumberOptions';
 import { missingClass, optionContext } from './utils';
 
-export function computeStackedValue<D extends object = {}>(
+export function computeStackedValue<D extends UnknownObject = UnknownObject>(
   stack: readonly { col: keyof D | Accessor<D>; weight: number; color?: string }[],
   colors: (v: string) => string = defaultCategoricalColorScale()
 ): Accessor<D> {
-  const f = computeWeightedSumFactory(stack.map((s, i) => ({ color: colors(i + ''), ...s })));
+  const f = computeWeightedSumFactory(stack.map((s, i) => ({ color: colors(`${i}`), ...s })));
   const acc: Accessor<D>[] = stack.map((d) => (typeof d.col === 'function' ? d.col : (v) => v[d.col as keyof D]));
   return (
     originalRow: D,
@@ -44,7 +45,9 @@ export interface StackedBarRendererOptions {
 /**
  * Cell renderer for a number to be rendered as a a bar
  */
-export function StackedBarRenderer<D extends object, P extends CellProps<D, StackedValue>>(props: P) {
+export function StackedBarRenderer<D extends UnknownObject, P extends CellProps<D, StackedValue>>(
+  props: P
+): JSX.Element {
   const options = useContext(optionContext) as StackedBarRendererOptions;
   const p = deriveNumberOptions<D, P>(props, options);
   return <StackedBar {...p} value={props.value} className={missingClass(props.value)} />;
@@ -53,7 +56,7 @@ export function StackedBarRenderer<D extends object, P extends CellProps<D, Stac
 /**
  * factory for rendering numbers as a stacked bar
  */
-export function StackedBarRendererFactory<D extends object, P extends CellProps<D, StackedValue>>(
+export function StackedBarRendererFactory<D extends UnknownObject, P extends CellProps<D, StackedValue>>(
   options: StackedBarRendererOptions = {}
 ): Renderer<P> {
   return (props: P) => (

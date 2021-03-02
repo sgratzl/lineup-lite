@@ -7,18 +7,19 @@
 
 import React, { useContext } from 'react';
 import type { CellProps, Renderer } from 'react-table';
-import type { BarRendererOptions } from './BarRenderer';
-import { deriveNumberOptions } from './barStats';
-import { missingClass, optionContext } from './utils';
 import { NumberColor } from '@lineup-lite/components';
+import type { BarRendererOptions } from './BarRenderer';
+import deriveNumberOptions from './deriveNumberOptions';
+import { missingClass, optionContext } from './utils';
+import type { UnknownObject } from '../interfaces';
 
-export function ColorRenderer<D extends object, P extends CellProps<D, number>>(props: P) {
+export function ColorRenderer<D extends UnknownObject, P extends CellProps<D, number>>(props: P): JSX.Element {
   const options = useContext(optionContext) as BarRendererOptions;
   const p = deriveNumberOptions<D, P>(props, options);
   return <NumberColor {...p} value={props.value} className={missingClass(props.value)} />;
 }
 
-export function ColorRendererFactory<D extends object, P extends CellProps<D, number>>(
+export function ColorRendererFactory<D extends UnknownObject, P extends CellProps<D, number>>(
   options: BarRendererOptions = {}
 ): Renderer<P> {
   return (props: P) => (

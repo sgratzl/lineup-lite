@@ -15,7 +15,7 @@ export interface ICategoricalStats extends IHistStats<string> {
   categories: readonly string[];
 }
 
-export function isCategoricalStats(obj: any): obj is ICategoricalStats {
+export function isCategoricalStats(obj: unknown): obj is ICategoricalStats {
   return (
     obj != null &&
     Array.isArray((obj as ICategoricalStats).categories) &&
@@ -27,7 +27,7 @@ export function isCategoricalStats(obj: any): obj is ICategoricalStats {
  * helper function to create a formatter between a category value and a category label
  * @param categoryLabel tuple list of [category, label] to map
  */
-export function formatCategories(...categoryLabel: [string, string][]) {
+export function formatCategories(...categoryLabel: [string, string][]): (v: string) => string {
   const map = new Map(categoryLabel);
   return (v: string) => map.get(v) ?? v;
 }
@@ -88,19 +88,19 @@ export function categoricalStatsGenerator(
     };
     for (const v of arr) {
       if (v == null) {
-        missing++;
-        flatMissing++;
+        missing += 1;
+        flatMissing += 1;
         continue;
       }
       if (typeof v === 'string' || (!Array.isArray(v) && !(v instanceof Set))) {
-        const vs = v + '';
+        const vs = `${v}`;
         items.push(vs);
         pushValue(vs);
         continue;
       }
       if (v instanceof Set) {
         items.push(v);
-        v.forEach((vi) => pushValue(vi + ''));
+        v.forEach((vi) => pushValue(`${vi}`));
         continue;
       }
       if (!Array.isArray(v)) {
@@ -109,9 +109,9 @@ export function categoricalStatsGenerator(
       const vClean: string[] = [];
       for (const vi of v) {
         if (vi == null) {
-          flatMissing++;
+          flatMissing += 1;
         } else {
-          const vs = vi + '';
+          const vs = `${vi}`;
           pushValue(vs);
           vClean.push(vs);
         }
@@ -125,7 +125,7 @@ export function categoricalStatsGenerator(
 
     // if categories are given, keep the order
     const entries = options.categories
-      ? options.categories.map((c) => [c, map.get(c)!] as [string, number])
+      ? options.categories.map((c) => [c, map.get(c) ?? 0] as [string, number])
       : Array.from(map.entries()).sort((a, b) => a[0].localeCompare(b[0]));
 
     const hist = entries.map(([value, count]) => ({
@@ -141,6 +141,7 @@ export function categoricalStatsGenerator(
       categories: options.categories ?? hist.map((d) => d.x0),
       hist,
       items,
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       maxBin: maxHistBin(hist)!,
       color,
       format,

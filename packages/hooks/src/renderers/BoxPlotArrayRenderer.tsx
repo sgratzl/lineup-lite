@@ -5,9 +5,10 @@
  * Copyright (c) 2021 Samuel Gratzl <sam@sgratzl.com>
  */
 
-import { BoxPlotArray, INumberStats, NumberStatsOptions } from '@lineup-lite/components';
+import { BoxPlotArray, INumberStats, NumberStatsOptions, IBoxPlot } from '@lineup-lite/components';
 import React, { useContext } from 'react';
 import type { CellProps, Renderer } from 'react-table';
+import type { UnknownObject } from '../interfaces';
 import { numberStats } from '../stats';
 import { deriveStats, optionContext, statsGeneratorContext, StatsPropsLike } from './utils';
 
@@ -15,15 +16,23 @@ export interface BoxPlotArrayRendererOptions extends NumberStatsOptions {
   maxBin?: number;
 }
 
-export function BoxPlotArrayRenderer<P extends StatsPropsLike<number>>(props: P) {
+export function BoxPlotArrayRenderer<P extends StatsPropsLike<number>>(props: P): JSX.Element {
   const options = useContext(optionContext) as BoxPlotArrayRendererOptions;
   const stats =
     useContext<((arr: readonly number[], preFilter?: INumberStats) => INumberStats) | null>(statsGeneratorContext) ??
     numberStats(options);
   const { s } = deriveStats(props, stats);
-  const cellProps = (props as unknown) as CellProps<any, any>;
+  const cellProps = (props as unknown) as CellProps<UnknownObject, unknown>;
 
-  return <BoxPlotArray value={cellProps.value} i18n={props.i18n} scale={s.scale} color={s.color} format={s.format} />;
+  return (
+    <BoxPlotArray
+      value={cellProps.value as IBoxPlot[]}
+      i18n={props.i18n}
+      scale={s.scale}
+      color={s.color}
+      format={s.format}
+    />
+  );
 }
 
 export function BoxPlotArrayRendererFactory<P extends StatsPropsLike<number>>(

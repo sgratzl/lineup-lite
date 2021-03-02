@@ -15,6 +15,7 @@ export * from './LineUpLiteTHead';
 export * from './LineUpLiteTR';
 export * from './LineUpLitePaginated';
 export * from './LineUpLitePagination';
+export { default as LineUpLiteTVirtualBody } from './LineUpLiteTVirtualBody';
 export * from './panel';
 export * from './toolbar';
 export * from './contexts';

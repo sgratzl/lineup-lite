@@ -7,8 +7,11 @@
 
 import React from 'react';
 import type { CellProps } from 'react-table';
+import type { UnknownObject } from '../interfaces';
 
-export function GroupValueRenderer<D extends object, P extends CellProps<D, any>>(props: P) {
-  const value = (props.row as any).groupByVal ?? props.value;
-  return <div className="lt-group">{value}</div>;
+export default function GroupValueRenderer<D extends UnknownObject, P extends CellProps<D, unknown>>(
+  props: P
+): JSX.Element {
+  const value = ((props.row as unknown) as { groupByVal?: string }).groupByVal ?? props.value;
+  return <div className="lt-group">{String(value)}</div>;
 }

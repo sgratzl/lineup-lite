@@ -5,11 +5,11 @@
  * Copyright (c) 2021 Samuel Gratzl <sam@sgratzl.com>
  */
 
-import React, { PropsWithChildren } from 'react';
+import React, { ReactNode } from 'react';
 import Head from '@docusaurus/Head';
 
 // Default implementation, that you can customize
-function Root({ children }: PropsWithChildren<{}>) {
+function Root({ children }: { children: ReactNode }): JSX.Element {
   return (
     <>
       <Head>
@@ -19,7 +19,7 @@ function Root({ children }: PropsWithChildren<{}>) {
         <link key="manifest" rel="manifest" href="/img/site.webmanifest" />
         <link key="mask-icon" rel="mask-icon" href="/img/safari-pinned-tab.svg" color="#5bbad5" />
         <meta name="msapplication-TileColor" content="#2d89ef" />
-        <meta name="theme-color" content="#ffffff"></meta>
+        <meta name="theme-color" content="#ffffff" />
       </Head>
 
       {children}

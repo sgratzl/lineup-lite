@@ -6,8 +6,9 @@
  */
 
 import { clsx, CommonProps, mergeStyles, useI18N, toLocaleString } from '@lineup-lite/components';
-import React, { forwardRef, Ref, useCallback } from 'react';
+import React, { forwardRef, Ref, RefAttributes, useCallback } from 'react';
 import { ActionIcons, LINEUP_LITE_TEXT_ICONS } from '../../icons';
+import type { UnknownObject } from '../interfaces';
 import type { LineUpLiteState, LineUpLiteTableInstance } from '../useLineUpLite';
 import { useLineUpLitePanelContext } from './contexts';
 
@@ -19,17 +20,16 @@ export const DATA_SUMMARY_I18N_EN = {
   dataSummaryClearSelection: 'Click to clear selection',
 };
 
-export interface LineUpLiteDataSummaryProps extends CommonProps {
-  instance: LineUpLiteTableInstance<any>;
-  state?: LineUpLiteState<any>;
+export interface LineUpLiteDataSummaryProps<D extends UnknownObject = UnknownObject> extends CommonProps {
+  instance: LineUpLiteTableInstance<D>;
+  state?: LineUpLiteState<D>;
   format?: (v: number) => string;
   icons?: Partial<Pick<ActionIcons, 'clearSelection' | 'resetFilter'>>;
 }
 
-export const LineUpLiteDataSummary = /*!#__PURE__*/ forwardRef(function LineUpLiteDataSummary(
-  props: LineUpLiteDataSummaryProps,
-  ref: Ref<HTMLElement>
-) {
+const LineUpLiteDataSummaryImpl = /*! #__PURE__ */ forwardRef(function LineUpLiteDataSummary<
+  D extends UnknownObject = UnknownObject
+>(props: LineUpLiteDataSummaryProps<D>, ref: Ref<HTMLElement>) {
   const c = useLineUpLitePanelContext();
   const p = { c: c?.components.dataSummary ?? 'div' };
   const i18n = useI18N(DATA_SUMMARY_I18N_EN, c?.i18n);
@@ -90,3 +90,9 @@ export const LineUpLiteDataSummary = /*!#__PURE__*/ forwardRef(function LineUpLi
     </p.c>
   );
 });
+
+export const LineUpLiteDataSummary = LineUpLiteDataSummaryImpl as <D extends UnknownObject = UnknownObject>(
+  p: LineUpLiteDataSummaryProps<D> & RefAttributes<HTMLElement>
+) => JSX.Element;
+
+export default LineUpLiteDataSummary;

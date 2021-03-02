@@ -15,7 +15,7 @@ export * from './DateRenderer';
 export * from './NumberHistogramRenderer';
 export * from './ProportionalSymbolRenderer';
 export * from './TextSummaryRenderer';
-export * from './GroupValueRenderer';
+export { default as GroupValueRenderer } from './GroupValueRenderer';
 export * from './CategoricalSetRenderer';
 export * from './CategoricalSetHistogramRenderer';
 export * from './HeatMap1DRenderer';

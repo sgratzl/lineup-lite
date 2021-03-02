@@ -7,21 +7,22 @@
 
 import React, { ComponentType, useCallback, MouseEvent, ReactNode } from 'react';
 import type { ColumnInstance, UseGroupByColumnProps } from 'react-table';
+import type { CommonProps } from '@lineup-lite/components';
 import { LINEUP_LITE_I18N_EN } from '../../i18n';
 import { useLineUpLiteTableContext } from '../contexts';
 import { clsx } from '../utils';
-import type { CommonProps } from '@lineup-lite/components';
+import type { UnknownObject } from '../interfaces';
 
 export type { UseGroupByColumnProps } from 'react-table';
 
-export function LineUpLiteGroupByAction(
-  props: UseGroupByColumnProps<any> &
-    ColumnInstance<any> &
+export function LineUpLiteGroupByAction<D extends UnknownObject = UnknownObject>(
+  props: UseGroupByColumnProps<D> &
+    ColumnInstance<D> &
     CommonProps & {
       children?: ReactNode;
       icon: ComponentType;
     }
-) {
+): JSX.Element {
   const c = useLineUpLiteTableContext();
   const dispatch = c?.dispatch;
   const { toggleGroupBy, isGrouped, id } = props;
@@ -58,5 +59,7 @@ export function LineUpLiteGroupByAction(
       <props.icon />
       {props.children}
     </button>
-  ) : null;
+  ) : (
+    <></>
+  );
 }

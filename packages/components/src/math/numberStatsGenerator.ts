@@ -27,7 +27,7 @@ export function getNumberOfBins(length: number): number {
  */
 export interface INumberStats extends Omit<IBoxPlot, 'items'>, INumericStats<number> {}
 
-export function isNumberStats(obj: any): obj is INumberStats {
+export function isNumberStats(obj: unknown): obj is INumberStats {
   return obj != null && typeof (obj as INumberStats).min === 'number' && typeof (obj as INumberStats).max === 'number';
 }
 
@@ -119,10 +119,10 @@ function createHist(
   hist[hist.length - 1].x1 = max;
 
   // sorted
-  for (let i = 0; i < b.items.length; i++) {
+  for (let i = 0; i < b.items.length; i += 1) {
     const v = +b.items[i];
     const bin = hist.find((d) => v < d.x1) || hist[hist.length - 1];
-    bin.count++;
+    bin.count += 1;
     (bin.items as number[]).push(v);
   }
   return hist;
@@ -145,8 +145,8 @@ function createFlat(arr: readonly NumberLike[] | Float32Array | Float64Array) {
 
   for (const v of arr) {
     if (v == null) {
-      missing++;
-      flatMissing++;
+      missing += 1;
+      flatMissing += 1;
       continue;
     }
     if (typeof v === 'number' || (!Array.isArray(v) && !(v instanceof Set))) {
@@ -165,7 +165,7 @@ function createFlat(arr: readonly NumberLike[] | Float32Array | Float64Array) {
     const vClean: number[] = [];
     for (const vi of v) {
       if (vi == null) {
-        flatMissing++;
+        flatMissing += 1;
       } else {
         flatItems.push(+vi);
         vClean.push(+vi);
@@ -206,6 +206,7 @@ export function numberStatsGenerator(
       flatMissing,
       flatItems,
       flatCount: flatMissing + flatItems.length,
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       maxBin: maxHistBin(hist)!,
       scale: normalize(min, max),
       invert: deNormalize(min, max),

@@ -7,17 +7,19 @@
 
 import type { ColumnInstance, Row } from 'react-table';
 import type { ICategoricalStats } from '@lineup-lite/components';
-import { baseGroupBy } from './internal';
+import baseGroupBy from './baseGroupBy';
 import { categoricalSortFunc, compareAsc } from '../sort/internal';
+import type { UseStatsColumnProps } from '../hooks';
+import type { UnknownObject } from '../interfaces';
 
-export function categoricalSetGroupBy<D extends object = {}>(
+export default function categoricalSetGroupBy<D extends UnknownObject = UnknownObject>(
   rows: Row<D>[],
   column: ColumnInstance<D>
 ): Record<string, Row<D>[]> {
   if (rows.length === 0) {
     return {};
   }
-  const stats = (column as any).statsValue as ICategoricalStats;
+  const stats = ((column as unknown) as UseStatsColumnProps).statsValue as ICategoricalStats;
   const sorter = stats ? categoricalSortFunc(stats.categories) : compareAsc;
-  return baseGroupBy(rows, column, (d) => (d == null ? null : (Array.from(d) as string[]).sort(sorter).join(',')));
+  return baseGroupBy(rows, column, (d) => (d == null ? null : [...(d as string[])].sort(sorter).join(',')));
 }

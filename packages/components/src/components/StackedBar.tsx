@@ -162,7 +162,7 @@ function stackedBarProps(value: number, stack: StackedValue): CSSProperties | nu
 
   const preSum = stack.stack.reduce(
     (acc, v) => {
-      acc.push(acc[acc.length - 1]! + v.ratio);
+      acc.push(acc[acc.length - 1] + v.ratio);
       return acc;
     },
     [0]
@@ -185,7 +185,7 @@ function stackedBarProps(value: number, stack: StackedValue): CSSProperties | nu
 /**
  * renders a numeric value along with a bar
  */
-export function StackedBar(props: StackedBarProps) {
+export function StackedBar(props: StackedBarProps): JSX.Element {
   const label = format(+props.value, props.format ?? toLocaleString);
   const scale = props.scale ?? defaultScale;
   return (

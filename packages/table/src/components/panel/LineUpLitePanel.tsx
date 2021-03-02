@@ -5,18 +5,18 @@
  * Copyright (c) 2021 Samuel Gratzl <sam@sgratzl.com>
  */
 
-import React, { forwardRef, ReactElement, Ref, RefAttributes } from 'react';
+import React, { forwardRef, Ref, RefAttributes } from 'react';
 import { useLineUpLiteStateContext } from '../contexts';
+import type { UnknownObject } from '../interfaces';
 import { clsx } from '../utils';
 import { LineUpLitePanelContextProvider } from './contexts';
 import type { LineUpLitePanelProps } from './interfaces';
 import { LineUpLiteDataSummary } from './LineUpLiteDataSummary';
 import { LineUpLiteTableSummary } from './LineUpLiteTableSummary';
 
-const LineUpLitePanelImpl = /*!#__PURE__*/ forwardRef(function LineUpLitePanel<D extends object = {}>(
-  props: LineUpLitePanelProps<D>,
-  ref: Ref<HTMLElement>
-) {
+const LineUpLitePanelImpl = /*! #__PURE__ */ forwardRef(function LineUpLitePanel<
+  D extends UnknownObject = UnknownObject
+>(props: LineUpLitePanelProps<D>, ref: Ref<HTMLElement>) {
   const { instance, state } = useLineUpLiteStateContext<D>() ?? {};
 
   const p = { c: props.components?.panel ?? 'div' };
@@ -29,7 +29,7 @@ const LineUpLitePanelImpl = /*!#__PURE__*/ forwardRef(function LineUpLitePanel<D
     >
       {instance && (
         <LineUpLitePanelContextProvider instance={instance} props={props}>
-          <LineUpLiteDataSummary instance={instance} state={state} icons={props.icons} />
+          <LineUpLiteDataSummary<D> instance={instance} state={state} icons={props.icons} />
           <LineUpLiteTableSummary<D> instance={instance} state={state} icons={props.icons} actions={props.actions} />
           {props.children}
         </LineUpLitePanelContextProvider>
@@ -38,6 +38,8 @@ const LineUpLitePanelImpl = /*!#__PURE__*/ forwardRef(function LineUpLitePanel<D
   );
 });
 
-export const LineUpLitePanel = LineUpLitePanelImpl as <D extends object = {}>(
+export const LineUpLitePanel = LineUpLitePanelImpl as <D extends UnknownObject = UnknownObject>(
   p: LineUpLitePanelProps<D> & RefAttributes<HTMLElement>
-) => ReactElement;
+) => JSX.Element;
+
+export default LineUpLitePanel;

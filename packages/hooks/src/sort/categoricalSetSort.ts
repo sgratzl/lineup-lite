@@ -5,7 +5,6 @@
  * Copyright (c) 2021 Samuel Gratzl <sam@sgratzl.com>
  */
 
-import type { RowCompareFunction } from './interfaces';
 import type { Row } from 'react-table';
 import {
   ICategoricalStats,
@@ -14,7 +13,9 @@ import {
   categoricalSetDegree,
   CategoricalSetValue,
 } from '@lineup-lite/components';
+import type { RowCompareFunction } from './interfaces';
 import { compareAsc } from './internal';
+import type { UnknownObject } from '../interfaces';
 
 function toMode(s: ICategoricalStats, bin: number) {
   if (bin < 0 || s.hist.length <= bin) {
@@ -31,12 +32,12 @@ function toMode(s: ICategoricalStats, bin: number) {
   return 3;
 }
 
-export function categoricalSetGroupCompare(a: Row<any>, b: Row<any>, columnId: string): number {
+export function categoricalSetGroupCompare(a: Row<UnknownObject>, b: Row<UnknownObject>, columnId: string): number {
   const av: ICategoricalStats = a.values[columnId];
   const bv: ICategoricalStats = b.values[columnId];
 
   if (isCategoricalStats(av) && isCategoricalStats(bv)) {
-    for (let i = 0; i < av.hist.length; i++) {
+    for (let i = 0; i < av.hist.length; i += 1) {
       const avi = toMode(av, i);
       const bvi = toMode(bv, i);
       if (avi !== bvi) {
@@ -75,7 +76,7 @@ export function categoricalSetCompare(categories?: readonly string[]): RowCompar
     const iA = categoricalSetIndices(va, lookup);
     const iB = categoricalSetIndices(vb, lookup);
     const min = Math.min(iA.length, iB.length);
-    for (let i = 0; i < min; i++) {
+    for (let i = 0; i < min; i += 1) {
       if (iA[i] === iB[i]) {
         continue;
       }

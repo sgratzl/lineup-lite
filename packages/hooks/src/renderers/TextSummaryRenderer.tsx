@@ -7,6 +7,7 @@
 
 import React, { useContext } from 'react';
 import type { Renderer } from 'react-table';
+import { ITextStats, TextSummary, FilterTextSummary, FilterTextSummaryProps } from '@lineup-lite/components';
 import {
   extractStats,
   isFilterAble,
@@ -15,7 +16,6 @@ import {
   optionContext,
   useAsyncDebounce,
 } from './utils';
-import { ITextStats, TextSummary, FilterTextSummary, FilterTextSummaryProps } from '@lineup-lite/components';
 import { textStats } from '../stats';
 
 export interface TextSummaryRendererOptions {
@@ -39,7 +39,7 @@ function Filtered(props: FilterTextSummaryProps) {
   return <FilterTextSummary {...props} setFilter={setFilter} i18n={props.i18n} />;
 }
 
-export function TextSummaryRenderer<P extends StatsPropsLike<string>>(props: P) {
+export function TextSummaryRenderer<P extends StatsPropsLike<string>>(props: P): JSX.Element {
   const options = useContext(optionContext) as TextSummaryRendererOptions;
   const stats =
     useContext<((arr: readonly string[], preFilter?: ITextStats) => ITextStats) | null>(statsGeneratorContext) ??

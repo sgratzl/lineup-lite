@@ -6,13 +6,14 @@
  */
 
 import { Row, IdType, defaultGroupByFn } from 'react-table';
+import type { UnknownObject, UseColumnGroupByColumnOptions } from '../interfaces';
 
 /**
  * helper function to defer the grouping logic to the column
  * @param rows
  * @param columnId
  */
-export function columnSpecificGroupByFn<D extends object = {}>(
+export default function columnSpecificGroupByFn<D extends UnknownObject = UnknownObject>(
   rows: Row<D>[],
   columnId: IdType<D>
 ): Record<string, Row<D>[]> {
@@ -20,8 +21,9 @@ export function columnSpecificGroupByFn<D extends object = {}>(
     return {};
   }
   const column = rows[0].allCells.find((d) => d.column.id === columnId);
-  if (column && typeof (column.column as any).groupBy) {
-    return (column.column as any).groupBy(rows, column.column);
+  if (column && typeof (column.column as UseColumnGroupByColumnOptions<D>).groupBy) {
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    return (column.column as UseColumnGroupByColumnOptions<D>).groupBy!(rows, column.column);
   }
   return defaultGroupByFn(rows, columnId);
 }

@@ -10,6 +10,8 @@ import { defaultColorScale } from '../math';
 import type { NumberBarProps } from './NumberBar';
 import { clsx, format, mergeStyles, toLocaleString, toPercent } from './utils';
 
+export type { NumberBarProps as NumberSymbolProps } from './NumberBar';
+
 function radiusFromArea(area: number) {
   // r * r * PI = area
   return Math.sqrt(area);
@@ -30,7 +32,7 @@ function proportionalSymbolProps(value: number, color: string | ((v: number) => 
 /**
  * renders a numeric value along with a circle whose area is proportional to the value
  */
-export function NumberSymbol(props: NumberBarProps) {
+export function NumberSymbol(props: NumberBarProps): JSX.Element {
   const label = format(props.value, props.format ?? toLocaleString);
   return (
     <div

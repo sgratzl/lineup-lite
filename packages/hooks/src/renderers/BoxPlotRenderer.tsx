@@ -24,14 +24,14 @@ import {
   useAsyncDebounce,
 } from './utils';
 
-export interface BoxPlotRendererOptions extends NumberStatsOptions {}
+export type BoxPlotRendererOptions = NumberStatsOptions;
 
 function FilterBoxPlot(props: FilterRangeBoxPlotProps) {
   const setFilter = useAsyncDebounce(props.setFilter);
   return <FilterRangeBoxPlot {...props} setFilter={setFilter} summary />;
 }
 
-export function BoxPlotRenderer<P extends StatsPropsLike<number>>(props: P) {
+export function BoxPlotRenderer<P extends StatsPropsLike<number>>(props: P): JSX.Element {
   const options = useContext(optionContext) as BoxPlotRendererOptions;
   const stats =
     useContext<((arr: readonly (number | null | undefined)[], preFilter?: INumberStats) => INumberStats) | null>(

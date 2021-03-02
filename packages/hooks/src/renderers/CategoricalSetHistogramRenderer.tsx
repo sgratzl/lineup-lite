@@ -16,7 +16,7 @@ export interface CategoricalSetHistogramRendererOptions extends CategoricalRende
   maxBin?: number;
 }
 
-export function CategoricalSetHistogramRenderer<P extends StatsPropsLike<string>>(props: P) {
+export function CategoricalSetHistogramRenderer<P extends StatsPropsLike<string>>(props: P): JSX.Element {
   const options = useContext(optionContext) as CategoricalSetHistogramRendererOptions;
   const stats =
     useContext<((arr: readonly string[], preFilter?: ICategoricalStats) => ICategoricalStats) | null>(

@@ -7,7 +7,7 @@
 
 import React, { useCallback, useMemo, MouseEvent, CSSProperties } from 'react';
 import type { IHistStats, IBin } from '../math/common';
-import { toPercent, clsx, i18n, EMPTY_ARR } from './utils';
+import { toPercent, clsx, i18n as i18nF, EMPTY_ARR } from './utils';
 import { FilterRangeSliderProps, FilterRangeWrapper } from './FilterRange';
 import { NumberStatsWrapper } from './NumberStatsWrapper';
 import type { CommonProps } from './common';
@@ -41,7 +41,7 @@ function generateBinTitle<T>(h: IBin<T>, raw?: IBin<T>, title?: string) {
   const rawT = raw ? `/${raw.count.toLocaleString()}` : '';
   const base = `${h.label}: ${h.count.toLocaleString()}${rawT}`;
   if (title) {
-    return i18n(title, base);
+    return i18nF(title, base);
   }
   return base;
 }
@@ -80,7 +80,7 @@ function computeBinGradient<T>(
 /**
  * renders a number or date histogram
  */
-export function Histogram<T>(props: HistogramProps<T>) {
+export function Histogram<T>(props: HistogramProps<T>): JSX.Element {
   return (
     <NumberStatsWrapper
       style={props.style}
@@ -89,7 +89,7 @@ export function Histogram<T>(props: HistogramProps<T>) {
       summary={props.summary}
     >
       {props.s.hist.map((h, i) => (
-        <Bin key={String(h.x0)} h={h} i={i} props={props} />
+        <Bin key={String(h.x0)} h={h} i={i} parentProps={props} />
       ))}
     </NumberStatsWrapper>
   );
@@ -97,7 +97,7 @@ export function Histogram<T>(props: HistogramProps<T>) {
 
 function Bin<T>({
   h,
-  props,
+  parentProps,
   i,
   onClick,
   title,
@@ -105,13 +105,13 @@ function Bin<T>({
   h: IBin<T>;
   i: number;
   onClick?: (evt: MouseEvent<HTMLElement>) => void;
-  props: HistogramProps<T>;
+  parentProps: HistogramProps<T>;
   title?: string;
 }) {
-  const preFilter = props.preFilter;
-  const maxBin = props.maxBin ?? preFilter?.maxBin.count ?? props.s.maxBin.count;
-  const lastBin = props.s.hist.length - 1;
-  const dense = props.s.hist.length > DENSE || i === lastBin;
+  const { preFilter } = parentProps;
+  const maxBin = parentProps.maxBin ?? preFilter?.maxBin.count ?? parentProps.s.maxBin.count;
+  const lastBin = parentProps.s.hist.length - 1;
+  const dense = parentProps.s.hist.length > DENSE || i === lastBin;
   const style = computeBinGradient<T>(h, maxBin, preFilter, i);
   return (
     <div
@@ -119,8 +119,9 @@ function Bin<T>({
       style={style}
       data-i={i}
       onClick={onClick}
-      data-label={props.label ? h.label : null}
+      data-label={parentProps.label ? h.label : null}
       title={generateBinTitle<T>(h, preFilter?.hist[i], title)}
+      role="presentation"
     />
   );
 }
@@ -143,9 +144,9 @@ export interface FilterBinHistogramProps<T> extends HistogramProps<T> {
   i18n?: Partial<typeof FILTER_BIN_I18N_EN>;
 }
 
-export function FilterBinHistogram<T>(props: FilterBinHistogramProps<T>) {
+export function FilterBinHistogram<T>(props: FilterBinHistogramProps<T>): JSX.Element {
   const { setFilter, filterValue = EMPTY_ARR } = props;
-  const hist = props.s.hist;
+  const { hist } = props.s;
 
   const i18n = useMemo(
     () => ({
@@ -158,7 +159,7 @@ export function FilterBinHistogram<T>(props: FilterBinHistogramProps<T>) {
   const onClick = useCallback(
     (evt: MouseEvent<HTMLElement>) => {
       const current: T[] = filterValue ?? EMPTY_ARR;
-      const bin = hist[Number.parseInt(evt.currentTarget.dataset.i!, 10)];
+      const bin = hist[Number.parseInt(evt.currentTarget.dataset.i ?? '0', 10)];
       const value = bin.x0;
       const next = current.includes(value) ? current.filter((d) => d !== value) : current.concat([value]);
       setFilter(next.length === 0 ? undefined : next);
@@ -171,7 +172,7 @@ export function FilterBinHistogram<T>(props: FilterBinHistogramProps<T>) {
         <Bin
           key={String(h.x0)}
           h={h}
-          props={props}
+          parentProps={props}
           i={i}
           onClick={onClick}
           title={(filterValue ?? EMPTY_ARR).includes(h.x0) ? i18n.removeFilterBin : i18n.filterBin}
@@ -186,11 +187,11 @@ export type FilterRangeHistogramProps<T> = HistogramProps<T> & FilterRangeSlider
 /**
  * renders a histogram along with a range filter
  */
-export function FilterRangeHistogram<T>(props: FilterRangeHistogramProps<T>) {
+export function FilterRangeHistogram<T>(props: FilterRangeHistogramProps<T>): JSX.Element {
   return (
     <FilterRangeWrapper summary {...props} className={clsx('lt-histogram', props.className)}>
       {props.s.hist.map((h, i) => (
-        <Bin key={String(h.x0)} h={h} i={i} props={props} />
+        <Bin key={String(h.x0)} h={h} i={i} parentProps={props} />
       ))}
     </FilterRangeWrapper>
   );
@@ -220,9 +221,9 @@ export interface FilterSetHistogramProps<T> extends HistogramProps<T> {
   i18n?: Partial<typeof FILTER_SET_I18N_EN>;
 }
 
-export function FilterSetHistogram<T>(props: FilterSetHistogramProps<T>) {
+export function FilterSetHistogram<T>(props: FilterSetHistogramProps<T>): JSX.Element {
   const { setFilter, filterValue = EMPTY_ARR } = props;
-  const hist = props.s.hist;
+  const { hist } = props.s;
 
   const i18n = useMemo(
     () => ({
@@ -235,7 +236,7 @@ export function FilterSetHistogram<T>(props: FilterSetHistogramProps<T>) {
   const onClick = useCallback(
     (evt: MouseEvent<HTMLElement>) => {
       const current: FilterSetValue<T>[] = filterValue ?? EMPTY_ARR;
-      const bin = hist[Number.parseInt(evt.currentTarget.dataset.i!, 10)];
+      const bin = hist[Number.parseInt(evt.currentTarget.dataset.i ?? '0', 10)];
       const value = bin.x0;
       const index = current.findIndex((d) => d.set === value);
       if (index < 0) {
@@ -259,7 +260,7 @@ export function FilterSetHistogram<T>(props: FilterSetHistogramProps<T>) {
           <Bin
             key={String(h.x0)}
             h={h}
-            props={props}
+            parentProps={props}
             i={i}
             onClick={onClick}
             title={

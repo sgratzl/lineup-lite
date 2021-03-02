@@ -6,9 +6,10 @@
  */
 
 import type { ColumnInstance, Row } from 'react-table';
+import type { UnknownObject } from '../interfaces';
 import { histGroupBy } from './histGroupBy';
 
-export function dateGroupBy<D extends object = {}>(
+export default function dateGroupBy<D extends UnknownObject = UnknownObject>(
   rows: Row<D>[],
   column: ColumnInstance<D>
 ): Record<string, Row<D>[]> {

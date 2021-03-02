@@ -7,20 +7,23 @@
 
 import React, { ComponentType, useCallback, MouseEvent, ReactNode } from 'react';
 import type { UseFiltersColumnProps } from 'react-table';
+import type { CommonProps } from '@lineup-lite/components';
 import { LINEUP_LITE_I18N_EN } from '../../i18n';
 import { useLineUpLiteTableContext } from '../contexts';
 import { clsx } from '../utils';
-import type { CommonProps } from '@lineup-lite/components';
+import type { UnknownObject } from '../interfaces';
+
 export type { UseFiltersColumnProps } from 'react-table';
 
-export function LineUpLiteFilterAction<D extends object = {}>(
+export function LineUpLiteFilterAction<D extends UnknownObject = UnknownObject>(
   props: UseFiltersColumnProps<D> &
     CommonProps & {
       children?: ReactNode;
+      // eslint-disable-next-line react/no-unused-prop-types
       iconFilter: ComponentType;
       toggleFilterColumn: (e: MouseEvent<HTMLElement>) => void;
     }
-) {
+): JSX.Element {
   const { canFilter, filterValue, toggleFilterColumn } = props;
   const c = useLineUpLiteTableContext();
   const i18n = c?.i18n ?? LINEUP_LITE_I18N_EN;
@@ -36,5 +39,7 @@ export function LineUpLiteFilterAction<D extends object = {}>(
       <props.iconFilter />
       {props.children}
     </button>
-  ) : null;
+  ) : (
+    <></>
+  );
 }

@@ -6,6 +6,7 @@
  */
 
 import type { IdType, Row } from 'react-table';
+import type { UnknownObject } from '../interfaces';
 
 /**
  * filter function by a set of filter values
@@ -13,7 +14,7 @@ import type { IdType, Row } from 'react-table';
  * @param ids
  * @param filterValue
  */
-export function categoricalFilter<D extends object = {}>(
+export function categoricalFilter<D extends UnknownObject = UnknownObject>(
   rows: readonly Row<D>[],
   ids: readonly IdType<D>[],
   filterValue: readonly string[]
@@ -36,3 +37,5 @@ export function categoricalFilter<D extends object = {}>(
  * determines whether the column value to should be automatically removed, since it cannot be handled by this filter
  */
 categoricalFilter.autoRemove = (val: readonly string[]) => !Array.isArray(val);
+
+export default categoricalFilter;

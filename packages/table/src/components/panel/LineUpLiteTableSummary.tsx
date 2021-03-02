@@ -6,22 +6,23 @@
  */
 
 import { clsx, CommonProps, mergeStyles } from '@lineup-lite/components';
-import React, { forwardRef, ReactElement, Ref, RefAttributes } from 'react';
+import React, { forwardRef, Ref, RefAttributes } from 'react';
+import type { LineUpLiteColumn, UnknownObject } from '@lineup-lite/hooks';
 import type { ActionLineUpProps } from '../interfaces';
 import type { LineUpLiteState, LineUpLiteTableInstance } from '../useLineUpLite';
 import { useLineUpLitePanelContext } from './contexts';
-import type { LineUpLiteColumn } from '@lineup-lite/hooks';
 import { LineUpLiteTHSummary } from './LineUpLiteTHSummary';
 
-export interface LineUpLiteTableSummaryProps<D extends object = {}> extends CommonProps, ActionLineUpProps<D> {
+export interface LineUpLiteTableSummaryProps<D extends UnknownObject = UnknownObject>
+  extends CommonProps,
+    ActionLineUpProps<D> {
   instance: LineUpLiteTableInstance<D>;
   state?: LineUpLiteState<D>;
 }
 
-const LineUpLiteTableSummaryImpl = /*!#__PURE__*/ forwardRef(function LineUpLiteTableSummary<D extends object = {}>(
-  props: LineUpLiteTableSummaryProps<D>,
-  ref: Ref<HTMLElement>
-) {
+const LineUpLiteTableSummaryImpl = /*! #__PURE__ */ forwardRef(function LineUpLiteTableSummary<
+  D extends UnknownObject = UnknownObject
+>(props: LineUpLiteTableSummaryProps<D>, ref: Ref<HTMLElement>) {
   const c = useLineUpLitePanelContext();
   const p = { c: c?.components.tableSummary ?? 'div' };
 
@@ -42,6 +43,8 @@ const LineUpLiteTableSummaryImpl = /*!#__PURE__*/ forwardRef(function LineUpLite
   );
 });
 
-export const LineUpLiteTableSummary = LineUpLiteTableSummaryImpl as <D extends object = {}>(
+export const LineUpLiteTableSummary = LineUpLiteTableSummaryImpl as <D extends UnknownObject = UnknownObject>(
   p: LineUpLiteTableSummaryProps<D> & RefAttributes<HTMLElement>
-) => ReactElement;
+) => JSX.Element;
+
+export default LineUpLiteTableSummary;

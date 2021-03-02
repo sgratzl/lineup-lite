@@ -34,14 +34,14 @@ function Filtered(props: FilterRangeHistogramProps<number>) {
   return <FilterRangeHistogram {...props} setFilter={setFilter} />;
 }
 
-export function NumberHistogramRenderer<P extends StatsPropsLike<number>>(props: P) {
+export function NumberHistogramRenderer<P extends StatsPropsLike<number>>(props: P): JSX.Element {
   const options = useContext(optionContext) as NumberHistogramRendererOptions;
   const stats =
     useContext<((arr: readonly number[], preFilter?: INumberStats) => INumberStats) | null>(statsGeneratorContext) ??
     numberStats(options);
   const { s, preFilter, cell } = extractStats(props, stats);
   if (cell) {
-    const maxBin = groupMaxBin(options, cell, props);
+    const maxBin = groupMaxBin(options, (cell as unknown) as { isAggregated?: boolean }, props);
     return <Histogram s={s} maxBin={maxBin} />;
   }
   if (isFilterAble(props) && props.column.canFilter) {

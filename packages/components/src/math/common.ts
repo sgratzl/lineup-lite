@@ -128,7 +128,7 @@ export interface INumericStats<T> extends IHistStats<T> {
   invert: (v: number) => T;
 }
 
-export function maxHistBin<T>(hist: readonly Readonly<IBin<T>>[]) {
+export function maxHistBin<T>(hist: readonly Readonly<IBin<T>>[]): Readonly<IBin<T>> | null {
   if (hist.length === 0) {
     return null;
   }

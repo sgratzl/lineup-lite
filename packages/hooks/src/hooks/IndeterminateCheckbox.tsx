@@ -7,15 +7,21 @@
 
 import React, { forwardRef, HTMLAttributes, RefObject, useEffect, useRef } from 'react';
 
-const IndeterminateCheckbox = /*!#__PURE__*/ forwardRef<
+const IndeterminateCheckbox = /*! #__PURE__ */ forwardRef<
   HTMLInputElement,
   HTMLAttributes<HTMLInputElement> & { indeterminate?: boolean }
->(function IndeterminateCheckbox({ indeterminate, ...rest }, ref) {
+>(function IndeterminateCheckbox(
+  { indeterminate, ...rest }: HTMLAttributes<HTMLInputElement> & { indeterminate?: boolean },
+  ref
+) {
   const defaultRef = useRef<HTMLInputElement>(null);
   const resolvedRef = ref || defaultRef;
 
   useEffect(() => {
-    (resolvedRef as RefObject<HTMLInputElement>).current!.indeterminate = indeterminate ?? false;
+    const actRef = (resolvedRef as RefObject<HTMLInputElement>).current;
+    if (actRef) {
+      actRef.indeterminate = indeterminate ?? false;
+    }
   }, [resolvedRef, indeterminate]);
 
   return <input type="checkbox" ref={resolvedRef} {...rest} />;

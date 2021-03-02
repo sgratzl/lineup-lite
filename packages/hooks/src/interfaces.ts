@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2021 Samuel Gratzl <sam@sgratzl.com>
  */
+/* eslint-disable @typescript-eslint/ban-types */
 
 import type {
   Column,
@@ -17,7 +18,9 @@ import type {
 } from 'react-table';
 import type { UseStatsColumnOptions } from './hooks/useStats';
 
-export interface UseColumnGroupByColumnOptions<D extends object = {}> {
+export type UnknownObject = Record<string, unknown>;
+
+export interface UseColumnGroupByColumnOptions<D extends UnknownObject = UnknownObject> {
   /**
    * renderer used to render the group cell
    */
@@ -31,7 +34,7 @@ export interface UseColumnGroupByColumnOptions<D extends object = {}> {
 /**
  * a lineup lite column description
  */
-export type LineUpLiteColumn<D extends object = {}> = Column<D> &
+export type LineUpLiteColumn<D extends UnknownObject = UnknownObject> = Column<D> &
   UseFiltersColumnOptions<D> &
   UseGroupByColumnOptions<D> &
   UseSortByColumnOptions<D> &

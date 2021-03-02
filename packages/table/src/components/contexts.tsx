@@ -5,10 +5,10 @@
  * Copyright (c) 2021 Samuel Gratzl <sam@sgratzl.com>
  */
 
-import { createContext, PropsWithChildren, useContext, useEffect, useMemo, useState } from 'react';
-import React from 'react';
-import type { TableDispatch } from 'react-table';
-import type { CustomizeLineUpProps } from './interfaces';
+import React, { createContext, PropsWithChildren, useContext, useEffect, useMemo, useState } from 'react';
+
+import type { TableDispatch, UseGroupByState, UseSortByState } from 'react-table';
+import type { CustomizeLineUpProps, UnknownObject } from './interfaces';
 import { EMPTY_OBJ } from './utils';
 import type { LineUpLiteState, LineUpLiteTableInstance } from './useLineUpLite';
 
@@ -21,12 +21,12 @@ export interface LineUpLiteTableContextProps extends Required<CustomizeLineUpPro
 }
 export const LineUpLiteTableContext = createContext(undefined as LineUpLiteTableContextProps | undefined);
 
-export function LineUpLiteTableContextProvider<D extends object = {}>(
+export function LineUpLiteTableContextProvider<D extends UnknownObject = UnknownObject>(
   props: PropsWithChildren<{
     instance: LineUpLiteTableInstance<D>;
     props: CustomizeLineUpProps;
   }>
-) {
+): JSX.Element {
   const {
     styles = EMPTY_OBJ,
     classNames = EMPTY_OBJ,
@@ -36,8 +36,8 @@ export function LineUpLiteTableContextProvider<D extends object = {}>(
   } = props.props;
   const { dispatch, state } = props.instance;
 
-  const sortByColumnCount = (state as any).sortBy?.length ?? 0;
-  const groupByColumnCount = (state as any).groupBy?.length ?? 0;
+  const sortByColumnCount = (state as UseSortByState<D>).sortBy?.length ?? 0;
+  const groupByColumnCount = (state as UseGroupByState<D>).groupBy?.length ?? 0;
 
   const value = useMemo(
     () => ({
@@ -59,19 +59,25 @@ export function useLineUpLiteTableContext(): LineUpLiteTableContextProps | undef
   return useContext(LineUpLiteTableContext);
 }
 
-export interface LineUpLiteStateContextProps<D extends object = {}> {
+export interface LineUpLiteStateContextProps<D extends UnknownObject = UnknownObject> {
   state?: LineUpLiteState;
   instance?: LineUpLiteTableInstance<D>;
 }
 
-export interface LineUpLiteStateContextSetter<D extends object = {}> {
+export interface LineUpLiteStateContextSetter<D extends UnknownObject = UnknownObject> {
   setState(state: LineUpLiteState): void;
   setInstance(instance: LineUpLiteTableInstance<D>): void;
 }
-export const LineUpLiteStateContext = createContext(undefined as LineUpLiteStateContextProps<any> | undefined);
-export const LineUpLiteStateSetterContext = createContext(undefined as LineUpLiteStateContextSetter<any> | undefined);
+export const LineUpLiteStateContext = createContext(
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  undefined as LineUpLiteStateContextProps<any> | undefined
+);
+export const LineUpLiteStateSetterContext = createContext(
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  undefined as LineUpLiteStateContextSetter<any> | undefined
+);
 
-export function useStateListener<D extends object = {}>(
+export function useStateListener<D extends UnknownObject = UnknownObject>(
   props: {
     onStateChange?: (state: LineUpLiteState) => void;
   },
@@ -100,7 +106,9 @@ export function useStateListener<D extends object = {}>(
   }, [setInstance, instance]);
 }
 
-export function LineUpLiteStateContextProvider<D extends object = {}>(props: PropsWithChildren<{}>) {
+export function LineUpLiteStateContextProvider<D extends UnknownObject = UnknownObject>(
+  props: PropsWithChildren<Record<string, never>>
+): JSX.Element {
   const [state, setState] = useState(undefined as undefined | LineUpLiteState);
   const [instance, setInstance] = useState(undefined as undefined | LineUpLiteTableInstance<D>);
   // have a context which are just the values which will change
@@ -118,6 +126,8 @@ export function LineUpLiteStateContextProvider<D extends object = {}>(props: Pro
   );
 }
 
-export function useLineUpLiteStateContext<D extends object = {}>(): LineUpLiteStateContextProps<D> | undefined {
+export function useLineUpLiteStateContext<D extends UnknownObject = UnknownObject>():
+  | LineUpLiteStateContextProps<D>
+  | undefined {
   return useContext(LineUpLiteStateContext);
 }

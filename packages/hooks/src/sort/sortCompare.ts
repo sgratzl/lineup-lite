@@ -6,6 +6,7 @@
  */
 
 import type { Row } from 'react-table';
+import type { UnknownObject } from '../interfaces';
 import { compareAsc } from './internal';
 
 /**
@@ -14,7 +15,7 @@ import { compareAsc } from './internal';
  * @param b second row
  * @param columnId column id
  */
-export function sortCompare(a: Row<any>, b: Row<any>, columnId: string): number {
+export default function sortCompare(a: Row<UnknownObject>, b: Row<UnknownObject>, columnId: string): number {
   const va = a.values[columnId];
   const vb = b.values[columnId];
   return compareAsc(va, vb);

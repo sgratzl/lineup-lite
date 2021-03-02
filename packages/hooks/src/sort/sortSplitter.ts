@@ -5,15 +5,17 @@
  * Copyright (c) 2021 Samuel Gratzl <sam@sgratzl.com>
  */
 
-import type { RowCompareFunction } from './interfaces';
 import type { UseGroupByRowProps, Row } from 'react-table';
+import type { UnknownObject } from '../interfaces';
+import type { RowCompareFunction } from './interfaces';
 
-function resolveGroupByColumn(a: Row<any>) {
-  const g = ((a as unknown) as UseGroupByRowProps<any>).isGrouped;
+function resolveGroupByColumn(a: Row<UnknownObject>) {
+  const g = ((a as unknown) as UseGroupByRowProps<UnknownObject>).isGrouped;
   if (!g) {
     return null;
   }
   // grouped try to resolve by which column
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return (a as any).groupByID;
 }
 
@@ -23,7 +25,7 @@ function resolveGroupByColumn(a: Row<any>) {
  * @param b second row
  * @param columnId column id
  */
-export function sortSplitter(rows: RowCompareFunction, group: RowCompareFunction): RowCompareFunction {
+export default function sortSplitter(rows: RowCompareFunction, group: RowCompareFunction): RowCompareFunction {
   return (a, b, columnId) => {
     const aGroupByColumn = resolveGroupByColumn(a);
     const bGroupByColumn = resolveGroupByColumn(b);

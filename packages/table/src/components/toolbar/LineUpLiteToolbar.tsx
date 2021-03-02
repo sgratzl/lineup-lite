@@ -6,7 +6,6 @@
  */
 
 import React, { CSSProperties, PropsWithChildren, useMemo } from 'react';
-import { clsx } from '../utils';
 import type {
   ColumnInstance,
   UseFiltersColumnProps,
@@ -14,23 +13,28 @@ import type {
   UseResizeColumnsColumnProps,
   UseSortByColumnProps,
 } from 'react-table';
+import { clsx } from '../utils';
 import { LINEUP_LITE_TEXT_ICONS } from '../../icons';
 import { LineUpLiteSortByAction } from './LineUpLiteSortByAction';
 import { LineUpLiteGroupByAction } from './LineUpLiteGroupByAction';
-import { LineUpLiteHideAction } from './LineUpLiteHideAction';
-import type { ActionLineUpProps } from '../interfaces';
+import LineUpLiteHideAction from './LineUpLiteHideAction';
+import type { ActionLineUpProps, UnknownObject } from '../interfaces';
 
-export interface LineUpLiteToolbarProps<D extends object = {}> extends ColumnInstance<D>, ActionLineUpProps<D> {
+export interface LineUpLiteToolbarProps<D extends UnknownObject = UnknownObject>
+  extends ColumnInstance<D>,
+    ActionLineUpProps<D> {
   className?: string;
   style?: CSSProperties;
 }
 
-export function LineUpLiteToolbar(props: PropsWithChildren<LineUpLiteToolbarProps<any>>) {
-  const column = (props as unknown) as ColumnInstance<any> &
-    UseGroupByColumnProps<any> &
-    UseResizeColumnsColumnProps<any> &
-    UseFiltersColumnProps<any> &
-    UseSortByColumnProps<any> & {
+export function LineUpLiteToolbar<D extends UnknownObject = UnknownObject>(
+  props: PropsWithChildren<LineUpLiteToolbarProps<D>>
+): JSX.Element {
+  const column = (props as unknown) as ColumnInstance<D> &
+    UseGroupByColumnProps<D> &
+    UseResizeColumnsColumnProps<D> &
+    UseFiltersColumnProps<D> &
+    UseSortByColumnProps<D> & {
       canHide?: boolean;
     };
   const pIcons = props.icons;

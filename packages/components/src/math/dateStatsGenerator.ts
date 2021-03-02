@@ -20,8 +20,10 @@ export interface IDateStats extends INumericStats<Date> {
   readonly histGranularity: DateHistGranularity;
 }
 
-export function isDateStats(obj: any): obj is IDateStats {
-  return obj != null && typeof (obj as IDateStats).histGranularity === 'string' && Array.isArray(obj.hist);
+export function isDateStats(obj: unknown): obj is IDateStats {
+  return (
+    obj != null && typeof (obj as IDateStats).histGranularity === 'string' && Array.isArray((obj as IDateStats).hist)
+  );
 }
 
 function toDateString(this: IDateStats) {
@@ -77,7 +79,7 @@ function computeGranularity(
     const formatter = yearFormatter(format);
     const minYear = min.getFullYear();
     const maxYear = max.getFullYear();
-    for (let i = minYear; i <= maxYear; ++i) {
+    for (let i = minYear; i <= maxYear; i += 1) {
       const x0 = new Date(i, 0, 1);
       hist.push({
         x0,
@@ -130,20 +132,23 @@ function computeGranularity(
   return { hist, histGranularity: 'month' };
 }
 
-function pushDateHist(hist: IBin<Date>[], v: Date, count: number = 1) {
+function pushDateHist(hist: IBin<Date>[], v: Date, count = 1) {
   const values = (Array(count) as Date[]).fill(v);
   if (v < hist[0].x1) {
+    // eslint-disable-next-line no-param-reassign
     hist[0].count += count;
     (hist[0].items as Date[]).push(...values);
     return;
   }
   const l = hist.length - 1;
   if (v > hist[l].x0) {
+    // eslint-disable-next-line no-param-reassign
     hist[l].count += count;
     (hist[l].items as Date[]).push(...values);
     return;
   }
   if (l === 2) {
+    // eslint-disable-next-line no-param-reassign
     hist[1].count += count;
     (hist[1].items as Date[]).push(...values);
     return;
@@ -160,6 +165,7 @@ function pushDateHist(hist: IBin<Date>[], v: Date, count: number = 1) {
       low = center + 1;
     }
   }
+  // eslint-disable-next-line no-param-reassign
   hist[low].count += count;
   (hist[low].items as Date[]).push(...values);
 }
@@ -263,8 +269,8 @@ function createFlat(arr: readonly DateLike[]) {
 
   for (const v of arr) {
     if (v == null) {
-      missing++;
-      flatMissing++;
+      missing += 1;
+      flatMissing += 1;
       continue;
     }
     if (v instanceof Date) {
@@ -283,7 +289,7 @@ function createFlat(arr: readonly DateLike[]) {
     const vClean: Date[] = [];
     for (const vi of v) {
       if (vi == null || !(vi instanceof Date)) {
-        flatMissing++;
+        flatMissing += 1;
       } else {
         push(vi);
         vClean.push(vi);
@@ -346,6 +352,7 @@ export function dateStatsGenerator(options: DateStatsOptions = {}): (arr: readon
       hist,
       histGranularity,
       median: computeMedian(flatItems),
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       maxBin: maxHistBin(hist)!,
       ...normalizeDate(minD, maxD),
       ...base,

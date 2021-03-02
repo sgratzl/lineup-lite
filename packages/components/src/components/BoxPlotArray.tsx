@@ -33,7 +33,7 @@ export interface BoxPlotArrayProps extends CommonProps {
   i18n?: BoxPlotProps['i18n'];
 }
 
-export function BoxPlotArray(props: BoxPlotArrayProps) {
+export function BoxPlotArray(props: BoxPlotArrayProps): JSX.Element {
   const f = props.format;
   const c = props.color;
   const scale = props.scale ?? defaultScale;
@@ -46,10 +46,11 @@ export function BoxPlotArray(props: BoxPlotArrayProps) {
       {(props.value ?? []).map((v, i) => {
         const s: BoxPlotScaled = {
           ...v,
-          format: typeof f !== 'function' ? toLocaleString : (v) => f(v, i),
-          color: typeof c === 'function' ? (v) => c(v, i) : defaultColorScale,
+          format: typeof f !== 'function' ? toLocaleString : (d: number) => f(d, i),
+          color: typeof c === 'function' ? (d: number) => c(d, i) : defaultColorScale,
           scale,
         };
+        // eslint-disable-next-line react/no-array-index-key
         return <BoxPlotChartVertical className="lt-heatmap-1d-cell" key={i} s={s} i18n={props.i18n} />;
       })}
     </div>

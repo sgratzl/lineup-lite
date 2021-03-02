@@ -7,21 +7,22 @@
 
 import React, { ComponentType, useCallback, MouseEvent, ReactNode } from 'react';
 import type { UseSortByColumnProps } from 'react-table';
+import type { CommonProps } from '@lineup-lite/components';
 import { LINEUP_LITE_I18N_EN } from '../../i18n';
 import { useLineUpLiteTableContext } from '../contexts';
 import { clsx } from '../utils';
-import type { CommonProps } from '@lineup-lite/components';
+import type { UnknownObject } from '../interfaces';
 
 export type { UseSortByColumnProps } from 'react-table';
 
-export function LineUpLiteSortByAction(
-  props: UseSortByColumnProps<any> &
+export function LineUpLiteSortByAction<D extends UnknownObject = UnknownObject>(
+  props: UseSortByColumnProps<D> &
     CommonProps & {
       children?: ReactNode;
       iconAsc: ComponentType;
       iconDesc: ComponentType;
     }
-) {
+): JSX.Element {
   const { toggleSortBy, isSorted } = props;
   const sort = useCallback(
     (e: MouseEvent<HTMLElement>) => toggleSortBy(undefined, e.shiftKey || e.ctrlKey || isSorted),
@@ -30,7 +31,7 @@ export function LineUpLiteSortByAction(
   const c = useLineUpLiteTableContext();
   const i18n = c?.i18n ?? LINEUP_LITE_I18N_EN;
   const sortBys = c?.sortByColumnCount ?? 0;
-  const descFirst = (props as any).sortDescFirst as boolean;
+  const descFirst = (props as { sortDescFirst?: boolean }).sortDescFirst ?? false;
   let title = descFirst ? i18n.sortByColumnDesc : i18n.sortByColumn;
   if (props.isSorted) {
     if (descFirst) {
@@ -61,5 +62,7 @@ export function LineUpLiteSortByAction(
       {props.isSortedDesc || (!props.isSorted && descFirst) ? <props.iconDesc /> : <props.iconAsc />}
       {props.children}
     </button>
-  ) : null;
+  ) : (
+    <></>
+  );
 }

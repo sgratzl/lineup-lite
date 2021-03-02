@@ -23,7 +23,7 @@ export interface DateLabelProps extends CommonProps {
 /**
  * renders a date
  */
-export function DateLabel(props: DateLabelProps) {
+export function DateLabel(props: DateLabelProps): JSX.Element {
   const label = format(props.value, props.format ?? toLocaleString);
   return (
     <div className={clsx('lt-date', props.className)} style={props.style} title={label}>

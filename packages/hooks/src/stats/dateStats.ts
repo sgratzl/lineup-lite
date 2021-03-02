@@ -7,6 +7,8 @@
 
 import { dateStatsGenerator, DateStatsOptions, IDateStats } from '@lineup-lite/components';
 
+export type { DateStatsOptions, IDateStats } from '@lineup-lite/components';
+
 function compute(
   gen: ReturnType<typeof dateStatsGenerator>,
   options: DateStatsOptions,

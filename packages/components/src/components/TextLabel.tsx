@@ -23,7 +23,7 @@ export interface TextLabelProps extends CommonProps {
 /**
  * renders a date
  */
-export function TextLabel(props: TextLabelProps) {
+export function TextLabel(props: TextLabelProps): JSX.Element {
   const label = format(props.value, props.format);
   return (
     <div className={props.className} style={props.style} title={label}>

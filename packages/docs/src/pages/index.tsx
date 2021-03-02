@@ -11,11 +11,11 @@ import Layout from '@theme/Layout';
 import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import useBaseUrl from '@docusaurus/useBaseUrl';
-import styles from './index.module.css';
 import Filter3FillIcon from 'remixicon-react/Filter3FillIcon';
 import NewspaperLineIcon from 'remixicon-react/NewspaperLineIcon';
 import BarChartBoxLineIcon from 'remixicon-react/BarChartBoxLineIcon';
 import StackLineIcon from 'remixicon-react/StackLineIcon';
+import styles from './index.module.css';
 
 function Feature({ imageUrl, title, children }: PropsWithChildren<{ imageUrl: string | ReactNode; title: string }>) {
   const imgUrl = useBaseUrl(typeof imageUrl === 'string' ? imageUrl : '/');
@@ -33,7 +33,7 @@ function Feature({ imageUrl, title, children }: PropsWithChildren<{ imageUrl: st
   );
 }
 
-export default function Home() {
+export default function Home(): JSX.Element {
   const context = useDocusaurusContext();
   const { siteConfig = {} } = context;
   return (
@@ -64,8 +64,8 @@ export default function Home() {
             <div className="row">
               <Feature title="Based on react-table" imageUrl="img/react-table.svg">
                 {`LineUp-lite is an extension and is based on `}
-                <a href="https://react-table.tanstack.com/">react-table</a>
-                {`, a light-weight, headless React data table library.`}
+                <a href="https://react-table.tanstack.com/">react-table</a>, a light-weight, headless React data table
+                library.
               </Feature>
               <Feature
                 title="Inspired by IEEEVIS publication"
@@ -74,8 +74,7 @@ export default function Home() {
                 {`LineUp-lite is inspired on the award winning paper `}
                 <a href="https://lineup.caleydo.org/">Visual Analysis of Multi-Attribute Rankings</a>
                 {` by Gratzl et. al. and is the lightweight nephew of `}
-                <a href="https://lineup.js.org/">LineUp.js</a>
-                {`.`}
+                <a href="https://lineup.js.org/">LineUp.js</a>.
               </Feature>
               <Feature
                 title="Multiple abstraction levels"
@@ -86,25 +85,23 @@ export default function Home() {
                 {', over '}
                 <Link to={useBaseUrl('docs/hooks')}>react-table hooks</Link>
                 {', to a ready-to-use '}
-                <Link to={useBaseUrl('docs/table')}>LineUpLite React component</Link>
-                {'.'}
+                <Link to={useBaseUrl('docs/table')}>LineUpLite React component</Link>.
               </Feature>
               <Feature
                 title="Flexible interactive filtering"
                 imageUrl={<Filter3FillIcon className={styles.featureImageSVG} />}
               >
-                {`Columns can be interactively filtered based on the column type using the column header.`}
+                Columns can be interactively filtered based on the column type using the column header.
               </Feature>
               <Feature
                 title="Various proven visual encodings"
                 imageUrl={<BarChartBoxLineIcon className={styles.featureImageSVG} />}
               >
                 {`Proven visual visualizations for cells, aggregations, and summaries, such as `}
-                <Link to={useBaseUrl('docs/components/number')}>Bars, Histograms, and Boxplots</Link>
-                {`.`}
+                <Link to={useBaseUrl('docs/components/number')}>Bars, Histograms, and Boxplots</Link>.
               </Feature>
               <Feature title="Written in TypeScript" imageUrl="img/typescript-seeklogo.com.svg">
-                {`Developed using latest web technologies and written in clean TypeScript.`}
+                Developed using latest web technologies and written in clean TypeScript.
               </Feature>
             </div>
           </div>

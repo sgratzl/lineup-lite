@@ -6,10 +6,10 @@
  */
 
 export * from './interfaces';
-export * from './sortCompare';
-export * from './sortSplitter';
+export { default as sortCompare } from './sortCompare';
+export { default as sortSplitter } from './sortSplitter';
 export * from './categoricalSort';
 export * from './categoricalSetSort';
 export * from './numberSort';
-export * from './textSort';
-export * from './dateSort';
+export { default as textGroupCompare } from './textGroupCompare';
+export { default as dateGroupCompare } from './dateGroupCompare';

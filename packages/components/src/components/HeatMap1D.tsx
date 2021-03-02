@@ -32,7 +32,7 @@ export interface HeatMap1DProps extends CommonProps {
 /**
  * renders a numeric 1d heatmap
  */
-export function HeatMap1D(props: HeatMap1DProps) {
+export function HeatMap1D(props: HeatMap1DProps): JSX.Element {
   return (
     <div
       className={clsx('lt-heatmap-1d', props.className)}
@@ -44,6 +44,7 @@ export function HeatMap1D(props: HeatMap1DProps) {
         const normalized = typeof props.scale === 'function' && v != null ? props.scale(v) : v;
         const color = typeof props.color === 'string' ? props.color : (props.color ?? defaultColorScale)(normalized, i);
         return (
+          // eslint-disable-next-line react/no-array-index-key
           <div key={i} className="lt-heatmap-1d-cell" title={label} style={{ backgroundColor: color }}>
             <span aria-hidden="false">{label}</span>
           </div>

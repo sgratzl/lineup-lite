@@ -5,9 +5,9 @@
  * Copyright (c) 2021 Samuel Gratzl <sam@sgratzl.com>
  */
 
-export * from './columnSpecificGroupByFn';
-export * from './categoricalGroupBy';
-export * from './dateGroupBy';
-export * from './numberGroupBy';
-export * from './textGroupBy';
-export * from './categoricalSetGroupBy';
+export { default as columnSpecificGroupByFn } from './columnSpecificGroupByFn';
+export { default as categoricalGroupBy } from './categoricalGroupBy';
+export { default as dateGroupBy } from './dateGroupBy';
+export { default as numberGroupBy } from './numberGroupBy';
+export { default as textGroupBy } from './textGroupBy';
+export { default as categoricalSetGroupBy } from './categoricalSetGroupBy';

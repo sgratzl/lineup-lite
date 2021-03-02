@@ -7,9 +7,12 @@
 
 import type { ColumnInstance, Row } from 'react-table';
 import type { ICategoricalStats } from '@lineup-lite/components';
-import { baseGroupBy } from './internal';
+import baseGroupBy from './baseGroupBy';
+import type { UseStatsColumnProps } from '../hooks';
+import type { UnknownObject } from '../interfaces';
 
-export function categoricalGroupBy<D extends object = {}>(
+// eslint-disable-next-line @typescript-eslint/ban-types
+export default function categoricalGroupBy<D extends UnknownObject = UnknownObject>(
   rows: Row<D>[],
   column: ColumnInstance<D>
 ): Record<string, Row<D>[]> {
@@ -17,11 +20,11 @@ export function categoricalGroupBy<D extends object = {}>(
     return {};
   }
   const base = baseGroupBy(rows, column);
-  if ((column as any).statsValue == null) {
+  if (((column as unknown) as UseStatsColumnProps).statsValue == null) {
     return base;
   }
   // create a new one but this time sorted
-  const stats = (column as any).statsValue as ICategoricalStats;
+  const stats = ((column as unknown) as UseStatsColumnProps).statsValue as ICategoricalStats;
   const sortedGrouped: Record<string, Row<D>[]> = {};
   stats.categories.forEach((cat) => {
     if (base[cat] != null) {

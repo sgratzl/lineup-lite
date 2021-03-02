@@ -34,14 +34,14 @@ function Filtered(props: FilterRangeHistogramProps<Date>) {
   return <FilterRangeHistogram {...props} setFilter={setFilter} i18n={props.i18n} />;
 }
 
-export function DateHistogramRenderer<P extends StatsPropsLike<Date | null>>(props: P) {
+export function DateHistogramRenderer<P extends StatsPropsLike<Date | null>>(props: P): JSX.Element {
   const options = useContext(optionContext) as HistogramRendererOptions;
   const stats =
     useContext<((arr: readonly (Date | null)[], preFilter?: IDateStats) => IDateStats) | null>(statsGeneratorContext) ??
     dateStats(options);
   const { s, preFilter, cell } = extractStats(props, stats);
   if (cell) {
-    const maxBin = groupMaxBin(options, cell, props);
+    const maxBin = groupMaxBin(options, (cell as unknown) as { isAggregated?: boolean }, props);
     return <Histogram s={s} maxBin={maxBin} />;
   }
   if (isFilterAble(props) && props.column.canFilter) {

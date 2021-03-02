@@ -53,10 +53,12 @@ export function autoAssignColors(colors: readonly string[], start = 0): (v: stri
   let i = start;
   const map = new Map<string, string>();
   return (c: string) => {
-    if (map.has(c)) {
-      return map.get(c)!;
+    const elem = map.get(c);
+    if (elem) {
+      return elem;
     }
-    const color = colors[i++ % colors.length];
+    const color = colors[i % colors.length];
+    i += 1;
     map.set(c, color);
     return color;
   };

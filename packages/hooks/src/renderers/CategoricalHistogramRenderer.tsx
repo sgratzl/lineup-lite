@@ -16,7 +16,7 @@ export interface CategoricalHistogramRendererOptions extends CategoricalRenderer
   maxBin?: number;
 }
 
-export function CategoricalHistogramRenderer<P extends StatsPropsLike<string>>(props: P) {
+export function CategoricalHistogramRenderer<P extends StatsPropsLike<string>>(props: P): JSX.Element {
   const options = useContext(optionContext) as CategoricalHistogramRendererOptions;
   const stats =
     useContext<((arr: readonly string[], preFilter?: ICategoricalStats) => ICategoricalStats) | null>(
@@ -24,7 +24,7 @@ export function CategoricalHistogramRenderer<P extends StatsPropsLike<string>>(p
     ) ?? categoricalStats(options);
   const { s, preFilter, cell } = extractStats(props, stats);
   if (cell) {
-    const maxBin = groupMaxBin(options, cell, props);
+    const maxBin = groupMaxBin(options, (cell as unknown) as { isAggregated?: boolean }, props);
     return <Histogram s={s} maxBin={maxBin} />;
   }
   if (isFilterAble(props) && props.column.canFilter) {

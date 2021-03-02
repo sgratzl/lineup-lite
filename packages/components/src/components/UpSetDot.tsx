@@ -9,13 +9,13 @@ import React from 'react';
 import type { CommonProps } from './common';
 import { clsx } from './utils';
 
-interface UpSetDotProps extends CommonProps {
+export interface UpSetDotProps extends CommonProps {
   mode: boolean | null;
   title: string;
   color?: string;
 }
 
-export function UpSetDot(props: UpSetDotProps) {
+export function UpSetDot(props: UpSetDotProps): JSX.Element {
   const style = props.color ? { fill: props.color } : undefined;
   return (
     <svg viewBox="0 0 2 2" className={props.className} style={props.style}>

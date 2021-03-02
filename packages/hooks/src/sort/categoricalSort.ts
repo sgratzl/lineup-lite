@@ -5,12 +5,13 @@
  * Copyright (c) 2021 Samuel Gratzl <sam@sgratzl.com>
  */
 
-import type { RowCompareFunction } from './interfaces';
 import type { Row } from 'react-table';
 import { ICategoricalStats, isCategoricalStats } from '@lineup-lite/components';
+import type { RowCompareFunction } from './interfaces';
 import { categoricalSortFunc, compareAsc } from './internal';
+import type { UnknownObject } from '../interfaces';
 
-export function categoricalGroupCompare(a: Row<any>, b: Row<any>, columnId: string): number {
+export function categoricalGroupCompare(a: Row<UnknownObject>, b: Row<UnknownObject>, columnId: string): number {
   const av: ICategoricalStats = a.values[columnId];
   const bv: ICategoricalStats = b.values[columnId];
 

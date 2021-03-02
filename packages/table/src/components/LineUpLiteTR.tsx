@@ -8,17 +8,18 @@
 import React, { memo, Ref, forwardRef, RefAttributes, ReactElement, ReactNode } from 'react';
 import type { Row, UseExpandedRowProps, UseGroupByRowProps, UseRowSelectRowProps } from 'react-table';
 import { useLineUpLiteTableContext } from './contexts';
+import type { UnknownObject } from './interfaces';
 import { LineUpLiteTD } from './LineUpLiteTD';
 import { clsx, mergeStyles } from './utils';
 
-export interface LineUpLiteTRProps<D extends object = {}> {
+export interface LineUpLiteTRProps<D extends UnknownObject = UnknownObject> {
   row: Row<D>;
   virtualStart?: number;
   virtualSize?: number;
   children?: ReactNode;
 }
 
-const LineUpLiteTRImpl = /*!#__PURE__*/ forwardRef(function LineUpLiteTR<D extends object = {}>(
+const LineUpLiteTRImpl = /*! #__PURE__ */ forwardRef(function LineUpLiteTR<D extends UnknownObject = UnknownObject>(
   props: LineUpLiteTRProps<D>,
   ref: Ref<HTMLElement>
 ) {
@@ -61,8 +62,8 @@ const LineUpLiteTRImpl = /*!#__PURE__*/ forwardRef(function LineUpLiteTR<D exten
   );
 });
 
-export const LineUpLiteTR = LineUpLiteTRImpl as <D extends object = {}>(
+export const LineUpLiteTR = LineUpLiteTRImpl as <D extends UnknownObject = UnknownObject>(
   p: LineUpLiteTRProps<D> & RefAttributes<HTMLElement>
 ) => ReactElement;
 
-export const LineUpLiteTRMemo = /*!#__PURE__*/ memo(LineUpLiteTRImpl) as typeof LineUpLiteTR;
+export const LineUpLiteTRMemo = /*! #__PURE__ */ memo(LineUpLiteTRImpl) as typeof LineUpLiteTR;

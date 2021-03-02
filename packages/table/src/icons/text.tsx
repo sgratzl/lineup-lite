@@ -8,43 +8,43 @@
 import React from 'react';
 import type { ActionIcons, PaginationIcons } from './interfaces';
 
-function SortAsc() {
+function SortAsc(): JSX.Element {
   return <>↑</>;
 }
 
-function SortDesc() {
+function SortDesc(): JSX.Element {
   return <>↓</>;
 }
 
-function Delete() {
+function Delete(): JSX.Element {
   return <>×</>;
 }
 
-function ArrowDropRightLine() {
+function ArrowDropRightLine(): JSX.Element {
   return <>▸</>;
 }
 
-function GroupBy() {
+function GroupBy(): JSX.Element {
   return <span style={{ transform: 'rotate(90deg)' }}>◫</span>;
 }
 
-function FirstPage() {
+function FirstPage(): JSX.Element {
   return <>«</>;
 }
 
-function LastPage() {
+function LastPage(): JSX.Element {
   return <>»</>;
 }
 
-function NextPage() {
+function NextPage(): JSX.Element {
   return <>›</>;
 }
 
-function PreviousPage() {
+function PreviousPage(): JSX.Element {
   return <>‹</>;
 }
 
-function Filter() {
+function Filter(): JSX.Element {
   return <>#</>;
 }
 
@@ -62,3 +62,5 @@ export const LINEUP_LITE_TEXT_ICONS: PaginationIcons & ActionIcons = {
   lastPage: LastPage,
   filterColumn: Filter,
 };
+
+export default LINEUP_LITE_TEXT_ICONS;

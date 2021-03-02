@@ -7,16 +7,16 @@
 
 import React, { forwardRef, ReactElement, ReactNode, Ref, RefAttributes } from 'react';
 import type { Cell, ColumnInstance, UseGroupByCellProps, UseResizeColumnsColumnProps } from 'react-table';
-import type { LineUpLiteColumn } from '@lineup-lite/hooks';
+import type { LineUpLiteColumn, UnknownObject } from '@lineup-lite/hooks';
 import { clsx } from './utils';
 import { useLineUpLiteTableContext } from './contexts';
 
-export interface LineUpLiteTDProps<D extends object = {}> {
-  cell: Cell<D, any>;
+export interface LineUpLiteTDProps<D extends UnknownObject = UnknownObject> {
+  cell: Cell<D, unknown>;
   children?: ReactNode;
 }
 
-const LineUpLiteTDImpl = /*!#__PURE__*/ forwardRef(function LineUpLiteTD<D extends object = {}>(
+const LineUpLiteTDImpl = /*! #__PURE__ */ forwardRef(function LineUpLiteTD<D extends UnknownObject = UnknownObject>(
   { cell, children }: LineUpLiteTDProps<D>,
   ref: Ref<HTMLElement>
 ) {
@@ -42,6 +42,6 @@ const LineUpLiteTDImpl = /*!#__PURE__*/ forwardRef(function LineUpLiteTD<D exten
   );
 });
 
-export const LineUpLiteTD = LineUpLiteTDImpl as <D extends object = {}>(
+export const LineUpLiteTD = LineUpLiteTDImpl as <D extends UnknownObject = UnknownObject>(
   p: LineUpLiteTDProps<D> & RefAttributes<HTMLElement>
 ) => ReactElement;

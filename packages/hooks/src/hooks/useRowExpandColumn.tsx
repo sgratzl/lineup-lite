@@ -16,8 +16,8 @@ import type {
   UseGroupByCellProps,
   UseTableCellProps,
 } from 'react-table';
-import type { LineUpLiteColumn } from '../interfaces';
 import { clsx } from '@lineup-lite/components';
+import type { LineUpLiteColumn, UnknownObject } from '../interfaces';
 
 export const USE_EXPAND_COLUMN_I18N_EN = {
   expandGroup: 'Click to expand this group',
@@ -45,7 +45,7 @@ export interface UseRowExpandColumnTableOptions {
   expandColumnWidth?: number;
 }
 
-export function useRowExpandColumn<D extends object = {}>(hooks: Hooks<D>) {
+export function useRowExpandColumn<D extends UnknownObject = UnknownObject>(hooks: Hooks<D>): void {
   hooks.visibleColumns.push(generateColumn);
 }
 useRowExpandColumn.pluginName = 'useRowExpandColumn';
@@ -55,7 +55,7 @@ function ArrowDropRightLine() {
 }
 
 function Cell() {
-  //props: TableCellProps & UseTableCellProps<any, any> & UseGroupByCellProps<any>) {
+  // props: TableCellProps & UseTableCellProps<any, any> & UseGroupByCellProps<any>) {
   // if ((props as any).allColumns.some((d: { isGrouped: boolean }) => d.isGrouped)) {
   //   return <div className="lt-expand-sub"></div>;
   // }
@@ -63,9 +63,12 @@ function Cell() {
 }
 
 function Aggregated(
-  props: TableCellProps & UseTableCellProps<any, any> & UseGroupByCellProps<any> & UseRowExpandColumnTableOptions
+  props: TableCellProps &
+    UseTableCellProps<UnknownObject, unknown> &
+    UseGroupByCellProps<UnknownObject> &
+    UseRowExpandColumnTableOptions
 ) {
-  const row = props.row as Row<any> & UseExpandedRowProps<any> & { depth: number };
+  const row = props.row as Row<UnknownObject> & UseExpandedRowProps<UnknownObject> & { depth: number };
   if (!row.canExpand) {
     return null;
   }
@@ -86,8 +89,9 @@ function Aggregated(
   );
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function Summary(props: any) {
-  if (!props.allColumns.some((d: any) => d.isGrouped)) {
+  if (!props.allColumns.some((d: { isGrouped: boolean }) => d.isGrouped)) {
     return <div className="lt-summary" />;
   }
   const i18n = {
@@ -113,7 +117,7 @@ function Header() {
   return <></>;
 }
 
-function generateColumn<D extends object = {}>(columns: ColumnInstance<D>[], meta: MetaBase<D>) {
+function generateColumn<D extends UnknownObject = UnknownObject>(columns: ColumnInstance<D>[], meta: MetaBase<D>) {
   const width = (meta.instance as UseRowExpandColumnTableOptions).expandColumnWidth ?? 20;
   const expandColumn: LineUpLiteColumn<D> = {
     id: 'expand',

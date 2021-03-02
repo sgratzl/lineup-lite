@@ -8,5 +8,5 @@
 export * from './LineUpLiteToolbar';
 export * from './LineUpLiteSortByAction';
 export * from './LineUpLiteGroupByAction';
-export * from './LineUpLiteHideAction';
+export { default as LineUpLiteHideAction } from './LineUpLiteHideAction';
 export * from './LineUpLiteFilterAction';

@@ -5,23 +5,22 @@
  * Copyright (c) 2021 Samuel Gratzl <sam@sgratzl.com>
  */
 
-import React, { forwardRef, ReactElement, ReactNode, Ref, RefAttributes } from 'react';
+import React, { forwardRef, ReactNode, Ref, RefAttributes } from 'react';
 import type { ColumnInstance, HeaderGroup, UseGroupByColumnProps, UseResizeColumnsColumnProps } from 'react-table';
+import type { LineUpLiteColumn, UnknownObject } from '@lineup-lite/hooks';
 import { clsx } from '../utils';
 import { LineUpLiteToolbar } from '../toolbar/LineUpLiteToolbar';
 import type { ActionLineUpProps } from '../interfaces';
 import { useLineUpLitePanelContext } from './contexts';
-import type { LineUpLiteColumn } from '@lineup-lite/hooks';
 
-export interface LineUpLiteTHSummaryProps<D extends object = {}> extends ActionLineUpProps<D> {
+export interface LineUpLiteTHSummaryProps<D extends UnknownObject = UnknownObject> extends ActionLineUpProps<D> {
   col: ColumnInstance<D>;
   children?: ReactNode;
 }
 
-const LineUpLiteTHSummaryImpl = /*!#__PURE__*/ forwardRef(function LineUpLiteTHSummary<D extends object = {}>(
-  { col, actions, icons, children }: LineUpLiteTHSummaryProps<D>,
-  ref: Ref<HTMLElement>
-) {
+const LineUpLiteTHSummaryImpl = /*! #__PURE__ */ forwardRef(function LineUpLiteTHSummary<
+  D extends UnknownObject = UnknownObject
+>({ col, actions, icons, children }: LineUpLiteTHSummaryProps<D>, ref: Ref<HTMLElement>) {
   const column = (col as unknown) as HeaderGroup<D> &
     UseGroupByColumnProps<D> &
     UseResizeColumnsColumnProps<D> &
@@ -42,7 +41,7 @@ const LineUpLiteTHSummaryImpl = /*!#__PURE__*/ forwardRef(function LineUpLiteTHS
         >
           {column.render('Header')}
         </div>
-        <LineUpLiteToolbar {...col} icons={icons} actions={actions} />
+        <LineUpLiteToolbar<D> {...col} icons={icons} actions={actions} />
       </div>
       {column.Summary && column.render('Summary')}
       {children}
@@ -50,6 +49,8 @@ const LineUpLiteTHSummaryImpl = /*!#__PURE__*/ forwardRef(function LineUpLiteTHS
   );
 });
 
-export const LineUpLiteTHSummary = LineUpLiteTHSummaryImpl as <D extends object = {}>(
+export const LineUpLiteTHSummary = LineUpLiteTHSummaryImpl as <D extends UnknownObject = UnknownObject>(
   p: LineUpLiteTHSummaryProps<D> & RefAttributes<HTMLElement>
-) => ReactElement;
+) => JSX.Element;
+
+export default LineUpLiteTHSummary;

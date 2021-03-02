@@ -18,22 +18,24 @@ import {
   UseGroupByColumnProps,
   UseFiltersColumnProps,
 } from 'react-table';
+import type { UnknownObject } from '../interfaces';
 
 export type UseStatsOptions = Partial<{
   manualStats: boolean;
   autoResetStats?: boolean;
 }>;
 
-export interface UseStatsState<D extends object = {}> {
+export interface UseStatsState<D extends UnknownObject = UnknownObject> {
   Stats: Stats<D>;
 }
 
-export type UseStatsColumnOptions<D extends object = {}> = Partial<{
+export type UseStatsColumnOptions<D extends UnknownObject = UnknownObject> = Partial<{
   Summary: Renderer<StatsProps<D>>;
   stats: StatsType;
   // grouper:
 }>;
 
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface UseStatsInstanceProps {}
 
 export interface UseStatsColumnProps {
@@ -42,31 +44,39 @@ export interface UseStatsColumnProps {
   preFilterStatsValue?: StatsValue;
 }
 
-export type StatsProps<D extends object = {}> = HeaderProps<D> & {
+export type StatsProps<D extends UnknownObject = UnknownObject> = HeaderProps<D> & {
   column: UseStatsColumnProps;
   i18n?: Record<string, string>;
 };
-export type StatsCellProps<D extends object = {}> = CellProps<D> & {
+export type StatsCellProps<D extends UnknownObject = UnknownObject> = CellProps<D> & {
   column: UseStatsColumnProps;
   i18n?: Record<string, string>;
 };
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type StatsValue = any;
-export type Stats<D extends object = {}> = Array<{ id: IdType<D>; value: StatsValue }>;
+export type Stats<D extends UnknownObject = UnknownObject> = Array<{
+  id: IdType<D>;
+  value: StatsValue;
+}>;
 
 export interface StatsType {
-  (values: readonly any[], preFilterStats?: any): any;
+  (values: readonly unknown[], preFilterStats?: unknown): unknown;
 }
 
-export type StatsAggregateArray<T> = T[] & { _aggregate?: <V>(gen: (vs: T[], preFilter?: V) => V, stats?: V) => any };
+export type StatsAggregateArray<T> = T[] & {
+  _aggregate?: <V>(gen: (vs: T[], preFilter?: V) => V, stats?: V) => unknown;
+};
 
-function isStatsAggregateArray(v: any): v is StatsAggregateArray<any> {
-  return Array.isArray(v) && typeof (v as StatsAggregateArray<any>)._aggregate === 'function';
+function isStatsAggregateArray(v: unknown): v is StatsAggregateArray<unknown> {
+  // eslint-disable-next-line no-underscore-dangle
+  return Array.isArray(v) && typeof (v as StatsAggregateArray<unknown>)._aggregate === 'function';
 }
 
 export function statsAggregate<T>(v: T[]): T[] {
   // combine into an array
   if (Array.isArray(v)) {
     const copy: StatsAggregateArray<T> = v.slice();
+    // eslint-disable-next-line no-underscore-dangle
     copy._aggregate = (gen, stats) => gen(copy, stats);
     return copy;
   }
@@ -77,9 +87,10 @@ export function statsAggregateArray<T>(v: T[]): T[] {
   // combine into an array
   if (Array.isArray(v)) {
     const copy: StatsAggregateArray<T> = v.slice();
+    // eslint-disable-next-line no-underscore-dangle
     copy._aggregate = (gen, stats) => {
       // aggregate by column
-      const maxLength = copy.reduce((acc, v) => Math.max(acc, Array.isArray(v) ? v.length : 0), 0);
+      const maxLength = copy.reduce((acc, vi) => Math.max(acc, Array.isArray(vi) ? vi.length : 0), 0);
       return Array(maxLength)
         .fill(0)
         .map((_, i) =>
@@ -98,12 +109,12 @@ function DummyComponent() {
   return null;
 }
 
-export function useStats<D extends object = {}>(hooks: Hooks<D>) {
+export function useStats<D extends UnknownObject = UnknownObject>(hooks: Hooks<D>): void {
   hooks.useInstance.push(useInstance);
 }
 useStats.pluginName = 'useStats';
 
-function useInstance<D extends object = {}>(instance: TableInstance<D>) {
+function useInstance<D extends UnknownObject = UnknownObject>(instance: TableInstance<D>) {
   ensurePluginOrder(instance.plugins, ['useFilters', 'useGroupBy'], 'useStats');
 
   const extendedInstance = (instance as unknown) as TableInstance<D> &
@@ -123,9 +134,10 @@ function useInstance<D extends object = {}>(instance: TableInstance<D>) {
 
     const flat = extendedInstance.nonGroupedFlatRows ?? instance.flatRows;
     const values = flat.map((row) => row.values[col.id]);
-    const preFilteredFlatRows = extendedInstance.preFilteredFlatRows;
+    const { preFilteredFlatRows } = extendedInstance;
 
     if (!extended.Summary) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       extended.Summary = (extended as any).Filter ?? DummyComponent;
     }
     // compute raw stats
@@ -141,6 +153,7 @@ function useInstance<D extends object = {}>(instance: TableInstance<D>) {
       const value = group.values[col.id];
       // compute group value for stats
       if (isStatsAggregateArray(value)) {
+        // eslint-disable-next-line no-param-reassign, no-underscore-dangle, @typescript-eslint/no-non-null-assertion
         group.values[col.id] = value._aggregate!(extended.stats!, extended.statsValue);
       }
     });

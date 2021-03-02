@@ -25,7 +25,7 @@ export interface ITextStats extends ICommonStats<string> {
   format: (v: string) => string;
 }
 
-export function isTextStats(obj: any): obj is ITextStats {
+export function isTextStats(obj: unknown): obj is ITextStats {
   return (
     obj != null && typeof (obj as ITextStats).unique === 'number' && Array.isArray((obj as ITextStats).mostFrequent)
   );
@@ -75,13 +75,16 @@ export function textStatsGenerator(options: TextStatsOptions = {}): (arr: readon
     const items: string[] = [];
     arr.forEach((v) => {
       if (!v) {
-        missing++;
-      } else if (counter.has(v)) {
-        counter.get(v)!.count++;
-        items.push(v);
+        missing += 1;
       } else {
-        counter.set(v, { value: v, count: 1 });
-        items.push(v);
+        const c = counter.get(v);
+        if (c) {
+          c.count += 1;
+          items.push(v);
+        } else {
+          counter.set(v, { value: v, count: 1 });
+          items.push(v);
+        }
       }
     });
     const r: ITextStats = {

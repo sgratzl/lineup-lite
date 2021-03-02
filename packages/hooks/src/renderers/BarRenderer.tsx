@@ -8,7 +8,8 @@
 import { NumberBar, NumberFormatter } from '@lineup-lite/components';
 import React, { useContext } from 'react';
 import type { CellProps, Renderer } from 'react-table';
-import { deriveNumberOptions } from './barStats';
+import type { UnknownObject } from '../interfaces';
+import deriveNumberOptions from './deriveNumberOptions';
 import { missingClass, optionContext } from './utils';
 
 export interface BarRendererOptions {
@@ -20,7 +21,7 @@ export interface BarRendererOptions {
 /**
  * Cell renderer for a number to be rendered as a a bar
  */
-export function BarRenderer<D extends object, P extends CellProps<D, number>>(props: P) {
+export function BarRenderer<D extends UnknownObject, P extends CellProps<D, number>>(props: P): JSX.Element {
   const options = useContext(optionContext) as BarRendererOptions;
   const p = deriveNumberOptions<D, P>(props, options);
   return <NumberBar {...p} value={props.value} className={missingClass(props.value)} />;
@@ -29,7 +30,7 @@ export function BarRenderer<D extends object, P extends CellProps<D, number>>(pr
 /**
  * factory for rendering numbers as a bar
  */
-export function BarRendererFactory<D extends object, P extends CellProps<D, number>>(
+export function BarRendererFactory<D extends UnknownObject, P extends CellProps<D, number>>(
   options: BarRendererOptions = {}
 ): Renderer<P> {
   return (props: P) => (

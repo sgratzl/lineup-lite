@@ -7,20 +7,21 @@
 
 import React, { ComponentType, ReactNode, useCallback } from 'react';
 import type { ColumnInstance } from 'react-table';
+import type { CommonProps } from '@lineup-lite/components';
 import { LINEUP_LITE_I18N_EN } from '../../i18n';
 import { useLineUpLiteTableContext } from '../contexts';
 import { clsx } from '../utils';
-import type { CommonProps } from '@lineup-lite/components';
+import type { UnknownObject } from '../interfaces';
 
-export function LineUpLiteHideAction(
-  props: ColumnInstance<any> &
+export default function LineUpLiteHideAction<D extends UnknownObject = UnknownObject>(
+  props: ColumnInstance<D> &
     CommonProps & {
       children?: ReactNode;
       canHide?: boolean;
       canResize?: boolean;
       icon: ComponentType;
     }
-) {
+): JSX.Element {
   const c = useLineUpLiteTableContext();
   const i18n = c?.i18n ?? LINEUP_LITE_I18N_EN;
   const { toggleHidden } = props;
@@ -38,5 +39,7 @@ export function LineUpLiteHideAction(
       <props.icon />
       {props.children}
     </button>
-  ) : null;
+  ) : (
+    <></>
+  );
 }

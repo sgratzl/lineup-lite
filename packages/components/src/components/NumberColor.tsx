@@ -10,10 +10,11 @@ import { defaultColorScale } from '../math';
 import type { NumberBarProps } from './NumberBar';
 import { clsx, format, mergeStyles, toLocaleString } from './utils';
 
+export type { NumberBarProps as NumberColorProps } from './NumberBar';
 /**
  * renders a numeric value along with a colored rect
  */
-export function NumberColor(props: NumberBarProps) {
+export function NumberColor(props: NumberBarProps): JSX.Element {
   const v = props.scale && props.value != null && !Number.isNaN(props.value) ? props.scale(props.value) : props.value;
   const label = format(props.value, props.format ?? toLocaleString);
   return (

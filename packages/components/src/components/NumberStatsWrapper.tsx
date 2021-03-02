@@ -8,14 +8,14 @@
 import React, { CSSProperties, PropsWithChildren } from 'react';
 import { clsx } from './utils';
 
-export function NumberStatsWrapper<T>(
-  props: PropsWithChildren<{
-    s: { readonly min?: T; readonly max?: T; format: (v: T) => string };
-    summary?: boolean;
-    className?: string;
-    style?: CSSProperties;
-  }>
-) {
+export type NumberStatsWrapperProps<T> = PropsWithChildren<{
+  s: { readonly min?: T; readonly max?: T; format: (v: T) => string };
+  summary?: boolean;
+  className?: string;
+  style?: CSSProperties;
+}>;
+
+export function NumberStatsWrapper<T>(props: NumberStatsWrapperProps<T>): JSX.Element {
   return (
     <div
       className={clsx(props.className, 'lt-summary', !props.summary && 'lt-group')}

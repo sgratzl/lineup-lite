@@ -9,6 +9,7 @@ import { ICategoricalStats, UpSetLine, CategoricalSetValue } from '@lineup-lite/
 import React, { useContext } from 'react';
 import type { CellProps, Renderer } from 'react-table';
 import type { UseStatsColumnProps } from '../hooks';
+import type { UnknownObject } from '../interfaces';
 import type { CategoricalRendererOptions } from './CategoricalRenderer';
 import { EMPTY_ARR, generateColor, generateIdentity, missingClass, optionContext, resolve } from './utils';
 
@@ -16,7 +17,7 @@ export interface CategoricalSetRendererOptions extends CategoricalRendererOption
   categories?: readonly string[];
 }
 
-function deriveCategoricalSetOptions<D extends object, P extends CellProps<D, CategoricalSetValue>>(
+function deriveCategoricalSetOptions<D extends UnknownObject, P extends CellProps<D, CategoricalSetValue>>(
   props: P,
   options: CategoricalSetRendererOptions = {}
 ) {
@@ -29,13 +30,15 @@ function deriveCategoricalSetOptions<D extends object, P extends CellProps<D, Ca
   };
 }
 
-export function CategoricalSetRenderer<D extends object, P extends CellProps<D, CategoricalSetValue>>(props: P) {
+export function CategoricalSetRenderer<D extends UnknownObject, P extends CellProps<D, CategoricalSetValue>>(
+  props: P
+): JSX.Element {
   const options = useContext(optionContext) as CategoricalSetRendererOptions;
   const p = deriveCategoricalSetOptions<D, P>(props, options);
   return <UpSetLine {...p} value={props.value} sets={p.categories} className={missingClass(props.value)} />;
 }
 
-export function CategoricalSetRendererFactory<D extends object, P extends CellProps<D, CategoricalSetValue>>(
+export function CategoricalSetRendererFactory<D extends UnknownObject, P extends CellProps<D, CategoricalSetValue>>(
   options: CategoricalSetRendererOptions = {}
 ): Renderer<P> {
   return (props: P) => (

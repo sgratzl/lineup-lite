@@ -48,7 +48,7 @@ function barProps(value: number, color: string | ((v: number) => string)): CSSPr
 /**
  * renders a numeric value along with a bar
  */
-export function NumberBar(props: NumberBarProps) {
+export function NumberBar(props: NumberBarProps): JSX.Element {
   const label = format(props.value, props.format ?? toLocaleString);
   return (
     <div

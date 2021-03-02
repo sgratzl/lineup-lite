@@ -18,3 +18,6 @@ packageExtensions:
   '@lineup-lite/table@*':
     peerDependencies:
       'react-refresh': '*'
+  'eslint-module-utils@*':
+    dependencies:
+      eslint-import-resolver-node: '*'

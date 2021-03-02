@@ -24,7 +24,7 @@ export interface CategoricalColorProps extends CommonProps {
   format?: string | ((v: string) => string);
 }
 
-export function CategoricalColor(props: CategoricalColorProps) {
+export function CategoricalColor(props: CategoricalColorProps): JSX.Element {
   const title = format(props.value, props.format);
   return (
     <div

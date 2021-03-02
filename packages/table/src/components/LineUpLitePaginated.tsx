@@ -6,21 +6,25 @@
  */
 
 import React from 'react';
-import type { LineUpLiteProps } from './interfaces';
+import { usePagination, UsePaginationOptions, UsePaginationInstanceProps, UsePaginationState } from 'react-table';
+import type { LineUpLiteProps, UnknownObject } from './interfaces';
 import { LineUpLiteTHead } from './LineUpLiteTHead';
 import { LineUpLiteTableInstance, useLineUpLite } from './useLineUpLite';
 import { LineUpLiteTR } from './LineUpLiteTR';
 import { clsx } from './utils';
-import { usePagination, UsePaginationOptions, UsePaginationInstanceProps } from 'react-table';
 import { LineUpLitePagination } from './LineUpLitePagination';
 import type { ActionIcons, PaginationIcons } from '../icons';
 import { LineUpLiteTableContextProvider } from './contexts';
 
-export interface LineUpLitePaginatedProps<D extends object = {}> extends LineUpLiteProps<D>, UsePaginationOptions<D> {
+export interface LineUpLitePaginatedProps<D extends UnknownObject = UnknownObject>
+  extends LineUpLiteProps<D>,
+    UsePaginationOptions<D> {
   icons: PaginationIcons & ActionIcons;
 }
 
-export function LineUpLitePaginated<D extends object = {}>(props: LineUpLitePaginatedProps<D>) {
+export function LineUpLitePaginated<D extends UnknownObject = UnknownObject>(
+  props: LineUpLitePaginatedProps<D>
+): JSX.Element {
   const instance = useLineUpLite<D>(props, usePagination);
   const {
     getTableProps,
@@ -35,7 +39,7 @@ export function LineUpLitePaginated<D extends object = {}>(props: LineUpLitePagi
     state,
   } = instance as LineUpLiteTableInstance<D> & UsePaginationInstanceProps<D>;
 
-  const { pageIndex, pageSize } = state as any;
+  const { pageIndex, pageSize } = state as UsePaginationState<D>;
 
   const p = { c: props.components?.table ?? 'div', b: props.components?.tbody ?? 'div' };
 

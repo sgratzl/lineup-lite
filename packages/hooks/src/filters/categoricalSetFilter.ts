@@ -7,6 +7,7 @@
 
 import type { IdType, Row } from 'react-table';
 import type { FilterSetValue } from '@lineup-lite/components';
+import type { UnknownObject } from '../interfaces';
 
 /**
  * filter function by a set of filter values
@@ -14,7 +15,7 @@ import type { FilterSetValue } from '@lineup-lite/components';
  * @param ids
  * @param filterValue
  */
-export function categoricalSetFilter<D extends object = {}>(
+export function categoricalSetFilter<D extends UnknownObject = UnknownObject>(
   rows: readonly Row<D>[],
   ids: readonly IdType<D>[],
   filterValue: readonly FilterSetValue<string>[]
@@ -60,3 +61,5 @@ export function categoricalSetFilter<D extends object = {}>(
  * determines whether the column value to should be automatically removed, since it cannot be handled by this filter
  */
 categoricalSetFilter.autoRemove = (val: readonly string[]) => !Array.isArray(val);
+
+export default categoricalSetFilter;

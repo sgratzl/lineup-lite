@@ -49,7 +49,7 @@ interface FilterRefData {
 function FilterRangeSlider<T>(props: FilterRangeSliderProps<T> & { refData: MutableRefObject<FilterRefData> }) {
   const { setFilter } = props;
   const { invert, scale } = props.s;
-  const filterValue = props.filterValue;
+  const { filterValue } = props;
   const [localFilter, setLocalFilter] = useState(filterValue ?? [null as T | null, null as T | null]);
   const filterRef = useRef(localFilter);
   filterRef.current = localFilter;
@@ -76,16 +76,21 @@ function FilterRangeSlider<T>(props: FilterRangeSliderProps<T> & { refData: Muta
       setFilter(v[0] == null && v[1] == null ? undefined : v);
     };
     const onMinMouseUp = () => {
-      ueber!.removeEventListener('mousemove', onMinMouseMove);
-      ueber!.removeEventListener('mouseleave', onMinMouseUp);
-      ueber!.removeEventListener('mouseup', onMinMouseUp);
+      if (!ueber) {
+        return;
+      }
+      ueber.removeEventListener('mousemove', onMinMouseMove);
+      ueber.removeEventListener('mouseleave', onMinMouseUp);
+      ueber.removeEventListener('mouseup', onMinMouseUp);
       ueber = null;
     };
 
     return (evt: RMouseEvent<HTMLElement>) => {
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       const bb = evt.currentTarget.parentElement!.parentElement!.getBoundingClientRect();
       base = bb.x;
       width = bb.width;
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       ueber = evt.currentTarget.closest('body')!;
       ueber.addEventListener('mousemove', onMinMouseMove);
       ueber.addEventListener('mouseleave', onMinMouseUp);
@@ -105,16 +110,21 @@ function FilterRangeSlider<T>(props: FilterRangeSliderProps<T> & { refData: Muta
       setFilter(v[0] == null && v[1] == null ? undefined : v);
     };
     const onMinMouseUp = () => {
-      ueber!.removeEventListener('mousemove', onMinMouseMove);
-      ueber!.removeEventListener('mouseleave', onMinMouseUp);
-      ueber!.removeEventListener('mouseup', onMinMouseUp);
+      if (!ueber) {
+        return;
+      }
+      ueber.removeEventListener('mousemove', onMinMouseMove);
+      ueber.removeEventListener('mouseleave', onMinMouseUp);
+      ueber.removeEventListener('mouseup', onMinMouseUp);
       ueber = null;
     };
 
     return (evt: RMouseEvent<HTMLElement>) => {
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       const bb = evt.currentTarget.parentElement!.parentElement!.getBoundingClientRect();
       base = bb.x;
       width = bb.width;
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       ueber = evt.currentTarget.closest('body')!;
       ueber.addEventListener('mousemove', onMinMouseMove);
       ueber.addEventListener('mouseleave', onMinMouseUp);
@@ -151,6 +161,7 @@ function FilterRangeSlider<T>(props: FilterRangeSliderProps<T> & { refData: Muta
     },
     [setFilter, setLocalFilter, filterRef, invert, scale]
   );
+  // eslint-disable-next-line no-param-reassign
   props.refData.current = {
     clearFilter,
     setShortCutFilter,
@@ -162,14 +173,14 @@ function FilterRangeSlider<T>(props: FilterRangeSliderProps<T> & { refData: Muta
         title={localFilter[0] == null ? undefined : i18n.filterRangeMinFilter(props.s.format(localFilter[0]))}
         style={{ width: toPercent(localFilter[0] == null ? 0 : Math.max(0, props.s.scale(localFilter[0]))) }}
       >
-        <div className="lt-filter-range-drag" onMouseDown={onMinMouseDown} />
+        <div className="lt-filter-range-drag" onMouseDown={onMinMouseDown} role="presentation" />
       </div>
       <div
         className="lt-filter-range lt-filter-range-max"
         title={localFilter[1] == null ? undefined : i18n.filterRangeMaxFilter(props.s.format(localFilter[1]))}
         style={{ width: toPercent(localFilter[1] == null ? 0 : Math.max(0, 1 - props.s.scale(localFilter[1]))) }}
       >
-        <div className="lt-filter-range-drag" onMouseDown={onMaxMouseDown} />
+        <div className="lt-filter-range-drag" onMouseDown={onMaxMouseDown} role="presentation" />
       </div>
     </>
   );
@@ -183,7 +194,7 @@ export function FilterRangeWrapper<T>(
     } & FilterRangeSliderProps<T> &
       CommonProps
   >
-) {
+): JSX.Element {
   const refData = useRef({ clearFilter() {}, setShortCutFilter() {} } as FilterRefData);
   const clearFilter = useCallback(() => refData.current.clearFilter(), [refData]);
   const setShortCutFilter = useCallback((evt: RMouseEvent<HTMLElement>) => refData.current.setShortCutFilter(evt), [
@@ -197,6 +208,7 @@ export function FilterRangeWrapper<T>(
       data-max={props.s.max != null && props.summary ? props.s.format(props.s.max) : null}
       onDoubleClick={clearFilter}
       onClick={setShortCutFilter}
+      role="presentation"
       style={props.style}
     >
       {props.children}

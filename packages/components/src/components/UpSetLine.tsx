@@ -71,11 +71,11 @@ function UpSetLineLine({
   last,
   sets,
   color,
-}: Pick<UpSetLineProps, 'sets' | 'color'> & { first: number; last: number }) {
+}: Pick<UpSetLineProps, 'sets' | 'color'> & { first: number; last: number }): JSX.Element {
   if (first >= last) {
-    return null;
+    return <></>;
   }
-  let stroke: string | undefined = undefined;
+  let stroke: string | undefined;
   let g: ReactNode = null;
   if (typeof color === 'string') {
     stroke = color;
@@ -83,6 +83,7 @@ function UpSetLineLine({
     const colors = sets.slice(first, last + 1).map((d) => color(d));
     if (colors.every((d) => d === colors[0])) {
       // single color
+      // eslint-disable-next-line prefer-destructuring
       stroke = colors[0];
     } else {
       const r = generateGradient(colors);
@@ -103,9 +104,9 @@ function UpSetLineLine({
   );
 }
 
-export function UpSetLine(props: UpSetLineProps) {
+export function UpSetLine(props: UpSetLineProps): JSX.Element {
   const has = props.value instanceof Set ? props.value : new Set(props.value);
-  const sets = props.sets;
+  const { sets } = props;
   const first = sets.findIndex((d) => has.has(d));
   let last = first;
   if (has.size > 1 && first < sets.length - 1) {
@@ -127,6 +128,7 @@ export function UpSetLine(props: UpSetLineProps) {
               key={s}
               mode={has.has(s)}
               title={(has.has(s) ? i18n.upsetHas : i18n.upsetHasNot)(format(s, props.format))}
+              // eslint-disable-next-line no-nested-ternary
               color={typeof props.color === 'string' ? props.color : props.color ? props.color(s) : undefined}
             />
           ))}
@@ -156,7 +158,7 @@ export interface UpSetPartialLineProps extends CommonProps {
   i18n?: Partial<typeof UPSET_LINE_I18N_EN>;
 }
 
-export function UpSetPartialLine(props: UpSetPartialLineProps) {
+export function UpSetPartialLine(props: UpSetPartialLineProps): JSX.Element {
   const i18n = useI18N(UPSET_LINE_I18N_EN, props.i18n);
   return (
     <div className={clsx('lt-upset-line', props.className)} style={props.style}>

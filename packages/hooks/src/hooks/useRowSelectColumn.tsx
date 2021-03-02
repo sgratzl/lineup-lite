@@ -14,12 +14,12 @@ import type {
   UseRowSelectRowProps,
   TableToggleAllRowsSelectedProps,
 } from 'react-table';
-import type { LineUpLiteColumn } from '../interfaces';
+import type { LineUpLiteColumn, UnknownObject } from '../interfaces';
 import IndeterminateCheckbox from './IndeterminateCheckbox';
 
 export type { TableToggleAllRowsSelectedProps } from 'react-table';
 
-export function useRowSelectColumn<D extends object = {}>(hooks: Hooks<D>) {
+export function useRowSelectColumn<D extends UnknownObject = UnknownObject>(hooks: Hooks<D>): void {
   hooks.visibleColumns.push(generateColumn);
 }
 useRowSelectColumn.pluginName = 'useRowSelectColumn';
@@ -47,9 +47,10 @@ export interface UseSelectColumnTableOptions {
   selectCheckboxComponent?: React.ComponentType<TableToggleAllRowsSelectedProps>;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function Cell(props: any) {
-  const typedRow = props.row as Row<any> & UseRowSelectRowProps<any>;
-  const rows = props.rows as (Row<any> & UseRowSelectRowProps<any>)[];
+  const typedRow = props.row as Row<UnknownObject> & UseRowSelectRowProps<UnknownObject>;
+  const rows = props.rows as (Row<UnknownObject> & UseRowSelectRowProps<UnknownObject>)[];
   const i18n = {
     ...USE_ROW_SELECT_COLUMN_I18N_EN,
     ...(props.i18n ?? {}),
@@ -67,10 +68,10 @@ function Cell(props: any) {
       const shouldSelect = e.currentTarget.checked;
       let rangeStart = rowIndex;
       while (rangeStart > 0 && rows[rangeStart - 1].isSelected !== shouldSelect) {
-        rangeStart--;
+        rangeStart -= 1;
       }
       // select all others within range
-      for (let i = rangeStart; i < rowIndex; i++) {
+      for (let i = rangeStart; i < rowIndex; i += 1) {
         rows[i].toggleRowSelected(shouldSelect);
       }
     },
@@ -92,6 +93,7 @@ function Summary() {
   return <div className="lt-summary " />;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function Header(props: any) {
   const i18n = {
     ...USE_ROW_SELECT_COLUMN_I18N_EN,
@@ -108,7 +110,7 @@ function Header(props: any) {
   );
 }
 
-function generateColumn<D extends object = {}>(columns: ColumnInstance<D>[], meta: MetaBase<D>) {
+function generateColumn<D extends UnknownObject = UnknownObject>(columns: ColumnInstance<D>[], meta: MetaBase<D>) {
   const width = (meta.instance as UseSelectColumnTableOptions).selectColumnWidth ?? 20;
   const selectionColumn: LineUpLiteColumn<D> = {
     id: 'selection',

@@ -18,23 +18,23 @@ import {
   UseGroupByRowProps,
   MetaBase,
 } from 'react-table';
-import type { LineUpLiteColumn } from '../interfaces';
+import type { LineUpLiteColumn, UnknownObject } from '../interfaces';
 
 export interface UseRankRowProps {
   rank: number;
 }
 
-export function useRowRankColumn<D extends object = {}>(hooks: Hooks<D>) {
+export function useRowRankColumn<D extends UnknownObject = UnknownObject>(hooks: Hooks<D>): void {
   hooks.visibleColumns.push(generateColumn);
   hooks.useInstance.push(useInstance);
 }
 useRowRankColumn.pluginName = 'useRowRankColumn';
 
-function Cell(props: TableCellProps & UseTableCellProps<any, any>) {
+function Cell(props: TableCellProps & UseTableCellProps<UnknownObject, unknown>) {
   return <div className="lt-rank">{`${((props.row as unknown) as UseRankRowProps).rank.toLocaleString()}.`}</div>;
 }
 
-function Aggregated(props: TableCellProps & UseTableCellProps<any, any>) {
+function Aggregated(props: TableCellProps & UseTableCellProps<UnknownObject, unknown>) {
   const group = props.row.subRows;
   if (group.length === 0) {
     return <div className="lt-rank-agg" />;
@@ -66,7 +66,7 @@ export interface UseRowRankColumnTableOptions {
   rankColumnWidth?: number;
 }
 
-function generateColumn<D extends object = {}>(columns: ColumnInstance<D>[], meta: MetaBase<D>) {
+function generateColumn<D extends UnknownObject = UnknownObject>(columns: ColumnInstance<D>[], meta: MetaBase<D>) {
   const width = (meta.instance as UseRowRankColumnTableOptions).rankColumnWidth ?? 40;
   const rankColumn: LineUpLiteColumn<D> = {
     id: 'rank',
@@ -86,7 +86,7 @@ function generateColumn<D extends object = {}>(columns: ColumnInstance<D>[], met
   return [rankColumn, ...columns];
 }
 
-function useInstance<D extends object = {}>(instance: TableInstance<D>) {
+function useInstance<D extends UnknownObject = UnknownObject>(instance: TableInstance<D>) {
   ensurePluginOrder(instance.plugins, ['useFilters', 'useGroupBy', 'useSortBy'], 'useRowRankColumn');
 
   const extendedInstance = (instance as unknown) as TableInstance<D> &
@@ -97,9 +97,13 @@ function useInstance<D extends object = {}>(instance: TableInstance<D>) {
   let groupRank = 1;
   extendedInstance.flatRows.forEach((row) => {
     if (((row as unknown) as UseGroupByRowProps<D>).isGrouped) {
-      ((row as unknown) as UseRankRowProps).rank = groupRank++;
+      // eslint-disable-next-line no-param-reassign
+      ((row as unknown) as UseRankRowProps).rank = groupRank;
+      groupRank += 1;
       return;
     }
-    ((row as unknown) as UseRankRowProps).rank = rank++;
+    // eslint-disable-next-line no-param-reassign
+    ((row as unknown) as UseRankRowProps).rank = rank;
+    rank += 1;
   });
 }

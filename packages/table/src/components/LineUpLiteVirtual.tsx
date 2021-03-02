@@ -5,28 +5,27 @@
  * Copyright (c) 2021 Samuel Gratzl <sam@sgratzl.com>
  */
 
-import type { ActionIcons } from '../icons';
 import React, { forwardRef, ReactElement, Ref, RefAttributes, useRef } from 'react';
-import type { LineUpLiteProps } from './interfaces';
+import type { ActionIcons } from '../icons';
+import type { LineUpLiteProps, UnknownObject } from './interfaces';
 import { LineUpLiteTHead } from './LineUpLiteTHead';
-import { LineUpLiteTVirtualBody } from './LineUpLiteTVirtualBody';
+import LineUpLiteTVirtualBody from './LineUpLiteTVirtualBody';
 import { useLineUpLite } from './useLineUpLite';
 import { clsx } from './utils';
 import { LineUpLiteTableContextProvider } from './contexts';
 
 export type SizeEstimator = number | [number, number] | ((index: number) => number);
 
-export interface LineUpLiteVirtualProps<D extends object = {}> extends LineUpLiteProps<D> {
+export interface LineUpLiteVirtualProps<D extends UnknownObject = UnknownObject> extends LineUpLiteProps<D> {
   estimatedSize: SizeEstimator;
   rowSpacing?: number;
   overscan?: number;
   icons?: Partial<ActionIcons>;
 }
 
-const LineUpLiteVirtualImpl = /*!#__PURE__*/ forwardRef(function LineUpLiteVirtual<D extends object = {}>(
-  props: LineUpLiteVirtualProps<D>,
-  ref: Ref<HTMLElement>
-) {
+const LineUpLiteVirtualImpl = /*! #__PURE__ */ forwardRef(function LineUpLiteVirtual<
+  D extends UnknownObject = UnknownObject
+>(props: LineUpLiteVirtualProps<D>, ref: Ref<HTMLElement>) {
   const instance = useLineUpLite<D>(props);
   const { getTableProps, getTableBodyProps, headerGroups, prepareRow, rows } = instance;
 
@@ -58,6 +57,6 @@ const LineUpLiteVirtualImpl = /*!#__PURE__*/ forwardRef(function LineUpLiteVirtu
   );
 });
 
-export const LineUpLiteVirtual = LineUpLiteVirtualImpl as <D extends object = {}>(
+export const LineUpLiteVirtual = LineUpLiteVirtualImpl as <D extends UnknownObject = UnknownObject>(
   p: LineUpLiteVirtualProps<D> & RefAttributes<HTMLElement>
 ) => ReactElement;

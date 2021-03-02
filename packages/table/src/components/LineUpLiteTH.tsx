@@ -7,18 +7,18 @@
 
 import React, { forwardRef, ReactElement, ReactNode, Ref, RefAttributes } from 'react';
 import type { HeaderGroup, UseGroupByColumnProps, UseResizeColumnsColumnProps } from 'react-table';
+import type { LineUpLiteColumn, UnknownObject } from '@lineup-lite/hooks';
 import { clsx, mergeStyles } from './utils';
 import { LineUpLiteToolbar } from './toolbar/LineUpLiteToolbar';
-import type { LineUpLiteColumn } from '@lineup-lite/hooks';
 import type { ActionLineUpProps } from './interfaces';
 import { useLineUpLiteTableContext } from './contexts';
 
-export interface LineUpLiteTHProps<D extends object = {}> extends ActionLineUpProps<D> {
+export interface LineUpLiteTHProps<D extends UnknownObject = UnknownObject> extends ActionLineUpProps<D> {
   col: HeaderGroup<D>;
   children?: ReactNode;
 }
 
-const LineUpLiteTHImpl = /*!#__PURE__*/ forwardRef(function LineUpLiteTH<D extends object = {}>(
+const LineUpLiteTHImpl = /*! #__PURE__ */ forwardRef(function LineUpLiteTH<D extends UnknownObject = UnknownObject>(
   { col, actions, icons, children }: LineUpLiteTHProps<D>,
   ref: Ref<HTMLElement>
 ) {
@@ -58,6 +58,6 @@ const LineUpLiteTHImpl = /*!#__PURE__*/ forwardRef(function LineUpLiteTH<D exten
   );
 });
 
-export const LineUpLiteTH = LineUpLiteTHImpl as <D extends object = {}>(
+export const LineUpLiteTH = LineUpLiteTHImpl as <D extends UnknownObject = UnknownObject>(
   p: LineUpLiteTHProps<D> & RefAttributes<HTMLElement>
 ) => ReactElement;

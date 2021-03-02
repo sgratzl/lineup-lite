@@ -6,9 +6,10 @@
  */
 
 import type { ColumnInstance, Row } from 'react-table';
-import { baseGroupBy } from './internal';
+import type { UnknownObject } from '../interfaces';
+import baseGroupBy from './baseGroupBy';
 
-export function textGroupBy<D extends object = {}>(
+export default function textGroupBy<D extends UnknownObject = UnknownObject>(
   rows: Row<D>[],
   column: ColumnInstance<D>
 ): Record<string, Row<D>[]> {

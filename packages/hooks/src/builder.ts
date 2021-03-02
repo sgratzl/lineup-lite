@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2021 Samuel Gratzl <sam@sgratzl.com>
  */
+/* eslint-disable @typescript-eslint/ban-types */
 
 import {
   CategoricalStatsOptions,
@@ -33,7 +34,7 @@ import {
 } from './renderers';
 import { textStats, categoricalStats, dateStats, numberStats } from './stats';
 import { rangeFilter, categoricalFilter, categoricalSetFilter } from './filters';
-import type { LineUpLiteColumn } from './interfaces';
+import type { LineUpLiteColumn, UnknownObject } from './interfaces';
 import {
   sortCompare,
   categoricalSort,
@@ -57,7 +58,9 @@ function guessName(acc: string) {
     .join(' ');
 }
 
-export function asColumn<D extends object, C extends Column<D> = Column<D>>(col: C | keyof D): C {
+export function asColumn<D extends UnknownObject = UnknownObject, C extends Column<D> = Column<D>>(
+  col: C | keyof D
+): C {
   if (typeof col === 'string') {
     return {
       Header: guessName(col),
@@ -72,7 +75,7 @@ export function asColumn<D extends object, C extends Column<D> = Column<D>>(col:
  * @param col property key or partial column Header and accessor
  * @param options additional options for statistics
  */
-export function asTextColumn<D extends object, C extends Column<D> = Column<D>>(
+export function asTextColumn<D extends UnknownObject = UnknownObject, C extends Column<D> = Column<D>>(
   col: C | keyof D,
   options?: TextStatsOptions
 ): LineUpLiteColumn<D> {
@@ -97,7 +100,7 @@ export function asTextColumn<D extends object, C extends Column<D> = Column<D>>(
  * @param col property key or partial column Header and accessor
  * @param options additional options for statistics
  */
-export function asNumberColumn<D extends object, C extends Column<D> = Column<D>>(
+export function asNumberColumn<D extends UnknownObject = UnknownObject, C extends Column<D> = Column<D>>(
   col: C | keyof D,
   options?: NumberStatsOptions
 ): LineUpLiteColumn<D> {
@@ -123,7 +126,7 @@ export function asNumberColumn<D extends object, C extends Column<D> = Column<D>
  * @param col property key or partial column Header and accessor
  * @param options additional options for statistics
  */
-export function asNumbersColumn<D extends object, C extends Column<D> = Column<D>>(
+export function asNumbersColumn<D extends UnknownObject, C extends Column<D> = Column<D>>(
   col: C | keyof D,
   options?: NumberStatsOptions
 ): LineUpLiteColumn<D> {
@@ -149,7 +152,7 @@ export function asNumbersColumn<D extends object, C extends Column<D> = Column<D
  * @param col property key or partial column Header and accessor
  * @param options additional options for statistics
  */
-export function asNumberBoxPlotColumn<D extends object, C extends Column<D> = Column<D>>(
+export function asNumberBoxPlotColumn<D extends UnknownObject = UnknownObject, C extends Column<D> = Column<D>>(
   col: C | keyof D,
   options?: NumberStatsOptions
 ): LineUpLiteColumn<D> {
@@ -175,7 +178,7 @@ export function asNumberBoxPlotColumn<D extends object, C extends Column<D> = Co
  * @param col property key or partial column Header and accessor
  * @param options additional options for statistics
  */
-export function asCategoricalColumn<D extends object, C extends Column<D> = Column<D>>(
+export function asCategoricalColumn<D extends UnknownObject = UnknownObject, C extends Column<D> = Column<D>>(
   col: C | keyof D,
   options?: CategoricalStatsOptions
 ): LineUpLiteColumn<D> {
@@ -203,7 +206,7 @@ export function asCategoricalColumn<D extends object, C extends Column<D> = Colu
  * @param col property key or partial column Header and accessor
  * @param options additional options for statistics
  */
-export function asCategoricalSetColumn<D extends object, C extends Column<D> = Column<D>>(
+export function asCategoricalSetColumn<D extends UnknownObject = UnknownObject, C extends Column<D> = Column<D>>(
   col: C | keyof D,
   options?: CategoricalStatsOptions
 ): LineUpLiteColumn<D> {
@@ -231,7 +234,7 @@ export function asCategoricalSetColumn<D extends object, C extends Column<D> = C
  * @param col property key or partial column Header and accessor
  * @param options additional options for statistics
  */
-export function asDateColumn<D extends object, C extends Column<D> = Column<D>>(
+export function asDateColumn<D extends UnknownObject = UnknownObject, C extends Column<D> = Column<D>>(
   col: C | keyof D,
   options?: DateStatsOptions
 ): LineUpLiteColumn<D> {
@@ -256,7 +259,7 @@ export function asDateColumn<D extends object, C extends Column<D> = Column<D>>(
  * @param col property key or partial column Header and accessor
  * @param options additional options for statistics
  */
-export function asStackedNumberColumn<D extends object, C extends Column<D> = Column<D>>(
+export function asStackedNumberColumn<D extends UnknownObject = UnknownObject, C extends Column<D> = Column<D>>(
   col: C | string,
   stack: readonly { col: keyof D | Accessor<D>; weight: number; color?: string }[],
   options?: NumberStatsOptions & { colors?: (v: string) => string }
@@ -274,6 +277,7 @@ export function asStackedNumberColumn<D extends object, C extends Column<D> = Co
     defaultCanGroupBy: false,
     groupBy: numberGroupBy,
     canHide: false,
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     id: typeof col == 'string' ? col : col.id ?? col.Header!,
     ...(typeof col === 'string' ? { Header: col } : col),
     accessor: computeStackedValue(stack, options?.colors),
