@@ -9,7 +9,7 @@ import type { UseFiltersColumnProps, UseGroupByInstanceProps, Cell, CellProps, U
 import { ICommonStats, IHistStats, defaultCategoricalColorScale } from '@lineup-lite/components';
 import { createContext, Context, useCallback, useRef } from 'react';
 import type { StatsProps, StatsCellProps } from '../hooks';
-import type { UnknownObject } from '../interfaces';
+import type { AnyObject, UnknownObject } from '../interfaces';
 
 export const EMPTY_ARR = [];
 export const EMPTY_OBJ = {};
@@ -110,7 +110,7 @@ export function resolve<T>(directValue: T | undefined, globalValue: T | undefine
   return defaultValue();
 }
 
-export function isFilterAble<D extends UnknownObject = UnknownObject>(
+export function isFilterAble<D extends AnyObject = UnknownObject>(
   props: unknown
 ): props is { column: UseFiltersColumnProps<D> } {
   if (!props || (props as UnknownObject).column != null) {

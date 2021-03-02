@@ -12,9 +12,9 @@ import { clsx } from './utils';
 import { LineUpLiteTRMemo } from './LineUpLiteTR';
 import type { SizeEstimator } from './LineUpLiteVirtual';
 import { useLineUpLiteTableContext } from './contexts';
-import type { UnknownObject } from './interfaces';
+import type { AnyObject, UnknownObject } from './interfaces';
 
-export default function LineUpLiteTVirtualBody<D extends UnknownObject = UnknownObject>({
+export default function LineUpLiteTVirtualBody<D extends AnyObject = UnknownObject>({
   rows,
   prepareRow,
   getTableBodyProps,

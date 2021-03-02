@@ -6,11 +6,11 @@
  */
 
 import type { ColumnInstance, Row } from 'react-table';
-import type { UnknownObject } from '../interfaces';
+import type { AnyObject, UnknownObject } from '../interfaces';
 import { compareAsc } from '../sort/internal';
 import { MISSING_GROUP } from './histGroupBy';
 
-export default function baseGroupBy<D extends UnknownObject = UnknownObject>(
+export default function baseGroupBy<D extends AnyObject = UnknownObject>(
   rows: Row<D>[],
   column: ColumnInstance<D>,
   acc: (v: unknown) => string | null = (v) => (v ? String(v) : null)

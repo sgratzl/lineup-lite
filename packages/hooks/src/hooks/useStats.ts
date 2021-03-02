@@ -18,18 +18,18 @@ import {
   UseGroupByColumnProps,
   UseFiltersColumnProps,
 } from 'react-table';
-import type { UnknownObject } from '../interfaces';
+import type { AnyObject, UnknownObject } from '../interfaces';
 
 export type UseStatsOptions = Partial<{
   manualStats: boolean;
   autoResetStats?: boolean;
 }>;
 
-export interface UseStatsState<D extends UnknownObject = UnknownObject> {
+export interface UseStatsState<D extends AnyObject = UnknownObject> {
   Stats: Stats<D>;
 }
 
-export type UseStatsColumnOptions<D extends UnknownObject = UnknownObject> = Partial<{
+export type UseStatsColumnOptions<D extends AnyObject = UnknownObject> = Partial<{
   Summary: Renderer<StatsProps<D>>;
   stats: StatsType;
   // grouper:
@@ -44,17 +44,17 @@ export interface UseStatsColumnProps {
   preFilterStatsValue?: StatsValue;
 }
 
-export type StatsProps<D extends UnknownObject = UnknownObject> = HeaderProps<D> & {
+export type StatsProps<D extends AnyObject = UnknownObject> = HeaderProps<D> & {
   column: UseStatsColumnProps;
   i18n?: Record<string, string>;
 };
-export type StatsCellProps<D extends UnknownObject = UnknownObject> = CellProps<D> & {
+export type StatsCellProps<D extends AnyObject = UnknownObject> = CellProps<D> & {
   column: UseStatsColumnProps;
   i18n?: Record<string, string>;
 };
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type StatsValue = any;
-export type Stats<D extends UnknownObject = UnknownObject> = Array<{
+export type Stats<D extends AnyObject = UnknownObject> = Array<{
   id: IdType<D>;
   value: StatsValue;
 }>;
@@ -109,12 +109,12 @@ function DummyComponent() {
   return null;
 }
 
-export function useStats<D extends UnknownObject = UnknownObject>(hooks: Hooks<D>): void {
+export function useStats<D extends AnyObject = UnknownObject>(hooks: Hooks<D>): void {
   hooks.useInstance.push(useInstance);
 }
 useStats.pluginName = 'useStats';
 
-function useInstance<D extends UnknownObject = UnknownObject>(instance: TableInstance<D>) {
+function useInstance<D extends AnyObject = UnknownObject>(instance: TableInstance<D>) {
   ensurePluginOrder(instance.plugins, ['useFilters', 'useGroupBy'], 'useStats');
 
   const extendedInstance = (instance as unknown) as TableInstance<D> &

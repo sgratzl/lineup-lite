@@ -11,9 +11,9 @@ import type { CommonProps } from '@lineup-lite/components';
 import { LINEUP_LITE_I18N_EN } from '../../i18n';
 import { useLineUpLiteTableContext } from '../contexts';
 import { clsx } from '../utils';
-import type { UnknownObject } from '../interfaces';
+import type { AnyObject, UnknownObject } from '../interfaces';
 
-export default function LineUpLiteHideAction<D extends UnknownObject = UnknownObject>(
+export default function LineUpLiteHideAction<D extends AnyObject = UnknownObject>(
   props: ColumnInstance<D> &
     CommonProps & {
       children?: ReactNode;

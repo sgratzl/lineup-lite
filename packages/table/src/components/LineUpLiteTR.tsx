@@ -8,18 +8,18 @@
 import React, { memo, Ref, forwardRef, RefAttributes, ReactElement, ReactNode } from 'react';
 import type { Row, UseExpandedRowProps, UseGroupByRowProps, UseRowSelectRowProps } from 'react-table';
 import { useLineUpLiteTableContext } from './contexts';
-import type { UnknownObject } from './interfaces';
+import type { AnyObject, UnknownObject } from './interfaces';
 import { LineUpLiteTD } from './LineUpLiteTD';
 import { clsx, mergeStyles } from './utils';
 
-export interface LineUpLiteTRProps<D extends UnknownObject = UnknownObject> {
+export interface LineUpLiteTRProps<D extends AnyObject = UnknownObject> {
   row: Row<D>;
   virtualStart?: number;
   virtualSize?: number;
   children?: ReactNode;
 }
 
-const LineUpLiteTRImpl = /*! #__PURE__ */ forwardRef(function LineUpLiteTR<D extends UnknownObject = UnknownObject>(
+const LineUpLiteTRImpl = /*! #__PURE__ */ forwardRef(function LineUpLiteTR<D extends AnyObject = UnknownObject>(
   props: LineUpLiteTRProps<D>,
   ref: Ref<HTMLElement>
 ) {
@@ -62,7 +62,7 @@ const LineUpLiteTRImpl = /*! #__PURE__ */ forwardRef(function LineUpLiteTR<D ext
   );
 });
 
-export const LineUpLiteTR = LineUpLiteTRImpl as <D extends UnknownObject = UnknownObject>(
+export const LineUpLiteTR = LineUpLiteTRImpl as <D extends AnyObject = UnknownObject>(
   p: LineUpLiteTRProps<D> & RefAttributes<HTMLElement>
 ) => ReactElement;
 

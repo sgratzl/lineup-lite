@@ -6,7 +6,7 @@
  */
 
 import type { IdType, Row } from 'react-table';
-import type { UnknownObject } from '../interfaces';
+import type { AnyObject, UnknownObject } from '../interfaces';
 
 /**
  * filter function by a set of filter values
@@ -14,7 +14,7 @@ import type { UnknownObject } from '../interfaces';
  * @param ids
  * @param filterValue
  */
-export function categoricalFilter<D extends UnknownObject = UnknownObject>(
+export function categoricalFilter<D extends AnyObject = UnknownObject>(
   rows: readonly Row<D>[],
   ids: readonly IdType<D>[],
   filterValue: readonly string[]

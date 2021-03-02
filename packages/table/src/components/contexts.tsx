@@ -5,10 +5,10 @@
  * Copyright (c) 2021 Samuel Gratzl <sam@sgratzl.com>
  */
 
-import React, { createContext, PropsWithChildren, useContext, useEffect, useMemo, useState } from 'react';
+import React, { createContext, PropsWithChildren, ReactNode, useContext, useEffect, useMemo, useState } from 'react';
 
 import type { TableDispatch, UseGroupByState, UseSortByState } from 'react-table';
-import type { CustomizeLineUpProps, UnknownObject } from './interfaces';
+import type { AnyObject, CustomizeLineUpProps, UnknownObject } from './interfaces';
 import { EMPTY_OBJ } from './utils';
 import type { LineUpLiteState, LineUpLiteTableInstance } from './useLineUpLite';
 
@@ -21,7 +21,7 @@ export interface LineUpLiteTableContextProps extends Required<CustomizeLineUpPro
 }
 export const LineUpLiteTableContext = createContext(undefined as LineUpLiteTableContextProps | undefined);
 
-export function LineUpLiteTableContextProvider<D extends UnknownObject = UnknownObject>(
+export function LineUpLiteTableContextProvider<D extends AnyObject = UnknownObject>(
   props: PropsWithChildren<{
     instance: LineUpLiteTableInstance<D>;
     props: CustomizeLineUpProps;
@@ -59,12 +59,12 @@ export function useLineUpLiteTableContext(): LineUpLiteTableContextProps | undef
   return useContext(LineUpLiteTableContext);
 }
 
-export interface LineUpLiteStateContextProps<D extends UnknownObject = UnknownObject> {
+export interface LineUpLiteStateContextProps<D extends AnyObject = UnknownObject> {
   state?: LineUpLiteState;
   instance?: LineUpLiteTableInstance<D>;
 }
 
-export interface LineUpLiteStateContextSetter<D extends UnknownObject = UnknownObject> {
+export interface LineUpLiteStateContextSetter<D extends AnyObject = UnknownObject> {
   setState(state: LineUpLiteState): void;
   setInstance(instance: LineUpLiteTableInstance<D>): void;
 }
@@ -77,7 +77,7 @@ export const LineUpLiteStateSetterContext = createContext(
   undefined as LineUpLiteStateContextSetter<any> | undefined
 );
 
-export function useStateListener<D extends UnknownObject = UnknownObject>(
+export function useStateListener<D extends AnyObject = UnknownObject>(
   props: {
     onStateChange?: (state: LineUpLiteState) => void;
   },
@@ -106,9 +106,9 @@ export function useStateListener<D extends UnknownObject = UnknownObject>(
   }, [setInstance, instance]);
 }
 
-export function LineUpLiteStateContextProvider<D extends UnknownObject = UnknownObject>(
-  props: PropsWithChildren<Record<string, never>>
-): JSX.Element {
+export function LineUpLiteStateContextProvider<D extends AnyObject = UnknownObject>(props: {
+  children: ReactNode;
+}): JSX.Element {
   const [state, setState] = useState(undefined as undefined | LineUpLiteState);
   const [instance, setInstance] = useState(undefined as undefined | LineUpLiteTableInstance<D>);
   // have a context which are just the values which will change
@@ -126,7 +126,7 @@ export function LineUpLiteStateContextProvider<D extends UnknownObject = Unknown
   );
 }
 
-export function useLineUpLiteStateContext<D extends UnknownObject = UnknownObject>():
+export function useLineUpLiteStateContext<D extends AnyObject = UnknownObject>():
   | LineUpLiteStateContextProps<D>
   | undefined {
   return useContext(LineUpLiteStateContext);

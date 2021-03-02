@@ -37,7 +37,9 @@ function MyFilterAction(props: { col: ColumnInstance<Row>; icons: ActionIcons })
       {visible && (
         <div className="filter-dialog">
           {col.render('Summary')}
-          <button onClick={showFilterDialog}>Close</button>
+          <button onClick={showFilterDialog} type="button">
+            Close
+          </button>
         </div>
       )}
     </>
@@ -81,7 +83,7 @@ function Table({ isDarkTheme }: { isDarkTheme: boolean }) {
   );
 }
 
-export default function App() {
+export default function App(): JSX.Element {
   const isDarkTheme = window.matchMedia != null && window.matchMedia('(prefers-color-scheme: dark)').matches;
   return (
     <div className="App">

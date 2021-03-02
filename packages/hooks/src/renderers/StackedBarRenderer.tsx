@@ -14,11 +14,11 @@ import {
 } from '@lineup-lite/components';
 import React, { useContext } from 'react';
 import type { Accessor, CellProps, Renderer } from 'react-table';
-import type { UnknownObject } from '../interfaces';
+import type { AnyObject, UnknownObject } from '../interfaces';
 import deriveNumberOptions from './deriveNumberOptions';
 import { missingClass, optionContext } from './utils';
 
-export function computeStackedValue<D extends UnknownObject = UnknownObject>(
+export function computeStackedValue<D extends AnyObject = UnknownObject>(
   stack: readonly { col: keyof D | Accessor<D>; weight: number; color?: string }[],
   colors: (v: string) => string = defaultCategoricalColorScale()
 ): Accessor<D> {

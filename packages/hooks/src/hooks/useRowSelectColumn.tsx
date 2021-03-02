@@ -14,12 +14,12 @@ import type {
   UseRowSelectRowProps,
   TableToggleAllRowsSelectedProps,
 } from 'react-table';
-import type { LineUpLiteColumn, UnknownObject } from '../interfaces';
+import type { AnyObject, LineUpLiteColumn, UnknownObject } from '../interfaces';
 import IndeterminateCheckbox from './IndeterminateCheckbox';
 
 export type { TableToggleAllRowsSelectedProps } from 'react-table';
 
-export function useRowSelectColumn<D extends UnknownObject = UnknownObject>(hooks: Hooks<D>): void {
+export function useRowSelectColumn<D extends AnyObject = UnknownObject>(hooks: Hooks<D>): void {
   hooks.visibleColumns.push(generateColumn);
 }
 useRowSelectColumn.pluginName = 'useRowSelectColumn';
@@ -110,7 +110,7 @@ function Header(props: any) {
   );
 }
 
-function generateColumn<D extends UnknownObject = UnknownObject>(columns: ColumnInstance<D>[], meta: MetaBase<D>) {
+function generateColumn<D extends AnyObject = UnknownObject>(columns: ColumnInstance<D>[], meta: MetaBase<D>) {
   const width = (meta.instance as UseSelectColumnTableOptions).selectColumnWidth ?? 20;
   const selectionColumn: LineUpLiteColumn<D> = {
     id: 'selection',

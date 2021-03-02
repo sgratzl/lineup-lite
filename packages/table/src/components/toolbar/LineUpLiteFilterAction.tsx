@@ -11,11 +11,11 @@ import type { CommonProps } from '@lineup-lite/components';
 import { LINEUP_LITE_I18N_EN } from '../../i18n';
 import { useLineUpLiteTableContext } from '../contexts';
 import { clsx } from '../utils';
-import type { UnknownObject } from '../interfaces';
+import type { AnyObject, UnknownObject } from '../interfaces';
 
 export type { UseFiltersColumnProps } from 'react-table';
 
-export function LineUpLiteFilterAction<D extends UnknownObject = UnknownObject>(
+export function LineUpLiteFilterAction<D extends AnyObject = UnknownObject>(
   props: UseFiltersColumnProps<D> &
     CommonProps & {
       children?: ReactNode;

@@ -10,9 +10,9 @@ import type { ICategoricalStats } from '@lineup-lite/components';
 import baseGroupBy from './baseGroupBy';
 import { categoricalSortFunc, compareAsc } from '../sort/internal';
 import type { UseStatsColumnProps } from '../hooks';
-import type { UnknownObject } from '../interfaces';
+import type { AnyObject, UnknownObject } from '../interfaces';
 
-export default function categoricalSetGroupBy<D extends UnknownObject = UnknownObject>(
+export default function categoricalSetGroupBy<D extends AnyObject = UnknownObject>(
   rows: Row<D>[],
   column: ColumnInstance<D>
 ): Record<string, Row<D>[]> {

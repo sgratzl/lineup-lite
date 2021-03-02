@@ -7,7 +7,7 @@
 
 import React from 'react';
 import { usePagination, UsePaginationOptions, UsePaginationInstanceProps, UsePaginationState } from 'react-table';
-import type { LineUpLiteProps, UnknownObject } from './interfaces';
+import type { AnyObject, LineUpLiteProps, UnknownObject } from './interfaces';
 import { LineUpLiteTHead } from './LineUpLiteTHead';
 import { LineUpLiteTableInstance, useLineUpLite } from './useLineUpLite';
 import { LineUpLiteTR } from './LineUpLiteTR';
@@ -16,13 +16,13 @@ import { LineUpLitePagination } from './LineUpLitePagination';
 import type { ActionIcons, PaginationIcons } from '../icons';
 import { LineUpLiteTableContextProvider } from './contexts';
 
-export interface LineUpLitePaginatedProps<D extends UnknownObject = UnknownObject>
+export interface LineUpLitePaginatedProps<D extends AnyObject = UnknownObject>
   extends LineUpLiteProps<D>,
     UsePaginationOptions<D> {
   icons: PaginationIcons & ActionIcons;
 }
 
-export function LineUpLitePaginated<D extends UnknownObject = UnknownObject>(
+export function LineUpLitePaginated<D extends AnyObject = UnknownObject>(
   props: LineUpLitePaginatedProps<D>
 ): JSX.Element {
   const instance = useLineUpLite<D>(props, usePagination);

@@ -8,13 +8,13 @@
 import type { ColumnInstance } from 'react-table';
 import type { ComponentType, CSSProperties, DetailedHTMLProps, HTMLAttributes, ReactNode } from 'react';
 import type { CommonProps } from '@lineup-lite/components';
-import type { UnknownObject } from '@lineup-lite/hooks';
+import type { AnyObject, UnknownObject } from '@lineup-lite/hooks';
 import type { ActionIcons } from '../icons';
 import type { LineUpLiteI18N } from '../i18n';
 import type { UseLineUpLiteOptions } from './useLineUpLite';
 
 export type { ColumnInstance, HeaderGroup, Row, Column } from 'react-table';
-export type { UnknownObject } from '@lineup-lite/hooks';
+export type { AnyObject, UnknownObject } from '@lineup-lite/hooks';
 
 export type MultiCustomizeKeys = 'tbody' | 'tr' | 'thead' | 'th' | 'thGroup' | 'td' | 'header';
 
@@ -37,7 +37,7 @@ export interface CustomizeLineUpProps {
   dark?: boolean;
 }
 
-export interface ActionLineUpProps<D extends UnknownObject = UnknownObject> {
+export interface ActionLineUpProps<D extends AnyObject = UnknownObject> {
   /**
    * customize the icons to use
    */
@@ -49,7 +49,7 @@ export interface ActionLineUpProps<D extends UnknownObject = UnknownObject> {
   actions?: (column: ColumnInstance<D>, icons: ActionIcons) => ReactNode;
 }
 
-export interface LineUpLiteProps<D extends UnknownObject = UnknownObject>
+export interface LineUpLiteProps<D extends AnyObject = UnknownObject>
   extends UseLineUpLiteOptions<D>,
     ActionLineUpProps<D>,
     CustomizeLineUpProps,

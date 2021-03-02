@@ -8,18 +8,19 @@
 import React, { forwardRef, ReactElement, ReactNode, Ref, RefAttributes } from 'react';
 import type { HeaderGroup } from 'react-table';
 import { useLineUpLiteTableContext } from './contexts';
-import type { ActionLineUpProps, UnknownObject } from './interfaces';
+import type { ActionLineUpProps, UnknownObject, AnyObject } from './interfaces';
 import { LineUpLiteTH } from './LineUpLiteTH';
 import { clsx } from './utils';
 
-export interface LineUpLiteTHeadProps<D extends UnknownObject = UnknownObject> extends ActionLineUpProps<D> {
+export interface LineUpLiteTHeadProps<D extends AnyObject = UnknownObject> extends ActionLineUpProps<D> {
   headerGroups: HeaderGroup<D>[];
   children?: ReactNode;
 }
 
-const LineUpLiteTHeadImpl = /*! #__PURE__ */ forwardRef(function LineUpLiteTHead<
-  D extends UnknownObject = UnknownObject
->({ headerGroups, icons, actions, children }: LineUpLiteTHeadProps<D>, ref: Ref<HTMLElement>) {
+const LineUpLiteTHeadImpl = /*! #__PURE__ */ forwardRef(function LineUpLiteTHead<D extends AnyObject = UnknownObject>(
+  { headerGroups, icons, actions, children }: LineUpLiteTHeadProps<D>,
+  ref: Ref<HTMLElement>
+) {
   const c = useLineUpLiteTableContext();
   const p = { c: c?.components.thead ?? 'div', g: c?.components.thGroup ?? 'div' };
   return (
@@ -47,6 +48,6 @@ const LineUpLiteTHeadImpl = /*! #__PURE__ */ forwardRef(function LineUpLiteTHead
   );
 });
 
-export const LineUpLiteTHead = LineUpLiteTHeadImpl as <D extends UnknownObject = UnknownObject>(
+export const LineUpLiteTHead = LineUpLiteTHeadImpl as <D extends AnyObject = UnknownObject>(
   p: LineUpLiteTHeadProps<D> & RefAttributes<HTMLElement>
 ) => ReactElement;

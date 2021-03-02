@@ -6,12 +6,12 @@
  */
 
 import type { Row } from 'react-table';
-import type { UnknownObject } from '../interfaces';
+import type { AnyObject, UnknownObject } from '../interfaces';
 
 /**
  * a range numeric filter
  */
-export function rangeFilter<D extends UnknownObject = UnknownObject, T = unknown>(
+export function rangeFilter<D extends AnyObject = UnknownObject, T = unknown>(
   rows: readonly Row<D>[],
   ids: readonly string[],
   filterValue: readonly [T, T]

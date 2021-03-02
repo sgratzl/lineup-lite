@@ -18,16 +18,16 @@ import { LINEUP_LITE_TEXT_ICONS } from '../../icons';
 import { LineUpLiteSortByAction } from './LineUpLiteSortByAction';
 import { LineUpLiteGroupByAction } from './LineUpLiteGroupByAction';
 import LineUpLiteHideAction from './LineUpLiteHideAction';
-import type { ActionLineUpProps, UnknownObject } from '../interfaces';
+import type { ActionLineUpProps, UnknownObject, AnyObject } from '../interfaces';
 
-export interface LineUpLiteToolbarProps<D extends UnknownObject = UnknownObject>
+export interface LineUpLiteToolbarProps<D extends AnyObject = UnknownObject>
   extends ColumnInstance<D>,
     ActionLineUpProps<D> {
   className?: string;
   style?: CSSProperties;
 }
 
-export function LineUpLiteToolbar<D extends UnknownObject = UnknownObject>(
+export function LineUpLiteToolbar<D extends AnyObject = UnknownObject>(
   props: PropsWithChildren<LineUpLiteToolbarProps<D>>
 ): JSX.Element {
   const column = (props as unknown) as ColumnInstance<D> &

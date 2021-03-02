@@ -57,7 +57,7 @@ function Table({ isDarkTheme }: { isDarkTheme: boolean }) {
   return <LineUpLite<Row> data={data} columns={columns} features={features} icons={icons} dark={isDarkTheme} />;
 }
 
-export default function App() {
+export default function App(): JSX.Element {
   const isDarkTheme = window.matchMedia != null && window.matchMedia('(prefers-color-scheme: dark)').matches;
   return (
     <div className="App">

@@ -18,9 +18,10 @@ import type {
 } from 'react-table';
 import type { UseStatsColumnOptions } from './hooks/useStats';
 
-export type UnknownObject = Record<string, unknown>;
+export type UnknownObject = { [key: string]: unknown };
+export type AnyObject = object;
 
-export interface UseColumnGroupByColumnOptions<D extends UnknownObject = UnknownObject> {
+export interface UseColumnGroupByColumnOptions<D extends AnyObject = UnknownObject> {
   /**
    * renderer used to render the group cell
    */
@@ -28,13 +29,13 @@ export interface UseColumnGroupByColumnOptions<D extends UnknownObject = Unknown
   /**
    * group by function for this column
    */
-  groupBy?(rows: readonly Row<D>[], column: ColumnInstance<D>): Record<string, Row<D>[]>;
+  groupBy?(rows: readonly Row<D>[], column: ColumnInstance<D>): { [key: string]: Row<D>[] };
 }
 
 /**
  * a lineup lite column description
  */
-export type LineUpLiteColumn<D extends UnknownObject = UnknownObject> = Column<D> &
+export type LineUpLiteColumn<D extends AnyObject = UnknownObject> = Column<D> &
   UseFiltersColumnOptions<D> &
   UseGroupByColumnOptions<D> &
   UseSortByColumnOptions<D> &

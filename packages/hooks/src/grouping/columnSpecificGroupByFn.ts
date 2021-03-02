@@ -6,14 +6,14 @@
  */
 
 import { Row, IdType, defaultGroupByFn } from 'react-table';
-import type { UnknownObject, UseColumnGroupByColumnOptions } from '../interfaces';
+import type { AnyObject, UnknownObject, UseColumnGroupByColumnOptions } from '../interfaces';
 
 /**
  * helper function to defer the grouping logic to the column
  * @param rows
  * @param columnId
  */
-export default function columnSpecificGroupByFn<D extends UnknownObject = UnknownObject>(
+export default function columnSpecificGroupByFn<D extends AnyObject = UnknownObject>(
   rows: Row<D>[],
   columnId: IdType<D>
 ): Record<string, Row<D>[]> {

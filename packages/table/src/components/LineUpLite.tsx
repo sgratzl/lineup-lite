@@ -6,14 +6,14 @@
  */
 
 import React, { forwardRef, ReactElement, Ref, RefAttributes } from 'react';
-import type { LineUpLiteProps, UnknownObject } from './interfaces';
+import type { AnyObject, LineUpLiteProps, UnknownObject } from './interfaces';
 import { LineUpLiteTHead } from './LineUpLiteTHead';
 import { LineUpLiteTR } from './LineUpLiteTR';
 import { useLineUpLite } from './useLineUpLite';
 import { clsx } from './utils';
 import { LineUpLiteTableContextProvider } from './contexts';
 
-export const LineUpLite = /*! #__PURE__ */ forwardRef(function LineUpLite<D extends UnknownObject = UnknownObject>(
+export const LineUpLite = /*! #__PURE__ */ forwardRef(function LineUpLite<D extends AnyObject = UnknownObject>(
   props: LineUpLiteProps<D>,
   ref: Ref<HTMLElement>
 ) {
@@ -49,6 +49,6 @@ export const LineUpLite = /*! #__PURE__ */ forwardRef(function LineUpLite<D exte
   );
 });
 
-export default LineUpLite as <D extends UnknownObject = UnknownObject>(
+export default LineUpLite as <D extends AnyObject = UnknownObject>(
   p: LineUpLiteProps<D> & RefAttributes<HTMLElement>
 ) => ReactElement;

@@ -7,7 +7,7 @@
 
 import type { IdType, Row } from 'react-table';
 import type { FilterSetValue } from '@lineup-lite/components';
-import type { UnknownObject } from '../interfaces';
+import type { AnyObject, UnknownObject } from '../interfaces';
 
 /**
  * filter function by a set of filter values
@@ -15,7 +15,7 @@ import type { UnknownObject } from '../interfaces';
  * @param ids
  * @param filterValue
  */
-export function categoricalSetFilter<D extends UnknownObject = UnknownObject>(
+export function categoricalSetFilter<D extends AnyObject = UnknownObject>(
   rows: readonly Row<D>[],
   ids: readonly IdType<D>[],
   filterValue: readonly FilterSetValue<string>[]

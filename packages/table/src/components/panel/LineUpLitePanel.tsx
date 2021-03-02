@@ -7,16 +7,17 @@
 
 import React, { forwardRef, Ref, RefAttributes } from 'react';
 import { useLineUpLiteStateContext } from '../contexts';
-import type { UnknownObject } from '../interfaces';
+import type { AnyObject, UnknownObject } from '../interfaces';
 import { clsx } from '../utils';
 import { LineUpLitePanelContextProvider } from './contexts';
 import type { LineUpLitePanelProps } from './interfaces';
 import { LineUpLiteDataSummary } from './LineUpLiteDataSummary';
 import { LineUpLiteTableSummary } from './LineUpLiteTableSummary';
 
-const LineUpLitePanelImpl = /*! #__PURE__ */ forwardRef(function LineUpLitePanel<
-  D extends UnknownObject = UnknownObject
->(props: LineUpLitePanelProps<D>, ref: Ref<HTMLElement>) {
+const LineUpLitePanelImpl = /*! #__PURE__ */ forwardRef(function LineUpLitePanel<D extends AnyObject = UnknownObject>(
+  props: LineUpLitePanelProps<D>,
+  ref: Ref<HTMLElement>
+) {
   const { instance, state } = useLineUpLiteStateContext<D>() ?? {};
 
   const p = { c: props.components?.panel ?? 'div' };
@@ -38,7 +39,7 @@ const LineUpLitePanelImpl = /*! #__PURE__ */ forwardRef(function LineUpLitePanel
   );
 });
 
-export const LineUpLitePanel = LineUpLitePanelImpl as <D extends UnknownObject = UnknownObject>(
+export const LineUpLitePanel = LineUpLitePanelImpl as <D extends AnyObject = UnknownObject>(
   p: LineUpLitePanelProps<D> & RefAttributes<HTMLElement>
 ) => JSX.Element;
 

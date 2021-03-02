@@ -9,10 +9,10 @@ import type { ColumnInstance, Row } from 'react-table';
 import type { ICategoricalStats } from '@lineup-lite/components';
 import baseGroupBy from './baseGroupBy';
 import type { UseStatsColumnProps } from '../hooks';
-import type { UnknownObject } from '../interfaces';
+import type { AnyObject, UnknownObject } from '../interfaces';
 
 // eslint-disable-next-line @typescript-eslint/ban-types
-export default function categoricalGroupBy<D extends UnknownObject = UnknownObject>(
+export default function categoricalGroupBy<D extends AnyObject = UnknownObject>(
   rows: Row<D>[],
   column: ColumnInstance<D>
 ): Record<string, Row<D>[]> {

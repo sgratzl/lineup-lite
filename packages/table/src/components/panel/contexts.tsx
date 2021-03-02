@@ -10,7 +10,7 @@ import React, { createContext, PropsWithChildren, useContext, useMemo } from 're
 import type { TableDispatch, TableInstance } from 'react-table';
 import type { CustomizeLineUpPanelProps } from './interfaces';
 import { EMPTY_OBJ } from '../utils';
-import type { UnknownObject } from '../interfaces';
+import type { AnyObject, UnknownObject } from '../interfaces';
 
 export interface LineUpLitePanelContextProps extends Required<CustomizeLineUpPanelProps> {
   dispatch: TableDispatch;
@@ -18,7 +18,7 @@ export interface LineUpLitePanelContextProps extends Required<CustomizeLineUpPan
 }
 export const LineUpLitePanelContext = createContext(undefined as LineUpLitePanelContextProps | undefined);
 
-export function LineUpLitePanelContextProvider<D extends UnknownObject = UnknownObject>(
+export function LineUpLitePanelContextProvider<D extends AnyObject = UnknownObject>(
   props: PropsWithChildren<{
     instance: TableInstance<D>;
     props: CustomizeLineUpPanelProps;

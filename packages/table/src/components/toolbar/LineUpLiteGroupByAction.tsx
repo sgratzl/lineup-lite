@@ -11,11 +11,11 @@ import type { CommonProps } from '@lineup-lite/components';
 import { LINEUP_LITE_I18N_EN } from '../../i18n';
 import { useLineUpLiteTableContext } from '../contexts';
 import { clsx } from '../utils';
-import type { UnknownObject } from '../interfaces';
+import type { AnyObject, UnknownObject } from '../interfaces';
 
 export type { UseGroupByColumnProps } from 'react-table';
 
-export function LineUpLiteGroupByAction<D extends UnknownObject = UnknownObject>(
+export function LineUpLiteGroupByAction<D extends AnyObject = UnknownObject>(
   props: UseGroupByColumnProps<D> &
     ColumnInstance<D> &
     CommonProps & {

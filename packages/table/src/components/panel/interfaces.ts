@@ -7,7 +7,7 @@
 
 import type { CSSProperties, ReactNode } from 'react';
 import type { CommonProps } from '@lineup-lite/components';
-import type { ActionLineUpProps, LineUpLiteComponentLike, UnknownObject } from '../interfaces';
+import type { ActionLineUpProps, AnyObject, LineUpLiteComponentLike, UnknownObject } from '../interfaces';
 import type { DATA_SUMMARY_I18N_EN } from './LineUpLiteDataSummary';
 
 export type MultiCustomizePanelKeys = 'dataSummary' | 'tableSummary' | 'th' | 'header';
@@ -29,7 +29,7 @@ export interface CustomizeLineUpPanelProps {
   dark?: boolean;
 }
 
-export interface LineUpLitePanelProps<D extends UnknownObject = UnknownObject>
+export interface LineUpLitePanelProps<D extends AnyObject = UnknownObject>
   extends CustomizeLineUpPanelProps,
     ActionLineUpProps<D>,
     CommonProps {

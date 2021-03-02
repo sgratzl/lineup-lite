@@ -17,7 +17,7 @@ import type {
   UseTableCellProps,
 } from 'react-table';
 import { clsx } from '@lineup-lite/components';
-import type { LineUpLiteColumn, UnknownObject } from '../interfaces';
+import type { LineUpLiteColumn, AnyObject, UnknownObject } from '../interfaces';
 
 export const USE_EXPAND_COLUMN_I18N_EN = {
   expandGroup: 'Click to expand this group',
@@ -45,7 +45,7 @@ export interface UseRowExpandColumnTableOptions {
   expandColumnWidth?: number;
 }
 
-export function useRowExpandColumn<D extends UnknownObject = UnknownObject>(hooks: Hooks<D>): void {
+export function useRowExpandColumn<D extends AnyObject = UnknownObject>(hooks: Hooks<D>): void {
   hooks.visibleColumns.push(generateColumn);
 }
 useRowExpandColumn.pluginName = 'useRowExpandColumn';
@@ -117,7 +117,7 @@ function Header() {
   return <></>;
 }
 
-function generateColumn<D extends UnknownObject = UnknownObject>(columns: ColumnInstance<D>[], meta: MetaBase<D>) {
+function generateColumn<D extends AnyObject = UnknownObject>(columns: ColumnInstance<D>[], meta: MetaBase<D>) {
   const width = (meta.instance as UseRowExpandColumnTableOptions).expandColumnWidth ?? 20;
   const expandColumn: LineUpLiteColumn<D> = {
     id: 'expand',

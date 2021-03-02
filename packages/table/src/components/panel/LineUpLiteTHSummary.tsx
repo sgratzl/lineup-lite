@@ -10,16 +10,16 @@ import type { ColumnInstance, HeaderGroup, UseGroupByColumnProps, UseResizeColum
 import type { LineUpLiteColumn, UnknownObject } from '@lineup-lite/hooks';
 import { clsx } from '../utils';
 import { LineUpLiteToolbar } from '../toolbar/LineUpLiteToolbar';
-import type { ActionLineUpProps } from '../interfaces';
+import type { ActionLineUpProps, AnyObject } from '../interfaces';
 import { useLineUpLitePanelContext } from './contexts';
 
-export interface LineUpLiteTHSummaryProps<D extends UnknownObject = UnknownObject> extends ActionLineUpProps<D> {
+export interface LineUpLiteTHSummaryProps<D extends AnyObject = UnknownObject> extends ActionLineUpProps<D> {
   col: ColumnInstance<D>;
   children?: ReactNode;
 }
 
 const LineUpLiteTHSummaryImpl = /*! #__PURE__ */ forwardRef(function LineUpLiteTHSummary<
-  D extends UnknownObject = UnknownObject
+  D extends AnyObject = UnknownObject
 >({ col, actions, icons, children }: LineUpLiteTHSummaryProps<D>, ref: Ref<HTMLElement>) {
   const column = (col as unknown) as HeaderGroup<D> &
     UseGroupByColumnProps<D> &
@@ -49,7 +49,7 @@ const LineUpLiteTHSummaryImpl = /*! #__PURE__ */ forwardRef(function LineUpLiteT
   );
 });
 
-export const LineUpLiteTHSummary = LineUpLiteTHSummaryImpl as <D extends UnknownObject = UnknownObject>(
+export const LineUpLiteTHSummary = LineUpLiteTHSummaryImpl as <D extends AnyObject = UnknownObject>(
   p: LineUpLiteTHSummaryProps<D> & RefAttributes<HTMLElement>
 ) => JSX.Element;
 

@@ -8,6 +8,7 @@
 import {
   columnSpecificGroupByFn,
   LineUpLiteColumn,
+  AnyObject,
   UnknownObject,
   useRowExpandColumn,
   UseRowExpandColumnTableOptions,
@@ -57,7 +58,7 @@ export {
   useFlexLayout as featureFlexLayout,
 } from 'react-table';
 
-export type UseLineUpLiteTableOptions<D extends UnknownObject = UnknownObject> = TableOptions<D> &
+export type UseLineUpLiteTableOptions<D extends AnyObject = UnknownObject> = TableOptions<D> &
   UseFiltersOptions<D> &
   UseExpandedOptions<D> &
   UseGroupByOptions<D> &
@@ -67,7 +68,7 @@ export type UseLineUpLiteTableOptions<D extends UnknownObject = UnknownObject> =
   UseSelectColumnTableOptions &
   UseRowRankColumnTableOptions;
 
-export interface LineUpLiteState<D extends UnknownObject = UnknownObject>
+export interface LineUpLiteState<D extends AnyObject = UnknownObject>
   extends TableState<D>,
     UseFiltersState<D>,
     UseExpandedState<D>,
@@ -76,7 +77,7 @@ export interface LineUpLiteState<D extends UnknownObject = UnknownObject>
     UseSortByState<D>,
     UseResizeColumnsState<D> {}
 
-export interface LineUpLiteTableInstance<D extends UnknownObject = UnknownObject>
+export interface LineUpLiteTableInstance<D extends AnyObject = UnknownObject>
   extends TableInstance<D>,
     UseFiltersInstanceProps<D>,
     UseExpandedInstanceProps<D>,
@@ -84,7 +85,7 @@ export interface LineUpLiteTableInstance<D extends UnknownObject = UnknownObject
     UseRowSelectInstanceProps<D>,
     UseSortByInstanceProps<D> {}
 
-export interface UseLineUpLiteOptions<D extends UnknownObject = UnknownObject> extends UseLineUpLiteTableOptions<D> {
+export interface UseLineUpLiteOptions<D extends AnyObject = UnknownObject> extends UseLineUpLiteTableOptions<D> {
   defaultColumn?: Partial<LineUpLiteColumn<D>>;
   columns: LineUpLiteColumn<D>[];
   features: readonly (PluginHook<D> | PluginHook<D>[])[];
@@ -92,25 +93,22 @@ export interface UseLineUpLiteOptions<D extends UnknownObject = UnknownObject> e
   onStateChange?: (state: LineUpLiteState) => void;
 }
 
-export function featureRowSelect<D extends UnknownObject = UnknownObject>(): PluginHook<D>[] {
+export function featureRowSelect<D extends AnyObject = UnknownObject>(): PluginHook<D>[] {
   return [useRowSelectImpl, useRowSelectColumn];
 }
 
-export function featureSortAndGroupBy<D extends UnknownObject = UnknownObject>(): PluginHook<D>[] {
+export function featureSortAndGroupBy<D extends AnyObject = UnknownObject>(): PluginHook<D>[] {
   return [useGroupByImpl, useSortBy, useExpanded, useRowExpandColumn];
 }
 
 /**
  * default feature set including: filters, sorting, grouping, row select, row rank, and default layout
  */
-export function featureDefault<D extends UnknownObject = UnknownObject>(): PluginHook<D>[] {
+export function featureDefault<D extends AnyObject = UnknownObject>(): PluginHook<D>[] {
   return [useFilters, ...featureSortAndGroupBy<D>(), ...featureRowSelect<D>(), useRowRankColumn, useBlockLayout];
 }
 
-function sortByPriority<D extends UnknownObject = UnknownObject>(
-  a: [PluginHook<D>, number],
-  b: [PluginHook<D>, number]
-) {
+function sortByPriority<D extends AnyObject = UnknownObject>(a: [PluginHook<D>, number], b: [PluginHook<D>, number]) {
   const specialOrders = ['useRowSelect', 'useRowRankColumn', 'useRowExpandColumn'];
   // ensure useRowExpandColumn is after useRowSelectColumn
   const isASpecial = specialOrders.indexOf(a[0].pluginName ?? '');
@@ -124,7 +122,7 @@ function sortByPriority<D extends UnknownObject = UnknownObject>(
   return a[1] - b[1];
 }
 
-export function useLineUpLite<D extends UnknownObject = UnknownObject>(
+export function useLineUpLite<D extends AnyObject = UnknownObject>(
   { features, ...props }: UseLineUpLiteOptions<D>,
   ...extraPlugins: PluginHook<D>[]
 ): LineUpLiteTableInstance<D> {

@@ -18,13 +18,13 @@ import {
   UseGroupByRowProps,
   MetaBase,
 } from 'react-table';
-import type { LineUpLiteColumn, UnknownObject } from '../interfaces';
+import type { AnyObject, LineUpLiteColumn, UnknownObject } from '../interfaces';
 
 export interface UseRankRowProps {
   rank: number;
 }
 
-export function useRowRankColumn<D extends UnknownObject = UnknownObject>(hooks: Hooks<D>): void {
+export function useRowRankColumn<D extends AnyObject = UnknownObject>(hooks: Hooks<D>): void {
   hooks.visibleColumns.push(generateColumn);
   hooks.useInstance.push(useInstance);
 }
@@ -66,7 +66,7 @@ export interface UseRowRankColumnTableOptions {
   rankColumnWidth?: number;
 }
 
-function generateColumn<D extends UnknownObject = UnknownObject>(columns: ColumnInstance<D>[], meta: MetaBase<D>) {
+function generateColumn<D extends AnyObject = UnknownObject>(columns: ColumnInstance<D>[], meta: MetaBase<D>) {
   const width = (meta.instance as UseRowRankColumnTableOptions).rankColumnWidth ?? 40;
   const rankColumn: LineUpLiteColumn<D> = {
     id: 'rank',
@@ -86,7 +86,7 @@ function generateColumn<D extends UnknownObject = UnknownObject>(columns: Column
   return [rankColumn, ...columns];
 }
 
-function useInstance<D extends UnknownObject = UnknownObject>(instance: TableInstance<D>) {
+function useInstance<D extends AnyObject = UnknownObject>(instance: TableInstance<D>) {
   ensurePluginOrder(instance.plugins, ['useFilters', 'useGroupBy', 'useSortBy'], 'useRowRankColumn');
 
   const extendedInstance = (instance as unknown) as TableInstance<D> &

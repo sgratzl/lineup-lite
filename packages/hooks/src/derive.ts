@@ -13,7 +13,7 @@ import type {
   TextStatsOptions,
 } from '@lineup-lite/components';
 import type { Column } from 'react-table';
-import type { LineUpLiteColumn, UnknownObject } from './interfaces';
+import type { AnyObject, LineUpLiteColumn, UnknownObject } from './interfaces';
 import { asCategoricalColumn, asDateColumn, asNumberColumn, asTextColumn } from './builder';
 
 /**
@@ -32,28 +32,28 @@ export function cleanCategories(categories: Set<string | null | undefined>): str
   return [...categories].map(String).sort();
 }
 
-export interface DeriveCategoricalColumnResult<D extends UnknownObject = UnknownObject> {
+export interface DeriveCategoricalColumnResult<D extends AnyObject = UnknownObject> {
   type: 'categorical';
   column: Column<D>;
   options?: CategoricalStatsOptions;
 }
-export interface DeriveNumberColumnResult<D extends UnknownObject = UnknownObject> {
+export interface DeriveNumberColumnResult<D extends AnyObject = UnknownObject> {
   type: 'number';
   column: Column<D>;
   options?: NumberStatsOptions;
 }
-export interface DeriveTextColumnResult<D extends UnknownObject = UnknownObject> {
+export interface DeriveTextColumnResult<D extends AnyObject = UnknownObject> {
   type: 'text';
   column: Column<D>;
   options?: TextStatsOptions;
 }
-export interface DeriveDateColumnResult<D extends UnknownObject = UnknownObject> {
+export interface DeriveDateColumnResult<D extends AnyObject = UnknownObject> {
   type: 'date';
   column: Column<D>;
   options?: DateStatsOptions;
 }
 
-export type DeriveColumnResult<D extends UnknownObject = UnknownObject> =
+export type DeriveColumnResult<D extends AnyObject = UnknownObject> =
   | DeriveCategoricalColumnResult<D>
   | DeriveDateColumnResult<D>
   | DeriveNumberColumnResult<D>
@@ -62,10 +62,7 @@ export type DeriveColumnResult<D extends UnknownObject = UnknownObject> =
 /**
  * guesses the column type based on the values
  */
-export function deriveColumn<D extends UnknownObject = UnknownObject>(
-  data: D[],
-  accessor: keyof D
-): DeriveColumnResult<D> {
+export function deriveColumn<D extends AnyObject = UnknownObject>(data: D[], accessor: keyof D): DeriveColumnResult<D> {
   const column = {
     Header: accessor.toString(),
     accessor,
@@ -129,7 +126,7 @@ export function deriveColumn<D extends UnknownObject = UnknownObject>(
  * @param data the data array
  * @param columns optional list of column names to generate
  */
-export function deriveColumns<D extends UnknownObject = UnknownObject>(
+export function deriveColumns<D extends AnyObject = UnknownObject>(
   data: D[],
   columns?: (keyof D)[]
 ): (Column<D> & Partial<LineUpLiteColumn<D>>)[] {

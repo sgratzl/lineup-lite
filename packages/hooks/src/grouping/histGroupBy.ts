@@ -8,7 +8,7 @@
 import type { INumericStats } from '@lineup-lite/components';
 import { ColumnInstance, defaultGroupByFn, Row } from 'react-table';
 import type { UseStatsColumnProps } from '../hooks';
-import type { UnknownObject } from '../interfaces';
+import type { AnyObject, UnknownObject } from '../interfaces';
 import { computeArrayNumberStats } from '../stats';
 
 export const MISSING_GROUP = 'Missing Values';
@@ -18,7 +18,7 @@ export const MISSING_GROUP = 'Missing Values';
  * @param rows
  * @param column
  */
-export function histGroupBy<D extends UnknownObject = UnknownObject, T extends number | Date = number>(
+export function histGroupBy<D extends AnyObject = UnknownObject, T extends number | Date = number>(
   rows: readonly Row<D>[],
   column: ColumnInstance<D>
 ): Record<string, Row<D>[]> {
