@@ -22,5 +22,5 @@ export default function textGroupBy<D extends AnyObject = UnknownObject>(
     .forEach(([key, value]) => {
       sorted[key] = value;
     });
-  return base;
+  return sorted;
 }
