@@ -312,6 +312,9 @@ function createFlat(arr: readonly DateLike[]) {
 }
 
 function computeMedian(items: readonly Date[]): Date {
+  if (items.length === 0) {
+    return new Date();
+  }
   const sorted = items.slice().sort((a, b) => a.valueOf() - b.valueOf());
   if (items.length % 2 === 1) {
     return sorted[(items.length + 1) / 2];
