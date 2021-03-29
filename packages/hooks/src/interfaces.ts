@@ -44,4 +44,5 @@ export type LineUpLiteColumn<D extends AnyObject = UnknownObject> = Column<D> &
     canHide?: boolean;
     isSupport?: boolean;
     tooltip?: string;
+    className?: string;
   };

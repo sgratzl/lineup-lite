@@ -36,6 +36,7 @@ const LineUpLiteTHImpl = /*! #__PURE__ */ forwardRef(function LineUpLiteTH<D ext
           'lt-th',
           column.isSupport && 'lt-th-support',
           c?.classNames?.th,
+          column.className,
           clsx(column.isResizing && 'lt-column-resizing')
         ),
         style: mergeStyles({ display: '' }, c?.styles?.th),
