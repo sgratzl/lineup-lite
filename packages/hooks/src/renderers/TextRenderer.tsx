@@ -7,13 +7,13 @@
 
 import React, { useContext } from 'react';
 import type { Renderer, CellProps } from 'react-table';
-import type { ITextStats } from '@lineup-lite/components';
+import { ITextStats, CommonProps, clsx } from '@lineup-lite/components';
 import { TextLabel } from '@lineup-lite/components';
 import type { UseStatsColumnProps } from '../hooks';
 import { missingClass, optionContext, resolve } from './utils';
 import type { AnyObject } from '../types';
 
-export interface TextRendererOptions {
+export interface TextRendererOptions extends CommonProps {
   format?: (v: string) => string;
 }
 
@@ -31,10 +31,21 @@ function deriveTextOptions<D extends AnyObject, P extends CellProps<D, string>>(
 export function TextRenderer<D extends AnyObject, P extends CellProps<D, string>>(props: P): JSX.Element {
   const options = useContext(optionContext) as TextRendererOptions;
   if (typeof props.value === 'string') {
-    return <div className="lt-date">{props.value}</div>;
+    return (
+      <div style={options.style} className={clsx('lt-date', options.className)}>
+        {props.value}
+      </div>
+    );
   }
   const p = deriveTextOptions<D, P>(props, options);
-  return <TextLabel {...p} value={props.value} className={missingClass(props.value)} />;
+  return (
+    <TextLabel
+      {...p}
+      value={props.value}
+      style={options.style}
+      className={clsx(missingClass(props.value), options.className)}
+    />
+  );
 }
 
 export function TextRendererFactory<D extends AnyObject, P extends CellProps<D, string>>(

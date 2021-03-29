@@ -11,6 +11,8 @@ import {
   StackedValue,
   computeWeightedSumFactory,
   defaultCategoricalColorScale,
+  CommonProps,
+  clsx,
 } from '@lineup-lite/components';
 import React, { useContext } from 'react';
 import type { Accessor, CellProps, Renderer } from 'react-table';
@@ -37,7 +39,7 @@ export function computeStackedValue<D extends AnyObject = UnknownObject>(
   };
 }
 
-export interface StackedBarRendererOptions {
+export interface StackedBarRendererOptions extends CommonProps {
   scale?: (v: number) => number;
   format?: NumberFormatter;
 }
@@ -50,7 +52,14 @@ export function StackedBarRenderer<D extends UnknownObject, P extends CellProps<
 ): JSX.Element {
   const options = useContext(optionContext) as StackedBarRendererOptions;
   const p = deriveNumberOptions<D, P>(props, options);
-  return <StackedBar {...p} value={props.value} className={missingClass(props.value)} />;
+  return (
+    <StackedBar
+      {...p}
+      value={props.value}
+      style={options.style}
+      className={clsx(missingClass(props.value), options.className)}
+    />
+  );
 }
 
 /**

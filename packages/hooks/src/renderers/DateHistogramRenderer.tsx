@@ -11,6 +11,7 @@ import {
   FilterRangeHistogramProps,
   Histogram,
   IDateStats,
+  CommonProps,
 } from '@lineup-lite/components';
 import React, { useContext } from 'react';
 import type { Renderer } from 'react-table';
@@ -25,7 +26,7 @@ import {
   useAsyncDebounce,
 } from './utils';
 
-export interface HistogramRendererOptions extends DateStatsOptions {
+export interface HistogramRendererOptions extends DateStatsOptions, CommonProps {
   maxBin?: number;
 }
 
@@ -54,10 +55,12 @@ export function DateHistogramRenderer<P extends StatsPropsLike<Date | null>>(pro
         setFilter={setFilter}
         filterValue={filterValue}
         i18n={props.i18n}
+        style={options.style}
+        className={options.className}
       />
     );
   }
-  return <Histogram s={s} maxBin={options.maxBin} summary />;
+  return <Histogram s={s} maxBin={options.maxBin} summary style={options.style} className={options.className} />;
 }
 
 export function DateHistogramRendererFactory<P extends StatsPropsLike<Date | null>>(

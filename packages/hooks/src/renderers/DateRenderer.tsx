@@ -7,12 +7,12 @@
 
 import React, { useContext } from 'react';
 import type { Renderer, CellProps } from 'react-table';
-import { IDateStats, DateFormatter, resolveDateFormatter, DateLabel } from '@lineup-lite/components';
+import { IDateStats, DateFormatter, resolveDateFormatter, DateLabel, CommonProps, clsx } from '@lineup-lite/components';
 import type { UseStatsColumnProps } from '../hooks';
 import { missingClass, optionContext, resolve } from './utils';
 import type { UnknownObject } from '../interfaces';
 
-export interface DateRendererOptions {
+export interface DateRendererOptions extends CommonProps {
   format?: DateFormatter;
 }
 
@@ -30,10 +30,21 @@ function deriveDateOptions<D extends UnknownObject, P extends CellProps<D, Date>
 export function DateRenderer<D extends UnknownObject, P extends CellProps<D, Date>>(props: P): JSX.Element {
   const options = useContext(optionContext) as DateRendererOptions;
   if (typeof props.value === 'string') {
-    return <div className="lt-date">{props.value}</div>;
+    return (
+      <div className={clsx('lt-date', options.className)} style={options.style}>
+        {props.value}
+      </div>
+    );
   }
   const p = deriveDateOptions<D, P>(props, options);
-  return <DateLabel {...p} value={props.value} className={missingClass(props.value)} />;
+  return (
+    <DateLabel
+      {...p}
+      value={props.value}
+      style={options.style}
+      className={clsx(missingClass(props.value), options.className)}
+    />
+  );
 }
 
 export function DateRendererFactory<D extends UnknownObject, P extends CellProps<D, Date>>(

@@ -5,14 +5,14 @@
  * Copyright (c) 2021 Samuel Gratzl <sam@sgratzl.com>
  */
 
-import { CategoricalColor, ICategoricalStats } from '@lineup-lite/components';
+import { CategoricalColor, ICategoricalStats, CommonProps, clsx } from '@lineup-lite/components';
 import React, { useContext } from 'react';
 import type { CellProps, Renderer } from 'react-table';
 import type { UseStatsColumnProps } from '../hooks';
 import type { UnknownObject } from '../interfaces';
 import { generateColor, generateIdentity, missingClass, optionContext, resolve } from './utils';
 
-export interface CategoricalRendererOptions {
+export interface CategoricalRendererOptions extends CommonProps {
   color?: (v: string) => string;
   format?: (v: string) => string;
 }
@@ -32,7 +32,14 @@ function deriveCategoricalOptions<D extends UnknownObject, P extends CellProps<D
 export function CategoricalRenderer<D extends UnknownObject, P extends CellProps<D, string>>(props: P): JSX.Element {
   const options = useContext(optionContext) as CategoricalRendererOptions;
   const p = deriveCategoricalOptions<D, P>(props, options);
-  return <CategoricalColor {...p} value={props.value} className={missingClass(props.value)} />;
+  return (
+    <CategoricalColor
+      {...p}
+      value={props.value}
+      style={options.style}
+      className={clsx(missingClass(props.value), options.className)}
+    />
+  );
 }
 
 export function CategoricalRendererFactory<D extends UnknownObject, P extends CellProps<D, string>>(

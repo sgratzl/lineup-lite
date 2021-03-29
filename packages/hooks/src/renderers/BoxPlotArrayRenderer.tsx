@@ -5,14 +5,14 @@
  * Copyright (c) 2021 Samuel Gratzl <sam@sgratzl.com>
  */
 
-import { BoxPlotArray, INumberStats, NumberStatsOptions, IBoxPlot } from '@lineup-lite/components';
+import { BoxPlotArray, INumberStats, NumberStatsOptions, IBoxPlot, CommonProps } from '@lineup-lite/components';
 import React, { useContext } from 'react';
 import type { CellProps, Renderer } from 'react-table';
 import type { UnknownObject } from '../interfaces';
 import { numberStats } from '../stats';
 import { deriveStats, optionContext, statsGeneratorContext, StatsPropsLike } from './utils';
 
-export interface BoxPlotArrayRendererOptions extends NumberStatsOptions {
+export interface BoxPlotArrayRendererOptions extends NumberStatsOptions, CommonProps {
   maxBin?: number;
 }
 
@@ -31,6 +31,8 @@ export function BoxPlotArrayRenderer<P extends StatsPropsLike<number>>(props: P)
       scale={s.scale}
       color={s.color}
       format={s.format}
+      style={options.style}
+      className={options.className}
     />
   );
 }

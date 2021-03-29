@@ -11,6 +11,7 @@ import {
   Histogram,
   INumberStats,
   NumberStatsOptions,
+  CommonProps,
 } from '@lineup-lite/components';
 import React, { useContext } from 'react';
 import type { Renderer } from 'react-table';
@@ -25,7 +26,7 @@ import {
   useAsyncDebounce,
 } from './utils';
 
-export interface NumberHistogramRendererOptions extends NumberStatsOptions {
+export interface NumberHistogramRendererOptions extends NumberStatsOptions, CommonProps {
   maxBin?: number;
 }
 
@@ -42,7 +43,7 @@ export function NumberHistogramRenderer<P extends StatsPropsLike<number>>(props:
   const { s, preFilter, cell } = extractStats(props, stats);
   if (cell) {
     const maxBin = groupMaxBin(options, (cell as unknown) as { isAggregated?: boolean }, props);
-    return <Histogram s={s} maxBin={maxBin} />;
+    return <Histogram s={s} maxBin={maxBin} style={options.style} className={options.className} />;
   }
   if (isFilterAble(props) && props.column.canFilter) {
     const { setFilter, filterValue } = props.column;
@@ -54,10 +55,12 @@ export function NumberHistogramRenderer<P extends StatsPropsLike<number>>(props:
         setFilter={setFilter}
         filterValue={filterValue}
         i18n={props.i18n}
+        style={options.style}
+        className={options.className}
       />
     );
   }
-  return <Histogram s={s} maxBin={options.maxBin} summary />;
+  return <Histogram s={s} maxBin={options.maxBin} summary style={options.style} className={options.className} />;
 }
 
 export function NumberHistogramRendererFactory<P extends StatsPropsLike<number>>(

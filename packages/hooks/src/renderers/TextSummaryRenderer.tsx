@@ -7,7 +7,13 @@
 
 import React, { useContext } from 'react';
 import type { Renderer } from 'react-table';
-import { ITextStats, TextSummary, FilterTextSummary, FilterTextSummaryProps } from '@lineup-lite/components';
+import {
+  ITextStats,
+  TextSummary,
+  FilterTextSummary,
+  FilterTextSummaryProps,
+  CommonProps,
+} from '@lineup-lite/components';
 import {
   extractStats,
   isFilterAble,
@@ -18,7 +24,7 @@ import {
 } from './utils';
 import { textStats } from '../stats';
 
-export interface TextSummaryRendererOptions {
+export interface TextSummaryRendererOptions extends CommonProps {
   format?: (v: string) => string;
   placeholder?: (s: ITextStats) => string;
 }
@@ -46,13 +52,34 @@ export function TextSummaryRenderer<P extends StatsPropsLike<string>>(props: P):
     textStats(options);
   const { s, preFilter, cell } = extractStats(props, stats);
   if (cell) {
-    return <TextSummary s={s} preFilter={preFilter} i18n={props.i18n} />;
+    return (
+      <TextSummary s={s} preFilter={preFilter} i18n={props.i18n} style={options.style} className={options.className} />
+    );
   }
   if (isFilterAble(props) && props.column.canFilter) {
     const { setFilter, filterValue } = props.column;
-    return <Filtered s={s} preFilter={preFilter} setFilter={setFilter} filterValue={filterValue} i18n={props.i18n} />;
+    return (
+      <Filtered
+        s={s}
+        preFilter={preFilter}
+        setFilter={setFilter}
+        filterValue={filterValue}
+        i18n={props.i18n}
+        style={options.style}
+        className={options.className}
+      />
+    );
   }
-  return <TextSummary s={s} preFilter={preFilter} summary i18n={props.i18n} />;
+  return (
+    <TextSummary
+      s={s}
+      preFilter={preFilter}
+      summary
+      i18n={props.i18n}
+      style={options.style}
+      className={options.className}
+    />
+  );
 }
 
 export function TextSummaryRendererFactory<P extends StatsPropsLike<string>>(

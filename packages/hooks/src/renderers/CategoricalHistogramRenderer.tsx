@@ -25,7 +25,7 @@ export function CategoricalHistogramRenderer<P extends StatsPropsLike<string>>(p
   const { s, preFilter, cell } = extractStats(props, stats);
   if (cell) {
     const maxBin = groupMaxBin(options, (cell as unknown) as { isAggregated?: boolean }, props);
-    return <Histogram s={s} maxBin={maxBin} />;
+    return <Histogram s={s} maxBin={maxBin} style={options.style} className={options.className} />;
   }
   if (isFilterAble(props) && props.column.canFilter) {
     const { setFilter, filterValue } = props.column;
@@ -38,10 +38,12 @@ export function CategoricalHistogramRenderer<P extends StatsPropsLike<string>>(p
         filterValue={filterValue}
         label
         i18n={props.i18n}
+        style={options.style}
+        className={options.className}
       />
     );
   }
-  return <Histogram s={s} maxBin={options.maxBin} label summary />;
+  return <Histogram s={s} maxBin={options.maxBin} label summary style={options.style} className={options.className} />;
 }
 
 export function CategoricalHistogramRendererFactory<P extends StatsPropsLike<string>>(

@@ -11,6 +11,7 @@ import {
   FilterRangeBoxPlotProps,
   INumberStats,
   NumberStatsOptions,
+  CommonProps,
 } from '@lineup-lite/components';
 import React, { useContext } from 'react';
 import type { Renderer } from 'react-table';
@@ -24,7 +25,7 @@ import {
   useAsyncDebounce,
 } from './utils';
 
-export type BoxPlotRendererOptions = NumberStatsOptions;
+export interface BoxPlotRendererOptions extends NumberStatsOptions, CommonProps {}
 
 function FilterBoxPlot(props: FilterRangeBoxPlotProps) {
   const setFilter = useAsyncDebounce(props.setFilter);
@@ -39,15 +40,32 @@ export function BoxPlotRenderer<P extends StatsPropsLike<number>>(props: P): JSX
     ) ?? numberStats(options);
   const { s, preFilter, cell } = extractStats(props, stats);
   if (cell) {
-    return <BoxPlot s={s} i18n={props.i18n} />;
+    return <BoxPlot s={s} i18n={props.i18n} style={options.style} className={options.className} />;
   }
   if (isFilterAble(props) && props.column.canFilter) {
     const { setFilter, filterValue } = props.column;
     return (
-      <FilterBoxPlot s={s} setFilter={setFilter} preFilter={preFilter} filterValue={filterValue} i18n={props.i18n} />
+      <FilterBoxPlot
+        s={s}
+        setFilter={setFilter}
+        preFilter={preFilter}
+        filterValue={filterValue}
+        i18n={props.i18n}
+        style={options.style}
+        className={options.className}
+      />
     );
   }
-  return <BoxPlot s={s} preFilter={preFilter} summary i18n={props.i18n} />;
+  return (
+    <BoxPlot
+      s={s}
+      preFilter={preFilter}
+      summary
+      i18n={props.i18n}
+      style={options.style}
+      className={options.className}
+    />
+  );
 }
 
 export function BoxPlotRendererFactory<P extends StatsPropsLike<number>>(
