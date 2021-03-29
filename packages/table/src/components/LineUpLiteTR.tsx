@@ -51,6 +51,7 @@ const LineUpLiteTRImpl = /*! #__PURE__ */ forwardRef(function LineUpLiteTR<D ext
             }
         ),
       })}
+      data-id={rowTyped.id}
     >
       {rowTyped.cells
         .filter((d) => d.column.isVisible)

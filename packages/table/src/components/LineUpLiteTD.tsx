@@ -31,6 +31,7 @@ const LineUpLiteTDImpl = /*! #__PURE__ */ forwardRef(function LineUpLiteTD<D ext
         className: clsx('lt-td', !column.canResize && 'lt-td-support', c?.classNames?.td),
         style: c?.styles?.td,
       })}
+      data-id={column.id}
     >
       {cellTyped.isGrouped
         ? cellTyped.render(column.Group ? 'Group' : 'Cell')

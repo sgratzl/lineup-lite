@@ -40,6 +40,7 @@ const LineUpLiteTHImpl = /*! #__PURE__ */ forwardRef(function LineUpLiteTH<D ext
         ),
         style: mergeStyles({ display: '' }, c?.styles?.th),
       })}
+      data-id={column.id}
     >
       {column.canResize && typeof column.getResizerProps === 'function' && (
         <div
