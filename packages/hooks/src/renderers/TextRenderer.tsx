@@ -7,8 +7,7 @@
 
 import React, { useContext } from 'react';
 import type { Renderer, CellProps } from 'react-table';
-import { ITextStats, CommonProps, clsx } from '@lineup-lite/components';
-import { TextLabel } from '@lineup-lite/components';
+import { TextLabel, ITextStats, CommonProps, clsx } from '@lineup-lite/components';
 import type { UseStatsColumnProps } from '../hooks';
 import { missingClass, optionContext, resolve } from './utils';
 import type { AnyObject } from '../types';
