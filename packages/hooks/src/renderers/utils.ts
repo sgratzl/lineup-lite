@@ -113,7 +113,7 @@ export function resolve<T>(directValue: T | undefined, globalValue: T | undefine
 export function isFilterAble<D extends AnyObject = UnknownObject>(
   props: unknown
 ): props is { column: UseFiltersColumnProps<D> } {
-  if (!props || (props as UnknownObject).column != null) {
+  if (!props || (props as UnknownObject).column == null) {
     return false;
   }
   return typeof ((props as UnknownObject).column as UseFiltersColumnProps<D>).setFilter === 'function';
