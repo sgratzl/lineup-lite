@@ -1,7 +1,7 @@
 {
   "name": "@lineup-lite/example-animation",
   "description": "LineUp-lite example project",
-  "version": "1.5.1",
+  "version": "1.5.2",
   "private": true,
   "license": "MPL-2.0",
   "author": {
@@ -27,9 +27,9 @@
   ],
   "main": "src/index.tsx",
   "dependencies": {
-    "@lineup-lite/components": "~1.5.1",
-    "@lineup-lite/hooks": "~1.5.1",
-    "@lineup-lite/table": "~1.5.1",
+    "@lineup-lite/components": "~1.5.2",
+    "@lineup-lite/hooks": "~1.5.2",
+    "@lineup-lite/table": "~1.5.2",
     "@types/react-flip-move": "^2.9.12",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",

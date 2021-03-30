@@ -1,7 +1,7 @@
 {
   "name": "@lineup-lite/hooks",
   "description": "LineUp-lite is an extension of react-table for rendering data visualization tables inspired by the LineUp visualization technique",
-  "version": "1.5.1",
+  "version": "1.5.2",
   "license": "MPL-2.0",
   "author": {
     "name": "Samuel Gratzl",
@@ -21,7 +21,7 @@
     "url": "https://github.com/sgratzl/lineup-lite.git"
   },
   "dependencies": {
-    "@lineup-lite/components": "~1.5.1"
+    "@lineup-lite/components": "~1.5.2"
   },
   "main": "dist/hooks.js",
   "module": "dist/index.js",
