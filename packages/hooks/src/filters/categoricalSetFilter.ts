@@ -47,11 +47,10 @@ export function categoricalSetFilter<D extends AnyObject = UnknownObject>(
       }
       if (must.size > 0) {
         for (const vi of v) {
-          if (must.has(vi)) {
-            return true;
+          if (!must.has(vi)) {
+            return false;
           }
         }
-        return false;
       }
       return true;
     })
