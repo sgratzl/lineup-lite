@@ -37,6 +37,14 @@
   text-align: center;
 }
 
+.lt-histogram-bin[data-label][data-filtered="true"]::before,
+.lt-histogram-bin[data-label][data-filtered="mustNot"]::before {
+  text-decoration: line-through;
+}
+.lt-histogram-bin[data-label][data-filtered="must"]::before {
+  font-weight: bold;
+}
+
 .lt-histogram-bin-dense {
   margin-right: 0;
 }
