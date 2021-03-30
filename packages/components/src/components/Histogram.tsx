@@ -101,14 +101,14 @@ function Bin<T>({
   i,
   onClick,
   title,
-  filtered
+  filtered,
 }: {
   h: IBin<T>;
   i: number;
   onClick?: (evt: MouseEvent<HTMLElement>) => void;
   parentProps: HistogramProps<T>;
-    title?: string;
-    filtered?: boolean | string;
+  title?: string;
+  filtered?: boolean | string;
 }) {
   const { preFilter } = parentProps;
   const maxBin = parentProps.maxBin ?? preFilter?.maxBin.count ?? parentProps.s.maxBin.count;
