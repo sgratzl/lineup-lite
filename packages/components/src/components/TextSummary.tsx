@@ -76,7 +76,12 @@ export function FilterTextSummary(props: FilterTextSummaryProps): JSX.Element {
 
   const i18n = useI18N(TEXT_SUMMARY_I18N_EN, props.i18n);
   return (
-    <div className={clsx('lt-text-summary', 'lt-summary', props.className)} data-min={unique} style={props.style}>
+    <div
+      className={clsx('lt-text-summary', 'lt-summary', props.className)}
+      data-min={unique}
+      style={props.style}
+      data-filtered={filterValue ? 'true' : undefined}
+    >
       <input
         value={filterValue ?? ''}
         onChange={onChange}

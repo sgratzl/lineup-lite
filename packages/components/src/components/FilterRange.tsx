@@ -170,6 +170,7 @@ function FilterRangeSlider<T>(props: FilterRangeSliderProps<T> & { refData: Muta
     <>
       <div
         className="lt-filter-range lt-filter-range-min"
+        data-value={localFilter[0]}
         title={localFilter[0] == null ? undefined : i18n.filterRangeMinFilter(props.s.format(localFilter[0]))}
         style={{ width: toPercent(localFilter[0] == null ? 0 : Math.max(0, props.s.scale(localFilter[0]))) }}
       >
@@ -177,6 +178,7 @@ function FilterRangeSlider<T>(props: FilterRangeSliderProps<T> & { refData: Muta
       </div>
       <div
         className="lt-filter-range lt-filter-range-max"
+        data-value={localFilter[1]}
         title={localFilter[1] == null ? undefined : i18n.filterRangeMaxFilter(props.s.format(localFilter[1]))}
         style={{ width: toPercent(localFilter[1] == null ? 0 : Math.max(0, 1 - props.s.scale(localFilter[1]))) }}
       >
@@ -210,6 +212,7 @@ export function FilterRangeWrapper<T>(
       onClick={setShortCutFilter}
       role="presentation"
       style={props.style}
+      data-filtered={props.filterValue ? 'true' : undefined}
     >
       {props.children}
       <FilterRangeSlider {...props} refData={refData} />

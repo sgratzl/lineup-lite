@@ -101,12 +101,14 @@ function Bin<T>({
   i,
   onClick,
   title,
+  filtered
 }: {
   h: IBin<T>;
   i: number;
   onClick?: (evt: MouseEvent<HTMLElement>) => void;
   parentProps: HistogramProps<T>;
-  title?: string;
+    title?: string;
+    filtered?: boolean | string;
 }) {
   const { preFilter } = parentProps;
   const maxBin = parentProps.maxBin ?? preFilter?.maxBin.count ?? parentProps.s.maxBin.count;
@@ -121,6 +123,7 @@ function Bin<T>({
       onClick={onClick}
       data-label={parentProps.label ? h.label : null}
       title={generateBinTitle<T>(h, preFilter?.hist[i], title)}
+      data-filtered={filtered}
       role="presentation"
     />
   );
@@ -175,6 +178,7 @@ export function FilterBinHistogram<T>(props: FilterBinHistogramProps<T>): JSX.El
           parentProps={props}
           i={i}
           onClick={onClick}
+          filtered={(filterValue ?? EMPTY_ARR).includes(h.x0) ? 'true' : undefined}
           title={(filterValue ?? EMPTY_ARR).includes(h.x0) ? i18n.removeFilterBin : i18n.filterBin}
         />
       ))}
@@ -263,6 +267,7 @@ export function FilterSetHistogram<T>(props: FilterSetHistogramProps<T>): JSX.El
             parentProps={props}
             i={i}
             onClick={onClick}
+            filtered={index < 0 ? undefined : filterValue[index].value ? 'must' : 'mustNot'}
             title={
               index < 0 ? i18n.filterMustSet : filterValue[index].value ? i18n.filterMustNotSet : i18n.filterMaybeSet
             }
