@@ -23,13 +23,13 @@ export function categoricalSetFilter<D extends AnyObject = UnknownObject>(
   if (filterValue == null) {
     return rows as Row<D>[];
   }
-  const must = new Set<string>();
-  const mustNot = new Set<string>();
+  const must: string[] = [];
+  const mustNot: string[] = [];
   for (const v of filterValue) {
     if (v.value) {
-      must.add(v.set);
+      must.push(v.set);
     } else {
-      mustNot.add(v.set);
+      mustNot.push(v.set);
     }
   }
   return rows.filter((row) =>
@@ -38,16 +38,19 @@ export function categoricalSetFilter<D extends AnyObject = UnknownObject>(
       if (v == null) {
         return false;
       }
-      if (mustNot.size > 0) {
-        for (const vi of v) {
-          if (mustNot.has(vi)) {
+      const hasV = v instanceof Set ? v : new Set(v);
+      if (mustNot.length > 0) {
+        // if any must not value is in the values -> false
+        for (const mi of mustNot) {
+          if (hasV.has(mi)) {
             return false;
           }
         }
       }
-      if (must.size > 0) {
-        for (const vi of v) {
-          if (!must.has(vi)) {
+      if (must.length > 0) {
+        // if any must value is not in the values -> false
+        for (const mi of must) {
+          if (!hasV.has(mi)) {
             return false;
           }
         }
