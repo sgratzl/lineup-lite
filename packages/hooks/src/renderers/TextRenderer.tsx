@@ -29,13 +29,6 @@ function deriveTextOptions<D extends AnyObject, P extends CellProps<D, string>>(
 
 export function TextRenderer<D extends AnyObject, P extends CellProps<D, string>>(props: P): JSX.Element {
   const options = useContext(optionContext) as TextRendererOptions;
-  if (typeof props.value === 'string') {
-    return (
-      <div style={options.style} className={clsx('lt-text', options.className)}>
-        {props.value}
-      </div>
-    );
-  }
   const p = deriveTextOptions<D, P>(props, options);
   return (
     <TextLabel

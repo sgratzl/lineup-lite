@@ -13,6 +13,7 @@
 @import './components/NumberBar.css';
 @import './components/NumberColor.css';
 @import './components/NumberSymbol.css';
+@import './components/TextLabel.css';
 @import './components/TextSummary.css';
 @import './components/Summary.css';
 @import './components/UpSetLine.css';
