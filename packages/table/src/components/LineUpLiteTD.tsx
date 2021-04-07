@@ -28,7 +28,7 @@ const LineUpLiteTDImpl = /*! #__PURE__ */ forwardRef(function LineUpLiteTD<D ext
     <p.c
       ref={ref}
       {...cellTyped.getCellProps({
-        className: clsx('lt-td', !column.canResize && 'lt-td-support', c?.classNames?.td, column.className),
+        className: clsx('lt-td', column.isSupport && 'lt-td-support', c?.classNames?.td, column.className),
         style: c?.styles?.td,
       })}
       data-id={column.id}
