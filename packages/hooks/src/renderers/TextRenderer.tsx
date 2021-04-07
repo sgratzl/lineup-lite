@@ -31,7 +31,7 @@ export function TextRenderer<D extends AnyObject, P extends CellProps<D, string>
   const options = useContext(optionContext) as TextRendererOptions;
   if (typeof props.value === 'string') {
     return (
-      <div style={options.style} className={clsx('lt-date', options.className)}>
+      <div style={options.style} className={clsx('lt-text', options.className)}>
         {props.value}
       </div>
     );
