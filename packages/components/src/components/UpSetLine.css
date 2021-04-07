@@ -12,6 +12,10 @@
   height: 1.2em;
 }
 
+.lt-upset-line > svg {
+  height: 100%;
+}
+
 .lt-upset-dot {
   opacity: 0.2;
   fill: var(--current-color, currentColor);
