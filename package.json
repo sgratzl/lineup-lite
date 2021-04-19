@@ -43,25 +43,25 @@
     "release:npm": "yarn workspaces foreach --verbose --no-private npm publish --access public"
   },
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^4.16.1",
-    "@typescript-eslint/parser": "^4.16.1",
-    "@typescript-eslint/typescript-estree": "^4.16.1",
+    "@typescript-eslint/eslint-plugin": "^4.22.0",
+    "@typescript-eslint/parser": "^4.22.0",
+    "@typescript-eslint/typescript-estree": "^4.22.0",
     "@yarnpkg/pnpify": "^2.4.0",
     "babel-eslint": "^10.1.0",
-    "eslint": "^7.21.0",
+    "eslint": "^7.24.0",
     "eslint-config-airbnb-typescript": "^12.3.1",
-    "eslint-config-prettier": "^8.1.0",
+    "eslint-config-prettier": "^8.2.0",
     "eslint-config-react-app": "^6.0.0",
-    "eslint-plugin-flowtype": "^5.3.1",
+    "eslint-plugin-flowtype": "^5.7.1",
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-jsx-a11y": "^6.4.1",
-    "eslint-plugin-prettier": "^3.3.1",
-    "eslint-plugin-react": "^7.22.0",
+    "eslint-plugin-prettier": "^3.4.0",
+    "eslint-plugin-react": "^7.23.2",
     "eslint-plugin-react-hooks": "^4.2.0",
     "prettier": "^2.2.1",
-    "release-it": "^14.4.1",
+    "release-it": "^14.6.1",
     "shx": "^0.3.3",
-    "typescript": "~4.1.5"
+    "typescript": "^4.2.4"
   },
   "dependenciesMeta": {
     "remixicon@2.5.0": {
