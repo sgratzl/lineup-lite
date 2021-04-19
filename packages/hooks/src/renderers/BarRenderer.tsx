@@ -5,7 +5,7 @@
  * Copyright (c) 2021 Samuel Gratzl <sam@sgratzl.com>
  */
 
-import { NumberBar, NumberFormatter, CommonProps, clsx } from '@lineup-lite/components';
+import { NumberBar, NumberFormatter, CommonProps, clsx, DivergingNumberBar } from '@lineup-lite/components';
 import React, { useContext } from 'react';
 import type { CellProps, Renderer } from 'react-table';
 import type { UnknownObject } from '../interfaces';
@@ -43,6 +43,39 @@ export function BarRendererFactory<D extends UnknownObject, P extends CellProps<
   return (props: P) => (
     <optionContext.Provider value={options}>
       <BarRenderer<D, P> {...props} />
+    </optionContext.Provider>
+  );
+}
+
+export interface DivergingBarRendererOptions extends BarRendererOptions {
+  center?: number;
+}
+
+/**
+ * Cell renderer for a number to be rendered as a a bar
+ */
+export function DivergingBarRenderer<D extends UnknownObject, P extends CellProps<D, number>>(props: P): JSX.Element {
+  const options = useContext(optionContext) as DivergingBarRendererOptions;
+  const p = deriveNumberOptions<D, P>(props, options);
+  return (
+    <DivergingNumberBar
+      {...p}
+      value={props.value}
+      style={options.style}
+      className={clsx(missingClass(props.value), options.className)}
+    />
+  );
+}
+
+/**
+ * factory for rendering numbers as a bar
+ */
+export function DivergingBarRendererFactory<D extends UnknownObject, P extends CellProps<D, number>>(
+  options: DivergingBarRendererOptions = {}
+): Renderer<P> {
+  return (props: P) => (
+    <optionContext.Provider value={options}>
+      <DivergingBarRenderer<D, P> {...props} />
     </optionContext.Provider>
   );
 }

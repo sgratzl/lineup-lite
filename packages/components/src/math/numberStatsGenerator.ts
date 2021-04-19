@@ -6,7 +6,7 @@
  */
 
 import boxplot, { BoxplotStatsOptions, IBoxPlot } from '@sgratzl/boxplots';
-import { defaultColorScale } from './defaults';
+import { defaultColorScale, defaultDivergingColorScale } from './defaults';
 import { INumericStats, IBin, toHistString, maxHistBin } from './common';
 import { normalize, deNormalize } from './scale';
 
@@ -188,7 +188,6 @@ function createFlat(arr: readonly NumberLike[] | Float32Array | Float64Array) {
 export function numberStatsGenerator(
   options: NumberStatsOptions = {}
 ): (arr: readonly NumberLike[] | Float32Array | Float64Array) => INumberStats {
-  const color = options.color ?? defaultColorScale;
   const format = resolveNumberFormatter(options.format);
 
   return (arr): INumberStats => {
@@ -196,6 +195,8 @@ export function numberStatsGenerator(
     const b = boxplot(flatItems, options);
     const min = options.min ?? b.min;
     const max = options.max ?? b.max;
+    // guess diverging or normal
+    const color = options.color ?? (min < 0 && max > 0 ? defaultDivergingColorScale : defaultColorScale);
     const hist = createHist(b, min, max, color, format, options.numberOfBins);
     const r: INumberStats = Object.assign(b, {
       min,

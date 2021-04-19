@@ -10,6 +10,7 @@ import {
   DateStatsOptions,
   NumberStatsOptions,
   TextStatsOptions,
+  defaultDivergingColorScale,
   defaultConstantColorScale,
 } from '@lineup-lite/components';
 import type { Accessor, Column } from 'react-table';
@@ -30,6 +31,7 @@ import {
   TextRenderer,
   StackedBarRenderer,
   computeStackedValue,
+  DivergingBarRendererFactory,
 } from './renderers';
 import { textStats, categoricalStats, dateStats, numberStats } from './stats';
 import { rangeFilter, categoricalFilter, categoricalSetFilter } from './filters';
@@ -118,6 +120,31 @@ export function asNumberColumn<D extends AnyObject = UnknownObject, C extends Co
   } as unknown) as LineUpLiteColumn<D>;
 }
 
+/**
+ * defines a diverging number column
+ * @param col property key or partial column Header and accessor
+ * @param options additional options for statistics
+ */
+export function asDivergingNumberColumn<D extends AnyObject = UnknownObject, C extends Column<D> = Column<D>>(
+  col: C | keyof D,
+  options: NumberStatsOptions & { center?: number } = {}
+): LineUpLiteColumn<D> {
+  return ({
+    Cell: DivergingBarRendererFactory({ center: options.center }),
+    Summary: NumberHistogramRenderer,
+    Group: GroupValueRenderer,
+    Aggregated: NumberHistogramRenderer,
+    aggregate: statsAggregate,
+    filter: rangeFilter,
+    stats: numberStats({ color: defaultDivergingColorScale, ...options }),
+    sortType: sortSplitter(sortCompare, numberGroupCompare),
+    sortDescFirst: true,
+    defaultCanGroupBy: false,
+    groupBy: numberGroupBy,
+    canHide: false,
+    ...asColumn<D, C>(col),
+  } as unknown) as LineUpLiteColumn<D>;
+}
 /**
  * defines a number array column, each value is a number array
  * @param col property key or partial column Header and accessor

@@ -5,4 +5,5 @@
  * Copyright (c) 2021 Samuel Gratzl <sam@sgratzl.com>
  */
 
-export const ALWAYS_TRUE = () => true;
+// eslint-disable-next-line import/prefer-default-export
+export const ALWAYS_TRUE: () => boolean = () => true;
