@@ -6,6 +6,7 @@
  */
 
 import type { Row } from 'react-table';
+import { filterByRangeFilter, ALWAYS_TRUE } from '@lineup-lite/components';
 import type { AnyObject, UnknownObject } from '../interfaces';
 
 /**
@@ -16,21 +17,14 @@ export function rangeFilter<D extends AnyObject = UnknownObject, T = unknown>(
   ids: readonly string[],
   filterValue: readonly [T, T]
 ): Row<D>[] {
-  if (filterValue == null) {
+  const f = filterByRangeFilter(filterValue);
+  if (f === ALWAYS_TRUE) {
     return rows as Row<D>[];
   }
-  const matches = (v: T) =>
-    (filterValue[0] == null || v >= filterValue[0]) && (filterValue[1] == null || v <= filterValue[1]);
   return rows.filter((row) =>
     ids.some((id) => {
       const v = row.values[id];
-      if (v == null) {
-        return false;
-      }
-      if (Array.isArray(v)) {
-        return v.every((vi) => v != null && matches(vi));
-      }
-      return matches(v);
+      return f(v);
     })
   );
 }

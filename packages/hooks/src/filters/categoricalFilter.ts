@@ -7,6 +7,7 @@
 
 import type { IdType, Row } from 'react-table';
 import type { AnyObject, UnknownObject } from '../interfaces';
+import { filterByCategoricalFilter, ALWAYS_TRUE } from '@lineup-lite/components';
 
 /**
  * filter function by a set of filter values
@@ -19,17 +20,14 @@ export function categoricalFilter<D extends AnyObject = UnknownObject>(
   ids: readonly IdType<D>[],
   filterValue: readonly string[]
 ): Row<D>[] {
-  if (filterValue == null) {
+  const f = filterByCategoricalFilter(filterValue);
+  if (f === ALWAYS_TRUE) {
     return rows as Row<D>[];
   }
-  const lookup = new Set(filterValue);
   return rows.filter((row) =>
     ids.some((id) => {
       const v = row.values[id];
-      if (v == null) {
-        return false;
-      }
-      return !lookup.has(v);
+      return f(v);
     })
   );
 }
