@@ -15,6 +15,7 @@ export {
   asDateColumn,
   asNumberBoxPlotColumn,
   asStackedNumberColumn,
+  asDivergingNumberColumn,
   asNumbersColumn,
   asTextColumn,
   asNumberColumn,

@@ -39,6 +39,12 @@ export function defaultColorScale(v: number): string {
   return `hsl(206, 64%, ${Math.round(100 * (v * (maxL - minL) + minL))}%)`;
 }
 
+export function defaultColorScale2(v: number): string {
+  const maxL = 0.9;
+  const minL = 0.23;
+  return `hsl(20, 64%, ${Math.round(100 * (v * (maxL - minL) + minL))}%)`;
+}
+
 /**
  * default diverging numeric color scale converting a number between 0..1 to a color where 0.5 is the center
  */
@@ -46,16 +52,21 @@ export function defaultDivergingColorScale(v: number): string {
   if (v >= 0.5) {
     return defaultColorScale((v - 0.5) * 2); // rescale 0...1
   }
-  const maxL = 0.9;
-  const minL = 0.23;
-  const vv = 1 - v * 2; // invert and scale to 0..1 range
-  return `hsl(0, 64%, ${Math.round(100 * (vv * (maxL - minL) + minL))}%)`;
+  return defaultColorScale2(1 - v * 2);
 }
 
 /**
  * default numeric color scale converting a number between 0..1 to a color for dark themes
  */
 export const defaultDarkColorScale = invertColorScale(defaultColorScale);
+export const defaultDarkColorScale2 = invertColorScale(defaultColorScale2);
+
+export function defaultDivergingDarkColorScale(v: number): string {
+  if (v >= 0.5) {
+    return defaultDarkColorScale((v - 0.5) * 2); // rescale 0...1
+  }
+  return defaultDarkColorScale2(1 - v * 2);
+}
 
 /**
  * helper function to assign categorical values to colors

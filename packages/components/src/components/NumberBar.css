@@ -5,8 +5,22 @@
  * Copyright (c) 2021 Samuel Gratzl <sam@sgratzl.com>
  */
 
-.lt-bar {
+.lt-bar,
+.lt-diverging-bar {
   text-align: right;
   padding-right: 0.2em;
   text-shadow: 0 0 2px var(--current-inverted-color, white);
+}
+
+.lt-diverging-bar {
+  position: relative;
+}
+.lt-diverging-bar::before {
+  content: '';
+  width: 1px;
+  top: 0;
+  left: 50%;
+  height: 100%;
+  border-left: 1px solid var(--current-color, currentColor);
+  position: absolute;
 }

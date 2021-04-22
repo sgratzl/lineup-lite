@@ -111,7 +111,7 @@ export function DivergingNumberBar(props: DivergingNumberBarProps): JSX.Element 
   const label = format(props.value, props.format ?? toLocaleString);
   return (
     <div
-      className={clsx('lt-bar', props.className)}
+      className={clsx('lt-diverging-bar', props.className)}
       style={mergeStyles(
         props.style,
         divergingBarProps(

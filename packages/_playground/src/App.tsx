@@ -5,17 +5,13 @@
  * Copyright (c) 2021 Samuel Gratzl <sam@sgratzl.com>
  */
 
-import { defaultColorScale, defaultDarkColorScale } from '@lineup-lite/components';
+import { defaultDivergingColorScale, defaultDivergingDarkColorScale } from '@lineup-lite/components';
 import '@lineup-lite/components/src/style.css';
-import { ColorRenderer, ProportionalSymbolRenderer } from '@lineup-lite/hooks';
 import '@lineup-lite/hooks/src/style.css';
 import LineUpLite, {
   actionIconsRemixicon,
-  asCategoricalColumn,
-  asCategoricalSetColumn,
-  asNumberColumn,
-  asNumbersColumn,
   asTextColumn,
+  asDivergingNumberColumn,
   LineUpLiteColumn,
   LineUpLitePanel,
   LineUpLiteStateContextProvider,
@@ -66,38 +62,11 @@ function Table({ isDarkTheme }: { isDarkTheme: boolean }) {
   const columns: LineUpLiteColumn<Row>[] = useMemo(
     () => [
       asTextColumn<Row>('name'),
-      asNumberColumn<Row>('age', {
-        color: isDarkTheme ? defaultDarkColorScale : defaultColorScale,
+      asDivergingNumberColumn<Row>('test', {
+        color: isDarkTheme ? defaultDivergingDarkColorScale : defaultDivergingColorScale,
+        min: -1,
+        max: 1,
       }),
-      asNumberColumn<Row>(
-        {
-          Header: 'Age',
-          id: 'age2',
-          accessor: (row) => row.age,
-          Cell: ColorRenderer,
-        },
-        {
-          color: isDarkTheme ? defaultDarkColorScale : defaultColorScale,
-        }
-      ),
-      asNumberColumn<Row>(
-        {
-          Header: 'Age',
-          id: 'age3',
-          accessor: (row) => row.age,
-          Cell: ProportionalSymbolRenderer,
-        },
-        {
-          color: isDarkTheme ? defaultDarkColorScale : defaultColorScale,
-        }
-      ),
-      asCategoricalColumn<Row>('shirtSize', {
-        categories: ['S', 'M', 'L'],
-      }),
-      asCategoricalSetColumn<Row>('hobbies', {
-        categories: ['running', 'cooking', 'reading'],
-      }),
-      asNumbersColumn<Row>('runningTimes'),
     ],
     [isDarkTheme]
   );
