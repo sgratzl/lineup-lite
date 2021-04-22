@@ -136,7 +136,7 @@ export function asDivergingNumberColumn<D extends AnyObject = UnknownObject, C e
     Aggregated: NumberHistogramRenderer,
     aggregate: statsAggregate,
     filter: rangeFilter,
-    stats: numberStats({ color: defaultDivergingColorScale, ...options }),
+    stats: numberStats({ color: defaultDivergingColorScale, center: 0, ...options }),
     sortType: sortSplitter(sortCompare, numberGroupCompare),
     sortDescFirst: true,
     defaultCanGroupBy: false,

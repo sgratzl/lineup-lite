@@ -135,3 +135,7 @@
   );
   border-image-slice: 1 1;
 }
+
+.lt-summary.lt-summary-center > .lt-summary-center {
+  border-top: 1px solid var(--current-color, currentColor);
+}

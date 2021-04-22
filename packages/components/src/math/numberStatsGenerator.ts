@@ -25,7 +25,12 @@ export function getNumberOfBins(length: number): number {
 /**
  * number statistics object
  */
-export interface INumberStats extends Omit<IBoxPlot, 'items'>, INumericStats<number> {}
+export interface INumberStats extends Omit<IBoxPlot, 'items'>, INumericStats<number> {
+  /**
+   * optional center for diverging
+   */
+  readonly center?: number;
+}
 
 export function isNumberStats(obj: unknown): obj is INumberStats {
   return obj != null && typeof (obj as INumberStats).min === 'number' && typeof (obj as INumberStats).max === 'number';
@@ -77,6 +82,10 @@ export interface NumberStatsOptions extends BoxplotStatsOptions {
    * defines the maximum, otherwise derives it
    */
   max?: number;
+  /**
+   * optional center for diverging histograms
+   */
+  center?: number;
   /**
    * fixes the number of bins
    */
@@ -201,6 +210,7 @@ export function numberStatsGenerator(
     const r: INumberStats = Object.assign(b, {
       min,
       max,
+      center: options.center,
       hist,
       missing,
       items,

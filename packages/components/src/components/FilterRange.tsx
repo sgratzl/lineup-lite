@@ -191,7 +191,7 @@ function FilterRangeSlider<T>(props: FilterRangeSliderProps<T> & { refData: Muta
 export function FilterRangeWrapper<T>(
   props: PropsWithChildren<
     {
-      s: INumericStats<T>;
+      s: INumericStats<T> & { readonly center?: T };
       summary?: boolean;
     } & FilterRangeSliderProps<T> &
       CommonProps
@@ -203,9 +203,10 @@ export function FilterRangeWrapper<T>(
     refData,
   ]);
 
+  const hasCenter = props.s.center != null && props.summary;
   return (
     <div
-      className={clsx('lt-summary', !props.summary && 'lt-group', props.className)}
+      className={clsx('lt-summary', !props.summary && 'lt-group', hasCenter && 'lt-summary-center', props.className)}
       data-min={props.s.min != null && props.summary ? props.s.format(props.s.min) : null}
       data-max={props.s.max != null && props.summary ? props.s.format(props.s.max) : null}
       onDoubleClick={clearFilter}
@@ -214,6 +215,7 @@ export function FilterRangeWrapper<T>(
       style={props.style}
       data-filtered={props.filterValue ? 'true' : undefined}
     >
+      {hasCenter && props.s.center != null && <div className="lt-summary-center">{props.s.format(props.s.center)}</div>}
       {props.children}
       <FilterRangeSlider {...props} refData={refData} />
     </div>
