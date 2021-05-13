@@ -39,7 +39,7 @@ export default function LineUpLiteTVirtualBody<D extends AnyObject = UnknownObje
       if (typeof givenEstimate === 'function') {
         return givenEstimate(index) + rowSpacing;
       }
-      const row = (rows[index] as unknown) as Row<D> & UseExpandedRowProps<D> & UseGroupByRowProps<D>;
+      const row = rows[index] as unknown as Row<D> & UseExpandedRowProps<D> & UseGroupByRowProps<D>;
       const vs = typeof givenEstimate === 'number' ? [givenEstimate, givenEstimate * 2] : givenEstimate;
       return (row.isGrouped ? vs[1] : vs[0]) + rowSpacing;
     },

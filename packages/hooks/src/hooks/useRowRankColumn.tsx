@@ -31,7 +31,7 @@ export function useRowRankColumn<D extends AnyObject = UnknownObject>(hooks: Hoo
 useRowRankColumn.pluginName = 'useRowRankColumn';
 
 function Cell(props: TableCellProps & UseTableCellProps<UnknownObject, unknown>) {
-  return <div className="lt-rank">{`${((props.row as unknown) as UseRankRowProps).rank.toLocaleString()}.`}</div>;
+  return <div className="lt-rank">{`${(props.row as unknown as UseRankRowProps).rank.toLocaleString()}.`}</div>;
 }
 
 function Aggregated(props: TableCellProps & UseTableCellProps<UnknownObject, unknown>) {
@@ -39,8 +39,8 @@ function Aggregated(props: TableCellProps & UseTableCellProps<UnknownObject, unk
   if (group.length === 0) {
     return <div className="lt-rank-agg" />;
   }
-  const firstRow = (group[0] as unknown) as UseRankRowProps;
-  const lastRow = (group[group.length - 1] as unknown) as UseRankRowProps;
+  const firstRow = group[0] as unknown as UseRankRowProps;
+  const lastRow = group[group.length - 1] as unknown as UseRankRowProps;
   return (
     <div className="lt-rank-agg">
       <span>{`${firstRow.rank.toLocaleString()}.`}</span>
@@ -89,21 +89,21 @@ function generateColumn<D extends AnyObject = UnknownObject>(columns: ColumnInst
 function useInstance<D extends AnyObject = UnknownObject>(instance: TableInstance<D>) {
   ensurePluginOrder(instance.plugins, ['useFilters', 'useGroupBy', 'useSortBy'], 'useRowRankColumn');
 
-  const extendedInstance = (instance as unknown) as TableInstance<D> &
+  const extendedInstance = instance as unknown as TableInstance<D> &
     UseFiltersInstanceProps<D> &
     UseGroupByInstanceProps<D>;
 
   let rank = 1;
   let groupRank = 1;
   extendedInstance.flatRows.forEach((row) => {
-    if (((row as unknown) as UseGroupByRowProps<D>).isGrouped) {
+    if ((row as unknown as UseGroupByRowProps<D>).isGrouped) {
       // eslint-disable-next-line no-param-reassign
-      ((row as unknown) as UseRankRowProps).rank = groupRank;
+      (row as unknown as UseRankRowProps).rank = groupRank;
       groupRank += 1;
       return;
     }
     // eslint-disable-next-line no-param-reassign
-    ((row as unknown) as UseRankRowProps).rank = rank;
+    (row as unknown as UseRankRowProps).rank = rank;
     rank += 1;
   });
 }

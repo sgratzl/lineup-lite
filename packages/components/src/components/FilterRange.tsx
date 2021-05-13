@@ -199,9 +199,10 @@ export function FilterRangeWrapper<T>(
 ): JSX.Element {
   const refData = useRef({ clearFilter() {}, setShortCutFilter() {} } as FilterRefData);
   const clearFilter = useCallback(() => refData.current.clearFilter(), [refData]);
-  const setShortCutFilter = useCallback((evt: RMouseEvent<HTMLElement>) => refData.current.setShortCutFilter(evt), [
-    refData,
-  ]);
+  const setShortCutFilter = useCallback(
+    (evt: RMouseEvent<HTMLElement>) => refData.current.setShortCutFilter(evt),
+    [refData]
+  );
 
   const hasCenter = props.s.center != null && props.summary;
   return (

@@ -78,7 +78,7 @@ export function asTextColumn<D extends AnyObject = UnknownObject, C extends Colu
   col: C | keyof D,
   options?: TextStatsOptions
 ): LineUpLiteColumn<D> {
-  return ({
+  return {
     Cell: TextRenderer,
     Summary: TextSummaryRenderer,
     Aggregated: TextSummaryRenderer,
@@ -91,7 +91,7 @@ export function asTextColumn<D extends AnyObject = UnknownObject, C extends Colu
     groupBy: textGroupBy,
     canHide: false,
     ...asColumn<D, C>(col),
-  } as unknown) as LineUpLiteColumn<D>;
+  } as unknown as LineUpLiteColumn<D>;
 }
 
 /**
@@ -103,7 +103,7 @@ export function asNumberColumn<D extends AnyObject = UnknownObject, C extends Co
   col: C | keyof D,
   options?: NumberStatsOptions
 ): LineUpLiteColumn<D> {
-  return ({
+  return {
     Cell: BarRenderer,
     Summary: NumberHistogramRenderer,
     Group: GroupValueRenderer,
@@ -117,7 +117,7 @@ export function asNumberColumn<D extends AnyObject = UnknownObject, C extends Co
     groupBy: numberGroupBy,
     canHide: false,
     ...asColumn<D, C>(col),
-  } as unknown) as LineUpLiteColumn<D>;
+  } as unknown as LineUpLiteColumn<D>;
 }
 
 /**
@@ -129,7 +129,7 @@ export function asDivergingNumberColumn<D extends AnyObject = UnknownObject, C e
   col: C | keyof D,
   options: NumberStatsOptions & { center?: number } = {}
 ): LineUpLiteColumn<D> {
-  return ({
+  return {
     Cell: DivergingBarRendererFactory({ center: options.center }),
     Summary: NumberHistogramRenderer,
     Group: GroupValueRenderer,
@@ -143,7 +143,7 @@ export function asDivergingNumberColumn<D extends AnyObject = UnknownObject, C e
     groupBy: numberGroupBy,
     canHide: false,
     ...asColumn<D, C>(col),
-  } as unknown) as LineUpLiteColumn<D>;
+  } as unknown as LineUpLiteColumn<D>;
 }
 /**
  * defines a number array column, each value is a number array
@@ -154,7 +154,7 @@ export function asNumbersColumn<D extends AnyObject = UnknownObject, C extends C
   col: C | keyof D,
   options?: NumberStatsOptions
 ): LineUpLiteColumn<D> {
-  return ({
+  return {
     Cell: HeatMap1DRenderer,
     Summary: NumberHistogramRenderer,
     Group: GroupValueRenderer,
@@ -168,7 +168,7 @@ export function asNumbersColumn<D extends AnyObject = UnknownObject, C extends C
     groupBy: numberGroupBy,
     canHide: false,
     ...asColumn<D, C>(col),
-  } as unknown) as LineUpLiteColumn<D>;
+  } as unknown as LineUpLiteColumn<D>;
 }
 
 /**
@@ -180,7 +180,7 @@ export function asNumberBoxPlotColumn<D extends AnyObject = UnknownObject, C ext
   col: C | keyof D,
   options?: NumberStatsOptions
 ): LineUpLiteColumn<D> {
-  return ({
+  return {
     Cell: BarRenderer,
     Summary: BoxPlotRenderer,
     Group: GroupValueRenderer,
@@ -194,7 +194,7 @@ export function asNumberBoxPlotColumn<D extends AnyObject = UnknownObject, C ext
     groupBy: numberGroupBy,
     canHide: false,
     ...asColumn<D, C>(col),
-  } as unknown) as LineUpLiteColumn<D>;
+  } as unknown as LineUpLiteColumn<D>;
 }
 
 /**
@@ -206,7 +206,7 @@ export function asCategoricalColumn<D extends AnyObject = UnknownObject, C exten
   col: C | keyof D,
   options?: CategoricalStatsOptions
 ): LineUpLiteColumn<D> {
-  return ({
+  return {
     Cell: CategoricalRenderer,
     Summary: CategoricalHistogramRenderer,
     Group: CategoricalRenderer,
@@ -222,7 +222,7 @@ export function asCategoricalColumn<D extends AnyObject = UnknownObject, C exten
     groupBy: categoricalGroupBy,
     canHide: false,
     ...asColumn<D, C>(col),
-  } as unknown) as LineUpLiteColumn<D>;
+  } as unknown as LineUpLiteColumn<D>;
 }
 
 /**
@@ -234,7 +234,7 @@ export function asCategoricalSetColumn<D extends AnyObject = UnknownObject, C ex
   col: C | keyof D,
   options?: CategoricalStatsOptions
 ): LineUpLiteColumn<D> {
-  return ({
+  return {
     Cell: CategoricalSetRenderer,
     Summary: CategoricalSetHistogramRenderer,
     Group: CategoricalSetRenderer,
@@ -250,7 +250,7 @@ export function asCategoricalSetColumn<D extends AnyObject = UnknownObject, C ex
     groupBy: categoricalSetGroupBy,
     canHide: false,
     ...asColumn<D, C>(col),
-  } as unknown) as LineUpLiteColumn<D>;
+  } as unknown as LineUpLiteColumn<D>;
 }
 
 /**
@@ -262,7 +262,7 @@ export function asDateColumn<D extends AnyObject = UnknownObject, C extends Colu
   col: C | keyof D,
   options?: DateStatsOptions
 ): LineUpLiteColumn<D> {
-  return ({
+  return {
     Cell: DateRenderer,
     Summary: DateHistogramRenderer,
     Group: GroupValueRenderer,
@@ -275,7 +275,7 @@ export function asDateColumn<D extends AnyObject = UnknownObject, C extends Colu
     groupBy: dateGroupBy,
     canHide: false,
     ...asColumn<D, C>(col),
-  } as unknown) as LineUpLiteColumn<D>;
+  } as unknown as LineUpLiteColumn<D>;
 }
 
 /**
@@ -288,7 +288,7 @@ export function asStackedNumberColumn<D extends AnyObject = UnknownObject, C ext
   stack: readonly { col: keyof D | Accessor<D>; weight: number; color?: string }[],
   options?: NumberStatsOptions & { colors?: (v: string) => string }
 ): LineUpLiteColumn<D> {
-  return ({
+  return {
     Cell: StackedBarRenderer,
     Summary: NumberHistogramRenderer,
     Group: GroupValueRenderer,
@@ -305,5 +305,5 @@ export function asStackedNumberColumn<D extends AnyObject = UnknownObject, C ext
     id: typeof col == 'string' ? col : col.id ?? col.Header!,
     ...(typeof col === 'string' ? { Header: col } : col),
     accessor: computeStackedValue(stack, options?.colors),
-  } as unknown) as LineUpLiteColumn<D>;
+  } as unknown as LineUpLiteColumn<D>;
 }

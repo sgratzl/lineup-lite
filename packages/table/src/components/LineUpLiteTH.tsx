@@ -22,7 +22,7 @@ const LineUpLiteTHImpl = /*! #__PURE__ */ forwardRef(function LineUpLiteTH<D ext
   { col, actions, icons, children }: LineUpLiteTHProps<D>,
   ref: Ref<HTMLElement>
 ) {
-  const column = (col as unknown) as HeaderGroup<D> &
+  const column = col as unknown as HeaderGroup<D> &
     UseGroupByColumnProps<D> &
     UseResizeColumnsColumnProps<D> &
     LineUpLiteColumn<D>;

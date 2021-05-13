@@ -42,7 +42,7 @@ export function DateHistogramRenderer<P extends StatsPropsLike<Date | null>>(pro
     dateStats(options);
   const { s, preFilter, cell } = extractStats(props, stats);
   if (cell) {
-    const maxBin = groupMaxBin(options, (cell as unknown) as { isAggregated?: boolean }, props);
+    const maxBin = groupMaxBin(options, cell as unknown as { isAggregated?: boolean }, props);
     return <Histogram s={s} maxBin={maxBin} />;
   }
   if (isFilterAble(props) && props.column.canFilter) {

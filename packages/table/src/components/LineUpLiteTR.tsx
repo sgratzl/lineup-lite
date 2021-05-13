@@ -24,7 +24,7 @@ const LineUpLiteTRImpl = /*! #__PURE__ */ forwardRef(function LineUpLiteTR<D ext
   ref: Ref<HTMLElement>
 ) {
   const c = useLineUpLiteTableContext();
-  const rowTyped = (props.row as unknown) as Row<D> &
+  const rowTyped = props.row as unknown as Row<D> &
     UseExpandedRowProps<D> &
     UseGroupByRowProps<D> &
     UseRowSelectRowProps<D>;

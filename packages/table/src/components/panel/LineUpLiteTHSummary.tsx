@@ -21,7 +21,7 @@ export interface LineUpLiteTHSummaryProps<D extends AnyObject = UnknownObject> e
 const LineUpLiteTHSummaryImpl = /*! #__PURE__ */ forwardRef(function LineUpLiteTHSummary<
   D extends AnyObject = UnknownObject
 >({ col, actions, icons, children }: LineUpLiteTHSummaryProps<D>, ref: Ref<HTMLElement>) {
-  const column = (col as unknown) as HeaderGroup<D> &
+  const column = col as unknown as HeaderGroup<D> &
     UseGroupByColumnProps<D> &
     UseResizeColumnsColumnProps<D> &
     LineUpLiteColumn<D>;

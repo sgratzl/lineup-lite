@@ -10,7 +10,7 @@ import type { UnknownObject } from '../interfaces';
 import type { RowCompareFunction } from './interfaces';
 
 function resolveGroupByColumn(a: Row<UnknownObject>) {
-  const g = ((a as unknown) as UseGroupByRowProps<UnknownObject>).isGrouped;
+  const g = (a as unknown as UseGroupByRowProps<UnknownObject>).isGrouped;
   if (!g) {
     return null;
   }

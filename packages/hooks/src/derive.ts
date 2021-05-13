@@ -93,7 +93,7 @@ export function deriveColumn<D extends AnyObject = UnknownObject>(data: D[], acc
         Header: column.Header,
         id: accessor.toString(),
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        accessor: (acc as unknown) as any,
+        accessor: acc as unknown as any,
       },
     };
   }

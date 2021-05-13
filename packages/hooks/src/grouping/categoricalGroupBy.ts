@@ -19,11 +19,11 @@ export default function categoricalGroupBy<D extends AnyObject = UnknownObject>(
     return {};
   }
   const base = baseGroupBy(rows, column);
-  if (((column as unknown) as UseStatsColumnProps).statsValue == null) {
+  if ((column as unknown as UseStatsColumnProps).statsValue == null) {
     return base;
   }
   // create a new one but this time sorted
-  const stats = ((column as unknown) as UseStatsColumnProps).statsValue as ICategoricalStats;
+  const stats = (column as unknown as UseStatsColumnProps).statsValue as ICategoricalStats;
   const sortedGrouped: Record<string, Row<D>[]> = {};
   stats.categories.forEach((cat) => {
     if (base[cat] != null) {

@@ -6,8 +6,8 @@
  */
 
 import type { IdType, Row } from 'react-table';
-import type { AnyObject, UnknownObject } from '../interfaces';
 import { filterByCategoricalFilter, ALWAYS_TRUE } from '@lineup-lite/components';
+import type { AnyObject, UnknownObject } from '../interfaces';
 
 /**
  * filter function by a set of filter values

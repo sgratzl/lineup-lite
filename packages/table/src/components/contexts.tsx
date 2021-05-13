@@ -88,7 +88,7 @@ export function useStateListener<D extends AnyObject = UnknownObject>(
 
   useEffect(() => {
     if (onStateChange) {
-      onStateChange((state as unknown) as LineUpLiteState<D>);
+      onStateChange(state as unknown as LineUpLiteState<D>);
     }
   }, [onStateChange, state]);
 
@@ -96,7 +96,7 @@ export function useStateListener<D extends AnyObject = UnknownObject>(
   const { setState, setInstance } = useContext(LineUpLiteStateSetterContext) ?? {};
   useEffect(() => {
     if (setState) {
-      setState((state as unknown) as LineUpLiteState<D>);
+      setState(state as unknown as LineUpLiteState<D>);
     }
   }, [setState, state]);
   useEffect(() => {

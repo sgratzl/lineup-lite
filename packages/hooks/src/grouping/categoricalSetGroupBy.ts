@@ -19,7 +19,7 @@ export default function categoricalSetGroupBy<D extends AnyObject = UnknownObjec
   if (rows.length === 0) {
     return {};
   }
-  const stats = ((column as unknown) as UseStatsColumnProps).statsValue as ICategoricalStats;
+  const stats = (column as unknown as UseStatsColumnProps).statsValue as ICategoricalStats;
   const sorter = stats ? categoricalSortFunc(stats.categories) : compareAsc;
   return baseGroupBy(rows, column, (d) => (d == null ? null : [...(d as string[])].sort(sorter).join(',')));
 }

@@ -24,7 +24,7 @@ export function CategoricalHistogramRenderer<P extends StatsPropsLike<string>>(p
     ) ?? categoricalStats(options);
   const { s, preFilter, cell } = extractStats(props, stats);
   if (cell) {
-    const maxBin = groupMaxBin(options, (cell as unknown) as { isAggregated?: boolean }, props);
+    const maxBin = groupMaxBin(options, cell as unknown as { isAggregated?: boolean }, props);
     return <Histogram s={s} maxBin={maxBin} style={options.style} className={options.className} />;
   }
   if (isFilterAble(props) && props.column.canFilter) {

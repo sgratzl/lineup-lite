@@ -22,7 +22,7 @@ export function histGroupBy<D extends AnyObject = UnknownObject, T extends numbe
   rows: readonly Row<D>[],
   column: ColumnInstance<D>
 ): Record<string, Row<D>[]> {
-  const stats = ((column as unknown) as UseStatsColumnProps).statsValue as INumericStats<T>;
+  const stats = (column as unknown as UseStatsColumnProps).statsValue as INumericStats<T>;
   if (stats == null) {
     return defaultGroupByFn(rows as Row<D>[], column.id);
   }
@@ -39,7 +39,7 @@ export function histGroupBy<D extends AnyObject = UnknownObject, T extends numbe
       if (Array.isArray(v)) {
         // TODO support dates, too
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion, @typescript-eslint/no-explicit-any
-        const arrayStats = computeArrayNumberStats(v, (column as unknown) as any)!;
+        const arrayStats = computeArrayNumberStats(v, column as unknown as any)!;
         v = arrayStats.median;
       }
       return (

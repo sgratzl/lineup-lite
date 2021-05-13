@@ -22,7 +22,7 @@ export function BoxPlotArrayRenderer<P extends StatsPropsLike<number>>(props: P)
     useContext<((arr: readonly number[], preFilter?: INumberStats) => INumberStats) | null>(statsGeneratorContext) ??
     numberStats(options);
   const { s } = deriveStats(props, stats);
-  const cellProps = (props as unknown) as CellProps<UnknownObject, unknown>;
+  const cellProps = props as unknown as CellProps<UnknownObject, unknown>;
 
   return (
     <BoxPlotArray

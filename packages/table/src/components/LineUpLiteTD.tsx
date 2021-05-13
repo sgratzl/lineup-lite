@@ -20,7 +20,7 @@ const LineUpLiteTDImpl = /*! #__PURE__ */ forwardRef(function LineUpLiteTD<D ext
   { cell, children }: LineUpLiteTDProps<D>,
   ref: Ref<HTMLElement>
 ) {
-  const cellTyped = (cell as unknown) as Cell<D> & UseGroupByCellProps<D>;
+  const cellTyped = cell as unknown as Cell<D> & UseGroupByCellProps<D>;
   const column = cellTyped.column as LineUpLiteColumn<D> & ColumnInstance<D> & UseResizeColumnsColumnProps<D>;
   const c = useLineUpLiteTableContext();
   const p = { c: c?.components.td ?? 'div' };

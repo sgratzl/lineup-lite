@@ -30,7 +30,7 @@ export interface LineUpLiteToolbarProps<D extends AnyObject = UnknownObject>
 export function LineUpLiteToolbar<D extends AnyObject = UnknownObject>(
   props: PropsWithChildren<LineUpLiteToolbarProps<D>>
 ): JSX.Element {
-  const column = (props as unknown) as ColumnInstance<D> &
+  const column = props as unknown as ColumnInstance<D> &
     UseGroupByColumnProps<D> &
     UseResizeColumnsColumnProps<D> &
     UseFiltersColumnProps<D> &

@@ -12,6 +12,6 @@ import type { UnknownObject } from '../interfaces';
 export default function GroupValueRenderer<D extends UnknownObject, P extends CellProps<D, unknown>>(
   props: P
 ): JSX.Element {
-  const value = ((props.row as unknown) as { groupByVal?: string }).groupByVal ?? props.value;
+  const value = (props.row as unknown as { groupByVal?: string }).groupByVal ?? props.value;
   return <div className="lt-group">{String(value)}</div>;
 }

@@ -37,9 +37,9 @@ export function deriveStats<S extends ICommonStats<T>, T>(
       preFilter: props.column.preFilterStatsValue as S,
     };
   }
-  const flat = ((props as unknown) as UseGroupByInstanceProps<UnknownObject>).nonGroupedFlatRows ?? props.flatRows;
+  const flat = (props as unknown as UseGroupByInstanceProps<UnknownObject>).nonGroupedFlatRows ?? props.flatRows;
   const values = flat.map((row) => row.values[props.column.id]);
-  const { preFilteredRows } = (props as unknown) as UseFiltersColumnProps<UnknownObject>;
+  const { preFilteredRows } = props as unknown as UseFiltersColumnProps<UnknownObject>;
   const preFilterStats = preFilteredRows
     ? statsGen(preFilteredRows.map((row) => row.values[props.column.id]))
     : undefined;
@@ -61,7 +61,7 @@ export function extractStats<S extends ICommonStats<T>, T>(
   isAggregated?: boolean;
 } {
   const { s, preFilter } = deriveStats(props, statsGen);
-  const cellProps = (props as unknown) as CellProps<UnknownObject, unknown>;
+  const cellProps = props as unknown as CellProps<UnknownObject, unknown>;
   const cell = cellProps.cell as Cell<UnknownObject, unknown> & UseGroupByCellProps<UnknownObject>;
 
   if (cell) {
@@ -89,7 +89,7 @@ export function groupMaxBin<P extends StatsPropsLike<UnknownObject>>(
   if (options.maxBin != null || !cell.isAggregated) {
     return options.maxBin ?? 0;
   }
-  const groups = ((props as unknown) as UseGroupByInstanceProps<UnknownObject>).onlyGroupedFlatRows ?? [];
+  const groups = (props as unknown as UseGroupByInstanceProps<UnknownObject>).onlyGroupedFlatRows ?? [];
   const stats = groups.map((group) => group.values[props.column.id]) as IHistStats<unknown>[];
   return stats.reduce((acc, v) => (v != null && v.maxBin != null ? Math.max(acc, v.maxBin.count) : acc), 1);
 }

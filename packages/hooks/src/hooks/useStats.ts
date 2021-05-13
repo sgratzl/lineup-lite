@@ -117,12 +117,12 @@ useStats.pluginName = 'useStats';
 function useInstance<D extends AnyObject = UnknownObject>(instance: TableInstance<D>) {
   ensurePluginOrder(instance.plugins, ['useFilters', 'useGroupBy'], 'useStats');
 
-  const extendedInstance = (instance as unknown) as TableInstance<D> &
+  const extendedInstance = instance as unknown as TableInstance<D> &
     UseFiltersInstanceProps<D> &
     UseGroupByInstanceProps<D>;
 
   instance.allColumns.forEach((col) => {
-    const extended = (col as unknown) as UseStatsColumnProps &
+    const extended = col as unknown as UseStatsColumnProps &
       UseStatsColumnOptions<D> &
       UseGroupByColumnProps<D> &
       UseFiltersColumnProps<D>;
