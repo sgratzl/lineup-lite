@@ -36,7 +36,7 @@ function MyCheckBox({ indeterminate, ...rest }: any) {
 }
 
 function MyFilterAction(props: { col: ColumnInstance<Row>; icons: ActionIcons }) {
-  const col = (props.col as unknown) as ColumnInstance<Row> & UseFiltersColumnProps<Row>;
+  const col = props.col as unknown as ColumnInstance<Row> & UseFiltersColumnProps<Row>;
 
   const [visible, setVisible] = useState(false);
   const showFilterDialog = useCallback(() => {
