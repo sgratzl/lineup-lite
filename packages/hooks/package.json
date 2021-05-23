@@ -34,7 +34,7 @@
       "style": "./dist/hooks.css",
       "types": "./dist/index.d.ts"
     },
-    "./src/*": "./dist/*.js",
+    "./*": "./dist/*.js",
     "./dist/*": "./dist/*"
   },
   "sideEffects": "dist/hooks.css",
