@@ -23,10 +23,16 @@
   "dependencies": {
     "@lineup-lite/components": "~1.5.3"
   },
-  "main": "dist/hooks.js",
+  "main": "dist/hooks.cjs",
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
   "styles": "dist/hooks.css",
+  "exports": {
+    "import": "./dist/index.js",
+    "require": "./dist/hooks.cjs",
+    "style": "./dist/hooks.css",
+    "types": "./dist/index.d.ts"
+  },
   "sideEffects": "dist/hooks.css",
   "files": [
     "dist",

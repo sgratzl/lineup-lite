@@ -27,10 +27,16 @@
     "react-table": "^7.7.0",
     "react-virtual": "^2.7.1"
   },
-  "main": "dist/table.js",
+  "main": "dist/table.cjs",
   "module": "dist/index.js",
   "styles": "dist/table.css",
   "types": "dist/index.d.ts",
+  "exports": {
+    "import": "./dist/index.js",
+    "require": "./dist/table.cjs",
+    "style": "./dist/table.css",
+    "types": "./dist/index.d.ts"
+  },
   "sideEffects": "dist/table.css",
   "files": [
     "dist",

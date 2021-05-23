@@ -23,9 +23,15 @@
   "dependencies": {
     "@sgratzl/boxplots": "^1.2.2"
   },
-  "main": "dist/components.js",
+  "main": "dist/components.cjs",
   "module": "dist/index.js",
   "styles": "dist/components.css",
+  "exports": {
+    "import": "./dist/index.js",
+    "require": "./dist/components.cjs",
+    "style": "./dist/components.css",
+    "types": "./dist/index.d.ts"
+  },
   "types": "dist/index.d.ts",
   "sideEffects": "dist/components.css",
   "files": [
