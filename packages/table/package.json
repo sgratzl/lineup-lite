@@ -38,7 +38,7 @@
       "style": "./dist/table.css",
       "types": "./dist/index.d.ts"
     },
-    "./src/*": "./dist/src/*.js",
+    "./*": "./dist/*.js",
     "./dist/*": "./dist/*"
   },
   "sideEffects": "dist/table.css",

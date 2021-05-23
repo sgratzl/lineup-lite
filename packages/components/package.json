@@ -33,7 +33,7 @@
       "style": "./dist/components.css",
       "types": "./dist/index.d.ts"
     },
-    "./src/*": "./dist/src/*.js",
+    "./*": "./dist/*.js",
     "./dist/*": "./dist/*"
   },
   "types": "dist/index.d.ts",
