@@ -27,10 +27,14 @@
   "module": "dist/index.js",
   "styles": "dist/components.css",
   "exports": {
-    "import": "./dist/index.js",
-    "require": "./dist/components.cjs",
-    "style": "./dist/components.css",
-    "types": "./dist/index.d.ts"
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/components.cjs",
+      "style": "./dist/components.css",
+      "types": "./dist/index.d.ts"
+    },
+    "./src/*": "./dist/*/*.js",
+    "./dist/*": "./dist/*/*"
   },
   "types": "dist/index.d.ts",
   "sideEffects": "dist/components.css",

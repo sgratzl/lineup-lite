@@ -28,10 +28,14 @@
   "types": "dist/index.d.ts",
   "styles": "dist/hooks.css",
   "exports": {
-    "import": "./dist/index.js",
-    "require": "./dist/hooks.cjs",
-    "style": "./dist/hooks.css",
-    "types": "./dist/index.d.ts"
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/hooks.cjs",
+      "style": "./dist/hooks.css",
+      "types": "./dist/index.d.ts"
+    },
+    "./src/*": "./dist/*/*.js",
+    "./dist/*": "./dist/*/*"
   },
   "sideEffects": "dist/hooks.css",
   "files": [

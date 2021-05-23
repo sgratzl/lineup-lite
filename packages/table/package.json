@@ -32,10 +32,14 @@
   "styles": "dist/table.css",
   "types": "dist/index.d.ts",
   "exports": {
-    "import": "./dist/index.js",
-    "require": "./dist/table.cjs",
-    "style": "./dist/table.css",
-    "types": "./dist/index.d.ts"
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/table.cjs",
+      "style": "./dist/table.css",
+      "types": "./dist/index.d.ts"
+    },
+    "./src/*": "./dist/*/*.js",
+    "./dist/*": "./dist/*/*"
   },
   "sideEffects": "dist/table.css",
   "files": [
