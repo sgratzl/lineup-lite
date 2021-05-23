@@ -11,7 +11,7 @@ import { compareAsc } from '../sort/internal';
 import { MISSING_GROUP } from './histGroupBy';
 
 export default function baseGroupBy<D extends AnyObject = UnknownObject>(
-  rows: Row<D>[],
+  rows: readonly Row<D>[],
   column: ColumnInstance<D>,
   acc: (v: unknown) => string | null = (v) => (v ? String(v) : null)
 ): Record<string, Row<D>[]> {

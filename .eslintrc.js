@@ -13,7 +13,7 @@ module.exports = {
     'prettier',
   ],
   parserOptions: {
-    project: './tsconfig.json',
+    project: './tsconfig.eslint.json',
   },
   settings: {
     react: {

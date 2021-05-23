@@ -8,7 +8,6 @@
 import {
   HeaderProps,
   Hooks,
-  IdType,
   Renderer,
   TableInstance,
   UseFiltersInstanceProps,
@@ -20,20 +19,24 @@ import {
 } from 'react-table';
 import type { AnyObject, UnknownObject } from '../types';
 
-export type UseStatsOptions = Partial<{
-  manualStats: boolean;
-  autoResetStats?: boolean;
-}>;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type StatsValue = any;
 
-export interface UseStatsState<D extends AnyObject = UnknownObject> {
-  Stats: Stats<D>;
+export interface StatsType {
+  (values: readonly unknown[], preFilterStats?: unknown): unknown;
 }
 
-export type UseStatsColumnOptions<D extends AnyObject = UnknownObject> = Partial<{
-  Summary: Renderer<StatsProps<D>>;
-  stats: StatsType;
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface UseStatsOptions {}
+
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface UseStatsState {}
+
+export interface UseStatsColumnOptions<D extends AnyObject = UnknownObject> {
+  Summary?: Renderer<StatsProps<D>>;
+  stats?: StatsType;
   // grouper:
-}>;
+}
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface UseStatsInstanceProps {}
@@ -52,16 +55,6 @@ export type StatsCellProps<D extends AnyObject = UnknownObject> = CellProps<D> &
   column: UseStatsColumnProps;
   i18n?: Record<string, string>;
 };
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type StatsValue = any;
-export type Stats<D extends AnyObject = UnknownObject> = Array<{
-  id: IdType<D>;
-  value: StatsValue;
-}>;
-
-export interface StatsType {
-  (values: readonly unknown[], preFilterStats?: unknown): unknown;
-}
 
 export type StatsAggregateArray<T> = T[] & {
   _aggregate?: <V>(gen: (vs: T[], preFilter?: V) => V, stats?: V) => unknown;

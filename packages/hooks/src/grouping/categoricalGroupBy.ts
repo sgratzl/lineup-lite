@@ -12,7 +12,7 @@ import type { UseStatsColumnProps } from '../hooks';
 import type { AnyObject, UnknownObject } from '../interfaces';
 
 export default function categoricalGroupBy<D extends AnyObject = UnknownObject>(
-  rows: Row<D>[],
+  rows: readonly Row<D>[],
   column: ColumnInstance<D>
 ): Record<string, Row<D>[]> {
   if (rows.length === 0) {

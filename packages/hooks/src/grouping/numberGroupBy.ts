@@ -13,5 +13,6 @@ export default function numberGroupBy<D extends AnyObject = UnknownObject>(
   rows: Row<D>[],
   column: ColumnInstance<D>
 ): Record<string, Row<D>[]> {
+  // TODO options
   return histGroupBy<D, number>(rows, column);
 }
