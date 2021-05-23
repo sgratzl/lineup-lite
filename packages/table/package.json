@@ -38,8 +38,8 @@
       "style": "./dist/table.css",
       "types": "./dist/index.d.ts"
     },
-    "./src/*": "./dist/*/*.js",
-    "./dist/*": "./dist/*/*"
+    "./src/*": "./dist/src/*.js",
+    "./dist/*": "./dist/*"
   },
   "sideEffects": "dist/table.css",
   "files": [
