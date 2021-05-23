@@ -8,3 +8,4 @@
 /static
 *.tsbuildinfo
 *.tgz
+/.yarn
