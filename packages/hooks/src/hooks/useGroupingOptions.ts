@@ -21,14 +21,10 @@ import {
 } from 'react-table';
 import type { AnyObject, UnknownObject } from '../types';
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface UseGroupingOptionsOptions {}
-
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type GroupingOptionsValue = any;
 export type GroupingOptions<D extends AnyObject> = Array<{ id: IdType<D>; value: GroupingOptionsValue }>;
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface UseGroupingOptionsState<D extends AnyObject> {
   groupingOptions: GroupingOptions<D>;
 }
@@ -49,12 +45,12 @@ export interface UseGroupingOptionGroupingFunction<D extends AnyObject = Unknown
 }
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface UseGroupingOptionsInstanceProps {}
+export interface UseGroupingOptionsInstanceProps {
+  setGroupingOptions: (columnId: string, value: GroupingOptionsValue) => void;
+}
 
 export interface UseGroupingOptionsColumnProps {
-  setGroupingOptions: (
-    updater: ((groupingOption: GroupingOptionsValue) => GroupingOptionsValue) | GroupingOptionsValue
-  ) => void;
+  setGroupingOptions: (value: GroupingOptionsValue) => void;
   groupingOptions: GroupingOptionsValue;
 }
 

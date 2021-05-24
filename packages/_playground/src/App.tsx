@@ -58,6 +58,30 @@ function MyFilterAction(props: { col: ColumnInstance<Row>; icons: ActionIcons })
   );
 }
 
+
+function MyGroupingOptionAction(props: { col: ColumnInstance<Row>; icons: ActionIcons }) {
+  const col = props.col as unknown as ColumnInstance<Row> & UseFiltersColumnProps<Row>;
+
+  const [visible, setVisible] = useState(false);
+  const showGroupingDialog = useCallback(() => {
+    setVisible(!visible);
+  }, [visible, setVisible]);
+
+  return (
+    <>
+      <LineUpLiteFilterAction {...col} iconFilter={props.icons.filterColumn} toggleFilterColumn={showGroupingDialog} />
+      {visible && (
+        <div className="filter-dialog">
+          {col.render('Summary')}
+          <button onClick={showGroupingDialog} type="button">
+            Close
+          </button>
+        </div>
+      )}
+    </>
+  );
+}
+
 function Table({ isDarkTheme }: { isDarkTheme: boolean }) {
   const columns: LineUpLiteColumn<Row>[] = useMemo(
     () => [
