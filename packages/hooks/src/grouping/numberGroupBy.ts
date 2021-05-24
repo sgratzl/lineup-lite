@@ -46,7 +46,7 @@ export default function numberGroupBy<D extends AnyObject = UnknownObject>(
     }
     const prev = thresholds[i - 1];
     return {
-      label: `]${stats?.format(prev) ?? prev.toLocaleString()} ... ${stats?.format(v) ?? v.toLocaleString()}]`,
+      label: `${stats?.format(prev) ?? prev.toLocaleString()} ... ${stats?.format(v) ?? v.toLocaleString()}`,
       rows: [],
       value: v,
     };

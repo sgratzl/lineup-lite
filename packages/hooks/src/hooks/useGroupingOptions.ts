@@ -5,16 +5,19 @@
  * Copyright (c) 2021 Samuel Gratzl <sam@sgratzl.com>
  */
 
+import React from 'react';
 import {
+  actions,
+  ActionType,
   CellProps,
   ColumnInstance,
-  ensurePluginOrder,
   HeaderProps,
   Hooks,
   IdType,
   Renderer,
   Row,
   TableInstance,
+  TableState,
 } from 'react-table';
 import type { AnyObject, UnknownObject } from '../types';
 
@@ -57,30 +60,99 @@ export interface UseGroupingOptionsColumnProps {
 
 export type GroupingOptionsProps<D extends AnyObject = UnknownObject> = HeaderProps<D> & {
   column: UseGroupingOptionsColumnProps;
-  i18n?: Record<string, string>;
 };
-export type StatsCellProps<D extends AnyObject = UnknownObject> = CellProps<D> & {
+export type GroupingOptionsCellProps<D extends AnyObject = UnknownObject> = CellProps<D> & {
   column: UseGroupingOptionsColumnProps;
-  i18n?: Record<string, string>;
 };
 
 export function useGroupingOptions<D extends AnyObject = UnknownObject>(hooks: Hooks<D>): void {
+  hooks.stateReducers.push(reducer);
   hooks.useInstance.push(useInstance);
 }
 useGroupingOptions.pluginName = 'useGroupingOptions';
 
+// Actions
+actions.setGroupingOptions = 'setGroupingOptions';
+
+function reducer<D extends AnyObject = UnknownObject>(
+  state: TableState<D> & Partial<UseGroupingOptionsState<D>>,
+  action: ActionType,
+  _previousState?: TableState<D>,
+  instance?: TableInstance<D>
+): (TableState<D> & UseGroupingOptionsState<D>) | undefined {
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  const { allColumns } = instance!;
+
+  if (action.type === actions.init) {
+    return {
+      groupingOptions: [],
+      ...state,
+    };
+  }
+
+  if (action.type === actions.setRowState) {
+    const { columnId, groupingOptions } = action as unknown as {
+      columnId: string;
+      groupingOptions: Record<string, unknown>;
+    };
+
+    const column = allColumns.find((d) => d.id === columnId);
+
+    if (!column) {
+      throw new Error(`React-Table: Could not find a column with id: ${columnId}`);
+    }
+    const previousFilter = state.groupingOptions?.find((d) => d.id === columnId);
+    //
+    if (groupingOptions == null) {
+      return {
+        ...state,
+        groupingOptions: state.groupingOptions?.filter((d) => d.id !== columnId) ?? [],
+      };
+    }
+
+    if (previousFilter) {
+      return {
+        ...state,
+        groupingOptions:
+          state.groupingOptions?.map((d) => {
+            if (d.id === columnId) {
+              return { id: columnId, value: groupingOptions };
+            }
+            return d;
+          }) ?? [],
+      };
+    }
+
+    return {
+      ...state,
+      groupingOptions: [...(state.groupingOptions ?? []), { id: columnId, value: groupingOptions }],
+    };
+  }
+
+  return undefined;
+}
+
 function useInstance<D extends AnyObject = UnknownObject>(instance: TableInstance<D>) {
-  ensurePluginOrder(instance.plugins, ['useGroupBy'], 'useGroupingOptions');
+  const { dispatch, allColumns, state } = instance;
+  const { groupingOptions = [] } = state as Partial<UseGroupingOptionsState<D>>;
 
-  // const extendedInstance = instance as unknown as TableInstance<D> & UseGroupByInstanceProps<D>;
+  const setGroupingOptions = React.useCallback(
+    (columnId: string, value: Record<string, unknown>) => {
+      dispatch({ type: actions.setGroupingOptions, columnId, groupingOptions: value });
+    },
+    [dispatch]
+  );
+  allColumns.forEach((column) => {
+    const cc = column as Partial<UseGroupingOptionsColumnProps>;
+    // Provide the column a way of updating the filter value
+    cc.setGroupingOptions = (val: Record<string, unknown>) => setGroupingOptions(column.id, val);
+    // Provide the current filter value to the column for
+    // convenience
+    const found = groupingOptions.find((d) => d.id === column.id);
+    cc.groupingOptions = found && found.value;
+  });
 
-  // instance.allColumns.forEach((col) => {
-  //   // const extended = col as unknown as UseGroupingOptionsColumnProps &
-  //   //   UseGroupingOptionsColumnOptions<D> &
-  //   //   UseGroupByColumnProps<D>;
-  //   // const flat = extendedInstance.nonGroupedFlatRows ?? instance.flatRows;
-  //   // const values = flat.map((row) => row.values[col.id]);
-  //   // compute current stats
-  //   // extended.statsValue = extended.stats(values, extended.preFilterStatsValue);
-  // });
+  Object.assign(instance, {
+    setGroupingOptions,
+  });
 }
