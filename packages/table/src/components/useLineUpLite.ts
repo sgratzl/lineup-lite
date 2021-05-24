@@ -17,6 +17,9 @@ import {
   useRowSelectColumn,
   UseSelectColumnTableOptions,
   useStats,
+  useGroupingOptions,
+  UseGroupingOptionsInstanceProps,
+  UseGroupingOptionsState,
 } from '@lineup-lite/hooks';
 import {
   PluginHook,
@@ -75,6 +78,7 @@ export interface LineUpLiteState<D extends AnyObject = UnknownObject>
     UseGroupByState<D>,
     UseRowSelectState<D>,
     UseSortByState<D>,
+    UseGroupingOptionsState<D>,
     UseResizeColumnsState<D> {}
 
 export interface LineUpLiteTableInstance<D extends AnyObject = UnknownObject>
@@ -83,6 +87,7 @@ export interface LineUpLiteTableInstance<D extends AnyObject = UnknownObject>
     UseExpandedInstanceProps<D>,
     UseGroupByInstanceProps<D>,
     UseRowSelectInstanceProps<D>,
+    UseGroupingOptionsInstanceProps,
     UseSortByInstanceProps<D> {}
 
 export interface UseLineUpLiteOptions<D extends AnyObject = UnknownObject> extends UseLineUpLiteTableOptions<D> {
@@ -98,7 +103,7 @@ export function featureRowSelect<D extends AnyObject = UnknownObject>(): PluginH
 }
 
 export function featureSortAndGroupBy<D extends AnyObject = UnknownObject>(): PluginHook<D>[] {
-  return [useGroupByImpl, useSortBy, useExpanded, useRowExpandColumn];
+  return [useGroupingOptions, useGroupByImpl, useSortBy, useExpanded, useRowExpandColumn];
 }
 
 /**
