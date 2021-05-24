@@ -6,6 +6,7 @@
  */
 
 import { Row, IdType, defaultGroupByFn, Cell } from 'react-table';
+import type { UseGroupingOptionsColumnProps } from '../hooks/useGroupingOptions';
 import type { AnyObject, LineUpLiteGroupByFunction, UnknownObject, UseColumnGroupByColumnOptions } from '../interfaces';
 
 function hasGroupByFunction<D extends AnyObject = UnknownObject>(
@@ -31,8 +32,7 @@ export default function columnSpecificGroupByFn<D extends AnyObject = UnknownObj
   }
   const cell: Cell<D, AnyObject> | undefined = rows[0].allCells.find((d) => d.column.id === columnId);
   if (hasGroupByFunction<D>(cell)) {
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    return cell.column.groupBy(rows, cell.column);
+    return cell.column.groupBy(rows, cell.column, (cell as Partial<UseGroupingOptionsColumnProps>).groupingOptions);
   }
   return defaultGroupByFn(rows, columnId);
 }

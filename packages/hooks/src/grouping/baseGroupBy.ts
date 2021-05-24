@@ -10,6 +10,24 @@ import type { AnyObject, UnknownObject } from '../interfaces';
 import { compareAsc } from '../sort/internal';
 import { MISSING_GROUP } from './histGroupBy';
 
+export function compareMissing(a: string, b: string): number {
+  if (a === MISSING_GROUP) {
+    return b === MISSING_GROUP ? 0 : 1;
+  }
+  if (b === MISSING_GROUP) {
+    return -1;
+  }
+  return compareAsc(a, b);
+}
+export function sortGroups<D extends AnyObject = UnknownObject>(r: Record<string, Row<D>[]>): Record<string, Row<D>[]> {
+  // sort by key asc
+  const sorted: Record<string, Row<D>[]> = {};
+  for (const key of Object.keys(r).sort(compareMissing)) {
+    sorted[key] = r[key];
+  }
+  return sorted;
+}
+
 export default function baseGroupBy<D extends AnyObject = UnknownObject>(
   rows: readonly Row<D>[],
   column: ColumnInstance<D>,
@@ -25,10 +43,5 @@ export default function baseGroupBy<D extends AnyObject = UnknownObject>(
       rValue.push(row);
     }
   }
-  // sort by key asc
-  const sorted: Record<string, Row<D>[]> = {};
-  for (const key of Object.keys(r).sort(compareAsc)) {
-    sorted[key] = r[key];
-  }
-  return sorted;
+  return sortGroups(r);
 }

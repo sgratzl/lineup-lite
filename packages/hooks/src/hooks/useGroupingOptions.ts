@@ -42,7 +42,7 @@ export interface UseGroupingOptionsColumnOptions<D extends AnyObject = UnknownOb
 }
 
 export interface UseGroupingOptionGroupingFunction<D extends AnyObject = UnknownObject> {
-  (rows: readonly Row<D>[], column: ColumnInstance<D>): Record<string, Row<D>[]>;
+  (rows: readonly Row<D>[], column: ColumnInstance<D>, options?: AnyObject): Record<string, Row<D>[]>;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface

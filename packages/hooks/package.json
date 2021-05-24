@@ -21,7 +21,8 @@
     "url": "https://github.com/sgratzl/lineup-lite.git"
   },
   "dependencies": {
-    "@lineup-lite/components": "~1.5.3"
+    "@lineup-lite/components": "~1.5.3",
+    "date-fns": "^2.21.3"
   },
   "main": "dist/hooks.cjs",
   "module": "dist/index.js",
