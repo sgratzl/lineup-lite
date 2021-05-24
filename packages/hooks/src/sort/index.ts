@@ -12,4 +12,4 @@ export * from './categoricalSort';
 export * from './categoricalSetSort';
 export * from './numberSort';
 export { default as textGroupCompare } from './textGroupCompare';
-export { default as dateGroupCompare } from './dateGroupCompare';
+export { default as dateGroupCompare, DateSortOptions, dateGroupCompareFactory } from './dateGroupCompare';
