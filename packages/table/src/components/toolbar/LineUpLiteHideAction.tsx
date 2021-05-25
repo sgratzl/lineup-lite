@@ -14,22 +14,22 @@ import { clsx } from '../utils';
 import type { AnyObject, UnknownObject } from '../interfaces';
 
 export default function LineUpLiteHideAction<D extends AnyObject = UnknownObject>(
-  props: ColumnInstance<D> &
-    CommonProps & {
-      children?: ReactNode;
-      canHide?: boolean;
-      canResize?: boolean;
-      icon: ComponentType;
-    }
+  props: CommonProps & {
+    column: ColumnInstance<D>;
+    children?: ReactNode;
+    canHide?: boolean;
+    canResize?: boolean;
+    icon: ComponentType;
+  }
 ): JSX.Element {
   const c = useLineUpLiteTableContext();
   const i18n = c?.i18n ?? LINEUP_LITE_I18N_EN;
-  const { toggleHidden } = props;
+  const { toggleHidden } = props.column;
   const hide = useCallback(() => toggleHidden(true), [toggleHidden]);
   return props.canResize && props.canHide !== false ? (
     <button
-      {...props.getToggleHiddenProps({
-        className: clsx('lt-action', 'lt-action-hide', !props.isVisible && 'lt-action-active', props.className),
+      {...props.column.getToggleHiddenProps({
+        className: clsx('lt-action', 'lt-action-hide', !props.column.isVisible && 'lt-action-active', props.className),
         style: props.style,
       })}
       type="button"

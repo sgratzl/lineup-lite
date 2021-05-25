@@ -33,7 +33,11 @@ function MyFilterAction(props: { col: ColumnInstance<Row>; icons: ActionIcons })
 
   return (
     <>
-      <LineUpLiteFilterAction {...col} iconFilter={props.icons.filterColumn} toggleFilterColumn={showFilterDialog} />
+      <LineUpLiteFilterAction
+        column={col}
+        iconFilter={props.icons.filterColumn}
+        toggleFilterColumn={showFilterDialog}
+      />
       {visible && (
         <div className="filter-dialog">
           {col.render('Summary')}

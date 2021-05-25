@@ -15,19 +15,38 @@ import type { AnyObject, UnknownObject } from '../interfaces';
 
 export type { UseGroupByColumnProps } from 'react-table';
 
-export function LineUpLiteGroupByAction<D extends AnyObject = UnknownObject>(
-  props: UseGroupByColumnProps<D> &
-    ColumnInstance<D> &
-    CommonProps & {
-      children?: ReactNode;
-      icon: ComponentType;
+export interface CustomGroupByClickHandler<D extends AnyObject = UnknownObject> {
+  (
+    column: ColumnInstance<D> & UseGroupByColumnProps<D>,
+    event: MouseEvent<HTMLElement>,
+    helper: {
+      toggleGroupBy(): void;
+      setGroupBy(): void;
     }
+  ): void;
+}
+
+export function LineUpLiteGroupByAction<D extends AnyObject = UnknownObject>(
+  props: CommonProps & {
+    column: UseGroupByColumnProps<D> & ColumnInstance<D>;
+    children?: ReactNode;
+    icon: ComponentType;
+    onClick?: CustomGroupByClickHandler<D>;
+  }
 ): JSX.Element {
   const c = useLineUpLiteTableContext();
   const dispatch = c?.dispatch;
-  const { toggleGroupBy, isGrouped, id } = props;
+  const { onClick, column } = props;
+  const { toggleGroupBy, isGrouped, id, canGroupBy } = column;
   const group = useCallback(
     (e: MouseEvent<HTMLElement>) => {
+      if (onClick) {
+        onClick(column, e, {
+          toggleGroupBy,
+          setGroupBy: () => dispatch?.({ type: 'setGroupBy', value: [id] }),
+        });
+        return;
+      }
       if (e.shiftKey || e.ctrlKey || isGrouped || !dispatch) {
         // multi is the default
         toggleGroupBy();
@@ -36,24 +55,20 @@ export function LineUpLiteGroupByAction<D extends AnyObject = UnknownObject>(
         dispatch({ type: 'setGroupBy', value: [id] });
       }
     },
-    [toggleGroupBy, dispatch, isGrouped, id]
+    [toggleGroupBy, dispatch, isGrouped, id, onClick, column]
   );
   const i18n = c?.i18n ?? LINEUP_LITE_I18N_EN;
   const groupBys = c?.groupByColumnCount ?? 0;
-  const title = props.isGrouped
-    ? i18n.groupByRemoveColumn
-    : groupBys > 0
-    ? i18n.groupByAnotherColumn
-    : i18n.groupByColumn;
-  return props.canGroupBy ? (
+  const title = isGrouped ? i18n.groupByRemoveColumn : groupBys > 0 ? i18n.groupByAnotherColumn : i18n.groupByColumn;
+  return canGroupBy ? (
     <button
-      {...props.getGroupByToggleProps({
-        className: clsx('lt-action', 'lt-action-group', props.isGrouped && 'lt-action-active', props.className),
+      {...props.column.getGroupByToggleProps({
+        className: clsx('lt-action', 'lt-action-group', isGrouped && 'lt-action-active', props.className),
         style: props.style,
       })}
       onClick={group}
       type="button"
-      data-index={props.isGrouped && groupBys > 1 ? props.groupedIndex + 1 : null}
+      data-index={isGrouped && groupBys > 1 ? props.column.groupedIndex + 1 : null}
       title={title}
     >
       <props.icon />

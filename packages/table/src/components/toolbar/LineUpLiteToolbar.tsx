@@ -47,11 +47,16 @@ export function LineUpLiteToolbar<D extends AnyObject = UnknownObject>(
   );
   return (
     <div className={clsx('lt-toolbar', props.className)} style={props.style}>
-      <LineUpLiteSortByAction {...column} iconAsc={icons.sortAsc} iconDesc={icons.sortDesc} />
-      <LineUpLiteGroupByAction {...column} icon={icons.groupBy} />
+      <LineUpLiteSortByAction
+        column={column}
+        iconAsc={icons.sortAsc}
+        iconDesc={icons.sortDesc}
+        onClick={props.actionSortBy}
+      />
+      <LineUpLiteGroupByAction column={column} icon={icons.groupBy} onClick={props.actionGroupBy} />
       {props.actions && props.actions(column, icons)}
       {props.children}
-      <LineUpLiteHideAction {...column} icon={icons.hideColumn} />
+      <LineUpLiteHideAction column={column} icon={icons.hideColumn} />
     </div>
   );
 }

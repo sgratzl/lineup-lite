@@ -16,15 +16,16 @@ import type { AnyObject, UnknownObject } from '../interfaces';
 export type { UseFiltersColumnProps } from 'react-table';
 
 export function LineUpLiteFilterAction<D extends AnyObject = UnknownObject>(
-  props: UseFiltersColumnProps<D> &
-    CommonProps & {
-      children?: ReactNode;
-      // eslint-disable-next-line react/no-unused-prop-types
-      iconFilter: ComponentType;
-      toggleFilterColumn: (e: MouseEvent<HTMLElement>) => void;
-    }
+  props: CommonProps & {
+    column: UseFiltersColumnProps<D>;
+    children?: ReactNode;
+    // eslint-disable-next-line react/no-unused-prop-types
+    iconFilter: ComponentType;
+    toggleFilterColumn: (e: MouseEvent<HTMLElement>) => void;
+  }
 ): JSX.Element {
-  const { canFilter, filterValue, toggleFilterColumn } = props;
+  const { toggleFilterColumn } = props;
+  const { canFilter, filterValue } = props.column;
   const c = useLineUpLiteTableContext();
   const i18n = c?.i18n ?? LINEUP_LITE_I18N_EN;
   const filter = useCallback((e: MouseEvent<HTMLElement>) => toggleFilterColumn(e), [toggleFilterColumn]);
