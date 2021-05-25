@@ -17,6 +17,7 @@ export default function LineUpLiteHideAction<D extends AnyObject = UnknownObject
   props: CommonProps & {
     column: ColumnInstance<D>;
     children?: ReactNode;
+    outerChildren?: ReactNode;
     canHide?: boolean;
     canResize?: boolean;
     icon: ComponentType;
@@ -27,19 +28,27 @@ export default function LineUpLiteHideAction<D extends AnyObject = UnknownObject
   const { toggleHidden } = props.column;
   const hide = useCallback(() => toggleHidden(true), [toggleHidden]);
   return props.canResize && props.canHide !== false ? (
-    <button
-      {...props.column.getToggleHiddenProps({
-        className: clsx('lt-action', 'lt-action-hide', !props.column.isVisible && 'lt-action-active', props.className),
-        style: props.style,
-      })}
-      type="button"
-      onClick={hide}
-      title={i18n.hideColumn}
-    >
-      <props.icon />
-      {props.children}
-    </button>
+    <>
+      <button
+        {...props.column.getToggleHiddenProps({
+          className: clsx(
+            'lt-action',
+            'lt-action-hide',
+            !props.column.isVisible && 'lt-action-active',
+            props.className
+          ),
+          style: props.style,
+        })}
+        type="button"
+        onClick={hide}
+        title={i18n.hideColumn}
+      >
+        <props.icon />
+        {props.children}
+      </button>
+      {props.outerChildren}
+    </>
   ) : (
-    <></>
+    <>{props.outerChildren}</>
   );
 }

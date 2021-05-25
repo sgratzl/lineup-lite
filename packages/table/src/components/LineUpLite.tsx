@@ -31,7 +31,14 @@ export const LineUpLite = /*! #__PURE__ */ forwardRef(function LineUpLite<D exte
       ref={ref}
     >
       <LineUpLiteTableContextProvider instance={instance} props={props}>
-        <LineUpLiteTHead headerGroups={headerGroups} actions={props.actions} icons={props.icons} />
+        <LineUpLiteTHead
+          headerGroups={headerGroups}
+          actions={props.actions}
+          actionFilter={props.actionFilter}
+          actionGroupBy={props.actionGroupBy}
+          actionSortBy={props.actionSortBy}
+          icons={props.icons}
+        />
         <p.b
           {...getTableBodyProps({
             className: clsx('lt-tbody', props.classNames?.tbody),

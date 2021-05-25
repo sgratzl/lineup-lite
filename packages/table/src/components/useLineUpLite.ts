@@ -20,6 +20,7 @@ import {
   useGroupingOptions,
   UseGroupingOptionsInstanceProps,
   UseGroupingOptionsState,
+  useSortingOptions,
 } from '@lineup-lite/hooks';
 import {
   PluginHook,
@@ -56,7 +57,6 @@ export { useRowRankColumn as featureRowRank } from '@lineup-lite/hooks';
 export {
   useFilters as featureFilterColumns,
   useResizeColumns as featureResizeColumns,
-  useSortBy as featureSortBy,
   useBlockLayout as featureDefaultLayout,
   useFlexLayout as featureFlexLayout,
 } from 'react-table';
@@ -102,8 +102,12 @@ export function featureRowSelect<D extends AnyObject = UnknownObject>(): PluginH
   return [useRowSelectImpl, useRowSelectColumn];
 }
 
+export function featureSortBy<D extends AnyObject = UnknownObject>(): PluginHook<D>[] {
+  return [useSortingOptions, useSortBy];
+}
+
 export function featureSortAndGroupBy<D extends AnyObject = UnknownObject>(): PluginHook<D>[] {
-  return [useGroupingOptions, useGroupByImpl, useSortBy, useExpanded, useRowExpandColumn];
+  return [useGroupingOptions, useGroupByImpl, useSortingOptions, useSortBy, useExpanded, useRowExpandColumn];
 }
 
 /**

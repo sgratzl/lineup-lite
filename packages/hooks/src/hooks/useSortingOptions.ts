@@ -59,7 +59,7 @@ function reducer<D extends AnyObject = UnknownObject>(
     };
   }
 
-  if (action.type === actions.setRowState) {
+  if (action.type === actions.setSortingOptions) {
     const { columnId, sortingOptions } = action as unknown as {
       columnId: string;
       sortingOptions: Record<string, unknown>;

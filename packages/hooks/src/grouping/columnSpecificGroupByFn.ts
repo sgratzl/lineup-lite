@@ -32,7 +32,11 @@ export default function columnSpecificGroupByFn<D extends AnyObject = UnknownObj
   }
   const cell: Cell<D, AnyObject> | undefined = rows[0].allCells.find((d) => d.column.id === columnId);
   if (hasGroupByFunction<D>(cell)) {
-    return cell.column.groupBy(rows, cell.column, (cell as Partial<UseGroupingOptionsColumnProps>).groupingOptions);
+    return cell.column.groupBy(
+      rows,
+      cell.column,
+      (cell.column as Partial<UseGroupingOptionsColumnProps>).groupingOptions
+    );
   }
   return defaultGroupByFn(rows, columnId);
 }

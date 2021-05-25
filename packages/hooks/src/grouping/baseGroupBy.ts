@@ -8,14 +8,24 @@
 import type { ColumnInstance, Row } from 'react-table';
 import type { AnyObject, UnknownObject } from '../interfaces';
 import { compareAsc } from '../sort/internal';
-import { MISSING_GROUP } from './histGroupBy';
+import { MISSING_GROUP, OTHERS_GROUPS } from './histGroupBy';
+
+function toSpecialIndex(v: string) {
+  if (v === MISSING_GROUP) {
+    return 2;
+  }
+  if (v === OTHERS_GROUPS) {
+    return 1;
+  }
+  return 0;
+}
 
 export function compareMissing(a: string, b: string): number {
-  if (a === MISSING_GROUP) {
-    return b === MISSING_GROUP ? 0 : 1;
-  }
-  if (b === MISSING_GROUP) {
-    return -1;
+  const aIndex = toSpecialIndex(a);
+  const bIndex = toSpecialIndex(b);
+
+  if (aIndex !== bIndex) {
+    return aIndex - bIndex;
   }
   return compareAsc(a, b);
 }

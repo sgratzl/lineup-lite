@@ -21,7 +21,7 @@ code {
 
 @media (prefers-color-scheme: dark) {
   body {
-    background:  #333; color: white; 
+    background:  #333; color: white;
   }
 }
 
@@ -67,4 +67,18 @@ code {
   margin-right: 0.25em;
   margin-top: 0.5em;
   flex-grow: 1;
+}
+
+
+.groupby-dialog {
+  position: absolute;
+  width: 12em;
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid currentColor;
+  border-radius: 3px;
+  z-index: 100;
+  top: 100%;
+  right: 0;
+  display: flex;
+  flex-direction: column
 }

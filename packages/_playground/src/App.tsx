@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 /**
  * @lineup-lite/example-basic
  * https://github.com/sgratzl/lineup-lite
@@ -10,23 +11,23 @@ import '@lineup-lite/components/src/style.css';
 import '@lineup-lite/hooks/src/style.css';
 import LineUpLite, {
   actionIconsRemixicon,
-  asTextColumn,
+  ActionLineUpProps,
   asDivergingNumberColumn,
+  asTextColumn,
+  featureFilterColumns,
+  featureFlexLayout,
+  featureRowRank,
+  featureRowSelect,
+  featureSortAndGroupBy,
   LineUpLiteColumn,
   LineUpLitePanel,
   LineUpLiteStateContextProvider,
-  ColumnInstance,
-  LineUpLiteFilterAction,
   UseFiltersColumnProps,
-  featureFlexLayout,
-  featureFilterColumns,
-  featureRowRank,
-  featureSortAndGroupBy,
-  featureRowSelect,
-  ActionIcons,
+  ColumnInstance,
 } from '@lineup-lite/table';
+import type { TextGroupByOptions } from '@lineup-lite/hooks';
 import '@lineup-lite/table/src/style.css';
-import React, { useMemo, useCallback, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import { data, Row } from './data';
 import './styles.css';
 
@@ -35,59 +36,138 @@ function MyCheckBox({ indeterminate, ...rest }: any) {
   return <input type="checkbox" {...rest} style={{ color: 'blue' }} />;
 }
 
-function MyFilterAction(props: { col: ColumnInstance<Row>; icons: ActionIcons }) {
-  const col = props.col as unknown as ColumnInstance<Row> & UseFiltersColumnProps<Row>;
+function useVisibleHelper() {
+  const [visible, setVisible] = useState([] as string[]);
 
-  const [visible, setVisible] = useState(false);
-  const showFilterDialog = useCallback(() => {
-    setVisible(!visible);
-  }, [visible, setVisible]);
+  const toggleVisibility = useCallback(
+    (col: { id: string }) => {
+      setVisible((v) => (v.indexOf(col.id) >= 0 ? v.filter((d) => d !== col.id) : [...v, col.id]));
+    },
+    [setVisible]
+  );
+  const isVisible = useCallback((col: { id: string }) => visible.indexOf(col.id) >= 0, [visible]);
+  return { toggleVisibility, isVisible };
+}
+
+function useFilterAction() {
+  const { toggleVisibility, isVisible } = useVisibleHelper();
+  const r: ActionLineUpProps<Row>['actionFilter'] = useCallback(
+    (col: ColumnInstance<Row> & UseFiltersColumnProps<Row>) => {
+      if (!col.canFilter) {
+        return undefined;
+      }
+      const handler = () => toggleVisibility(col);
+      return {
+        handler,
+        children: isVisible(col) ? (
+          <div className="filter-dialog">
+            {col.render('Summary')}
+            <button onClick={handler} type="button">
+              Close
+            </button>
+          </div>
+        ) : undefined,
+      };
+    },
+    [isVisible, toggleVisibility]
+  );
+  return r;
+}
+
+function TextGroupByOptionsBlock({
+  setGroupingOptions,
+  groupingOptions,
+  onClose,
+}: {
+  groupingOptions?: TextGroupByOptions;
+  setGroupingOptions(v: TextGroupByOptions | undefined): void;
+  onClose(): void;
+}) {
+  const values = (groupingOptions?.values ?? []) as (RegExp | string)[];
+
+  const onSubmit = useCallback(
+    (e: React.FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+      const fData = new FormData(e.currentTarget);
+      const type = fData.get('type') as TextGroupByOptions['type'];
+      if (!type) {
+        setGroupingOptions(undefined);
+        onClose();
+        return;
+      }
+
+      const currentValues = (fData.get('values') ?? '')
+        .toString()
+        .split('\n')
+        .map((d) => d.trim())
+        .filter(Boolean);
+      if (type === 'regex') {
+        setGroupingOptions({
+          type,
+          values: currentValues.map((d) => new RegExp(d)),
+        });
+      } else {
+        setGroupingOptions({
+          type,
+          values: currentValues,
+        });
+      }
+      onClose();
+    },
+    [onClose, setGroupingOptions]
+  );
 
   return (
-    <>
-      <LineUpLiteFilterAction
-        column={col}
-        iconFilter={props.icons.filterColumn}
-        toggleFilterColumn={showFilterDialog}
+    <form className="groupby-dialog" onSubmit={onSubmit}>
+      <label>
+        <input type="radio" name="type" value="value" defaultChecked={groupingOptions?.type === 'value'} />
+        By Value
+      </label>
+      <label>
+        <input type="radio" name="type" value="regex" defaultChecked={groupingOptions?.type === 'regex'} />
+        By Regex
+      </label>
+      <label>
+        <input type="radio" name="type" value="startsWith" defaultChecked={groupingOptions?.type === 'startsWith'} />
+        By Starts With
+      </label>
+      <textarea
+        required
+        name="values"
+        defaultValue={values.map((d) => (d instanceof RegExp ? d.source : d)).join('\n')}
+        rows={5}
+        style={{ height: '5em' }}
       />
-      {visible && (
-        <div className="filter-dialog">
-          {col.render('Summary')}
-          <button onClick={showFilterDialog} type="button">
-            Close
-          </button>
-        </div>
-      )}
-    </>
+      <button type="submit">Close</button>
+    </form>
   );
 }
 
-// function MyGroupingOptionAction(props: { col: ColumnInstance<Row>; icons: ActionIcons }) {
-//   const col = props.col as unknown as ColumnInstance<Row> & UseFiltersColumnProps<Row>;
-
-//   const [visible, setVisible] = useState(false);
-//   const showGroupingDialog = useCallback(() => {
-//     setVisible(!visible);
-//   }, [visible, setVisible]);
-
-//   return (
-//     <>
-//       <LineUpLiteFilterAction
-//         column={col}
-//         iconFilter={props.icons.filterColumn}
-//         toggleFilterColumn={showGroupingDialog}
-//       />
-//       {visible && (
-//         <div className="filter-dialog">
-//           {col.render('Summary')}
-//           <button onClick={showGroupingDialog} type="button">
-//             Close
-//           </button>
-//         </div>
-//       )}
-//     </>
-//   );
-// }
+function useGroupByAction() {
+  const { toggleVisibility, isVisible } = useVisibleHelper();
+  return useMemo(() => {
+    const f: ActionLineUpProps<Row>['actionGroupBy'] = (col, helper) => {
+      if (!col.canGroupBy || !col.setGroupingOptions || col.id !== 'name' || col.isGrouped) {
+        return undefined;
+      }
+      const handler = () => toggleVisibility(col);
+      return {
+        handler,
+        children: isVisible(col) ? (
+          <TextGroupByOptionsBlock
+            groupingOptions={col.groupingOptions}
+            setGroupingOptions={col.setGroupingOptions}
+            onClose={() => {
+              helper.toggleGroupBy();
+              handler();
+            }}
+          />
+        ) : undefined,
+      };
+    };
+    return f;
+  }, [isVisible, toggleVisibility]);
+}
 
 function Table({ isDarkTheme }: { isDarkTheme: boolean }) {
   const columns: LineUpLiteColumn<Row>[] = useMemo(
@@ -114,13 +194,8 @@ function Table({ isDarkTheme }: { isDarkTheme: boolean }) {
   );
   const icons = useMemo(() => actionIconsRemixicon(), []);
 
-  const filterAction = useCallback((col: ColumnInstance<Row>, givenIcons: ActionIcons) => {
-    return (
-      <>
-        <MyFilterAction col={col} icons={givenIcons} />
-      </>
-    );
-  }, []);
+  const actionFilter = useFilterAction();
+  const actionGroupBy = useGroupByAction();
 
   return (
     <LineUpLiteStateContextProvider>
@@ -133,11 +208,17 @@ function Table({ isDarkTheme }: { isDarkTheme: boolean }) {
             icons={icons}
             dark={isDarkTheme}
             selectCheckboxComponent={MyCheckBox}
-            actions={filterAction}
-            // onStateChange={setInstance}
+            actionFilter={actionFilter}
+            actionGroupBy={actionGroupBy}
           />
         </div>
-        <LineUpLitePanel className="side-panel" icons={icons} dark={isDarkTheme} actions={filterAction} />
+        <LineUpLitePanel
+          className="side-panel"
+          icons={icons}
+          dark={isDarkTheme}
+          actionFilter={actionFilter}
+          actionGroupBy={actionGroupBy}
+        />
       </div>
     </LineUpLiteStateContextProvider>
   );

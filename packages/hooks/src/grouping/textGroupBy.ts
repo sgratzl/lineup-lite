@@ -8,7 +8,7 @@
 import type { ColumnInstance, Row } from 'react-table';
 import type { AnyObject, UnknownObject } from '../interfaces';
 import baseGroupBy, { sortGroups } from './baseGroupBy';
-import { MISSING_GROUP } from './histGroupBy';
+import { MISSING_GROUP, OTHERS_GROUPS } from './histGroupBy';
 
 export interface TextGroupByValueOptions {
   type: 'value';
@@ -38,19 +38,19 @@ export default function textGroupBy<D extends AnyObject = UnknownObject>(
   let toGroup = (v: string | null) => v || MISSING_GROUP;
   switch (options.type) {
     case 'regex':
-      toGroup = (v) => options.values.find((d) => v != null && d.test(v))?.source ?? MISSING_GROUP;
+      toGroup = (v) => options.values.find((d) => v != null && d.test(v))?.source ?? OTHERS_GROUPS;
       break;
     case 'value':
-      toGroup = (v) => options.values.find((d) => v != null && d === v) ?? MISSING_GROUP;
+      toGroup = (v) => options.values.find((d) => v != null && d === v) ?? OTHERS_GROUPS;
       break;
     case 'startsWith':
-      toGroup = (v) => options.values.find((d) => v != null && v.startsWith(d)) ?? MISSING_GROUP;
+      toGroup = (v) => options.values.find((d) => v != null && v.startsWith(d)) ?? OTHERS_GROUPS;
       break;
   }
 
   for (const row of rows) {
     const v = row.values[column.id] ?? null;
-    const g = toGroup(v);
+    const g = v != null ? toGroup(v) : MISSING_GROUP;
     const rValue = r[g];
     if (!rValue) {
       r[g] = [row];

@@ -5,17 +5,17 @@
  * Copyright (c) 2021 Samuel Gratzl <sam@sgratzl.com>
  */
 
-import type { ColumnInstance } from 'react-table';
-import type { ComponentType, CSSProperties, DetailedHTMLProps, HTMLAttributes, ReactNode } from 'react';
 import type { CommonProps } from '@lineup-lite/components';
 import type { AnyObject, UnknownObject } from '@lineup-lite/hooks';
-import type { ActionIcons } from '../icons';
+import type { ComponentType, CSSProperties, DetailedHTMLProps, HTMLAttributes, ReactNode } from 'react';
+import type { ColumnInstance } from 'react-table';
 import type { LineUpLiteI18N } from '../i18n';
+import type { ActionIcons } from '../icons';
+import type { CustomFilterByAction, CustomGroupByAction, CustomSortByAction } from './toolbar';
 import type { UseLineUpLiteOptions } from './useLineUpLite';
-import type { CustomGroupByClickHandler, CustomSortByClickHandler } from './toolbar';
 
-export type { ColumnInstance, HeaderGroup, Row, Column } from 'react-table';
 export type { AnyObject, UnknownObject } from '@lineup-lite/hooks';
+export type { Column, ColumnInstance, HeaderGroup, Row } from 'react-table';
 
 export type MultiCustomizeKeys = 'tbody' | 'tr' | 'thead' | 'th' | 'thGroup' | 'td' | 'header';
 
@@ -52,11 +52,15 @@ export interface ActionLineUpProps<D extends AnyObject = UnknownObject> {
   /**
    * custom handler for sort by action click
    */
-  actionSortBy?: CustomSortByClickHandler<D>;
+  actionSortBy?: CustomSortByAction<D>;
   /**
    * custom handler for group by action click
    */
-  actionGroupBy?: CustomGroupByClickHandler<D>;
+  actionGroupBy?: CustomGroupByAction<D>;
+  /**
+   * custom handler for filter action click
+   */
+  actionFilter?: CustomFilterByAction<D>;
 }
 
 export interface LineUpLiteProps<D extends AnyObject = UnknownObject>

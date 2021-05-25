@@ -86,7 +86,7 @@ function reducer<D extends AnyObject = UnknownObject>(
     };
   }
 
-  if (action.type === actions.setRowState) {
+  if (action.type === actions.setGroupingOptions) {
     const { columnId, groupingOptions } = action as unknown as {
       columnId: string;
       groupingOptions: Record<string, unknown>;

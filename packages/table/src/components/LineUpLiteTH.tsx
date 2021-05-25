@@ -19,7 +19,7 @@ export interface LineUpLiteTHProps<D extends AnyObject = UnknownObject> extends 
 }
 
 const LineUpLiteTHImpl = /*! #__PURE__ */ forwardRef(function LineUpLiteTH<D extends AnyObject = UnknownObject>(
-  { col, actions, icons, children }: LineUpLiteTHProps<D>,
+  { col, actions, icons, children, actionFilter, actionGroupBy, actionSortBy }: LineUpLiteTHProps<D>,
   ref: Ref<HTMLElement>
 ) {
   const column = col as unknown as HeaderGroup<D> &
@@ -53,7 +53,14 @@ const LineUpLiteTHImpl = /*! #__PURE__ */ forwardRef(function LineUpLiteTH<D ext
       <div className={clsx('lt-header', c?.classNames?.header)} style={c?.styles?.header} title={column.tooltip}>
         {column.render('Header')}
       </div>
-      <LineUpLiteToolbar {...col} icons={icons} actions={actions} />
+      <LineUpLiteToolbar
+        {...col}
+        icons={icons}
+        actions={actions}
+        actionFilter={actionFilter}
+        actionGroupBy={actionGroupBy}
+        actionSortBy={actionSortBy}
+      />
       {column.Summary && column.render('Summary')}
       {children}
     </p.c>

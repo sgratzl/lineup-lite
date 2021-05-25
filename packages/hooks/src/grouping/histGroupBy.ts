@@ -12,7 +12,7 @@ import type { AnyObject, UnknownObject } from '../interfaces';
 import { computeArrayNumberStats } from '../stats';
 
 export const MISSING_GROUP = 'Missing Values';
-
+export const OTHERS_GROUPS = 'Other Values';
 /**
  * group by histogram
  * @param rows
