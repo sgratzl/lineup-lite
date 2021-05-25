@@ -25,50 +25,6 @@ code {
   }
 }
 
-.root {
-  display: flex;
-  height: 100vh;
-}
-
-.lineup {
-  flex-grow: 1;
-  position: relative;
-}
-.lineup > * {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-}
-
-.side-panel {
-  min-width: 15em;
-  border-left: 1px solid currentColor;
-}
-
-.filter-dialog {
-  position: absolute;
-  width: 12em;
-  height: 7em;
-  background: rgba(255, 255, 255, 0.95);
-  border: 1px solid currentColor;
-  border-radius: 3px;
-  z-index: 100;
-  top: 100%;
-  right: 0;
-  display: flex;
-  flex-direction: column
-}
-
-.filter-dialog .lt-summary {
-  margin-left: 0.25em;
-  margin-right: 0.25em;
-  margin-top: 0.5em;
-  flex-grow: 1;
-}
-
 .groupby-dialog {
   position: absolute;
   width: 12em;

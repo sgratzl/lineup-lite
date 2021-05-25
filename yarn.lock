@@ -3680,6 +3680,26 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@lineup-lite/example-group-options@workspace:examples/group-options":
+  version: 0.0.0-use.local
+  resolution: "@lineup-lite/example-group-options@workspace:examples/group-options"
+  dependencies:
+    "@lineup-lite/components": ~1.5.3
+    "@lineup-lite/hooks": ~1.5.3
+    "@lineup-lite/table": ~1.5.3
+    "@rescripts/cli": ^0.0.16
+    "@rescripts/utilities": ^0.0.8
+    "@types/jest": ^26.0.23
+    "@types/react": ^17.0.7
+    "@types/react-dom": ^17.0.5
+    react: ^17.0.2
+    react-dom: ^17.0.2
+    react-refresh: ^0.10.0
+    react-scripts: ^4.0.3
+    typescript: ^4.2.4
+  languageName: unknown
+  linkType: soft
+
 "@lineup-lite/example-i18n@workspace:examples/i18n":
   version: 0.0.0-use.local
   resolution: "@lineup-lite/example-i18n@workspace:examples/i18n"

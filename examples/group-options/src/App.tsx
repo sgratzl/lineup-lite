@@ -6,33 +6,21 @@
  * Copyright (c) 2021 Samuel Gratzl <sam@sgratzl.com>
  */
 
-import { defaultDivergingColorScale, defaultDivergingDarkColorScale } from '@lineup-lite/components';
-import '@lineup-lite/components/src/style.css';
-import '@lineup-lite/hooks/src/style.css';
+import React, { useMemo, useCallback, useState } from 'react';
+import './styles.css';
 import LineUpLite, {
+  asTextColumn,
+  asNumberColumn,
+  asCategoricalColumn,
+  LineUpLiteColumn,
+  featureDefault,
   actionIconsRemixicon,
   ActionLineUpProps,
-  asDivergingNumberColumn,
-  asTextColumn,
-  featureFilterColumns,
-  featureFlexLayout,
-  featureRowRank,
-  featureRowSelect,
-  featureSortAndGroupBy,
-  LineUpLiteColumn,
-  LineUpLitePanel,
-  LineUpLiteStateContextProvider,
 } from '@lineup-lite/table';
+import { defaultDarkColorScale, defaultColorScale } from '@lineup-lite/components';
 import type { TextGroupByOptions } from '@lineup-lite/hooks';
-import '@lineup-lite/table/src/style.css';
-import React, { useCallback, useMemo, useState } from 'react';
+import '@lineup-lite/table/dist/table.css';
 import { data, Row } from './data';
-import './styles.css';
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function MyCheckBox({ indeterminate, ...rest }: any) {
-  return <input type="checkbox" {...rest} style={{ color: 'blue' }} />;
-}
 
 function useVisibleHelper() {
   const [visible, setVisible] = useState([] as string[]);
@@ -45,30 +33,6 @@ function useVisibleHelper() {
   );
   const isVisible = useCallback((col: { id: string }) => visible.indexOf(col.id) >= 0, [visible]);
   return { toggleVisibility, isVisible };
-}
-
-function useFilterAction() {
-  const { toggleVisibility, isVisible } = useVisibleHelper();
-  return useMemo(() => {
-    const f: ActionLineUpProps<Row>['actionFilter'] = (col) => {
-      if (!col.canFilter) {
-        return undefined;
-      }
-      const handler = () => toggleVisibility(col);
-      return {
-        handler,
-        children: isVisible(col) ? (
-          <div className="filter-dialog">
-            {col.render('Summary')}
-            <button onClick={handler} type="button">
-              Close
-            </button>
-          </div>
-        ) : undefined,
-      };
-    };
-    return f;
-  }, [isVisible, toggleVisibility]);
 }
 
 function TextGroupByOptionsBlock({
@@ -170,54 +134,30 @@ function Table({ isDarkTheme }: { isDarkTheme: boolean }) {
   const columns: LineUpLiteColumn<Row>[] = useMemo(
     () => [
       asTextColumn<Row>('name'),
-      asDivergingNumberColumn<Row>('test', {
-        color: isDarkTheme ? defaultDivergingDarkColorScale : defaultDivergingColorScale,
-        min: -1,
-        max: 1,
+      asNumberColumn<Row>('age', {
+        color: isDarkTheme ? defaultDarkColorScale : defaultColorScale,
+      }),
+      asCategoricalColumn<Row>('shirtSize', {
+        categories: ['S', 'M', 'L'],
       }),
     ],
     [isDarkTheme]
   );
 
-  const features = useMemo(
-    () => [
-      featureFilterColumns,
-      featureSortAndGroupBy<Row>(),
-      featureRowSelect<Row>(),
-      featureRowRank,
-      featureFlexLayout,
-    ],
-    []
-  );
+  const features = useMemo(() => featureDefault<Row>(), []);
   const icons = useMemo(() => actionIconsRemixicon(), []);
 
-  const actionFilter = useFilterAction();
   const actionGroupBy = useGroupByAction();
 
   return (
-    <LineUpLiteStateContextProvider>
-      <div className="root">
-        <div className="lineup">
-          <LineUpLite<Row>
-            data={data}
-            columns={columns}
-            features={features}
-            icons={icons}
-            dark={isDarkTheme}
-            selectCheckboxComponent={MyCheckBox}
-            actionFilter={actionFilter}
-            actionGroupBy={actionGroupBy}
-          />
-        </div>
-        <LineUpLitePanel
-          className="side-panel"
-          icons={icons}
-          dark={isDarkTheme}
-          actionFilter={actionFilter}
-          actionGroupBy={actionGroupBy}
-        />
-      </div>
-    </LineUpLiteStateContextProvider>
+    <LineUpLite<Row>
+      data={data}
+      columns={columns}
+      features={features}
+      icons={icons}
+      dark={isDarkTheme}
+      actionGroupBy={actionGroupBy}
+    />
   );
 }
 
