@@ -13,7 +13,7 @@ import type { UseStatsColumnProps } from '../hooks';
 import type { AnyObject, UnknownObject } from '../interfaces';
 
 export default function categoricalSetGroupBy<D extends AnyObject = UnknownObject>(
-  rows: Row<D>[],
+  rows: readonly Row<D>[],
   column: ColumnInstance<D>
 ): Record<string, Row<D>[]> {
   if (rows.length === 0) {
@@ -21,5 +21,6 @@ export default function categoricalSetGroupBy<D extends AnyObject = UnknownObjec
   }
   const stats = (column as unknown as UseStatsColumnProps).statsValue as ICategoricalStats;
   const sorter = stats ? categoricalSortFunc(stats.categories) : compareAsc;
+  // sort by join groups
   return baseGroupBy(rows, column, (d) => (d == null ? null : [...(d as string[])].sort(sorter).join(',')));
 }

@@ -18,7 +18,7 @@ export interface LineUpLiteTHeadProps<D extends AnyObject = UnknownObject> exten
 }
 
 const LineUpLiteTHeadImpl = /*! #__PURE__ */ forwardRef(function LineUpLiteTHead<D extends AnyObject = UnknownObject>(
-  { headerGroups, icons, actions, children }: LineUpLiteTHeadProps<D>,
+  { headerGroups, icons, actions, actionFilter, actionGroupBy, actionSortBy, children }: LineUpLiteTHeadProps<D>,
   ref: Ref<HTMLElement>
 ) {
   const c = useLineUpLiteTableContext();
@@ -39,7 +39,15 @@ const LineUpLiteTHeadImpl = /*! #__PURE__ */ forwardRef(function LineUpLiteTHead
           {headerGroup.headers
             .filter((d) => d.isVisible)
             .map((col) => (
-              <LineUpLiteTH key={col.id} col={col} actions={actions} icons={icons} />
+              <LineUpLiteTH
+                key={col.id}
+                col={col}
+                actions={actions}
+                actionFilter={actionFilter}
+                actionGroupBy={actionGroupBy}
+                actionSortBy={actionSortBy}
+                icons={icons}
+              />
             ))}
         </p.g>
       ))}

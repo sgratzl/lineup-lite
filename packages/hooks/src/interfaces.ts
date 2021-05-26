@@ -7,9 +7,6 @@
 
 import type {
   Column,
-  ColumnInstance,
-  Renderer,
-  Row,
   UseFiltersColumnOptions,
   UseGroupByColumnOptions,
   UseResizeColumnsColumnOptions,
@@ -17,19 +14,13 @@ import type {
 } from 'react-table';
 import type { UseStatsColumnOptions } from './hooks/useStats';
 import type { AnyObject, UnknownObject } from './types';
+import type { UseGroupingOptionsColumnOptions } from './hooks/useGroupingOptions';
 
 export type { AnyObject, UnknownObject } from './types';
-
-export interface UseColumnGroupByColumnOptions<D extends AnyObject = UnknownObject> {
-  /**
-   * renderer used to render the group cell
-   */
-  Group?: Renderer<D>;
-  /**
-   * group by function for this column
-   */
-  groupBy?(rows: readonly Row<D>[], column: ColumnInstance<D>): { [key: string]: Row<D>[] };
-}
+export type {
+  UseGroupingOptionGroupingFunction as LineUpLiteGroupByFunction,
+  UseGroupingOptionsColumnOptions as UseColumnGroupByColumnOptions,
+} from './hooks/useGroupingOptions';
 
 /**
  * a lineup lite column description
@@ -40,7 +31,7 @@ export type LineUpLiteColumn<D extends AnyObject = UnknownObject> = Column<D> &
   UseSortByColumnOptions<D> &
   UseStatsColumnOptions<D> &
   UseResizeColumnsColumnOptions<D> &
-  UseColumnGroupByColumnOptions<D> & {
+  UseGroupingOptionsColumnOptions<D> & {
     canHide?: boolean;
     isSupport?: boolean;
     tooltip?: string;

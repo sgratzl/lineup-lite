@@ -17,6 +17,10 @@ import {
   useRowSelectColumn,
   UseSelectColumnTableOptions,
   useStats,
+  useGroupingOptions,
+  UseGroupingOptionsInstanceProps,
+  UseGroupingOptionsState,
+  useSortingOptions,
 } from '@lineup-lite/hooks';
 import {
   PluginHook,
@@ -53,7 +57,6 @@ export { useRowRankColumn as featureRowRank } from '@lineup-lite/hooks';
 export {
   useFilters as featureFilterColumns,
   useResizeColumns as featureResizeColumns,
-  useSortBy as featureSortBy,
   useBlockLayout as featureDefaultLayout,
   useFlexLayout as featureFlexLayout,
 } from 'react-table';
@@ -75,6 +78,7 @@ export interface LineUpLiteState<D extends AnyObject = UnknownObject>
     UseGroupByState<D>,
     UseRowSelectState<D>,
     UseSortByState<D>,
+    UseGroupingOptionsState<D>,
     UseResizeColumnsState<D> {}
 
 export interface LineUpLiteTableInstance<D extends AnyObject = UnknownObject>
@@ -83,6 +87,7 @@ export interface LineUpLiteTableInstance<D extends AnyObject = UnknownObject>
     UseExpandedInstanceProps<D>,
     UseGroupByInstanceProps<D>,
     UseRowSelectInstanceProps<D>,
+    UseGroupingOptionsInstanceProps,
     UseSortByInstanceProps<D> {}
 
 export interface UseLineUpLiteOptions<D extends AnyObject = UnknownObject> extends UseLineUpLiteTableOptions<D> {
@@ -97,8 +102,12 @@ export function featureRowSelect<D extends AnyObject = UnknownObject>(): PluginH
   return [useRowSelectImpl, useRowSelectColumn];
 }
 
+export function featureSortBy<D extends AnyObject = UnknownObject>(): PluginHook<D>[] {
+  return [useSortingOptions, useSortBy];
+}
+
 export function featureSortAndGroupBy<D extends AnyObject = UnknownObject>(): PluginHook<D>[] {
-  return [useGroupByImpl, useSortBy, useExpanded, useRowExpandColumn];
+  return [useGroupingOptions, useGroupByImpl, useSortingOptions, useSortBy, useExpanded, useRowExpandColumn];
 }
 
 /**

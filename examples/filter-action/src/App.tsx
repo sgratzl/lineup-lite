@@ -14,36 +14,47 @@ import LineUpLite, {
   LineUpLiteColumn,
   featureDefault,
   actionIconsRemixicon,
-  ColumnInstance,
-  ActionIcons,
-  LineUpLiteFilterAction,
-  UseFiltersColumnProps,
+  ActionLineUpProps,
 } from '@lineup-lite/table';
 import { defaultDarkColorScale, defaultColorScale } from '@lineup-lite/components';
 import '@lineup-lite/table/dist/table.css';
 import { data, Row } from './data';
 
-function MyFilterAction(props: { col: ColumnInstance<Row>; icons: ActionIcons }) {
-  const col = props.col as unknown as ColumnInstance<Row> & UseFiltersColumnProps<Row>;
+function useVisibleHelper() {
+  const [visible, setVisible] = useState([] as string[]);
 
-  const [visible, setVisible] = useState(false);
-  const showFilterDialog = useCallback(() => {
-    setVisible(!visible);
-  }, [visible, setVisible]);
-
-  return (
-    <>
-      <LineUpLiteFilterAction {...col} iconFilter={props.icons.filterColumn} toggleFilterColumn={showFilterDialog} />
-      {visible && (
-        <div className="filter-dialog">
-          {col.render('Summary')}
-          <button onClick={showFilterDialog} type="button">
-            Close
-          </button>
-        </div>
-      )}
-    </>
+  const toggleVisibility = useCallback(
+    (col: { id: string }) => {
+      setVisible((v) => (v.indexOf(col.id) >= 0 ? v.filter((d) => d !== col.id) : [...v, col.id]));
+    },
+    [setVisible]
   );
+  const isVisible = useCallback((col: { id: string }) => visible.indexOf(col.id) >= 0, [visible]);
+  return { toggleVisibility, isVisible };
+}
+
+function useFilterAction() {
+  const { toggleVisibility, isVisible } = useVisibleHelper();
+  return useMemo(() => {
+    const f: ActionLineUpProps<Row>['actionFilter'] = (col) => {
+      if (!col.canFilter) {
+        return undefined;
+      }
+      const handler = () => toggleVisibility(col);
+      return {
+        handler,
+        children: isVisible(col) ? (
+          <div className="filter-dialog">
+            {col.render('Summary')}
+            <button onClick={handler} type="button">
+              Close
+            </button>
+          </div>
+        ) : undefined,
+      };
+    };
+    return f;
+  }, [isVisible, toggleVisibility]);
 }
 
 function Table({ isDarkTheme }: { isDarkTheme: boolean }) {
@@ -63,13 +74,7 @@ function Table({ isDarkTheme }: { isDarkTheme: boolean }) {
   const features = useMemo(() => featureDefault<Row>(), []);
   const icons = useMemo(() => actionIconsRemixicon(), []);
 
-  const filterAction = useCallback((col: ColumnInstance<Row>, givenIcons: ActionIcons) => {
-    return (
-      <>
-        <MyFilterAction col={col} icons={givenIcons} />
-      </>
-    );
-  }, []);
+  const actionFilter = useFilterAction();
 
   return (
     <LineUpLite<Row>
@@ -78,7 +83,7 @@ function Table({ isDarkTheme }: { isDarkTheme: boolean }) {
       features={features}
       icons={icons}
       dark={isDarkTheme}
-      actions={filterAction}
+      actionFilter={actionFilter}
     />
   );
 }

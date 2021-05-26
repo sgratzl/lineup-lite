@@ -7,7 +7,14 @@
 
 export { default as columnSpecificGroupByFn } from './columnSpecificGroupByFn';
 export { default as categoricalGroupBy } from './categoricalGroupBy';
-export { default as dateGroupBy } from './dateGroupBy';
-export { default as numberGroupBy } from './numberGroupBy';
-export { default as textGroupBy } from './textGroupBy';
+export { default as dateGroupBy, DateGroupByGranularity, DateGroupByOptions, dateGroupByFactory } from './dateGroupBy';
+export { default as numberGroupBy, NumberGroupByOptions, numberGroupByFactory } from './numberGroupBy';
+export {
+  default as textGroupBy,
+  TextGroupByOptions,
+  TextGroupByRegexOptions,
+  TextGroupByStartsWithOptions,
+  TextGroupByValueOptions,
+  textGroupByFactory,
+} from './textGroupBy';
 export { default as categoricalSetGroupBy } from './categoricalSetGroupBy';
