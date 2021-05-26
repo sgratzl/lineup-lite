@@ -1,7 +1,7 @@
 {
   "name": "@lineup-lite/example-flex-layout",
   "description": "LineUp-lite example project",
-  "version": "1.5.3",
+  "version": "1.6.0",
   "private": true,
   "license": "MPL-2.0",
   "author": {
@@ -27,9 +27,9 @@
   ],
   "main": "src/index.tsx",
   "dependencies": {
-    "@lineup-lite/components": "~1.5.3",
-    "@lineup-lite/hooks": "~1.5.3",
-    "@lineup-lite/table": "~1.5.3",
+    "@lineup-lite/components": "~1.6.0",
+    "@lineup-lite/hooks": "~1.6.0",
+    "@lineup-lite/table": "~1.6.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
   },
