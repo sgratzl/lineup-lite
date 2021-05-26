@@ -25,7 +25,7 @@ function resolveSortOptions<O extends AnyObject = UnknownObject>(
   a: Row<UnknownObject>,
   columnId: string
 ): undefined | O {
-  const column = a.allCells.find((d) => d.column.id === columnId)?.column;
+  const column = a.allCells?.find((d) => d.column.id === columnId)?.column;
   if (!column) {
     return undefined;
   }

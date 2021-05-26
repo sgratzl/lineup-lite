@@ -30,7 +30,7 @@ export default function columnSpecificGroupByFn<D extends AnyObject = UnknownObj
   if (rows.length === 0 || rows[0] == null || rows[0].allCells == null) {
     return {};
   }
-  const cell: Cell<D, AnyObject> | undefined = rows[0].allCells.find((d) => d.column.id === columnId);
+  const cell: Cell<D, AnyObject> | undefined = rows[0].allCells?.find((d) => d.column.id === columnId);
   if (hasGroupByFunction<D>(cell)) {
     return cell.column.groupBy(
       rows,

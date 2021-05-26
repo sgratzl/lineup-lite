@@ -39,7 +39,7 @@ export function numbersCompare(
   options?: NumberSortOptions
 ): number {
   const group = options?.group ?? 'median';
-  const column = a.allCells.find((d) => d.column.id === columnId)?.column;
+  const column = a.allCells?.find((d) => d.column.id === columnId)?.column;
   const av = computeArrayNumberStats(a.values[columnId], column);
   const bv = computeArrayNumberStats(b.values[columnId], column);
   if (isNumberStats(av) && isNumberStats(bv)) {
