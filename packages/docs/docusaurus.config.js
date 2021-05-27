@@ -1,8 +1,10 @@
 const exec = require('child_process').execSync;
+const pkg = require('./package.json');
 
 function resolveGitBranch() {
   return exec('git rev-parse --abbrev-ref HEAD').toString();
 }
+
 module.exports = {
   title: 'LineUp-lite',
   tagline: 'a LineUp implementation based on react-table',
@@ -15,6 +17,7 @@ module.exports = {
   projectName: 'lineup-lite', // Usually your repo name.
   customFields: {
     branch: resolveGitBranch(),
+    version: pkg.version,
   },
   themeConfig: {
     hideableSidebar: true,
@@ -116,7 +119,9 @@ module.exports = {
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} <a href="https://www.sgratzl.com">Samuel Gratzl</a>. All rights reserved. Built with Docusaurus.`,
+      copyright: `<a href="https://github.com/sgratzl/lineup-lite/releases/v${pkg.version}">v${
+        pkg.version
+      }</a>. Copyright © ${new Date().getFullYear()} <a href="https://www.sgratzl.com">Samuel Gratzl</a>. All rights reserved. Built with Docusaurus.`,
     },
     algolia: {
       apiKey: '85bfa6629a04cc69c9d91c95db0df80f',

@@ -39,7 +39,7 @@ function Example() {
       <CategoricalColor value={row.shirtSize} color="red" />
       <DateLabel value={row.birthday} />
       <UpSetLine value={row.hobbies} sets={['running', 'reading', 'cooking']} />
-      <HeatMap1D value={row.runningTimes} />
+      <HeatMap1D value={row.runningTimes} scale={normalize(0, 50)} />
     </div>
   );
 }
