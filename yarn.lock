@@ -3042,26 +3042,6 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@lineup-lite/controlled-state@workspace:examples/controlled-state":
-  version: 0.0.0-use.local
-  resolution: "@lineup-lite/controlled-state@workspace:examples/controlled-state"
-  dependencies:
-    "@lineup-lite/components": ~1.6.0
-    "@lineup-lite/hooks": ~1.6.0
-    "@lineup-lite/table": ~1.6.0
-    "@rescripts/cli": ^0.0.16
-    "@rescripts/utilities": ^0.0.8
-    "@types/jest": ^27.0.1
-    "@types/react": ^17.0.19
-    "@types/react-dom": ^17.0.9
-    react: ^17.0.2
-    react-dom: ^17.0.2
-    react-refresh: ^0.10.0
-    react-scripts: ^4.0.3
-    typescript: ~4.3.5
-  languageName: unknown
-  linkType: soft
-
 "@lineup-lite/docs@workspace:packages/docs":
   version: 0.0.0-use.local
   resolution: "@lineup-lite/docs@workspace:packages/docs"
@@ -3119,6 +3099,7 @@ __metadata:
     "@types/react": ^17.0.19
     "@types/react-dom": ^17.0.9
     "@types/react-flip-move": ^2.9.12
+    jest-transform-stub: ^2.0.0
     react: ^17.0.2
     react-dom: ^17.0.2
     react-flip-move: ^3.0.4
@@ -3140,6 +3121,7 @@ __metadata:
     "@types/jest": ^27.0.1
     "@types/react": ^17.0.19
     "@types/react-dom": ^17.0.9
+    jest-transform-stub: ^2.0.0
     react: ^17.0.2
     react-dom: ^17.0.2
     react-refresh: ^0.10.0
@@ -3160,6 +3142,7 @@ __metadata:
     "@types/jest": ^27.0.1
     "@types/react": ^17.0.19
     "@types/react-dom": ^17.0.9
+    jest-transform-stub: ^2.0.0
     react: ^17.0.2
     react-dom: ^17.0.2
     react-refresh: ^0.10.0
@@ -3180,6 +3163,28 @@ __metadata:
     "@types/jest": ^27.0.1
     "@types/react": ^17.0.19
     "@types/react-dom": ^17.0.9
+    jest-transform-stub: ^2.0.0
+    react: ^17.0.2
+    react-dom: ^17.0.2
+    react-refresh: ^0.10.0
+    react-scripts: ^4.0.3
+    typescript: ~4.3.5
+  languageName: unknown
+  linkType: soft
+
+"@lineup-lite/example-controlled-state@workspace:examples/controlled-state":
+  version: 0.0.0-use.local
+  resolution: "@lineup-lite/example-controlled-state@workspace:examples/controlled-state"
+  dependencies:
+    "@lineup-lite/components": ~1.6.0
+    "@lineup-lite/hooks": ~1.6.0
+    "@lineup-lite/table": ~1.6.0
+    "@rescripts/cli": ^0.0.16
+    "@rescripts/utilities": ^0.0.8
+    "@types/jest": ^27.0.1
+    "@types/react": ^17.0.19
+    "@types/react-dom": ^17.0.9
+    jest-transform-stub: ^2.0.0
     react: ^17.0.2
     react-dom: ^17.0.2
     react-refresh: ^0.10.0
@@ -3200,6 +3205,7 @@ __metadata:
     "@types/jest": ^27.0.1
     "@types/react": ^17.0.19
     "@types/react-dom": ^17.0.9
+    jest-transform-stub: ^2.0.0
     react: ^17.0.2
     react-dom: ^17.0.2
     react-refresh: ^0.10.0
@@ -3220,6 +3226,7 @@ __metadata:
     "@types/jest": ^27.0.1
     "@types/react": ^17.0.19
     "@types/react-dom": ^17.0.9
+    jest-transform-stub: ^2.0.0
     react: ^17.0.2
     react-dom: ^17.0.2
     react-refresh: ^0.10.0
@@ -3243,6 +3250,7 @@ __metadata:
     "@types/jest": ^27.0.1
     "@types/react": ^17.0.19
     "@types/react-dom": ^17.0.9
+    jest-transform-stub: ^2.0.0
     react: ^17.0.2
     react-dom: ^17.0.2
     react-refresh: ^0.10.0
@@ -3263,6 +3271,7 @@ __metadata:
     "@types/jest": ^27.0.1
     "@types/react": ^17.0.19
     "@types/react-dom": ^17.0.9
+    jest-transform-stub: ^2.0.0
     react: ^17.0.2
     react-dom: ^17.0.2
     react-refresh: ^0.10.0
@@ -3283,6 +3292,7 @@ __metadata:
     "@types/jest": ^27.0.1
     "@types/react": ^17.0.19
     "@types/react-dom": ^17.0.9
+    jest-transform-stub: ^2.0.0
     react: ^17.0.2
     react-dom: ^17.0.2
     react-refresh: ^0.10.0
@@ -3303,6 +3313,7 @@ __metadata:
     "@types/jest": ^27.0.1
     "@types/react": ^17.0.19
     "@types/react-dom": ^17.0.9
+    jest-transform-stub: ^2.0.0
     react: ^17.0.2
     react-dom: ^17.0.2
     react-refresh: ^0.10.0
@@ -3323,6 +3334,7 @@ __metadata:
     "@types/jest": ^27.0.1
     "@types/react": ^17.0.19
     "@types/react-dom": ^17.0.9
+    jest-transform-stub: ^2.0.0
     react: ^17.0.2
     react-dom: ^17.0.2
     react-refresh: ^0.10.0
@@ -3343,6 +3355,7 @@ __metadata:
     "@types/jest": ^27.0.1
     "@types/react": ^17.0.19
     "@types/react-dom": ^17.0.9
+    jest-transform-stub: ^2.0.0
     react: ^17.0.2
     react-dom: ^17.0.2
     react-refresh: ^0.10.0
@@ -3363,6 +3376,7 @@ __metadata:
     "@types/jest": ^27.0.1
     "@types/react": ^17.0.19
     "@types/react-dom": ^17.0.9
+    jest-transform-stub: ^2.0.0
     react: ^17.0.2
     react-dom: ^17.0.2
     react-refresh: ^0.10.0
@@ -3383,6 +3397,7 @@ __metadata:
     "@types/jest": ^27.0.1
     "@types/react": ^17.0.19
     "@types/react-dom": ^17.0.9
+    jest-transform-stub: ^2.0.0
     react: ^17.0.2
     react-dom: ^17.0.2
     react-refresh: ^0.10.0
@@ -3403,6 +3418,7 @@ __metadata:
     "@types/jest": ^27.0.1
     "@types/react": ^17.0.19
     "@types/react-dom": ^17.0.9
+    jest-transform-stub: ^2.0.0
     react: ^17.0.2
     react-dom: ^17.0.2
     react-refresh: ^0.10.0
@@ -3423,6 +3439,7 @@ __metadata:
     "@types/jest": ^27.0.1
     "@types/react": ^17.0.19
     "@types/react-dom": ^17.0.9
+    jest-transform-stub: ^2.0.0
     react: ^17.0.2
     react-dom: ^17.0.2
     react-refresh: ^0.10.0
@@ -13856,6 +13873,13 @@ fsevents@^1.2.7:
     pretty-format: ^27.1.0
     semver: ^7.3.2
   checksum: 71dd71e60b0aa73e50fd4795e1d0db5eaf8cd25874c191d41565e199ed90a4ae24eeb9e28e76fa815a815f95f19cf7398b8ae6c78ecdd92548b3934ba6f37e6a
+  languageName: node
+  linkType: hard
+
+"jest-transform-stub@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "jest-transform-stub@npm:2.0.0"
+  checksum: c46134257e5fb047f5952e4a4a1339925dd009da15aa8d3310ba1d3e4d22266ed6c675cd18e58c9d5ca2246718d6cc8ff00ea6a4b6f3b2a6b285b6426f6ae8fe
   languageName: node
   linkType: hard
 
