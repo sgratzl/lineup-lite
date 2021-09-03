@@ -20,7 +20,7 @@ import LineUpLite, {
   actionIconsRemixicon,
 } from '@lineup-lite/table';
 import { defaultDarkColorScale, defaultColorScale } from '@lineup-lite/components';
-import '@lineup-lite/table/table.css';
+import '@lineup-lite/table/dist/table.css';
 import { data, Row } from './data';
 
 function Table({ isDarkTheme }: { isDarkTheme: boolean }) {

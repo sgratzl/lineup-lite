@@ -16,7 +16,7 @@ import LineUpLite, {
   ActionIcons,
 } from '@lineup-lite/table';
 import { defaultDarkColorScale, defaultColorScale } from '@lineup-lite/components';
-import '@lineup-lite/table/table.css';
+import '@lineup-lite/table/dist/table.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faSortAmountUp,

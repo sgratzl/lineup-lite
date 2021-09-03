@@ -19,7 +19,7 @@ import LineUpLite, {
 } from '@lineup-lite/table';
 import { defaultDarkColorScale, defaultColorScale } from '@lineup-lite/components';
 import type { TextGroupByOptions } from '@lineup-lite/hooks';
-import '@lineup-lite/table/table.css';
+import '@lineup-lite/table/dist/table.css';
 import { data, Row } from './data';
 
 function useVisibleHelper() {

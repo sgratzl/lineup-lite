@@ -15,7 +15,7 @@ import LineUpLite, {
   featureDefault,
   actionIconsRemixicon,
 } from '@lineup-lite/table';
-import '@lineup-lite/table/table.css';
+import '@lineup-lite/table/dist/table.css';
 import { data, Row } from './data';
 
 function Table({ isDarkTheme }: { isDarkTheme: boolean }) {
