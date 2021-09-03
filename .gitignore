@@ -11,9 +11,12 @@ storybook-static
 .storybook/**/*.d.ts
 *.tgz
 *.tsbuildinfo
-.yarn
-.yarnrc.yml
-.pnp.js
+.yarn/*
+!.yarn/patches
+!.yarn/releases
+!.yarn/plugins
+!.yarn/versions
+.pnp.*
 /docs
 /packages/*/docs/
 .tmp
