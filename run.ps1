@@ -5,8 +5,6 @@ Function run_function{
     Write-Output $dir.DirectoryName
     cd $dir.DirectoryName
     # git branch -D main
-    # yarn add -D @yarnpkg/sdks
-    # yarn sdks vscode
 
     # yarn set version latest
     # ncu -u --reject "d3-*"
