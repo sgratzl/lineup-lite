@@ -3035,7 +3035,7 @@ __metadata:
     ts-jest: ^27.0.5
     tslib: ^2.3.1
     typedoc: ^0.21.9
-    typescript: ~4.3
+    typescript: ^4.4.2
   peerDependencies:
     "@types/react": ">=17"
     react: ">=17"
@@ -3474,7 +3474,7 @@ __metadata:
     ts-jest: ^27.0.5
     tslib: ^2.3.1
     typedoc: ^0.21.9
-    typescript: ~4.3
+    typescript: ^4.4.2
   peerDependencies:
     "@types/react": ">=17"
     "@types/react-table": ^7.7.2
@@ -3527,7 +3527,7 @@ __metadata:
     ts-jest: ^27.0.5
     tslib: ^2.3.1
     typedoc: ^0.21.9
-    typescript: ~4.3
+    typescript: ^4.4.2
   peerDependencies:
     "@types/react": ">=17"
     react: ">=17"
@@ -21807,26 +21807,6 @@ typescript@^4.4.2:
     tsc: bin/tsc
     tsserver: bin/tsserver
   checksum: 3109ae25705746996007161cdd3271857db4f40356b894e34d4cabc216bf9e251f53e0bb6e48df2450b5e3fd948dcbee716a616a4ad4cf7251292025e6163cb1
-  languageName: node
-  linkType: hard
-
-"typescript@patch:typescript@~4.3#~builtin<compat/typescript>":
-  version: 4.3.5
-  resolution: "typescript@patch:typescript@npm%3A4.3.5#~builtin<compat/typescript>::version=4.3.5&hash=32657b"
-  bin:
-    tsc: bin/tsc
-    tsserver: bin/tsserver
-  checksum: 4e2edec3c9b7b9a22ad9cbf9371339d9e13bfe44731f0e2d6a5287f991c3b0e3e0ac0c0ebbf9bf6fc2051e30559c789bfc9cf572cd6b836a0222ae141fac1dba
-  languageName: node
-  linkType: hard
-
-typescript@~4.3:
-  version: 4.3.5
-  resolution: "typescript@npm:4.3.5"
-  bin:
-    tsc: bin/tsc
-    tsserver: bin/tsserver
-  checksum: bab033b5e2b0790dd35b77fd005df976ef80b8d84fd2c6e63cc31808151875beae9216e5a315fe7068e8499905c3c354248fe83272cdfc13b7705635f0c66c97
   languageName: node
   linkType: hard
 
