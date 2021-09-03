@@ -8,7 +8,7 @@
 import React from 'react';
 import './styles.css';
 import { UpSetLine, HeatMap1D } from '@lineup-lite/components';
-import '@lineup-lite/components/dist/components.css';
+import '@lineup-lite/components/components.css';
 
 export default function App(): JSX.Element {
   const isDarkTheme = window.matchMedia != null && window.matchMedia('(prefers-color-scheme: dark)').matches;

@@ -17,7 +17,7 @@ import LineUpLite, {
   LineUpLiteComponentLike,
 } from '@lineup-lite/table';
 import { defaultDarkColorScale, defaultColorScale } from '@lineup-lite/components';
-import '@lineup-lite/table/dist/table.css';
+import '@lineup-lite/table/table.css';
 import FlipMove from 'react-flip-move';
 import { data, Row } from './data';
 

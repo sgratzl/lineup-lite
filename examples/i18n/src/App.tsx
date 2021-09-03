@@ -17,7 +17,7 @@ import LineUpLite, {
   LineUpLiteI18N,
 } from '@lineup-lite/table';
 import { defaultDarkColorScale, defaultColorScale, formatCategories } from '@lineup-lite/components';
-import '@lineup-lite/table/dist/table.css';
+import '@lineup-lite/table/table.css';
 import { data, Row } from './data';
 
 function Table({ isDarkTheme }: { isDarkTheme: boolean }) {
