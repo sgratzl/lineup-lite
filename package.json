@@ -36,7 +36,7 @@
     "copy_docs": "shx rm -rf docs && shx cp -r packages/docs/build/ docs/ && shx cp -r packages/hooks/docs/ docs/api/hooks/ && shx cp -r packages/table/docs/ docs/api/table/ && shx cp -r packages/components/docs/ docs/api/components/",
     "website": "yarn build:website && yarn docs && yarn copy_docs",
     "start": "yarn workspace @lineup-lite/_playground run start",
-    "prettier": "prettier .eslintrc.js .prettierrc.js *.json .yarnrc_patch.yml \".github/**\"",
+    "prettier": "prettier .eslintrc.js .prettierrc.js *.json \".github/**\"",
     "prettier:write": "yarn run prettier --write",
     "prettier:check": "yarn run prettier --check",
     "release": "release-it --disable-metrics",
