@@ -9,28 +9,46 @@
   display: flex;
   flex-direction: column;
   position: relative;
+  padding: 2px;
 }
 
 .lt-line-chart-container {
   flex: 1 1 0;
 }
 
+.lt-line-chart-points {
+  position: absolute;
+  left: 2px;
+  top: 2px;
+  right: 2px;
+  bottom: 2px;
+}
+
 .lt-line-chart-line {
   stroke: var(--current-color, black);
   vector-effect: non-scaling-stroke;
+  fill: none;
+}
+
+.lt-line-chart-area {
+  fill: var(--current-color, black);
+  opacity: 0.25;
 }
 
 .lt-line-chart-pre {
   opacity: 0.2;
 }
 
+.lt-line-chart-area-pre {
+  opacity: 0.05;
+}
+
 .lt-line-chart-point {
   position: absolute;
-  left: 0;
-  top: 0;
   width: 4px;
   height: 4px;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
   transform-origin: center center;
   background-color: var(--current-color, black);
-  border-radius: 50%;
 }

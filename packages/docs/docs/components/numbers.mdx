@@ -86,9 +86,13 @@ function Example() {
 
   return (
     <div>
-      <LineChart value={data[0]} scale={stats.scale} color={stats.color} format={stats.format} />
-      <LineChart value={data[1]} scale={stats.scale} color={stats.color} format={stats.format} />
-      <LineChart value={data[2]} scale={stats.scale} color={stats.color} format={stats.format} />
+      <LineChart value={data[0]} scale={stats.scale} color={stats.color} format={stats.format} style={{ height: 25 }} />
+      <LineChart value={data[1]} scale={stats.scale} color={stats.color} format={stats.format} style={{ height: 25 }} />
+      <LineChart value={data[2]} scale={stats.scale} color={stats.color} format={stats.format} style={{ height: 25 }} />
+
+      <LineChart value={data[0]} scale={stats.scale} color={stats.color} format={stats.format} style={{ height: 25 }} fill/>
+      <LineChart value={data[1]} scale={stats.scale} color={stats.color} format={stats.format} style={{ height: 25 }} fill/>
+      <LineChart value={data[2]} scale={stats.scale} color={stats.color} format={stats.format} style={{ height: 25 }} fill/>
     </div>
   );
 }
@@ -99,7 +103,7 @@ function Example() {
 [`BoxPlotArray`](https://lineup-lite.js.org/api/components/modules.html#boxplotarray) React component
 
 ```jsx live
-// import { numberStatsGenerator, Histogram, BoxPlot } from '@lineup-lite/components';
+// import { numberStatsGenerator, BoxPlotArray } from '@lineup-lite/components';
 
 function Example() {
   const compute = numberStatsGenerator();
@@ -117,6 +121,32 @@ function Example() {
   return (
     <div>
       <BoxPlotArray value={vs} format={stats.format} scale={stats.scale} color={stats.color} style={{ height: 100 }} />
+    </div>
+  );
+}
+```
+
+
+[`MultiLineChart`](https://lineup-lite.js.org/api/components/modules.html#multilinechart) React component
+
+```jsx live
+// import { numberStatsGenerator, MultiLineChart } from '@lineup-lite/components';
+
+function Example() {
+  const compute = numberStatsGenerator();
+  const data = [
+    [10, 20, 40, 30, 15],
+    [21, 39, 25, 42, 18],
+    [16, 44, 30, 32, 31],
+    [39, 50, 43, 32, 24],
+    [36, 19, 37, 38, 17],
+  ];
+  const stats = compute(data);
+
+  return (
+    <div>
+      <MultiLineChart value={data} scale={stats.scale} style={{ height: 100 }} />
+      <MultiLineChart value={data} scale={stats.scale} style={{ height: 100 }} fill />
     </div>
   );
 }

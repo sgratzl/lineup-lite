@@ -8,20 +8,25 @@
 import { clsx, LineChart } from '@lineup-lite/components';
 import React, { useContext } from 'react';
 import type { CellProps, Renderer } from 'react-table';
-import type { BarRendererOptions } from '.';
-import type { UnknownObject } from '..';
+import type { BarRendererOptions } from './BarRenderer';
+import type { UnknownObject } from '../types';
 import deriveNumberOptions from './deriveNumberOptions';
 import { missingClass, optionContext } from './utils';
+
+export interface LineChartRendererOptions extends BarRendererOptions {
+  fill?: boolean;
+}
 
 export function LineChartRenderer<D extends UnknownObject, P extends CellProps<D, (number | null | undefined)[]>>(
   props: P
 ): JSX.Element {
-  const options = useContext(optionContext) as BarRendererOptions;
+  const options = useContext(optionContext) as LineChartRendererOptions;
   const p = deriveNumberOptions<D, P>(props, options);
   return (
     <LineChart
       {...p}
       value={props.value}
+      fill={options.fill}
       style={options.style}
       className={clsx(missingClass(props.value), options.className)}
     />
@@ -31,7 +36,7 @@ export function LineChartRenderer<D extends UnknownObject, P extends CellProps<D
 export function LineChartRendererFactory<
   D extends UnknownObject,
   P extends CellProps<D, (number | null | undefined)[]>
->(options: BarRendererOptions = {}): Renderer<P> {
+>(options: LineChartRendererOptions = {}): Renderer<P> {
   return (props: P) => (
     <optionContext.Provider value={options}>
       <LineChartRenderer<D, P> {...props} />
