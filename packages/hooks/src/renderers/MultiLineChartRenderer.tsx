@@ -23,6 +23,7 @@ export function MultiLineChartRenderer<D extends UnknownObject, P extends CellPr
       {...p}
       value={props.value}
       fill={options.fill}
+      gradient={options.gradient}
       style={options.style}
       className={clsx(missingClass(props.value), options.className)}
     />

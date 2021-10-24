@@ -55,16 +55,32 @@ export function useI18N<T extends Record<string, string>>(
   }, [original, overrides]);
 }
 
-export function generateGradient(prefix: string, colors: string[], x1: number, x2: number) {
-  const id = `${prefix}-${colors.join(',')}`.replace(/[, ]+/gm, '').replace(/[-#$()[\]{}"']+/gm, '-');
+export function hashCode(s: string) {
+  // based on https://stackoverflow.com/questions/7616461/generate-a-hash-from-string-in-javascript
+  return s.split('').reduce((a, b) => {
+    const next = (a << 5) - a + b.charCodeAt(0);
+    return next & next;
+  }, 0);
+}
+
+export function generateGradient(prefix: string, colors: (string | null | undefined)[], x1: number, x2: number) {
+  if (colors.length === 0 || colors.every((d) => d === colors[0])) {
+    // single color
+    // eslint-disable-next-line prefer-destructuring
+    return {
+      value: colors[0]!,
+      elem: <></>,
+    };
+  }
+  const id = `${prefix}-${hashCode(colors.join(','))}`;
   return {
-    url: `url('#${id}')`,
-    def: (
+    value: `url('#${id}')`,
+    elem: (
       <defs>
         <linearGradient id={id} x1={x1} x2={x2} gradientUnits="userSpaceOnUse">
-          {colors.map((d, i) => (
-            <stop key={d} offset={toPercent(i / (colors.length - 1))} stopColor={d} />
-          ))}
+          {colors.map((d, i) =>
+            d == null ? null : <stop key={d} offset={toPercent(i / (colors.length - 1))} stopColor={d} />
+          )}
         </linearGradient>
       </defs>
     ),

@@ -15,6 +15,7 @@ import { missingClass, optionContext } from './utils';
 
 export interface LineChartRendererOptions extends BarRendererOptions {
   fill?: boolean;
+  gradient?: boolean;
 }
 
 export function LineChartRenderer<D extends UnknownObject, P extends CellProps<D, (number | null | undefined)[]>>(
@@ -27,6 +28,7 @@ export function LineChartRenderer<D extends UnknownObject, P extends CellProps<D
       {...p}
       value={props.value}
       fill={options.fill}
+      gradient={options.gradient}
       style={options.style}
       className={clsx(missingClass(props.value), options.className)}
     />

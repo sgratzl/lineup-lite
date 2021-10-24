@@ -5,11 +5,10 @@
  * Copyright (c) 2021 Samuel Gratzl <sam@sgratzl.com>
  */
 
-import React, {Fragment} from 'react';
+import React, { Fragment } from 'react';
 import { defaultColorScale } from '../math';
-import type { CommonProps } from './common';
-import type { HeatMap1DProps } from './HeatMap1D';
-import { clsx, toLocaleString, toPercent } from './utils';
+import type { CommonNumbersProps, HeatMap1DProps } from './HeatMap1D';
+import { clsx, generateGradient, toLocaleString, toPercent } from './utils';
 
 export interface LineChartProps extends HeatMap1DProps {
   /**
@@ -20,6 +19,10 @@ export interface LineChartProps extends HeatMap1DProps {
    * fill the line chart at the bottom
    */
   fill?: boolean;
+  /**
+   * use color gradient for stroke and fill
+   */
+  gradient?: boolean;
 }
 
 const width = 100;
@@ -36,8 +39,8 @@ function generateLine(
         return '';
       }
       const prefix = i === 0 || vs[i - 1] == null ? ' M' : ' L';
-      const x = (i * xScale) * width;
-      const y = (1-yScale(v)) * height;
+      const x = i * xScale * width;
+      const y = (1 - yScale(v)) * height;
       return `${prefix}${x},${y}`;
     })
     .join('');
@@ -49,7 +52,7 @@ function generateArea(
   yScale: (v: number) => number
 ): string {
   let last = -1;
-  let segments: string[] = [];
+  const segments: string[] = [];
 
   vs.forEach((v, i) => {
     if (v == null) {
@@ -75,6 +78,27 @@ function generateArea(
   return segments.join(' ');
 }
 
+function calculateGradient(
+  suffix: string,
+  values: readonly (number | null | undefined)[],
+  yScale: (v: number) => number,
+  color: LineChartProps['color']
+) {
+  if (typeof color === 'string') {
+    return {
+      value: color,
+      elem: null,
+    };
+  } else if (typeof color === 'function') {
+    const colors = values.map((v, i) => (v == null ? null : color(yScale(v), i)));
+    return generateGradient(`lt-line-chart-g${suffix}`, colors, 0, width);
+  }
+  return {
+    value: undefined,
+    elem: null,
+  };
+}
+
 /**
  * renders a line chart
  */
@@ -84,21 +108,47 @@ export function LineChart(props: LineChartProps): JSX.Element {
   const yScale = typeof props.scale === 'function' ? props.scale : (v: number) => v;
   const colorScale = typeof props.color === 'string' ? () => props.color as string : props.color ?? defaultColorScale;
 
+  const gradient = props.gradient
+    ? calculateGradient('', values, yScale, props.color)
+    : { value: undefined, elem: null };
+  const gradientPreFiltered =
+    props.gradient && props.preFilter
+      ? calculateGradient('pre', props.preFilter, yScale, props.color)
+      : { value: undefined, elem: null };
+
   return (
     <div className={clsx('lt-line-chart', props.className)} style={props.style}>
       {typeof props.format === 'string' && <span aria-hidden="false">{props.format}</span>}
-      <svg
-        viewBox={`0 0 ${width} ${height}`}
-        className={'lt-line-chart-container'}
-        preserveAspectRatio="none"
-      >
+      <svg viewBox={`0 0 ${width} ${height}`} className={'lt-line-chart-container'} preserveAspectRatio="none">
+        {gradient.elem}
+        {gradientPreFiltered.elem}
         {typeof props.format === 'string' && <title>{props.format}</title>}
-        {props.fill && props.preFilter && <path className="lt-line-chart-area lt-line-chart-area-pre" d={generateArea(props.preFilter, xScale, yScale)} />}
-        {props.preFilter && (
-          <path className="lt-line-chart-line lt-line-chart-pre" d={generateLine(props.preFilter, xScale, yScale)} />
+        {props.fill && props.preFilter && (
+          <path
+            className="lt-line-chart-area lt-line-chart-area-pre"
+            d={generateArea(props.preFilter, xScale, yScale)}
+            style={{ fill: gradientPreFiltered.value }}
+          />
         )}
-        {props.fill && <path className="lt-line-chart-area" d={generateArea(values, xScale, yScale)} />}
-        <path className="lt-line-chart-line" d={generateLine(values, xScale, yScale)} />
+        {props.preFilter && (
+          <path
+            className="lt-line-chart-line lt-line-chart-pre"
+            d={generateLine(props.preFilter, xScale, yScale)}
+            style={{ stroke: gradientPreFiltered.value }}
+          />
+        )}
+        {props.fill && (
+          <path
+            className="lt-line-chart-area"
+            d={generateArea(values, xScale, yScale)}
+            style={{ fill: gradient.value }}
+          />
+        )}
+        <path
+          className="lt-line-chart-line"
+          d={generateLine(values, xScale, yScale)}
+          style={{ stroke: gradient.value }}
+        />
       </svg>
       <div className="lt-line-chart-points">
         {values.map((v, i) => {
@@ -115,7 +165,7 @@ export function LineChart(props: LineChartProps): JSX.Element {
               style={{
                 backgroundColor: color,
                 left: toPercent(i * xScale),
-                top: toPercent(1 - normalized)
+                top: toPercent(1 - normalized),
               }}
               title={label}
             />
@@ -126,17 +176,18 @@ export function LineChart(props: LineChartProps): JSX.Element {
   );
 }
 
-export interface MultiLineChartProps extends CommonProps {
+export interface MultiLineChartProps extends CommonNumbersProps {
   value: readonly (readonly (number | null | undefined)[])[];
-  /**
-   * optional scale to convert the number in the 0..1 range
-   */
-  scale?: (v: number) => number;
   /**
    * fill the line chart at the bottom
    */
   fill?: boolean;
+  /**
+   * use color gradient for stroke and fill
+   */
+  gradient?: boolean;
 }
+
 /**
  * renders multiple line charts
  */
@@ -145,17 +196,30 @@ export function MultiLineChart(props: MultiLineChartProps): JSX.Element {
   const xScale = 1 / (maxX - 1);
   const yScale = typeof props.scale === 'function' ? props.scale : (v: number) => v;
   return (
-    <div className={clsx('lt-line-chart', props.className)}
-        style={props.style}>
-      <svg
-        viewBox={`0 0 ${width} ${height}`}
-        className={'lt-line-chart-container'}
-        preserveAspectRatio="none"
-      >
-        {props.value.map((vs, i) => (<Fragment key={i}>
-          {props.fill && <path className="lt-line-chart-area" d={generateArea(vs ?? [], xScale, yScale)} />}
-          <path className="lt-line-chart-line" d={generateLine(vs ?? [], xScale, yScale)} />
-        </Fragment>))}
+    <div className={clsx('lt-line-chart', props.className)} style={props.style}>
+      <svg viewBox={`0 0 ${width} ${height}`} className={'lt-line-chart-container'} preserveAspectRatio="none">
+        {props.value.map((vs, i) => {
+          const gradient = props.gradient
+            ? calculateGradient('', vs, yScale, props.color)
+            : { value: undefined, elem: null };
+          return (
+            <Fragment key={i}>
+              {gradient.elem}
+              {props.fill && (
+                <path
+                  className="lt-line-chart-area"
+                  d={generateArea(vs ?? [], xScale, yScale)}
+                  style={{ fill: gradient.value }}
+                />
+              )}
+              <path
+                className="lt-line-chart-line"
+                d={generateLine(vs ?? [], xScale, yScale)}
+                style={{ stroke: gradient.value }}
+              />
+            </Fragment>
+          );
+        })}
       </svg>
     </div>
   );

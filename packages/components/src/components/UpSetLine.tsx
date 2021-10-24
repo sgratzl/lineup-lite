@@ -65,15 +65,9 @@ function UpSetLineLine({
     stroke = color;
   } else if (typeof color === 'function') {
     const colors = sets.slice(first, last + 1).map((d) => color(d));
-    if (colors.every((d) => d === colors[0])) {
-      // single color
-      // eslint-disable-next-line prefer-destructuring
-      stroke = colors[0];
-    } else {
-      const r = generateGradient('lt-upset-line-g', colors, first * 2, last * 2);
-      stroke = r.url;
-      g = r.def;
-    }
+    const r = generateGradient('lt-upset-line-g', colors, first * 2, last * 2);
+    stroke = r.value;
+    g = r.elem;
   }
   return (
     <svg
