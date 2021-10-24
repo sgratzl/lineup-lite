@@ -5,7 +5,7 @@
  * Copyright (c) 2021 Samuel Gratzl <sam@sgratzl.com>
  */
 
-import { CSSProperties, useMemo } from 'react';
+import React, { CSSProperties, useMemo } from 'react';
 
 export const EMPTY_OBJ = {}; // static object to avoid updates
 export const EMPTY_ARR = [];
@@ -53,4 +53,20 @@ export function useI18N<T extends Record<string, string>>(
     }
     return r;
   }, [original, overrides]);
+}
+
+export function generateGradient(prefix: string, colors: string[], x1: number, x2: number) {
+  const id = `${prefix}-${colors.join(',')}`.replace(/[, ]+/gm, '').replace(/[-#$()[\]{}"']+/gm, '-');
+  return {
+    url: `url('#${id}')`,
+    def: (
+      <defs>
+        <linearGradient id={id} x1={x1} x2={x2} gradientUnits="userSpaceOnUse">
+          {colors.map((d, i) => (
+            <stop key={d} offset={toPercent(i / (colors.length - 1))} stopColor={d} />
+          ))}
+        </linearGradient>
+      </defs>
+    ),
+  };
 }
