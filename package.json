@@ -48,29 +48,30 @@
     "postinstall": "yarn sdks vscode"
   },
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^4.30.0",
-    "@typescript-eslint/parser": "^4.30.0",
-    "@typescript-eslint/typescript-estree": "^4.30.0",
-    "@yarnpkg/sdks": "^2.4.2-rc.2",
+    "@typescript-eslint/eslint-plugin": "^5.1.0",
+    "@typescript-eslint/parser": "^5.1.0",
+    "@typescript-eslint/typescript-estree": "^5.1.0",
+    "@yarnpkg/sdks": "^2.5.0-rc.3",
     "babel-eslint": "^10.1.0",
     "eslint": "^7.32.0",
-    "eslint-config-airbnb-typescript": "^14.0.0",
+    "eslint-config-airbnb-typescript": "^14.0.1",
     "eslint-config-prettier": "^8.3.0",
     "eslint-config-react-app": "^6.0.0",
-    "eslint-plugin-flowtype": "^5.9.2",
-    "eslint-plugin-import": "^2.24.2",
+    "eslint-plugin-flowtype": "^6.1.1",
+    "eslint-plugin-import": "^2.25.2",
     "eslint-plugin-jsx-a11y": "^6.4.1",
     "eslint-plugin-prettier": "^4.0.0",
-    "eslint-plugin-react": "^7.25.1",
+    "eslint-plugin-react": "^7.26.1",
     "eslint-plugin-react-hooks": "^4.2.0",
-    "prettier": "^2.3.2",
-    "release-it": "^14.11.5",
+    "prettier": "^2.4.1",
+    "release-it": "^14.11.6",
     "shx": "^0.3.3",
-    "typescript": "~4.3.5"
+    "typescript": "^4.4.4"
   },
   "dependenciesMeta": {
     "remixicon@2.5.0": {
       "unplugged": true
     }
-  }
+  },
+  "packageManager": "yarn@3.0.2"
 }
