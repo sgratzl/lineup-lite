@@ -3070,7 +3070,7 @@ __metadata:
     "@lineup-lite/table": ~1.6.0
     "@mdx-js/react": ^1.6.22
     "@tsconfig/docusaurus": ^1.0.4
-    "@types/d3-scale-chromatic": ^3.0.0
+    "@types/d3-scale-chromatic": ^2.0.0
     "@types/node": ^16.11.4
     "@types/react": ^17.0.32
     "@types/react-helmet": ^6.1.4
@@ -4390,10 +4390,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/d3-scale-chromatic@npm:^3.0.0":
-  version: 3.0.0
-  resolution: "@types/d3-scale-chromatic@npm:3.0.0"
-  checksum: e06afffd2725570aa90cb3050eb96a94727264948d9256e56807ab582aba379168d84d1d98bcaa275bf38375148b35dfe13697e06fc7565dd17ac7e2acb11980
+"@types/d3-scale-chromatic@npm:^2.0.0":
+  version: 2.0.1
+  resolution: "@types/d3-scale-chromatic@npm:2.0.1"
+  checksum: 5c441309b4d226f51cf86b6adf6f5543067bd6f8adfa94024c5476e355b13b53571a9b52025fdc2713ad37e9146ebaea12a7d089f478dae55cf03797f5d212be
   languageName: node
   linkType: hard
 
@@ -22458,7 +22458,7 @@ typescript@^4.4.4:
   languageName: node
   linkType: hard
 
-"url@npm:^0.11.0":
+"url@npm:*, url@npm:^0.11.0":
   version: 0.11.0
   resolution: "url@npm:0.11.0"
   dependencies:
