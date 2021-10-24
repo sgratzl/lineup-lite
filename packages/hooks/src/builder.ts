@@ -32,6 +32,7 @@ import {
   StackedBarRenderer,
   computeStackedValue,
   DivergingBarRendererFactory,
+  LineChartRenderer,
 } from './renderers';
 import { textStats, categoricalStats, dateStats, numberStats } from './stats';
 import { rangeFilter, categoricalFilter, categoricalSetFilter } from './filters';
@@ -160,6 +161,32 @@ export function asNumbersColumn<D extends AnyObject = UnknownObject, C extends C
     Group: GroupValueRenderer,
     Aggregated: BoxPlotArrayRenderer,
     aggregate: statsAggregateArray,
+    filter: rangeFilter,
+    stats: numberStats(options),
+    sortType: sortSplitter(numbersCompare, numberGroupCompare),
+    sortDescFirst: true,
+    defaultCanGroupBy: false,
+    groupBy: numberGroupBy,
+    canHide: false,
+    ...asColumn<D, C>(col),
+  } as unknown as LineUpLiteColumn<D>;
+}
+
+/**
+ * defines a number array column, each value is a number array shown as a line chart x = index, y=value
+ * @param col property key or partial column Header and accessor
+ * @param options additional options for statistics
+ */
+export function asLineChartColumn<D extends AnyObject = UnknownObject, C extends Column<D> = Column<D>>(
+  col: C | keyof D,
+  options?: NumberStatsOptions
+): LineUpLiteColumn<D> {
+  return {
+    Cell: LineChartRenderer,
+    Summary: NumberHistogramRenderer,
+    Group: GroupValueRenderer,
+    Aggregated: BoxPlotArrayRenderer, // TODO
+    aggregate: statsAggregateArray, // TODO
     filter: rangeFilter,
     stats: numberStats(options),
     sortType: sortSplitter(numbersCompare, numberGroupCompare),

@@ -68,6 +68,32 @@ function Example() {
 }
 ```
 
+[`LineChart`](https://lineup-lite.js.org/api/components/modules.html#linechart) React component
+
+```jsx live
+// import { numberStatsGenerator, LineChart } from '@lineup-lite/components';
+
+function Example() {
+  const compute = numberStatsGenerator();
+  const data = [
+    [10, 20, 40, 30, 15],
+    [21, 39, 25, 42, 18],
+    [16, 44, 30, 32, 31],
+    [39, 50, 43, 32, 24],
+    [36, 19, 37, 38, 17],
+  ];
+  const stats = compute(data);
+
+  return (
+    <div>
+      <LineChart value={data[0]} scale={stats.scale} color={stats.color} format={stats.format} />
+      <LineChart value={data[1]} scale={stats.scale} color={stats.color} format={stats.format} />
+      <LineChart value={data[2]} scale={stats.scale} color={stats.color} format={stats.format} />
+    </div>
+  );
+}
+```
+
 ### Aggregation
 
 [`BoxPlotArray`](https://lineup-lite.js.org/api/components/modules.html#boxplotarray) React component

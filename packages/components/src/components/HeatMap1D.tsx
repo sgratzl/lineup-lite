@@ -10,11 +10,7 @@ import { defaultColorScale } from '../math';
 import type { CommonProps } from './common';
 import { clsx, toLocaleString } from './utils';
 
-export interface HeatMap1DProps extends CommonProps {
-  /**
-   * the value to render
-   */
-  value: readonly number[];
+export interface CommonNumbersProps extends CommonProps {
   /**
    * optional scale to convert the number in the 0..1 range
    */
@@ -29,6 +25,13 @@ export interface HeatMap1DProps extends CommonProps {
   format?: string | ((v: number, index: number) => string);
 }
 
+export interface HeatMap1DProps extends CommonNumbersProps {
+  /**
+   * the value to render
+   */
+  value: readonly (number | null | undefined)[];
+}
+
 /**
  * renders a numeric 1d heatmap
  */
@@ -40,6 +43,9 @@ export function HeatMap1D(props: HeatMap1DProps): JSX.Element {
       title={typeof props.format === 'string' ? props.format : undefined}
     >
       {(props.value ?? []).map((v, i) => {
+        if (v == null) {
+          return <div key={i} className="lt-heatmap-1d-cell" />;
+        }
         const label = typeof props.format === 'function' ? props.format(v, i) : toLocaleString(v);
         const normalized = typeof props.scale === 'function' && v != null ? props.scale(v) : v;
         const color = typeof props.color === 'string' ? props.color : (props.color ?? defaultColorScale)(normalized, i);

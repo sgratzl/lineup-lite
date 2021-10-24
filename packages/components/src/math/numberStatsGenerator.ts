@@ -228,3 +228,24 @@ export function numberStatsGenerator(
     return r;
   };
 }
+
+export function simpleStats(values: readonly number[]): { min: number; max: number; count: number; missing: number } {
+  let min = 0;
+  let max = 1;
+  let count = 0;
+  let missing = 0;
+  for (const v of values) {
+    if (v == null || Number.isNaN(v)) {
+      missing += 1;
+      continue;
+    }
+    count += 1;
+    if (count === 1 || v < min) {
+      min = v;
+    }
+    if (count === 1 || v > max) {
+      max = v;
+    }
+  }
+  return { min, max, count, missing };
+}
