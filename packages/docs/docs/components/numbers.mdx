@@ -153,8 +153,10 @@ function Example() {
 
   return (
     <div>
-      <MultiLineChart value={data} scale={stats.scale} style={{ height: 100 }} />
-      <MultiLineChart value={data} scale={stats.scale} style={{ height: 100 }} fill />
+      <MultiLineChart value={data} format={stats.format} scale={stats.scale} color={stats.color} style={{ height: 100 }} />
+      <MultiLineChart value={data} format={stats.format} scale={stats.scale} color={stats.color} style={{ height: 100 }} fill />
+      <MultiLineChart value={data} format={stats.format} scale={stats.scale} color={stats.color} style={{ height: 100 }} gradient/>
+      <MultiLineChart value={data} format={stats.format} scale={stats.scale} color={stats.color} style={{ height: 100 }} fill gradient/>
     </div>
   );
 }
