@@ -22,6 +22,7 @@ export {
   deriveColumn,
   deriveColumns,
   LineUpLiteColumn,
+  asLineChartColumn,
   asColumn,
 } from '@lineup-lite/hooks';
 

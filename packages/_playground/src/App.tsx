@@ -13,6 +13,8 @@ import LineUpLite, {
   ActionLineUpProps,
   asTextColumn,
   asNumberBoxPlotColumn,
+  asDivergingNumberColumn,
+  asLineChartColumn,
   featureFilterColumns,
   featureFlexLayout,
   featureRowRank,
@@ -22,7 +24,7 @@ import LineUpLite, {
   LineUpLitePanel,
   LineUpLiteStateContextProvider,
 } from '@lineup-lite/table';
-import { asLineChartColumn } from '@lineup-lite/hooks';
+import { defaultDivergingColorScale, defaultDivergingDarkColorScale } from '@lineup-lite/components';
 import type { TextGroupByOptions } from '@lineup-lite/hooks';
 import '@lineup-lite/table/src/style.css';
 import React, { useCallback, useMemo, useState } from 'react';
@@ -170,6 +172,11 @@ function Table({ isDarkTheme }: { isDarkTheme: boolean }) {
   const columns: LineUpLiteColumn<Row>[] = useMemo(
     () => [
       asTextColumn<Row>('name'),
+      asDivergingNumberColumn<Row>('test', {
+        color: isDarkTheme ? defaultDivergingDarkColorScale : defaultDivergingColorScale,
+        min: -1,
+        max: 1,
+      }),
       { ...asNumberBoxPlotColumn<Row>('runningTimes'), id: 'r2' },
       asLineChartColumn<Row>('runningTimes'),
     ],
