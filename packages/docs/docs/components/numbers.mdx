@@ -90,17 +90,17 @@ function Example() {
       <LineChart value={data[1]} scale={stats.scale} color={stats.color} format={stats.format} />
       <LineChart value={data[2]} scale={stats.scale} color={stats.color} format={stats.format} />
 
-      <LineChart value={data[0]} scale={stats.scale} color={stats.color} format={stats.format} fill/>
-      <LineChart value={data[1]} scale={stats.scale} color={stats.color} format={stats.format} fill/>
-      <LineChart value={data[2]} scale={stats.scale} color={stats.color} format={stats.format} fill/>
+      <LineChart value={data[0]} scale={stats.scale} color={stats.color} format={stats.format} fill />
+      <LineChart value={data[1]} scale={stats.scale} color={stats.color} format={stats.format} fill />
+      <LineChart value={data[2]} scale={stats.scale} color={stats.color} format={stats.format} fill />
 
-      <LineChart value={data[0]} scale={stats.scale} color={stats.color} format={stats.format} gradient/>
-      <LineChart value={data[1]} scale={stats.scale} color={stats.color} format={stats.format} gradient/>
-      <LineChart value={data[2]} scale={stats.scale} color={stats.color} format={stats.format} gradient/>
+      <LineChart value={data[0]} scale={stats.scale} color={stats.color} format={stats.format} gradient />
+      <LineChart value={data[1]} scale={stats.scale} color={stats.color} format={stats.format} gradient />
+      <LineChart value={data[2]} scale={stats.scale} color={stats.color} format={stats.format} gradient />
 
-      <LineChart value={data[0]} scale={stats.scale} color={stats.color} format={stats.format} fill gradient/>
-      <LineChart value={data[1]} scale={stats.scale} color={stats.color} format={stats.format} fill gradient/>
-      <LineChart value={data[2]} scale={stats.scale} color={stats.color} format={stats.format} fill gradient/>
+      <LineChart value={data[0]} scale={stats.scale} color={stats.color} format={stats.format} fill gradient />
+      <LineChart value={data[1]} scale={stats.scale} color={stats.color} format={stats.format} fill gradient />
+      <LineChart value={data[2]} scale={stats.scale} color={stats.color} format={stats.format} fill gradient />
     </div>
   );
 }
@@ -134,7 +134,6 @@ function Example() {
 }
 ```
 
-
 [`MultiLineChart`](https://lineup-lite.js.org/api/components/modules.html#multilinechart) React component
 
 ```jsx live
@@ -153,10 +152,38 @@ function Example() {
 
   return (
     <div>
-      <MultiLineChart value={data} format={stats.format} scale={stats.scale} color={stats.color} style={{ height: 100 }} />
-      <MultiLineChart value={data} format={stats.format} scale={stats.scale} color={stats.color} style={{ height: 100 }} fill />
-      <MultiLineChart value={data} format={stats.format} scale={stats.scale} color={stats.color} style={{ height: 100 }} gradient/>
-      <MultiLineChart value={data} format={stats.format} scale={stats.scale} color={stats.color} style={{ height: 100 }} fill gradient/>
+      <MultiLineChart
+        value={data}
+        format={stats.format}
+        scale={stats.scale}
+        color={stats.color}
+        style={{ height: 100 }}
+      />
+      <MultiLineChart
+        value={data}
+        format={stats.format}
+        scale={stats.scale}
+        color={stats.color}
+        style={{ height: 100 }}
+        fill
+      />
+      <MultiLineChart
+        value={data}
+        format={stats.format}
+        scale={stats.scale}
+        color={stats.color}
+        style={{ height: 100 }}
+        gradient
+      />
+      <MultiLineChart
+        value={data}
+        format={stats.format}
+        scale={stats.scale}
+        color={stats.color}
+        style={{ height: 100 }}
+        fill
+        gradient
+      />
     </div>
   );
 }
