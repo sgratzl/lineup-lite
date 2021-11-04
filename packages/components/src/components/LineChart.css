@@ -14,8 +14,8 @@
   position: absolute;
   left: 2px;
   top: 2px;
-  right: 2px;
-  bottom: 2px;
+  width: calc(100% - 4px);
+  height: calc(100% - 4px);
 }
 
 .lt-line-chart-points {

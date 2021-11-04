@@ -86,3 +86,7 @@ export function generateGradient(prefix: string, colors: (string | null | undefi
     ),
   };
 }
+
+export function ZeroWidth() {
+  return <span>{'​' /* zero space width character for proper height */}</span>;
+}

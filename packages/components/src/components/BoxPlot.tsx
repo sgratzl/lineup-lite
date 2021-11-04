@@ -10,7 +10,7 @@ import type { IBoxPlot } from '@sgratzl/boxplots';
 import { NumberStatsWrapper } from './NumberStatsWrapper';
 import { FilterRangeWrapper, FilterRangeSliderProps } from './FilterRange';
 import type { CommonProps } from './common';
-import { clsx, useI18N } from './utils';
+import { clsx, useI18N, ZeroWidth } from './utils';
 
 export type { IBoxPlot } from '@sgratzl/boxplots';
 
@@ -251,6 +251,7 @@ export function BoxPlot(props: BoxPlotProps): JSX.Element {
       summary={props.summary}
       style={props.style}
     >
+      <ZeroWidth />
       <BoxPlotChart {...props} className={clsx('lt-boxplot-wrapper', props.className)} />
     </NumberStatsWrapper>
   );
@@ -267,6 +268,7 @@ export type FilterRangeBoxPlotProps = BoxPlotProps &
 export function FilterRangeBoxPlot(props: FilterRangeBoxPlotProps): JSX.Element {
   return (
     <FilterRangeWrapper summary={props.summary} {...props} className={clsx('lt-boxplot', props.className)}>
+      <ZeroWidth />
       <BoxPlotChart {...props} className={clsx('lt-boxplot-wrapper', props.className)} />
     </FilterRangeWrapper>
   );

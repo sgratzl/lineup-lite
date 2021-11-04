@@ -8,7 +8,7 @@
 import React, { Fragment } from 'react';
 import { defaultColorScale } from '../math';
 import type { CommonNumbersProps, HeatMap1DProps } from './HeatMap1D';
-import { clsx, EMPTY_ARR, generateGradient, toLocaleString, toPercent } from './utils';
+import { clsx, EMPTY_ARR, generateGradient, toLocaleString, toPercent, ZeroWidth } from './utils';
 
 export interface LineChartProps extends HeatMap1DProps {
   /**
@@ -118,6 +118,7 @@ export function LineChart(props: LineChartProps): JSX.Element {
 
   return (
     <div className={clsx('lt-line-chart', props.className)} style={props.style}>
+      <ZeroWidth />
       {typeof props.format === 'string' && <span aria-hidden="false">{props.format}</span>}
       <svg viewBox={`0 0 ${width} ${height}`} className={'lt-line-chart-container'} preserveAspectRatio="none">
         {gradient.elem}
@@ -198,6 +199,7 @@ export function MultiLineChart(props: MultiLineChartProps): JSX.Element {
   const yScale = typeof props.scale === 'function' ? props.scale : (v: number) => v;
   return (
     <div className={clsx('lt-line-chart', props.className)} style={props.style}>
+      <span>{'​' /* zero space width character for proper height */}</span>
       <svg viewBox={`0 0 ${width} ${height}`} className={'lt-line-chart-container'} preserveAspectRatio="none">
         {values.map((vs, i) => {
           if (!vs) {

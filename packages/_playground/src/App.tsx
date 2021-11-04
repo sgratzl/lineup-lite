@@ -12,6 +12,7 @@ import LineUpLite, {
   actionIconsRemixicon,
   ActionLineUpProps,
   asTextColumn,
+  asNumberBoxPlotColumn,
   featureFilterColumns,
   featureFlexLayout,
   featureRowRank,
@@ -169,7 +170,7 @@ function Table({ isDarkTheme }: { isDarkTheme: boolean }) {
   const columns: LineUpLiteColumn<Row>[] = useMemo(
     () => [
       asTextColumn<Row>('name'),
-      // xx
+      { ...asNumberBoxPlotColumn<Row>('runningTimes'), id: 'r2' },
       asLineChartColumn<Row>('runningTimes'),
     ],
     [isDarkTheme]

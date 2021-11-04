@@ -8,7 +8,7 @@
 import React from 'react';
 import type { ActionIcons, PaginationIcons } from './interfaces';
 
-// TODO check licence
+// TODO check license: Apache License Version 2.0
 // from https://remixicon.com/
 
 function SortAsc() {
