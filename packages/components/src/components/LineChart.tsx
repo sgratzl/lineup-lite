@@ -8,7 +8,7 @@
 import React, { Fragment } from 'react';
 import { defaultColorScale } from '../math';
 import type { CommonNumbersProps, HeatMap1DProps } from './HeatMap1D';
-import { clsx, generateGradient, toLocaleString, toPercent } from './utils';
+import { clsx, EMPTY_ARR, generateGradient, toLocaleString, toPercent } from './utils';
 
 export interface LineChartProps extends HeatMap1DProps {
   /**
@@ -103,8 +103,8 @@ function calculateGradient(
  * renders a line chart
  */
 export function LineChart(props: LineChartProps): JSX.Element {
-  const values = props.value ?? [];
-  const xScale = 1 / (props.value.length - 1);
+  const values = props.value ?? EMPTY_ARR;
+  const xScale = 1 / (values.length - 1);
   const yScale = typeof props.scale === 'function' ? props.scale : (v: number) => v;
   const colorScale = typeof props.color === 'string' ? () => props.color as string : props.color ?? defaultColorScale;
 
@@ -177,7 +177,7 @@ export function LineChart(props: LineChartProps): JSX.Element {
 }
 
 export interface MultiLineChartProps extends CommonNumbersProps {
-  value: readonly (readonly (number | null | undefined)[])[];
+  value?: readonly (readonly (number | null | undefined)[])[];
   /**
    * fill the line chart at the bottom
    */
@@ -192,13 +192,17 @@ export interface MultiLineChartProps extends CommonNumbersProps {
  * renders multiple line charts
  */
 export function MultiLineChart(props: MultiLineChartProps): JSX.Element {
-  const maxX = props.value.reduce((acc, v) => Math.max(acc, v ? v.length : 0), 0);
+  const values = props.value ?? EMPTY_ARR;
+  const maxX = values.reduce((acc, v) => Math.max(acc, v ? v.length : 0), 0);
   const xScale = 1 / (maxX - 1);
   const yScale = typeof props.scale === 'function' ? props.scale : (v: number) => v;
   return (
     <div className={clsx('lt-line-chart', props.className)} style={props.style}>
       <svg viewBox={`0 0 ${width} ${height}`} className={'lt-line-chart-container'} preserveAspectRatio="none">
-        {props.value.map((vs, i) => {
+        {values.map((vs, i) => {
+          if (!vs) {
+            return null;
+          }
           const gradient = props.gradient
             ? calculateGradient('', vs, yScale, props.color)
             : { value: undefined, elem: null };
@@ -208,13 +212,13 @@ export function MultiLineChart(props: MultiLineChartProps): JSX.Element {
               {props.fill && (
                 <path
                   className="lt-line-chart-area"
-                  d={generateArea(vs ?? [], xScale, yScale)}
+                  d={generateArea(vs ?? EMPTY_ARR, xScale, yScale)}
                   style={{ fill: gradient.value }}
                 />
               )}
               <path
                 className="lt-line-chart-line"
-                d={generateLine(vs ?? [], xScale, yScale)}
+                d={generateLine(vs ?? EMPTY_ARR, xScale, yScale)}
                 style={{ stroke: gradient.value }}
               />
             </Fragment>

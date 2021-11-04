@@ -6,14 +6,16 @@
  */
 
 .lt-line-chart {
-  display: flex;
-  flex-direction: column;
   position: relative;
   padding: 2px;
 }
 
 .lt-line-chart-container {
-  flex: 1 1 0;
+  position: absolute;
+  left: 2px;
+  top: 2px;
+  right: 2px;
+  bottom: 2px;
 }
 
 .lt-line-chart-points {

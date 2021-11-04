@@ -29,7 +29,7 @@ export interface HeatMap1DProps extends CommonNumbersProps {
   /**
    * the value to render
    */
-  value: readonly (number | null | undefined)[];
+  value?: readonly (number | null | undefined)[];
 }
 
 /**

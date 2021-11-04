@@ -33,6 +33,7 @@ import {
   computeStackedValue,
   DivergingBarRendererFactory,
   LineChartRenderer,
+  MultiLineChartRenderer,
 } from './renderers';
 import { textStats, categoricalStats, dateStats, numberStats } from './stats';
 import { rangeFilter, categoricalFilter, categoricalSetFilter } from './filters';
@@ -185,7 +186,7 @@ export function asLineChartColumn<D extends AnyObject = UnknownObject, C extends
     Cell: LineChartRenderer,
     Summary: NumberHistogramRenderer,
     Group: GroupValueRenderer,
-    Aggregated: BoxPlotArrayRenderer, // TODO
+    Aggregated: MultiLineChartRenderer,
     aggregate: statsAggregateArray, // TODO
     filter: rangeFilter,
     stats: numberStats(options),
