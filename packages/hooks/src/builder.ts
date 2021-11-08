@@ -173,27 +173,27 @@ export function asNumbersColumn<D extends AnyObject = UnknownObject, C extends C
   } as unknown as LineUpLiteColumn<D>;
 }
 
+function keepAggregate(v: unknown[]) {
+  return v;
+}
+
 /**
  * defines a number array column, each value is a number array shown as a line chart x = index, y=value
  * @param col property key or partial column Header and accessor
  * @param options additional options for statistics
  */
-export function asLineChartColumn<D extends AnyObject = UnknownObject, C extends Column<D> = Column<D>>(
+export function asTimeSeriesColumn<D extends AnyObject = UnknownObject, C extends Column<D> = Column<D>>(
   col: C | keyof D,
   options?: NumberStatsOptions
 ): LineUpLiteColumn<D> {
   return {
     Cell: LineChartRenderer,
-    Summary: NumberHistogramRenderer,
-    Group: GroupValueRenderer,
     Aggregated: MultiLineChartRenderer,
-    aggregate: (v: unknown[]) => v, // keep array
-    filter: rangeFilter,
+    aggregate: keepAggregate,
     stats: numberStats(options),
-    sortType: sortSplitter(numbersCompare, numberGroupCompare),
-    sortDescFirst: true,
-    defaultCanGroupBy: false,
-    groupBy: numberGroupBy,
+    disableFilters: true,
+    disableSortBy: true,
+    disableGroupBy: true,
     canHide: false,
     ...asColumn<D, C>(col),
   } as unknown as LineUpLiteColumn<D>;

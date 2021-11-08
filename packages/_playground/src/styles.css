@@ -72,7 +72,7 @@ code {
 .groupby-dialog {
   position: absolute;
   width: 12em;
-  background: rgba(255, 255, 255, 0.95);
+  background: rgba(var(--current-inverted-color-rgb), 0.95);
   border: 1px solid currentColor;
   border-radius: 3px;
   z-index: 100;
