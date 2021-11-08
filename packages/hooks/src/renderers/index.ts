@@ -24,4 +24,5 @@ export * from './TextRenderer';
 export * from './StackedBarRenderer';
 export * from './LineChartRenderer';
 export * from './MultiLineChartRenderer';
+export * from './ArrayAxisRenderer';
 export { isMissing } from './utils';

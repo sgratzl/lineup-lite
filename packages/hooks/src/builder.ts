@@ -33,6 +33,9 @@ import {
   computeStackedValue,
   DivergingBarRendererFactory,
   LineChartRenderer,
+  ArrayAxisRenderer,
+  ArrayAxisRendererFactory,
+  ArrayAxisRendererOptions,
   MultiLineChartRenderer,
 } from './renderers';
 import { textStats, categoricalStats, dateStats, numberStats } from './stats';
@@ -182,12 +185,13 @@ function keepAggregate(v: unknown[]) {
  * @param col property key or partial column Header and accessor
  * @param options additional options for statistics
  */
-export function asTimeSeriesColumn<D extends AnyObject = UnknownObject, C extends Column<D> = Column<D>>(
+export function asNumbersLineChartColumn<D extends AnyObject = UnknownObject, C extends Column<D> = Column<D>>(
   col: C | keyof D,
-  options?: NumberStatsOptions
+  options?: NumberStatsOptions & ArrayAxisRendererOptions
 ): LineUpLiteColumn<D> {
   return {
     Cell: LineChartRenderer,
+    Summary: options ? ArrayAxisRendererFactory(options) : ArrayAxisRenderer,
     Aggregated: MultiLineChartRenderer,
     aggregate: keepAggregate,
     stats: numberStats(options),

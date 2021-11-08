@@ -24,7 +24,7 @@ import LineUpLite, {
   LineUpLiteStateContextProvider,
 } from '@lineup-lite/table';
 import { defaultDivergingColorScale, defaultDivergingDarkColorScale } from '@lineup-lite/components';
-import { asTimeSeriesColumn, TextGroupByOptions } from '@lineup-lite/hooks';
+import { asNumbersLineChartColumn, TextGroupByOptions } from '@lineup-lite/hooks';
 import '@lineup-lite/table/src/style.css';
 import React, { useCallback, useMemo, useState } from 'react';
 import { data, Row } from './data';
@@ -177,7 +177,7 @@ function Table({ isDarkTheme }: { isDarkTheme: boolean }) {
         max: 1,
       }),
       { ...asNumberBoxPlotColumn<Row>('runningTimes'), id: 'r2' },
-      asTimeSeriesColumn<Row>('runningTimes'),
+      asNumbersLineChartColumn<Row>('runningTimes'),
     ],
     [isDarkTheme]
   );

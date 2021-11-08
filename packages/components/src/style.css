@@ -5,6 +5,7 @@
  * Copyright (c) 2021 Samuel Gratzl <sam@sgratzl.com>
  */
 
+@import './components/ArrayAxis.css';
 @import './components/BoxPlot.css';
 @import './components/CategoricalColor.css';
 @import './components/DateLabel.css';
