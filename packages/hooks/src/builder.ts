@@ -187,7 +187,7 @@ export function asLineChartColumn<D extends AnyObject = UnknownObject, C extends
     Summary: NumberHistogramRenderer,
     Group: GroupValueRenderer,
     Aggregated: MultiLineChartRenderer,
-    aggregate: statsAggregateArray, // TODO
+    aggregate: (v: unknown[]) => v, // keep array
     filter: rangeFilter,
     stats: numberStats(options),
     sortType: sortSplitter(numbersCompare, numberGroupCompare),
