@@ -101,6 +101,7 @@ export function textStatsGenerator(options: TextStatsOptions = {}): (arr: readon
       format,
       flatCount: arr.length,
       flatItems: items,
+      depth: 1,
       flatMissing: missing,
       [Symbol.toPrimitive]: toTextPrimitive,
     };

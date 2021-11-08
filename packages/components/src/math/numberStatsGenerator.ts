@@ -151,6 +151,7 @@ function createFlat(arr: readonly NumberLike[] | Float32Array | Float64Array) {
   const items: (number | readonly number[] | Set<number>)[] = [];
   let flatMissing = 0;
   const flatItems: number[] = [];
+  let depth = 1;
 
   for (const v of arr) {
     if (v == null) {
@@ -166,11 +167,13 @@ function createFlat(arr: readonly NumberLike[] | Float32Array | Float64Array) {
     if (v instanceof Set) {
       items.push(v);
       v.forEach((vi) => flatItems.push(+vi));
+      depth = Math.max(depth, v.size);
       continue;
     }
     if (!Array.isArray(v)) {
       continue;
     }
+    depth = Math.max(depth, v.length);
     const vClean: number[] = [];
     for (const vi of v) {
       if (vi == null) {
@@ -191,6 +194,7 @@ function createFlat(arr: readonly NumberLike[] | Float32Array | Float64Array) {
     items,
     flatMissing,
     flatItems,
+    depth,
   };
 }
 
@@ -200,7 +204,7 @@ export function numberStatsGenerator(
   const format = resolveNumberFormatter(options.format);
 
   return (arr): INumberStats => {
-    const { missing, items, flatMissing, flatItems } = createFlat(arr);
+    const { missing, items, flatMissing, flatItems, depth } = createFlat(arr);
     const b = boxplot(flatItems, options);
     const min = options.min ?? b.min;
     const max = options.max ?? b.max;
@@ -216,6 +220,7 @@ export function numberStatsGenerator(
       items,
       flatMissing,
       flatItems,
+      depth,
       flatCount: flatMissing + flatItems.length,
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       maxBin: maxHistBin(hist)!,

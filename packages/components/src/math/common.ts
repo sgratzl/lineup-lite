@@ -43,6 +43,10 @@ export interface ICommonStats<T> {
    */
   readonly count: number;
   /**
+   * in case of nested arrays what is the max nested depth
+   */
+  readonly depth: number;
+  /**
    * the items in this stats
    */
   readonly items: readonly (T | readonly T[] | Set<T>)[];
