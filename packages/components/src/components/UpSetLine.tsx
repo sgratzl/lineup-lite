@@ -8,7 +8,7 @@
 import React, { ReactNode } from 'react';
 import type { CommonProps } from './common';
 import { UpSetDot } from './UpSetDot';
-import { clsx, format, toPercent, useI18N } from './utils';
+import { clsx, format, generateGradient, toPercent, useI18N } from './utils';
 
 export const UPSET_LINE_I18N_EN = {
   upsetHas: '{0}: yes',
@@ -50,22 +50,6 @@ export interface UpSetLineProps extends CommonProps {
   i18n?: Partial<typeof UPSET_LINE_I18N_EN>;
 }
 
-function generateGradient(colors: string[], x1: number, x2: number) {
-  const id = `upset-line-g-${colors.join(',')}`.replace(/[, ]+/gm, '').replace(/[-#$()[\]{}"']+/gm, '-');
-  return {
-    stroke: `url('#${id}')`,
-    def: (
-      <defs>
-        <linearGradient id={id} x1={x1} x2={x2} gradientUnits="userSpaceOnUse">
-          {colors.map((d, i) => (
-            <stop key={d} offset={toPercent(i / (colors.length - 1))} stopColor={d} />
-          ))}
-        </linearGradient>
-      </defs>
-    ),
-  };
-}
-
 function UpSetLineLine({
   first,
   last,
@@ -81,15 +65,9 @@ function UpSetLineLine({
     stroke = color;
   } else if (typeof color === 'function') {
     const colors = sets.slice(first, last + 1).map((d) => color(d));
-    if (colors.every((d) => d === colors[0])) {
-      // single color
-      // eslint-disable-next-line prefer-destructuring
-      stroke = colors[0];
-    } else {
-      const r = generateGradient(colors, first * 2, last * 2);
-      stroke = r.stroke;
-      g = r.def;
-    }
+    const r = generateGradient('lt-upset-line-g', colors, first * 2, last * 2);
+    stroke = r.value;
+    g = r.elem;
   }
   return (
     <svg

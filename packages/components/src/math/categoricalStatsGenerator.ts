@@ -80,6 +80,7 @@ export function categoricalStatsGenerator(
     let missing = 0;
     const items: (string | readonly string[] | Set<string>)[] = [];
     let flatMissing = 0;
+    let depth = 1;
     const flatItems: string[] = [];
 
     const pushValue = (v: string) => {
@@ -100,12 +101,14 @@ export function categoricalStatsGenerator(
       }
       if (v instanceof Set) {
         items.push(v);
+        depth = Math.max(depth, v.size);
         v.forEach((vi) => pushValue(`${vi}`));
         continue;
       }
       if (!Array.isArray(v)) {
         continue;
       }
+      depth = Math.max(depth, v.length);
       const vClean: string[] = [];
       for (const vi of v) {
         if (vi == null) {
@@ -144,6 +147,7 @@ export function categoricalStatsGenerator(
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       maxBin: maxHistBin(hist)!,
       color,
+      depth,
       format,
       missing,
       count: arr.length,

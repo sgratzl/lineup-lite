@@ -32,6 +32,11 @@ import {
   StackedBarRenderer,
   computeStackedValue,
   DivergingBarRendererFactory,
+  LineChartRenderer,
+  ArrayAxisRenderer,
+  ArrayAxisRendererFactory,
+  ArrayAxisRendererOptions,
+  MultiLineChartRenderer,
 } from './renderers';
 import { textStats, categoricalStats, dateStats, numberStats } from './stats';
 import { rangeFilter, categoricalFilter, categoricalSetFilter } from './filters';
@@ -166,6 +171,33 @@ export function asNumbersColumn<D extends AnyObject = UnknownObject, C extends C
     sortDescFirst: true,
     defaultCanGroupBy: false,
     groupBy: numberGroupBy,
+    canHide: false,
+    ...asColumn<D, C>(col),
+  } as unknown as LineUpLiteColumn<D>;
+}
+
+function keepAggregate(v: unknown[]) {
+  return v;
+}
+
+/**
+ * defines a number array column, each value is a number array shown as a line chart x = index, y=value
+ * @param col property key or partial column Header and accessor
+ * @param options additional options for statistics
+ */
+export function asNumbersLineChartColumn<D extends AnyObject = UnknownObject, C extends Column<D> = Column<D>>(
+  col: C | keyof D,
+  options?: NumberStatsOptions & ArrayAxisRendererOptions
+): LineUpLiteColumn<D> {
+  return {
+    Cell: LineChartRenderer,
+    Summary: options ? ArrayAxisRendererFactory(options) : ArrayAxisRenderer,
+    Aggregated: MultiLineChartRenderer,
+    aggregate: keepAggregate,
+    stats: numberStats(options),
+    disableFilters: true,
+    disableSortBy: true,
+    disableGroupBy: true,
     canHide: false,
     ...asColumn<D, C>(col),
   } as unknown as LineUpLiteColumn<D>;

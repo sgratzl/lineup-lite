@@ -255,6 +255,7 @@ function createFlat(arr: readonly DateLike[]) {
   const flatItems: Date[] = [];
   let min = Number.POSITIVE_INFINITY;
   let max = Number.NEGATIVE_INFINITY;
+  let depth = 1;
 
   const push = (v: Date) => {
     flatItems.push(v);
@@ -280,12 +281,14 @@ function createFlat(arr: readonly DateLike[]) {
     }
     if (v instanceof Set) {
       items.push(v);
+      depth = Math.max(depth, v.size);
       v.forEach((vi) => push(vi));
       continue;
     }
     if (!Array.isArray(v)) {
       continue;
     }
+    depth = Math.max(depth, v.length);
     const vClean: Date[] = [];
     for (const vi of v) {
       if (vi == null || !(vi instanceof Date)) {
@@ -306,6 +309,7 @@ function createFlat(arr: readonly DateLike[]) {
     items,
     flatMissing,
     flatItems,
+    depth,
     min,
     max,
   };
@@ -336,7 +340,7 @@ export function dateStatsGenerator(options: DateStatsOptions = {}): (arr: readon
       format,
       count: arr.length,
     };
-    const { missing, items, flatMissing, flatItems, min, max } = createFlat(arr);
+    const { missing, items, flatMissing, flatItems, min, max, depth } = createFlat(arr);
 
     const now = new Date();
     const minD = options.min ?? (Number.isFinite(min) ? new Date(min) : now);
@@ -351,6 +355,7 @@ export function dateStatsGenerator(options: DateStatsOptions = {}): (arr: readon
       items,
       flatMissing,
       flatItems,
+      depth,
       flatCount: flatMissing + flatItems.length,
       hist,
       histGranularity,

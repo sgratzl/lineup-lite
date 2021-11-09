@@ -6,14 +6,14 @@
  * Copyright (c) 2021 Samuel Gratzl <sam@sgratzl.com>
  */
 
-import { defaultDivergingColorScale, defaultDivergingDarkColorScale } from '@lineup-lite/components';
 import '@lineup-lite/components/src/style.css';
 import '@lineup-lite/hooks/src/style.css';
 import LineUpLite, {
   actionIconsRemixicon,
   ActionLineUpProps,
-  asDivergingNumberColumn,
   asTextColumn,
+  asNumberBoxPlotColumn,
+  asDivergingNumberColumn,
   featureFilterColumns,
   featureFlexLayout,
   featureRowRank,
@@ -23,7 +23,8 @@ import LineUpLite, {
   LineUpLitePanel,
   LineUpLiteStateContextProvider,
 } from '@lineup-lite/table';
-import type { TextGroupByOptions } from '@lineup-lite/hooks';
+import { defaultDivergingColorScale, defaultDivergingDarkColorScale } from '@lineup-lite/components';
+import { asNumbersLineChartColumn, TextGroupByOptions } from '@lineup-lite/hooks';
 import '@lineup-lite/table/src/style.css';
 import React, { useCallback, useMemo, useState } from 'react';
 import { data, Row } from './data';
@@ -175,6 +176,8 @@ function Table({ isDarkTheme }: { isDarkTheme: boolean }) {
         min: -1,
         max: 1,
       }),
+      { ...asNumberBoxPlotColumn<Row>('runningTimes'), id: 'r2' },
+      asNumbersLineChartColumn<Row>('runningTimes'),
     ],
     [isDarkTheme]
   );

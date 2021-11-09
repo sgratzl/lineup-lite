@@ -68,12 +68,50 @@ function Example() {
 }
 ```
 
+[`LineChart`](https://lineup-lite.js.org/api/components/modules.html#linechart) React component
+
+```jsx live
+// import { numberStatsGenerator, LineChart } from '@lineup-lite/components';
+
+function Example() {
+  const compute = numberStatsGenerator();
+  const data = [
+    [10, 20, 40, 30, 15],
+    [21, 39, 25, 42, 18],
+    [16, 44, 30, 32, 31],
+    [39, 50, 43, 32, 24],
+    [36, 19, 37, 38, 17],
+  ];
+  const stats = compute(data);
+
+  return (
+    <div>
+      <LineChart value={data[0]} scale={stats.scale} color={stats.color} format={stats.format} />
+      <LineChart value={data[1]} scale={stats.scale} color={stats.color} format={stats.format} />
+      <LineChart value={data[2]} scale={stats.scale} color={stats.color} format={stats.format} />
+
+      <LineChart value={data[0]} scale={stats.scale} color={stats.color} format={stats.format} fill />
+      <LineChart value={data[1]} scale={stats.scale} color={stats.color} format={stats.format} fill />
+      <LineChart value={data[2]} scale={stats.scale} color={stats.color} format={stats.format} fill />
+
+      <LineChart value={data[0]} scale={stats.scale} color={stats.color} format={stats.format} gradient />
+      <LineChart value={data[1]} scale={stats.scale} color={stats.color} format={stats.format} gradient />
+      <LineChart value={data[2]} scale={stats.scale} color={stats.color} format={stats.format} gradient />
+
+      <LineChart value={data[0]} scale={stats.scale} color={stats.color} format={stats.format} fill gradient />
+      <LineChart value={data[1]} scale={stats.scale} color={stats.color} format={stats.format} fill gradient />
+      <LineChart value={data[2]} scale={stats.scale} color={stats.color} format={stats.format} fill gradient />
+    </div>
+  );
+}
+```
+
 ### Aggregation
 
 [`BoxPlotArray`](https://lineup-lite.js.org/api/components/modules.html#boxplotarray) React component
 
 ```jsx live
-// import { numberStatsGenerator, Histogram, BoxPlot } from '@lineup-lite/components';
+// import { numberStatsGenerator, BoxPlotArray } from '@lineup-lite/components';
 
 function Example() {
   const compute = numberStatsGenerator();
@@ -91,6 +129,61 @@ function Example() {
   return (
     <div>
       <BoxPlotArray value={vs} format={stats.format} scale={stats.scale} color={stats.color} style={{ height: 100 }} />
+    </div>
+  );
+}
+```
+
+[`MultiLineChart`](https://lineup-lite.js.org/api/components/modules.html#multilinechart) React component
+
+```jsx live
+// import { numberStatsGenerator, MultiLineChart } from '@lineup-lite/components';
+
+function Example() {
+  const compute = numberStatsGenerator();
+  const data = [
+    [10, 20, 40, 30, 15],
+    [21, 39, 25, 42, 18],
+    [16, 44, 30, 32, 31],
+    [39, 50, 43, 32, 24],
+    [36, 19, 37, 38, 17],
+  ];
+  const stats = compute(data);
+
+  return (
+    <div>
+      <MultiLineChart
+        value={data}
+        format={stats.format}
+        scale={stats.scale}
+        color={stats.color}
+        style={{ height: 100 }}
+      />
+      <MultiLineChart
+        value={data}
+        format={stats.format}
+        scale={stats.scale}
+        color={stats.color}
+        style={{ height: 100 }}
+        fill
+      />
+      <MultiLineChart
+        value={data}
+        format={stats.format}
+        scale={stats.scale}
+        color={stats.color}
+        style={{ height: 100 }}
+        gradient
+      />
+      <MultiLineChart
+        value={data}
+        format={stats.format}
+        scale={stats.scale}
+        color={stats.color}
+        style={{ height: 100 }}
+        fill
+        gradient
+      />
     </div>
   );
 }

@@ -1,0 +1,56 @@
+/**
+ * @lineup-lite/components
+ * https://github.com/sgratzl/lineup-lite
+ *
+ * Copyright (c) 2021 Samuel Gratzl <sam@sgratzl.com>
+ */
+
+.lt-line-chart {
+  position: relative;
+  padding: 2px;
+}
+
+.lt-line-chart-container {
+  position: absolute;
+  left: 2px;
+  top: 2px;
+  width: calc(100% - 4px);
+  height: calc(100% - 4px);
+}
+
+.lt-line-chart-points {
+  position: absolute;
+  left: 2px;
+  top: 2px;
+  right: 2px;
+  bottom: 2px;
+}
+
+.lt-line-chart-line {
+  stroke: var(--current-color, black);
+  vector-effect: non-scaling-stroke;
+  fill: none;
+}
+
+.lt-line-chart-area {
+  fill: var(--current-color, black);
+  opacity: 0.25;
+}
+
+.lt-line-chart-pre {
+  opacity: 0.2;
+}
+
+.lt-line-chart-area-pre {
+  opacity: 0.05;
+}
+
+.lt-line-chart-point {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transform-origin: center center;
+  background-color: var(--current-color, black);
+}

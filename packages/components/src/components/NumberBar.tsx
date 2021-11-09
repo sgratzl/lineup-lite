@@ -10,11 +10,7 @@ import { defaultColorScale, defaultDivergingColorScale } from '../math';
 import type { CommonProps } from './common';
 import { clsx, format, mergeStyles, toLocaleString, toPercent } from './utils';
 
-export interface NumberBarProps extends CommonProps {
-  /**
-   * the value to render
-   */
-  value: number;
+export interface CommonNumberProps extends CommonProps {
   /**
    * optional scale to convert the number in the 0..1 range
    */
@@ -27,6 +23,13 @@ export interface NumberBarProps extends CommonProps {
    * label for value to label function
    */
   format?: string | ((v: number) => string);
+}
+
+export interface NumberBarProps extends CommonNumberProps {
+  /**
+   * the value to render
+   */
+  value: number;
 }
 
 function barProps(value: number, color: string | ((v: number) => string)): CSSProperties | null {
