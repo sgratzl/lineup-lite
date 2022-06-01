@@ -7,7 +7,7 @@ Function run_function{
     # git branch -D main
 
     # yarn set version latest
-    ncu -u --reject "d3-*,@types/d3-*,eslint"
+    ncu -u --reject "d3-*,@types/d3-*"
     # yarn clean
     # yarn compile
     # yarn build

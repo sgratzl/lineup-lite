@@ -5,7 +5,7 @@
  * Copyright (c) 2021 Samuel Gratzl <sam@sgratzl.com>
  */
 
-import React, { CSSProperties, Ref, ReactNode, useMemo } from 'react';
+import React, { CSSProperties, Ref, ReactNode, useMemo, Component } from 'react';
 import './styles.css';
 import LineUpLite, {
   asTextColumn,
@@ -31,11 +31,18 @@ const BodyWrapper: LineUpLiteComponentLike = ({
   style?: CSSProperties;
   ref?: string | Ref<HTMLElement>;
 }) => {
+  const F = FlipMove as unknown as React.FC<
+    React.PropsWithChildren<
+      Readonly<FlipMove.FlipMoveProps> & {
+        ref?: string | Ref<HTMLElement>;
+      }
+    >
+  >;
   return (
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    <FlipMove enterAnimation="fade" leaveAnimation="fade" {...rest} ref={ref as any} style={style as any}>
+    <F enterAnimation="fade" leaveAnimation="fade" {...rest} ref={ref as any} style={style as any}>
       {children}
-    </FlipMove>
+    </F>
   );
 };
 
