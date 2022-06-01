@@ -33,8 +33,9 @@
       "style": "./dist/components.css",
       "types": "./dist/index.d.ts"
     },
-    "./*": "./dist/*",
-    "./dist/*": "./dist/*"
+    "./src/*": "./src/*",
+    "./dist/*": "./dist/*",
+    "./*": "./dist/*"
   },
   "types": "dist/index.d.ts",
   "sideEffects": "dist/components.css",
