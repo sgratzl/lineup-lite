@@ -3144,7 +3144,6 @@ __metadata:
     "@types/jest": ^27.5.1
     "@types/react": ^18.0.10
     "@types/react-dom": ^18.0.5
-    "@types/react-flip-move": ^2.9.12
     jest-transform-stub: ^2.0.0
     react: ^18.1.0
     react-dom: ^18.1.0
@@ -4926,15 +4925,6 @@ __metadata:
   dependencies:
     "@types/react": "*"
   checksum: cd48b81950f499b52a3f0c08261f00046f9b7c96699fa249c9664e257e820daf6ecac815cd1028cebc9d105094adc39d047d1efd79214394b8b2d515574c0787
-  languageName: node
-  linkType: hard
-
-"@types/react-flip-move@npm:^2.9.12":
-  version: 2.9.12
-  resolution: "@types/react-flip-move@npm:2.9.12"
-  dependencies:
-    react-flip-move: "*"
-  checksum: d510b3f4f08e898da2dae90392b8fef977aa1425ea8910ff7c56ecccfe8defa305e9e6d1d1d47c613abfcb1fb626592644f4b52c1eeced9c85c7fe041ba53096
   languageName: node
   linkType: hard
 
@@ -16960,7 +16950,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-flip-move@npm:*, react-flip-move@npm:^3.0.4":
+"react-flip-move@npm:^3.0.4":
   version: 3.0.4
   resolution: "react-flip-move@npm:3.0.4"
   peerDependencies:
