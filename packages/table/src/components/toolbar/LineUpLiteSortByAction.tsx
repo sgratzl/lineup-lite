@@ -65,15 +65,15 @@ export function LineUpLiteSortByAction<D extends AnyObject = UnknownObject>(
     <>
       <button
         {...column.getSortByToggleProps({
-          className: clsx(
-            'lt-action',
-            'lt-action-sort',
-            isSorted && 'lt-action-active',
-            isSortedDesc && 'lt-action-desc',
-            props.className
-          ),
           style: props.style,
         })}
+        className={clsx(
+          'lt-action',
+          'lt-action-sort',
+          isSorted && 'lt-action-active',
+          isSortedDesc && 'lt-action-desc',
+          props.className
+        )}
         type="button"
         onClick={sort}
         data-index={isSorted && (c?.sortByColumnCount ?? 0) > 1 ? column.sortedIndex + 1 : null}

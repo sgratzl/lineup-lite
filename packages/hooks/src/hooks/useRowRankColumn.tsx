@@ -17,6 +17,8 @@ import {
   UseTableCellProps,
   UseGroupByRowProps,
   MetaBase,
+  Renderer,
+  CellProps,
 } from 'react-table';
 import type { AnyObject, LineUpLiteColumn, UnknownObject } from '../interfaces';
 
@@ -72,8 +74,8 @@ function generateColumn<D extends AnyObject = UnknownObject>(columns: ColumnInst
     id: 'rank',
     Header,
     Summary,
-    Aggregated,
-    Cell,
+    Aggregated: Aggregated as unknown as Renderer<CellProps<D>>,
+    Cell: Cell as unknown as Renderer<CellProps<D>>,
     minWidth: width - 10,
     width,
     maxWidth: width + 10,

@@ -68,6 +68,7 @@ export function generateGradient(prefix: string, colors: (string | null | undefi
     // single color
     // eslint-disable-next-line prefer-destructuring
     return {
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       value: colors[0]!,
       elem: <></>,
     };

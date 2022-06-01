@@ -67,9 +67,9 @@ export function LineUpLiteGroupByAction<D extends AnyObject = UnknownObject>(
     <>
       <button
         {...props.column.getGroupByToggleProps({
-          className: clsx('lt-action', 'lt-action-group', isGrouped && 'lt-action-active', props.className),
           style: props.style,
         })}
+        className={clsx('lt-action', 'lt-action-group', isGrouped && 'lt-action-active', props.className)}
         onClick={group}
         type="button"
         data-index={isGrouped && groupBys > 1 ? props.column.groupedIndex + 1 : null}

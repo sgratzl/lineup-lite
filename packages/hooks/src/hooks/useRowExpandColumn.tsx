@@ -7,9 +7,11 @@
 
 import React, { ComponentType } from 'react';
 import type {
+  CellProps,
   ColumnInstance,
   Hooks,
   MetaBase,
+  Renderer,
   Row,
   TableCellProps,
   UseExpandedRowProps,
@@ -123,7 +125,7 @@ function generateColumn<D extends AnyObject = UnknownObject>(columns: ColumnInst
     id: 'expand',
     Header,
     Summary,
-    Aggregated,
+    Aggregated: Aggregated as unknown as Renderer<CellProps<D>>,
     Cell,
     minWidth: width,
     width,
