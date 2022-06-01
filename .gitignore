@@ -21,3 +21,4 @@ storybook-static
 /packages/*/docs/
 .tmp
 .rollup.cache
+.env

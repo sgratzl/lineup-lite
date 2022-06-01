@@ -27,25 +27,25 @@
   ],
   "main": "src/index.tsx",
   "dependencies": {
-    "@fortawesome/fontawesome-svg-core": "^1.2.36",
-    "@fortawesome/free-solid-svg-icons": "^5.15.4",
-    "@fortawesome/react-fontawesome": "^0.1.16",
+    "@fortawesome/fontawesome-svg-core": "^6.1.1",
+    "@fortawesome/free-solid-svg-icons": "^6.1.1",
+    "@fortawesome/react-fontawesome": "^0.1.18",
     "@lineup-lite/components": "~1.6.0",
     "@lineup-lite/hooks": "~1.6.0",
     "@lineup-lite/table": "~1.6.0",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2"
+    "react": "^18.1.0",
+    "react-dom": "^18.1.0"
   },
   "devDependencies": {
     "@rescripts/cli": "^0.0.16",
     "@rescripts/utilities": "^0.0.8",
-    "@types/jest": "^27.0.2",
-    "@types/react": "^17.0.32",
-    "@types/react-dom": "^17.0.10",
+    "@types/jest": "^27.5.1",
+    "@types/react": "^18.0.10",
+    "@types/react-dom": "^18.0.5",
     "jest-transform-stub": "^2.0.0",
-    "react-refresh": "^0.10.0",
-    "react-scripts": "^4.0.3",
-    "typescript": "^4.4.4"
+    "react-refresh": "^0.13.0",
+    "react-scripts": "^5.0.1",
+    "typescript": "^4.7.2"
   },
   "scripts": {
     "start": "rescripts start",

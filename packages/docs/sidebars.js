@@ -3,19 +3,30 @@ module.exports = {
     {
       type: 'category',
       label: 'LineUp-lite',
-      items: ['_index', 'design-principles'],
+      link: {
+        type: 'doc',
+        id: 'index',
+      },
+      items: ['design-principles'],
     },
     {
       type: 'category',
       label: 'Getting started',
       collapsed: false,
-      items: ['getting-started/_index', 'getting-started/hooks', 'getting-started/components'],
+      link: {
+        type: 'doc',
+        id: 'getting-started/index',
+      },
+      items: ['getting-started/hooks', 'getting-started/components'],
     },
     {
       type: 'category',
       label: 'LineUp-lite Components',
+      link: {
+        type: 'doc',
+        id: 'components/index',
+      },
       items: [
-        'components/_index',
         'components/text',
         'components/categorical',
         'components/number',
@@ -32,8 +43,11 @@ module.exports = {
     {
       type: 'category',
       label: 'LineUp-lite Hooks',
+      link: {
+        type: 'doc',
+        id: 'hooks/index',
+      },
       items: [
-        'hooks/_index',
         'hooks/useRowRankColumn',
         'hooks/useRowSelectColumn',
         'hooks/useRowExpandColumn',
@@ -49,8 +63,11 @@ module.exports = {
     {
       type: 'category',
       label: 'LineUp-lite Table',
+      link: {
+        type: 'doc',
+        id: 'table/index',
+      },
       items: [
-        'table/_index',
         'table/LineUpLite',
         'table/LineUpLiteVirtual',
         'table/SidePanel',
@@ -65,8 +82,11 @@ module.exports = {
     {
       type: 'category',
       label: 'Examples',
+      link: {
+        type: 'doc',
+        id: 'examples/index',
+      },
       items: [
-        'examples/_index',
         'examples/animation',
         'examples/sidepanel',
         'examples/filter-action',

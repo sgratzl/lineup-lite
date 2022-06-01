@@ -31,14 +31,9 @@ export default function LineUpLiteHideAction<D extends AnyObject = UnknownObject
     <>
       <button
         {...props.column.getToggleHiddenProps({
-          className: clsx(
-            'lt-action',
-            'lt-action-hide',
-            !props.column.isVisible && 'lt-action-active',
-            props.className
-          ),
           style: props.style,
         })}
+        className={clsx('lt-action', 'lt-action-hide', !props.column.isVisible && 'lt-action-active', props.className)}
         type="button"
         onClick={hide}
         title={i18n.hideColumn}
