@@ -5,7 +5,7 @@
  * Copyright (c) 2021 Samuel Gratzl <sam@sgratzl.com>
  */
 
-import React, { CSSProperties, Ref, ReactNode, useMemo, Component } from 'react';
+import React, { CSSProperties, Ref, ReactNode, useMemo } from 'react';
 import './styles.css';
 import LineUpLite, {
   asTextColumn,
