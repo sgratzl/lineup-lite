@@ -1,5 +1,10 @@
+const path = require('path');
 const exec = require('child_process').execSync;
 const pkg = require('./package.json');
+
+require('dotenv').config({
+  path: path.resolve('../../.env'),
+});
 
 function resolveGitBranch() {
   return exec('git rev-parse --abbrev-ref HEAD').toString();
@@ -20,9 +25,8 @@ module.exports = {
     version: pkg.version,
   },
   themeConfig: {
-    hideableSidebar: true,
     image: 'img/preview.png',
-    metadatas: [{ name: 'twitter:card', content: 'summary' }],
+    metadata: [{ name: 'twitter:card', content: 'summary' }],
     colorMode: {
       respectPrefersColorScheme: true,
     },
@@ -30,6 +34,11 @@ module.exports = {
       id: 'star_me', // Any value that will identify this message.
       content:
         '⭐️ If you like and use <a target="_blank" rel="noopener noreferrer" href="https://github.com/sgratzl/lineup-lite">@lineup-lite</a>, give it a star on <a target="_blank" rel="noopener noreferrer" href="https://github.com/sgratzl/lineup-lite">GitHub</a>! ⭐️!',
+    },
+    docs: {
+      sidebar: {
+        hideable: true,
+      },
     },
     navbar: {
       title: 'LineUp Lite',
@@ -124,7 +133,8 @@ module.exports = {
       }</a>. Copyright © ${new Date().getFullYear()} <a href="https://www.sgratzl.com">Samuel Gratzl</a>. All rights reserved. Built with Docusaurus.`,
     },
     algolia: {
-      apiKey: '85bfa6629a04cc69c9d91c95db0df80f',
+      appId: process.env.ALGOLIA_APP_ID,
+      apiKey: process.env.ALGOLIA_API_KEY,
       indexName: 'lineup-lite',
 
       // Optional: see doc section bellow
