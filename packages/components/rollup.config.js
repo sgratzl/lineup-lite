@@ -5,7 +5,7 @@ import typescript from '@rollup/plugin-typescript';
 import { terser } from 'rollup-plugin-terser';
 import replace from '@rollup/plugin-replace';
 import babel from '@rollup/plugin-babel';
-import css from 'rollup-plugin-css-only';
+import css from '@sgratzl/rollup-plugin-css-only';
 import { resolve as resolvePath, relative, dirname } from 'path';
 import fs from 'fs';
 

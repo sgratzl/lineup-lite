@@ -3052,6 +3052,7 @@ __metadata:
     "@rollup/plugin-replace": ^4.0.0
     "@rollup/plugin-typescript": ^8.3.2
     "@sgratzl/boxplots": ^1.3.0
+    "@sgratzl/rollup-plugin-css-only": ^3.2.0
     "@testing-library/react": ^13.3.0
     "@types/jest": ^27.5.1
     "@types/react": ^18.0.10
@@ -3072,7 +3073,6 @@ __metadata:
     prettier: ^2.6.2
     react: ^18.1.0
     rollup: ^2.75.4
-    rollup-plugin-css-only: "github:sgratzl/rollup-plugin-css-only#sgratzl/imports"
     rollup-plugin-dts: ^4.2.2
     rollup-plugin-terser: ^7.0.2
     shx: ^0.3.4
@@ -3505,6 +3505,7 @@ __metadata:
     "@rollup/plugin-node-resolve": ^13.3.0
     "@rollup/plugin-replace": ^4.0.0
     "@rollup/plugin-typescript": ^8.3.2
+    "@sgratzl/rollup-plugin-css-only": ^3.2.0
     "@testing-library/jest-dom": ^5.16.4
     "@testing-library/react": ^13.3.0
     "@types/jest": ^27.5.1
@@ -3529,7 +3530,6 @@ __metadata:
     react: ^18.1.0
     react-table: ^7.8.0
     rollup: ^2.75.4
-    rollup-plugin-css-only: "github:sgratzl/rollup-plugin-css-only#sgratzl/imports"
     rollup-plugin-dts: ^4.2.2
     rollup-plugin-terser: ^7.0.2
     shx: ^0.3.4
@@ -3558,6 +3558,7 @@ __metadata:
     "@rollup/plugin-node-resolve": ^13.3.0
     "@rollup/plugin-replace": ^4.0.0
     "@rollup/plugin-typescript": ^8.3.2
+    "@sgratzl/rollup-plugin-css-only": ^3.2.0
     "@testing-library/react": ^13.3.0
     "@types/jest": ^27.5.1
     "@types/react": ^18.0.10
@@ -3582,7 +3583,6 @@ __metadata:
     react-table: ^7.8.0
     react-virtual: ^2.10.4
     rollup: ^2.75.4
-    rollup-plugin-css-only: "github:sgratzl/rollup-plugin-css-only#sgratzl/imports"
     rollup-plugin-dts: ^4.2.2
     rollup-plugin-terser: ^7.0.2
     shx: ^0.3.4
@@ -4070,6 +4070,17 @@ __metadata:
   version: 1.3.0
   resolution: "@sgratzl/boxplots@npm:1.3.0"
   checksum: 38d204c4a0ba9e6fdbdec5db5851950dda3dc379e4ca026cc6cbcd983f89f7a462c6691cd2d04635da5a1b007de6431d1e8ea1b34f2c921fb2ba81e4278913f4
+  languageName: node
+  linkType: hard
+
+"@sgratzl/rollup-plugin-css-only@npm:^3.2.0":
+  version: 3.2.0
+  resolution: "@sgratzl/rollup-plugin-css-only@npm:3.2.0"
+  dependencies:
+    "@rollup/pluginutils": 4
+  peerDependencies:
+    rollup: 1 || 2
+  checksum: ddc2f17d6450f14a46b8c22b1fe73e6b25e8e6f16fc4e99dfec3488c8d3b5c315b4a958e027bda690d5be4cc8536ecfcc009f08dee1eda7c6827923f3fc4fb55
   languageName: node
   linkType: hard
 
@@ -17691,17 +17702,6 @@ __metadata:
   bin:
     rimraf: bin.js
   checksum: 87f4164e396f0171b0a3386cc1877a817f572148ee13a7e113b238e48e8a9f2f31d009a92ec38a591ff1567d9662c6b67fd8818a2dbbaed74bc26a87a2a4a9a0
-  languageName: node
-  linkType: hard
-
-"rollup-plugin-css-only@github:sgratzl/rollup-plugin-css-only#sgratzl/imports":
-  version: 3.1.0
-  resolution: "rollup-plugin-css-only@https://github.com/sgratzl/rollup-plugin-css-only.git#commit=f4a0ed7e926acd8d7de1636d5c32fb0bf4aa48fe"
-  dependencies:
-    "@rollup/pluginutils": 4
-  peerDependencies:
-    rollup: 1 || 2
-  checksum: 441e93ffced75860c3842eab2ed5237d220dade0b42014c2f581346ad46dadb017fb040b3a0d211cba569f420ad2b885f0bfc37e343f029e1adf88f2e893d848
   languageName: node
   linkType: hard
 
