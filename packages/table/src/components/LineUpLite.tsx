@@ -5,7 +5,8 @@
  * Copyright (c) 2021 Samuel Gratzl <sam@sgratzl.com>
  */
 
-import React, { forwardRef, ReactElement, Ref, RefAttributes } from 'react';
+import React, { forwardRef, ReactElement, Ref } from 'react';
+import type { RefAttributes } from 'react';
 import type { AnyObject, LineUpLiteProps, UnknownObject } from './interfaces';
 import { LineUpLiteTHead } from './LineUpLiteTHead';
 import { LineUpLiteTR } from './LineUpLiteTR';
