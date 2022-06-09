@@ -3024,9 +3024,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@lineup-lite/_playground@workspace:packages/_playground"
   dependencies:
-    "@lineup-lite/components": ~1.6.0
-    "@lineup-lite/hooks": ~1.6.0
-    "@lineup-lite/table": ~1.6.0
+    "@lineup-lite/components": ~1.7.0
+    "@lineup-lite/hooks": ~1.7.0
+    "@lineup-lite/table": ~1.7.0
     "@rescripts/cli": ^0.0.16
     "@rescripts/utilities": ^0.0.8
     "@types/jest": ^27.5.1
@@ -3040,7 +3040,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@lineup-lite/components@workspace:packages/components, @lineup-lite/components@~1.6.0":
+"@lineup-lite/components@workspace:packages/components, @lineup-lite/components@~1.7.0":
   version: 0.0.0-use.local
   resolution: "@lineup-lite/components@workspace:packages/components"
   dependencies:
@@ -3096,9 +3096,9 @@ __metadata:
     "@docusaurus/theme-classic": ^2.0.0-beta.21
     "@docusaurus/theme-common": ^2.0.0-beta.21
     "@docusaurus/theme-live-codeblock": ^2.0.0-beta.21
-    "@lineup-lite/components": ~1.6.0
-    "@lineup-lite/hooks": ~1.6.0
-    "@lineup-lite/table": ~1.6.0
+    "@lineup-lite/components": ~1.7.0
+    "@lineup-lite/hooks": ~1.7.0
+    "@lineup-lite/table": ~1.7.0
     "@mdx-js/react": ^1.6.22
     "@tsconfig/docusaurus": ^1.0.5
     "@types/d3-scale-chromatic": ^2.0.0
@@ -3136,9 +3136,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@lineup-lite/example-animation@workspace:examples/animation"
   dependencies:
-    "@lineup-lite/components": ~1.6.0
-    "@lineup-lite/hooks": ~1.6.0
-    "@lineup-lite/table": ~1.6.0
+    "@lineup-lite/components": ~1.7.0
+    "@lineup-lite/hooks": ~1.7.0
+    "@lineup-lite/table": ~1.7.0
     "@rescripts/cli": ^0.0.16
     "@rescripts/utilities": ^0.0.8
     "@types/jest": ^27.5.1
@@ -3158,9 +3158,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@lineup-lite/example-basic@workspace:examples/basic"
   dependencies:
-    "@lineup-lite/components": ~1.6.0
-    "@lineup-lite/hooks": ~1.6.0
-    "@lineup-lite/table": ~1.6.0
+    "@lineup-lite/components": ~1.7.0
+    "@lineup-lite/hooks": ~1.7.0
+    "@lineup-lite/table": ~1.7.0
     "@rescripts/cli": ^0.0.16
     "@rescripts/utilities": ^0.0.8
     "@types/jest": ^27.5.1
@@ -3179,9 +3179,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@lineup-lite/example-column-resizing@workspace:examples/column-resizing"
   dependencies:
-    "@lineup-lite/components": ~1.6.0
-    "@lineup-lite/hooks": ~1.6.0
-    "@lineup-lite/table": ~1.6.0
+    "@lineup-lite/components": ~1.7.0
+    "@lineup-lite/hooks": ~1.7.0
+    "@lineup-lite/table": ~1.7.0
     "@rescripts/cli": ^0.0.16
     "@rescripts/utilities": ^0.0.8
     "@types/jest": ^27.5.1
@@ -3200,9 +3200,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@lineup-lite/example-components@workspace:examples/components"
   dependencies:
-    "@lineup-lite/components": ~1.6.0
-    "@lineup-lite/hooks": ~1.6.0
-    "@lineup-lite/table": ~1.6.0
+    "@lineup-lite/components": ~1.7.0
+    "@lineup-lite/hooks": ~1.7.0
+    "@lineup-lite/table": ~1.7.0
     "@rescripts/cli": ^0.0.16
     "@rescripts/utilities": ^0.0.8
     "@types/jest": ^27.5.1
@@ -3221,9 +3221,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@lineup-lite/example-controlled-state@workspace:examples/controlled-state"
   dependencies:
-    "@lineup-lite/components": ~1.6.0
-    "@lineup-lite/hooks": ~1.6.0
-    "@lineup-lite/table": ~1.6.0
+    "@lineup-lite/components": ~1.7.0
+    "@lineup-lite/hooks": ~1.7.0
+    "@lineup-lite/table": ~1.7.0
     "@rescripts/cli": ^0.0.16
     "@rescripts/utilities": ^0.0.8
     "@types/jest": ^27.5.1
@@ -3242,9 +3242,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@lineup-lite/example-filter-action@workspace:examples/filter-action"
   dependencies:
-    "@lineup-lite/components": ~1.6.0
-    "@lineup-lite/hooks": ~1.6.0
-    "@lineup-lite/table": ~1.6.0
+    "@lineup-lite/components": ~1.7.0
+    "@lineup-lite/hooks": ~1.7.0
+    "@lineup-lite/table": ~1.7.0
     "@rescripts/cli": ^0.0.16
     "@rescripts/utilities": ^0.0.8
     "@types/jest": ^27.5.1
@@ -3263,9 +3263,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@lineup-lite/example-flex-layout@workspace:examples/flex-layout"
   dependencies:
-    "@lineup-lite/components": ~1.6.0
-    "@lineup-lite/hooks": ~1.6.0
-    "@lineup-lite/table": ~1.6.0
+    "@lineup-lite/components": ~1.7.0
+    "@lineup-lite/hooks": ~1.7.0
+    "@lineup-lite/table": ~1.7.0
     "@rescripts/cli": ^0.0.16
     "@rescripts/utilities": ^0.0.8
     "@types/jest": ^27.5.1
@@ -3287,9 +3287,9 @@ __metadata:
     "@fortawesome/fontawesome-svg-core": ^6.1.1
     "@fortawesome/free-solid-svg-icons": ^6.1.1
     "@fortawesome/react-fontawesome": ^0.1.18
-    "@lineup-lite/components": ~1.6.0
-    "@lineup-lite/hooks": ~1.6.0
-    "@lineup-lite/table": ~1.6.0
+    "@lineup-lite/components": ~1.7.0
+    "@lineup-lite/hooks": ~1.7.0
+    "@lineup-lite/table": ~1.7.0
     "@rescripts/cli": ^0.0.16
     "@rescripts/utilities": ^0.0.8
     "@types/jest": ^27.5.1
@@ -3308,9 +3308,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@lineup-lite/example-group-options@workspace:examples/group-options"
   dependencies:
-    "@lineup-lite/components": ~1.6.0
-    "@lineup-lite/hooks": ~1.6.0
-    "@lineup-lite/table": ~1.6.0
+    "@lineup-lite/components": ~1.7.0
+    "@lineup-lite/hooks": ~1.7.0
+    "@lineup-lite/table": ~1.7.0
     "@rescripts/cli": ^0.0.16
     "@rescripts/utilities": ^0.0.8
     "@types/jest": ^27.5.1
@@ -3329,9 +3329,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@lineup-lite/example-i18n@workspace:examples/i18n"
   dependencies:
-    "@lineup-lite/components": ~1.6.0
-    "@lineup-lite/hooks": ~1.6.0
-    "@lineup-lite/table": ~1.6.0
+    "@lineup-lite/components": ~1.7.0
+    "@lineup-lite/hooks": ~1.7.0
+    "@lineup-lite/table": ~1.7.0
     "@rescripts/cli": ^0.0.16
     "@rescripts/utilities": ^0.0.8
     "@types/jest": ^27.5.1
@@ -3350,9 +3350,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@lineup-lite/example-multi-sorting@workspace:examples/multi-sorting"
   dependencies:
-    "@lineup-lite/components": ~1.6.0
-    "@lineup-lite/hooks": ~1.6.0
-    "@lineup-lite/table": ~1.6.0
+    "@lineup-lite/components": ~1.7.0
+    "@lineup-lite/hooks": ~1.7.0
+    "@lineup-lite/table": ~1.7.0
     "@rescripts/cli": ^0.0.16
     "@rescripts/utilities": ^0.0.8
     "@types/jest": ^27.5.1
@@ -3371,9 +3371,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@lineup-lite/example-numbers@workspace:examples/numbers"
   dependencies:
-    "@lineup-lite/components": ~1.6.0
-    "@lineup-lite/hooks": ~1.6.0
-    "@lineup-lite/table": ~1.6.0
+    "@lineup-lite/components": ~1.7.0
+    "@lineup-lite/hooks": ~1.7.0
+    "@lineup-lite/table": ~1.7.0
     "@rescripts/cli": ^0.0.16
     "@rescripts/utilities": ^0.0.8
     "@types/jest": ^27.5.1
@@ -3392,9 +3392,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@lineup-lite/example-pagination@workspace:examples/pagination"
   dependencies:
-    "@lineup-lite/components": ~1.6.0
-    "@lineup-lite/hooks": ~1.6.0
-    "@lineup-lite/table": ~1.6.0
+    "@lineup-lite/components": ~1.7.0
+    "@lineup-lite/hooks": ~1.7.0
+    "@lineup-lite/table": ~1.7.0
     "@rescripts/cli": ^0.0.16
     "@rescripts/utilities": ^0.0.8
     "@types/jest": ^27.5.1
@@ -3413,9 +3413,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@lineup-lite/example-sets@workspace:examples/sets"
   dependencies:
-    "@lineup-lite/components": ~1.6.0
-    "@lineup-lite/hooks": ~1.6.0
-    "@lineup-lite/table": ~1.6.0
+    "@lineup-lite/components": ~1.7.0
+    "@lineup-lite/hooks": ~1.7.0
+    "@lineup-lite/table": ~1.7.0
     "@rescripts/cli": ^0.0.16
     "@rescripts/utilities": ^0.0.8
     "@types/jest": ^27.5.1
@@ -3434,9 +3434,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@lineup-lite/example-sidepanel@workspace:examples/sidepanel"
   dependencies:
-    "@lineup-lite/components": ~1.6.0
-    "@lineup-lite/hooks": ~1.6.0
-    "@lineup-lite/table": ~1.6.0
+    "@lineup-lite/components": ~1.7.0
+    "@lineup-lite/hooks": ~1.7.0
+    "@lineup-lite/table": ~1.7.0
     "@rescripts/cli": ^0.0.16
     "@rescripts/utilities": ^0.0.8
     "@types/jest": ^27.5.1
@@ -3455,9 +3455,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@lineup-lite/example-stacked-bar@workspace:examples/stackedbar"
   dependencies:
-    "@lineup-lite/components": ~1.6.0
-    "@lineup-lite/hooks": ~1.6.0
-    "@lineup-lite/table": ~1.6.0
+    "@lineup-lite/components": ~1.7.0
+    "@lineup-lite/hooks": ~1.7.0
+    "@lineup-lite/table": ~1.7.0
     "@rescripts/cli": ^0.0.16
     "@rescripts/utilities": ^0.0.8
     "@types/jest": ^27.5.1
@@ -3476,9 +3476,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@lineup-lite/example-virtualized-rows@workspace:examples/virtualized-rows"
   dependencies:
-    "@lineup-lite/components": ~1.6.0
-    "@lineup-lite/hooks": ~1.6.0
-    "@lineup-lite/table": ~1.6.0
+    "@lineup-lite/components": ~1.7.0
+    "@lineup-lite/hooks": ~1.7.0
+    "@lineup-lite/table": ~1.7.0
     "@rescripts/cli": ^0.0.16
     "@rescripts/utilities": ^0.0.8
     "@types/jest": ^27.5.1
@@ -3493,13 +3493,13 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@lineup-lite/hooks@workspace:packages/hooks, @lineup-lite/hooks@~1.6.0":
+"@lineup-lite/hooks@workspace:packages/hooks, @lineup-lite/hooks@~1.7.0":
   version: 0.0.0-use.local
   resolution: "@lineup-lite/hooks@workspace:packages/hooks"
   dependencies:
     "@babel/core": ^7.18.2
     "@babel/preset-env": ^7.18.2
-    "@lineup-lite/components": ~1.6.0
+    "@lineup-lite/components": ~1.7.0
     "@rollup/plugin-babel": ^5.3.1
     "@rollup/plugin-commonjs": ^22.0.0
     "@rollup/plugin-node-resolve": ^13.3.0
@@ -3545,14 +3545,14 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@lineup-lite/table@workspace:packages/table, @lineup-lite/table@~1.6.0":
+"@lineup-lite/table@workspace:packages/table, @lineup-lite/table@~1.7.0":
   version: 0.0.0-use.local
   resolution: "@lineup-lite/table@workspace:packages/table"
   dependencies:
     "@babel/core": ^7.18.2
     "@babel/preset-env": ^7.18.2
-    "@lineup-lite/components": ~1.6.0
-    "@lineup-lite/hooks": ~1.6.0
+    "@lineup-lite/components": ~1.7.0
+    "@lineup-lite/hooks": ~1.7.0
     "@rollup/plugin-babel": ^5.3.1
     "@rollup/plugin-commonjs": ^22.0.0
     "@rollup/plugin-node-resolve": ^13.3.0

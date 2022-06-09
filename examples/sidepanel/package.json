@@ -1,7 +1,7 @@
 {
   "name": "@lineup-lite/example-sidepanel",
   "description": "LineUp-lite example project",
-  "version": "1.6.0",
+  "version": "1.7.0",
   "private": true,
   "license": "MPL-2.0",
   "author": {
@@ -27,9 +27,9 @@
   ],
   "main": "src/index.tsx",
   "dependencies": {
-    "@lineup-lite/components": "~1.6.0",
-    "@lineup-lite/hooks": "~1.6.0",
-    "@lineup-lite/table": "~1.6.0",
+    "@lineup-lite/components": "~1.7.0",
+    "@lineup-lite/hooks": "~1.7.0",
+    "@lineup-lite/table": "~1.7.0",
     "react": "^18.1.0",
     "react-dom": "^18.1.0"
   },
