@@ -7,15 +7,27 @@ import replace from '@rollup/plugin-replace';
 import babel from '@rollup/plugin-babel';
 import css from '@sgratzl/rollup-plugin-css-only';
 import { resolve as resolvePath, relative, dirname } from 'path';
+import { cwd } from 'process';
 import fs from 'fs';
 
 const pkg = JSON.parse(fs.readFileSync('./package.json'));
+
+function resolveYear() {
+  // Extract copyrights from the LICENSE.
+  const license = fs.readFileSync('./LICENSE.md', 'utf-8').toString();
+  const matches = Array.from(license.matchAll(/\(c\) (\d+-\d+)/gm));
+  if (!matches || matches.length === 0) {
+    return 2021;
+  }
+  return matches[matches.length - 1][1];
+}
+const year = resolveYear();
 
 const banner = `/**
  * ${pkg.name}
  * ${pkg.homepage}
  *
- * Copyright (c) ${new Date().getFullYear()} ${pkg.author.name} <${pkg.author.email}>
+ * Copyright (c) ${year} ${pkg.author.name} <${pkg.author.email}>
  */
 `;
 
@@ -29,11 +41,10 @@ const isDependency = (v) =>
 const isPeerDependency = (v) => Object.keys(pkg.peerDependencies || {}).some((e) => e === v || v.startsWith(e + '/'));
 
 const relativeToMain = (path) => {
-  const a = resolvePath(__dirname, path);
-  const b = resolvePath(__dirname, dirname(pkg.main));
+  const a = resolvePath(cwd(), path);
+  const b = resolvePath(cwd(), dirname(pkg.main));
   return relative(b, a);
 };
-
 export default function Config(options) {
   const buildFormat = (format) => !options.watch || watchOnly.includes(format);
 
@@ -76,7 +87,7 @@ export default function Config(options) {
         },
         buildFormat('cjs') && {
           ...base.output,
-          file: pkg.main,
+          file: pkg.require,
           format: 'cjs',
         },
       ].filter(Boolean),
