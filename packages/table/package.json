@@ -27,14 +27,16 @@
     "react-table": "^7.8.0",
     "react-virtual": "^2.10.4"
   },
-  "main": "dist/table.cjs",
+  "type": "module",
+  "main": "dist/index.js",
+  "require": "dist/index.cjs",
   "module": "dist/index.js",
   "styles": "dist/table.css",
   "types": "dist/index.d.ts",
   "exports": {
     ".": {
       "import": "./dist/index.js",
-      "require": "./dist/table.cjs",
+      "require": "./dist/index.cjs",
       "style": "./dist/table.css",
       "types": "./dist/index.d.ts"
     },
@@ -79,7 +81,7 @@
     "@rollup/plugin-node-resolve": "^15.0.1",
     "@rollup/plugin-replace": "^5.0.2",
     "@rollup/plugin-typescript": "^11.0.0",
-    "@sgratzl/rollup-plugin-css-only": "^3.2.0",
+    "@sgratzl/rollup-plugin-css-only": "^4.3.1",
     "@testing-library/react": "^13.4.0",
     "@types/jest": "^29.2.6",
     "@types/react": "^18.0.27",
