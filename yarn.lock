@@ -3198,7 +3198,7 @@ __metadata:
     "@rollup/plugin-replace": ^5.0.2
     "@rollup/plugin-typescript": ^11.0.0
     "@sgratzl/boxplots": ^1.3.0
-    "@sgratzl/rollup-plugin-css-only": ^3.2.0
+    "@sgratzl/rollup-plugin-css-only": ^4.3.1
     "@testing-library/react": ^13.4.0
     "@types/jest": ^29.2.6
     "@types/react": ^18.0.27
@@ -3651,7 +3651,7 @@ __metadata:
     "@rollup/plugin-node-resolve": ^15.0.1
     "@rollup/plugin-replace": ^5.0.2
     "@rollup/plugin-typescript": ^11.0.0
-    "@sgratzl/rollup-plugin-css-only": ^3.2.0
+    "@sgratzl/rollup-plugin-css-only": ^4.3.1
     "@testing-library/jest-dom": ^5.16.5
     "@testing-library/react": ^13.4.0
     "@types/jest": ^29.2.6
@@ -3680,7 +3680,6 @@ __metadata:
     rollup-plugin-terser: ^7.0.2
     shx: ^0.3.4
     ts-jest: ^29.0.5
-    tslib: ^2.4.1
     typedoc: ^0.23.24
     typescript: ^4.9.4
   peerDependencies:
@@ -3704,7 +3703,7 @@ __metadata:
     "@rollup/plugin-node-resolve": ^15.0.1
     "@rollup/plugin-replace": ^5.0.2
     "@rollup/plugin-typescript": ^11.0.0
-    "@sgratzl/rollup-plugin-css-only": ^3.2.0
+    "@sgratzl/rollup-plugin-css-only": ^4.3.1
     "@testing-library/react": ^13.4.0
     "@types/jest": ^29.2.6
     "@types/react": ^18.0.27
@@ -3733,7 +3732,6 @@ __metadata:
     rollup-plugin-terser: ^7.0.2
     shx: ^0.3.4
     ts-jest: ^29.0.5
-    tslib: ^2.4.1
     typedoc: ^0.23.24
     typescript: ^4.9.4
   peerDependencies:
@@ -4235,13 +4233,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rollup/pluginutils@npm:4":
-  version: 4.2.1
-  resolution: "@rollup/pluginutils@npm:4.2.1"
+"@rollup/pluginutils@npm:5, @rollup/pluginutils@npm:^5.0.1":
+  version: 5.0.2
+  resolution: "@rollup/pluginutils@npm:5.0.2"
   dependencies:
-    estree-walker: ^2.0.1
-    picomatch: ^2.2.2
-  checksum: 6bc41f22b1a0f1efec3043899e4d3b6b1497b3dea4d94292d8f83b4cf07a1073ecbaedd562a22d11913ff7659f459677b01b09e9598a98936e746780ecc93a12
+    "@types/estree": ^1.0.0
+    estree-walker: ^2.0.2
+    picomatch: ^2.3.1
+  peerDependencies:
+    rollup: ^1.20.0||^2.0.0||^3.0.0
+  peerDependenciesMeta:
+    rollup:
+      optional: true
+  checksum: edea15e543bebc7dcac3b0ac8bc7b8e8e6dbd46e2864dbe5dd28072de1fbd5b0e10d545a610c0edaa178e8a7ac432e2a2a52e547ece1308471412caba47db8ce
   languageName: node
   linkType: hard
 
@@ -4255,22 +4259,6 @@ __metadata:
   peerDependencies:
     rollup: ^1.20.0||^2.0.0
   checksum: 8be16e27863c219edbb25a4e6ec2fe0e1e451d9e917b6a43cf2ae5bc025a6b8faaa40f82a6e53b66d0de37b58ff472c6c3d57a83037ae635041f8df959d6d9aa
-  languageName: node
-  linkType: hard
-
-"@rollup/pluginutils@npm:^5.0.1":
-  version: 5.0.2
-  resolution: "@rollup/pluginutils@npm:5.0.2"
-  dependencies:
-    "@types/estree": ^1.0.0
-    estree-walker: ^2.0.2
-    picomatch: ^2.3.1
-  peerDependencies:
-    rollup: ^1.20.0||^2.0.0||^3.0.0
-  peerDependenciesMeta:
-    rollup:
-      optional: true
-  checksum: edea15e543bebc7dcac3b0ac8bc7b8e8e6dbd46e2864dbe5dd28072de1fbd5b0e10d545a610c0edaa178e8a7ac432e2a2a52e547ece1308471412caba47db8ce
   languageName: node
   linkType: hard
 
@@ -4288,14 +4276,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@sgratzl/rollup-plugin-css-only@npm:^3.2.0":
-  version: 3.2.0
-  resolution: "@sgratzl/rollup-plugin-css-only@npm:3.2.0"
+"@sgratzl/rollup-plugin-css-only@npm:^4.3.1":
+  version: 4.3.1
+  resolution: "@sgratzl/rollup-plugin-css-only@npm:4.3.1"
   dependencies:
-    "@rollup/pluginutils": 4
+    "@rollup/pluginutils": 5
   peerDependencies:
-    rollup: 1 || 2
-  checksum: ddc2f17d6450f14a46b8c22b1fe73e6b25e8e6f16fc4e99dfec3488c8d3b5c315b4a958e027bda690d5be4cc8536ecfcc009f08dee1eda7c6827923f3fc4fb55
+    rollup: <4
+  checksum: 26213f7104f7d25694be0783f280766e481a76aef603c75004bdbc0b8fcd2da5b004a22b9cbff1170145d64752fbad26f95855befbbed9838fd16ac54bee5aea
   languageName: node
   linkType: hard
 
@@ -9764,7 +9752,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"estree-walker@npm:^2.0.1, estree-walker@npm:^2.0.2":
+"estree-walker@npm:^2.0.2":
   version: 2.0.2
   resolution: "estree-walker@npm:2.0.2"
   checksum: 6151e6f9828abe2259e57f5fd3761335bb0d2ebd76dc1a01048ccee22fabcfef3c0859300f6d83ff0d1927849368775ec5a6d265dde2f6de5a1be1721cd94efc
