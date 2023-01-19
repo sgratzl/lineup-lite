@@ -30,19 +30,19 @@
     "@lineup-lite/components": "~1.7.0",
     "@lineup-lite/hooks": "~1.7.0",
     "@lineup-lite/table": "~1.7.0",
-    "react": "^18.1.0",
-    "react-dom": "^18.1.0"
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   },
   "devDependencies": {
     "@rescripts/cli": "^0.0.16",
     "@rescripts/utilities": "^0.0.8",
-    "@types/jest": "^27.5.1",
-    "@types/react": "^18.0.10",
-    "@types/react-dom": "^18.0.5",
+    "@types/jest": "^29.2.6",
+    "@types/react": "^18.0.27",
+    "@types/react-dom": "^18.0.10",
     "jest-transform-stub": "^2.0.0",
-    "react-refresh": "^0.13.0",
+    "react-refresh": "^0.14.0",
     "react-scripts": "^5.0.1",
-    "typescript": "^4.7.2"
+    "typescript": "^4.9.4"
   },
   "scripts": {
     "start": "rescripts start",
