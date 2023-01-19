@@ -40,7 +40,6 @@ const isDependency = (v) =>
   !v.endsWith('css') && Object.keys(pkg.dependencies || {}).some((e) => e === v || v.startsWith(e + '/'));
 const isPeerDependency = (v) => Object.keys(pkg.peerDependencies || {}).some((e) => e === v || v.startsWith(e + '/'));
 
-
 const relativeToMain = (path) => {
   const a = resolvePath(cwd(), path);
   const b = resolvePath(cwd(), dirname(pkg.main));
