@@ -3245,7 +3245,7 @@ __metadata:
     "@lineup-lite/components": ~1.7.0
     "@lineup-lite/hooks": ~1.7.0
     "@lineup-lite/table": ~1.7.0
-    "@mdx-js/react": ^2.2.1
+    "@mdx-js/react": ^1.6.22
     "@tsconfig/docusaurus": ^1.0.6
     "@types/d3-scale-chromatic": ^3.0.0
     "@types/node": ^18.11.18
@@ -3733,6 +3733,7 @@ __metadata:
     rollup-plugin-terser: ^7.0.2
     shx: ^0.3.4
     ts-jest: ^29.0.5
+    tslib: ^2.4.1
     typedoc: ^0.23.24
     typescript: ^4.9.4
   peerDependencies:
@@ -3774,18 +3775,6 @@ __metadata:
   peerDependencies:
     react: ^16.13.1 || ^17.0.0
   checksum: bc84bd514bc127f898819a0c6f1a6915d9541011bd8aefa1fcc1c9bea8939f31051409e546bdec92babfa5b56092a16d05ef6d318304ac029299df5181dc94c8
-  languageName: node
-  linkType: hard
-
-"@mdx-js/react@npm:^2.2.1":
-  version: 2.2.1
-  resolution: "@mdx-js/react@npm:2.2.1"
-  dependencies:
-    "@types/mdx": ^2.0.0
-    "@types/react": ">=16"
-  peerDependencies:
-    react: ">=16"
-  checksum: 4462dad1d7d658bda1c2eabc3960fb843fdbcb5788ce5f863b674752e4db1b7048b5587aa85661283b5196e4641385e6b594205c2482202446ecb5f5433c975b
   languageName: node
   linkType: hard
 
@@ -5053,13 +5042,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/mdx@npm:^2.0.0":
-  version: 2.0.3
-  resolution: "@types/mdx@npm:2.0.3"
-  checksum: 41deb51c29535913af01d25f0e1414cfb5a6948d0e60e77e4aca895694de48bf0ac69c5a81fe2d9617d726cb253001ef82a65b683d5ef51987d15aa1931d086b
-  languageName: node
-  linkType: hard
-
 "@types/mime@npm:*":
   version: 3.0.1
   resolution: "@types/mime@npm:3.0.1"
@@ -5189,7 +5171,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:*, @types/react@npm:>=16, @types/react@npm:^18.0.27":
+"@types/react@npm:*, @types/react@npm:^18.0.27":
   version: 18.0.27
   resolution: "@types/react@npm:18.0.27"
   dependencies:
